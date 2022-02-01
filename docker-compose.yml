@@ -1,0 +1,8 @@
+services:
+  generator:
+    image: php:8.1-cli-alpine
+    working_dir: /app
+    volumes:
+      - ./src:/app:ro
+      - ./public:/public
+    command: php generate.php
