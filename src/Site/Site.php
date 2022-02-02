@@ -4,7 +4,13 @@ declare(strict_types=1);
 
 namespace MetalLE\Site;
 
-interface Site
+use MetalLE\Event\Event;
+use Traversable;
+
+interface Site extends \IteratorAggregate
 {
-    public function crawl(): Location;
+    /**
+     * @return Event[]
+     */
+    public function getIterator(): Traversable;
 }

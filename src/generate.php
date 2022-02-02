@@ -4,55 +4,28 @@ declare(strict_types=1);
 
 namespace MetalLE;
 
+use MetalLE\Event\Splitter;
 use MetalLE\Site\Bandcommunity;
 use MetalLE\Site\Hellraiser;
 use MetalLE\Site\Rocklounge;
-use MetalLE\Site\Site;
 use MetalLE\Site\Tankbar;
+use MetalLE\Site\TestData;
 
 include "bootstrap.php";
 
-/** @var Site[] $sites */
-$sites     = [
+$sites  = [
     new Bandcommunity(),
     new Hellraiser(),
     new Rocklounge(),
     new Tankbar(),
+//    new TestData(),
 ];
-$locations = $events = [];
-
+$events = [];
 foreach ($sites as $site) {
-    $location    = $site->crawl();
-    $locations[] = $location;
-
-    foreach ($location->events as $event) {
-        $events[$event->date->format('Y-m-d')][$location->slug] = $event;
-    }
+    $events += iterator_to_array($site);
 }
 
-ksort($events);
-
-$minDate = (new \DateTime())->format('Y-m-d');
-$splitDate = new \DateTime();
-$splitDate->add(new \DateInterval('P3M')); // next month
-$chunkedDates[] = $splitDate->format('Y-m-d');
-$splitDate->add(new \DateInterval('P1M')); // next month
-$chunkedDates[] = $splitDate->format('Y-m-d');
-$splitDate->add(new \DateInterval('P1M')); // end date
-$chunkedDates[] = $splitDate->format('Y-m-d');
-$chunkedDatesIterator = new \ArrayIterator($chunkedDates);
-
-$chunks = [];
-foreach ($events as $key => $event) {
-    if ($key < $minDate) {
-        continue;
-    }
-    if ($key >= $chunkedDatesIterator->current()) {
-        $chunkedDatesIterator->next();
-    }
-
-    $chunks[$chunkedDatesIterator->key()][] = $event;
-}
+$chunks = (new Splitter())->splitInChunks($events);
 
 ob_start();
 include 'view/index.php';
