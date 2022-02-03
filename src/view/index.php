@@ -8,8 +8,10 @@
 <body>
 <header>
     <div></div>
-    <div>Metal in Leipzig</div>
-    <div></div>
+    <div><a href="" class="logo"></a></div>
+    <div>
+        <a href="https://github.com/Knochenmarc/metal-in-leipzig" target="_blank" title="Fork me on Github" class="github"></a>
+    </div>
 </header>
 <main>
     <?php foreach ($chunks[0] as $events) : ?>

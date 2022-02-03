@@ -8,6 +8,9 @@ body {
 a {
     text-decoration: none;
 }
+a[href] {
+    cursor: url('img/metalhand.cur'), url('img/metalhand.png'), url('img/metalhand.gif'), auto;
+}
 
 header {
     display: grid;
@@ -15,15 +18,38 @@ header {
     grid-template-columns: 50px auto 50px;
     height: 100px;
 }
+header .logo {
+    display: inline-block;
+    width: 500px;
+    height: 95px;
+    background: url("img/logo.png") no-repeat center;
+    background-size: contain;
+}
+header div:last-child {
+    text-align: right;
+    padding-right: 5px;
+}
+header .github {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    background: url("img/GitHub-Mark-Light-64px.png") no-repeat center;
+    background-size: contain;
+    opacity: 50%;
+}
+header .github:hover {
+    opacity: 100%;
+}
 
 main {
     display: grid;
     grid-column: 2;
-    grid-template-columns: 80px auto;
+    grid-template-columns: 70px auto;
 }
 
 .event-date {
     grid-column: 1;
+    padding: 5px;
 }
 .event-date:nth-child(4n+1) {
     background: #202020;
@@ -38,13 +64,15 @@ main {
 }
 
 .event {
-    border: 5px solid #343a40;
-    border-radius: 10px;
+    border: 5px solid rgba(52, 58, 64, 0.7);
     margin: 5px;
     max-width: 200px;
     min-width: 166px;
     min-height: 30px;
     height: fit-content;
+}
+.event:hover {
+    border: 5px solid rgba(227, 227, 227, 0.5);
 }
 .event:first-line {
     line-height: 32px;
