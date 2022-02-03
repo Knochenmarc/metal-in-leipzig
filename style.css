@@ -1,0 +1,150 @@
+body {
+    background: black;
+    color: #a8a8a8;
+    font-family: Arial, serif;
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+}
+a[href] {
+    cursor: url('img/metalhand.cur'), url('img/metalhand.png'), url('img/metalhand.gif'), auto;
+}
+
+header {
+    display: grid;
+    grid-column: 3;
+    grid-template-columns: 50px auto 50px;
+    height: 100px;
+}
+header .logo {
+    display: inline-block;
+    width: 500px;
+    height: 95px;
+    background: url("img/logo.png") no-repeat center;
+    background-size: contain;
+}
+header div:last-child {
+    text-align: right;
+    padding-right: 5px;
+}
+header .github {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    background: url("img/GitHub-Mark-Light-64px.png") no-repeat center;
+    background-size: contain;
+    opacity: 50%;
+}
+header .github:hover {
+    opacity: 100%;
+}
+
+main {
+    display: grid;
+    grid-column: 2;
+    grid-template-columns: 70px auto;
+}
+
+.event-date {
+    grid-column: 1;
+    padding: 5px;
+}
+.event-date:nth-child(4n+1) {
+    background: #202020;
+}
+
+.events {
+    grid-column: 2;
+    display: flex;
+}
+.events:nth-child(4n+2) {
+    background: #202020;
+}
+
+.event {
+    border: 5px solid rgba(52, 58, 64, 0.7);
+    margin: 5px;
+    max-width: 200px;
+    min-width: 166px;
+    min-height: 30px;
+    height: fit-content;
+}
+.event:hover {
+    border: 5px solid rgba(227, 227, 227, 0.5);
+}
+.event:first-line {
+    line-height: 32px;
+}
+.event-location {
+    float: left;
+    width: 32px;
+    height: 32px;
+}
+
+.event-img {
+    width: 100%;
+    vertical-align: bottom;
+}
+.event.tb {
+    background-color: #e8e6d4;
+}
+.event.tb a{
+    color: black;
+    text-decoration-color: black;
+}
+.event.tb .event-location {
+    background: url("img/tankbar.jpg");
+}
+.event.hr {
+    background-color: #e61e1e;
+}
+.event.hr a {
+    color: black;
+    text-decoration-color: black;
+}
+.event.hr .event-location {
+    background: url("img/hellraiser.jpg");
+}
+.event.bc {
+    background-color: #167aad;
+}
+.event.bc a{
+    color: #fefefe;
+    text-decoration-color: #fefefe;
+}
+.event.bc .event-location {
+    background: url("img/bandcommunity.png") no-repeat center;
+    background-position-x: 1px;
+}
+.event.rl {
+    background-color: black;
+}
+.event.rl a{
+    color: #fefefe;
+    text-decoration-color: #fefefe;
+}
+.event.rl .event-location {
+    background: url("img/rocklounge.png");
+}
+.event.mb {
+    background-color: black;
+}
+.event.mb a{
+    color: #fefefe;
+    text-decoration-color: #fefefe;
+}
+.event.mb .event-location {
+    background: url("img/moritzbastei.png") no-repeat center;
+    background-size: contain;
+}
+
+footer {
+    display: none;
+    font-size: smaller;
+    width: 100%;
+    background: black;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
