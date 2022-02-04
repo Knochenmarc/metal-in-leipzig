@@ -1,4 +1,4 @@
-# metal-in-leipzig.de
+# [![metal-in-leipzig.de](https://metal-in-leipzig.de/img/logo.png)](https://metal-in-leipzig.de)
 
 ### About (EN)
 This projects generates a static website of local metal music events in Leipzig (Ger).
