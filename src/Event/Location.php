@@ -10,7 +10,6 @@ class Location
         public readonly string $slug,
         public readonly string $name,
         public readonly string $website,
-        public readonly string $logo,
     ) {
     }
 }

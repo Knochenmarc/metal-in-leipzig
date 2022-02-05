@@ -6,6 +6,7 @@ namespace MetalLE;
 
 use MetalLE\Event\Splitter;
 use MetalLE\Site\Bandcommunity;
+use MetalLE\Site\HausAuensee;
 use MetalLE\Site\Hellraiser;
 use MetalLE\Site\Moritzbastei;
 use MetalLE\Site\Rocklounge;
@@ -17,6 +18,7 @@ include "bootstrap.php";
 
 $sites  = [
     new Bandcommunity(),
+    new HausAuensee(),
     new Hellraiser(),
     new Moritzbastei(),
     new Rocklounge(),

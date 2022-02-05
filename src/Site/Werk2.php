@@ -18,7 +18,6 @@ class Werk2 implements Site
             'w2',
             'WERK 2',
             self::URL,
-            'img/werk2.png',
         );
 
         yield from $this->fetch(self::URL, $location);

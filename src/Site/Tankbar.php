@@ -15,7 +15,6 @@ class Tankbar implements Site
             'tb',
             'TankBar Leipzig',
             'https://tankbar-leipzig.de/',
-            'img/tankbar.svg',
         );
 
         $plainHTML = file_get_contents('https://tankbar-leipzig.de/tankevents/');

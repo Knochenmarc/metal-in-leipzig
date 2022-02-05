@@ -15,7 +15,6 @@ class Rocklounge implements Site
             'rl',
             'Rocklounge Leipzig',
             'https://rocklounge-leipzig.de/',
-            'img/rocklounge.png',
         );
 
         $plainHTML = file_get_contents('https://rocklounge-leipzig.de/termine/');

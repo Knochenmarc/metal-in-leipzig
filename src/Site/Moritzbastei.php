@@ -16,7 +16,6 @@ class Moritzbastei implements Site
             'mb',
             'Moritzbastei',
             'https://www.moritzbastei.de/',
-            'img/moritzbastei.png',
         );
 
         $plainHTML = file_get_contents('https://www.moritzbastei.de/programm/tag/metal');
