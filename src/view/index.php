@@ -7,10 +7,11 @@
 </head>
 <body>
 <header>
-    <div></div>
+    <div><span class="update-time"><?= date('d.m. H:i') ?> zuletzt aktualisiert</span></div>
     <div><a href="" class="logo"></a></div>
     <div>
-        <a href="https://github.com/Knochenmarc/metal-in-leipzig" target="_blank" title="Fork me on Github" class="github"></a>
+        <a href="https://github.com/Knochenmarc/metal-in-leipzig" target="_blank" title="Fork me on Github"
+           class="github"></a>
     </div>
 </header>
 <main>
@@ -20,18 +21,18 @@
         </div>
         <div class="events">
             <?php foreach ($events as $event) : ?>
-            <div class="event <?= $event->location->slug ?>">
-                <a class="event-location" href="<?= $event->location->website ?>" target="_blank" title="<?= $event->location->name ?>"></a>
                 <a <?php if ($event->url) : ?> href="<?= $event->url ?>"<?php endif; ?>
                         title="<?= htmlspecialchars($event->name) ?>"
-                        target="_blank">
+                        target="_blank" class="event <?= $event->location->slug ?>">
+                    <object><a class="event-location" href="<?= $event->location->website ?>" target="_blank"
+                       title="<?= $event->location->name ?>"></a></object>
                     <?= htmlentities($event->name) ?>
                     <?php if ($event->picture) : ?>
-                        <img src="<?= $event->picture ?>" class="event-img"
+                        <img src="<?= $event->picture ?>" class="event-img" loading="lazy"
                              alt="<?= htmlspecialchars($event->name) ?>"/>
                     <?php endif; ?>
                 </a>
-            </div>
+
             <?php endforeach ?>
         </div>
     <?php endforeach ?>

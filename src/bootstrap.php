@@ -12,5 +12,6 @@ include_once 'Site/Moritzbastei.php';
 include_once 'Site/Rocklounge.php';
 include_once 'Site/Tankbar.php';
 include_once 'Site/TestData.php';
+include_once 'Site/Werk2.php';
 
 include_once 'view/functions.php';

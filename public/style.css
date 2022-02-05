@@ -15,8 +15,11 @@ a[href] {
 header {
     display: grid;
     grid-column: 3;
-    grid-template-columns: 50px auto 50px;
+    grid-template-columns: 80px auto 80px;
     height: 100px;
+}
+header .update-time {
+    font-size: smaller;
 }
 header .logo {
     display: inline-block;
@@ -64,15 +67,19 @@ main {
 }
 
 .event {
-    border: 5px solid rgba(52, 58, 64, 0.7);
+    display: inline-block;
+    box-shadow: 0 0 0 4px rgba(52, 52, 52, 0.7);
     margin: 5px;
     max-width: 200px;
     min-width: 166px;
     min-height: 30px;
     height: fit-content;
+    color: #fefefe;
+    text-decoration-color: #fefefe;
+    background-color: black;
 }
 .event:hover {
-    border: 5px solid rgba(227, 227, 227, 0.5);
+    box-shadow: 0 0 0 4px #c0c0c0;
 }
 .event:first-line {
     line-height: 32px;
@@ -89,8 +96,6 @@ main {
 }
 .event.tb {
     background-color: #e8e6d4;
-}
-.event.tb a{
     color: black;
     text-decoration-color: black;
 }
@@ -99,8 +104,6 @@ main {
 }
 .event.hr {
     background-color: #e61e1e;
-}
-.event.hr a {
     color: black;
     text-decoration-color: black;
 }
@@ -109,8 +112,6 @@ main {
 }
 .event.bc {
     background-color: #167aad;
-}
-.event.bc a{
     color: #fefefe;
     text-decoration-color: #fefefe;
 }
@@ -118,25 +119,20 @@ main {
     background: url("img/bandcommunity.png") no-repeat center;
     background-position-x: 1px;
 }
-.event.rl {
-    background-color: black;
-}
-.event.rl a{
-    color: #fefefe;
-    text-decoration-color: #fefefe;
-}
 .event.rl .event-location {
     background: url("img/rocklounge.png");
 }
-.event.mb {
-    background-color: black;
-}
-.event.mb a{
-    color: #fefefe;
-    text-decoration-color: #fefefe;
-}
 .event.mb .event-location {
     background: url("img/moritzbastei.png") no-repeat center;
+    background-size: contain;
+}
+.event.w2 {
+    background-color: #20110e;
+    color: #ffffff;
+    text-decoration-color: #ffffff;
+}
+.event.w2 .event-location {
+    background: url("img/werk2.png") no-repeat center;
     background-size: contain;
 }
 
