@@ -22,9 +22,8 @@ header .update-time {
     font-size: smaller;
 }
 header .logo {
-    display: inline-block;
-    width: 500px;
-    height: 95px;
+    display: block;
+    height: 100%;
     background: url("img/logo.png") no-repeat center;
     background-size: contain;
 }
@@ -76,8 +75,8 @@ main {
     min-height: 30px;
     height: fit-content;
     color: #fefefe;
-    text-decoration-color: #fefefe;
     background-color: black;
+    text-decoration: none;
 }
 .event:hover {
     box-shadow: 0 0 0 4px #c0c0c0;
@@ -98,7 +97,6 @@ main {
 .event.tb {
     background-color: #e8e6d4;
     color: black;
-    text-decoration-color: black;
 }
 .event.tb .event-location {
     background: url("img/tankbar.jpg");
@@ -106,16 +104,14 @@ main {
 .event.ha {
     background-color: #2e4d77;
     color: #f8f4e9;
-    text-decoration-color: #f8f4e9;
 }
 .event.ha .event-location {
     background: url("img/hausauensee.jpg");
     background-size: contain;
 }
 .event.hr {
-    background-color: #e61e1e;
-    color: black;
-    text-decoration-color: black;
+    background-color: black;
+    color: #e61e1e;
 }
 .event.hr .event-location {
     background: url("img/hellraiser.jpg");
@@ -123,7 +119,6 @@ main {
 .event.bc {
     background-color: #167aad;
     color: #fefefe;
-    text-decoration-color: #fefefe;
 }
 .event.bc .event-location {
     background: url("img/bandcommunity.png") no-repeat center;
@@ -139,7 +134,6 @@ main {
 .event.w2 {
     background-color: #20110e;
     color: #ffffff;
-    text-decoration-color: #ffffff;
 }
 .event.w2 .event-location {
     background: url("img/werk2.png") no-repeat center;
