@@ -15,7 +15,7 @@
     </div>
 </header>
 <main>
-    <?php foreach ($chunks[0] as $events) : ?>
+    <?php foreach ($chunks[0] ?? [] as $events) : ?>
         <div class="event-date">
             <?= format_date(reset($events)->date) ?>
         </div>
@@ -25,7 +25,7 @@
                         title="<?= htmlspecialchars($event->name) ?>"
                         target="_blank" class="event <?= $event->location->slug ?>">
                     <object><a class="event-location" href="<?= $event->location->website ?>" target="_blank"
-                       title="<?= $event->location->name ?>"></a></object>
+                               title="<?= $event->location->name ?>"></a></object>
                     <?= htmlentities($event->name) ?>
                     <?php if ($event->picture) : ?>
                         <img src="<?= $event->picture ?>" class="event-img" loading="lazy"
@@ -38,9 +38,8 @@
     <?php endforeach ?>
 </main>
 <footer>
-    Diese Webseite dient ausschließlich meinen persönlichen Zwecken und ist somit nicht auskunftspflichtig nach <a
-            href="https://lxgesetze.de/rstv/55" target="_blank">RStV§55</a>.<br/>
-    Es werden keine Cookies genutzt und es werden keine Nutzer-Daten erhoben, gespeichert oder ausgewertet.
+    Diese Webseite dient ausschließlich meinen persönlichen Zwecken. Es werden keine Cookies genutzt und es werden keine
+    Nutzer-Daten erhoben, gespeichert oder ausgewertet.
 </footer>
 </body>
 </html>
