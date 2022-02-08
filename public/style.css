@@ -152,6 +152,10 @@ a.more {
 }
 a.more:hover {
     box-shadow: 0 0 0 4px #c0c0c0;
+    font-weight: bolder;
+}
+a.more:hover:before, a.more:hover:after {
+    content: " ! ";
 }
 
 iframe {

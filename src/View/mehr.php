@@ -6,6 +6,6 @@
 <?php include 'header.php' ?>
 <?php include 'event_list.php' ?>
 
-<a href="noch_mehr.html" class="more">NOCH MEHR</a>
+<a href="viel_mehr.html" class="more">VIEL MEHR</a>
 </body>
 </html>
