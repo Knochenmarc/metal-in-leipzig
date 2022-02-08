@@ -49,7 +49,7 @@ class Werk2 implements Site
                     }
 
 
-                    $event = new Event(
+                    yield new Event(
                         $liMatches[4],
                         $date,
                         $location,
@@ -57,8 +57,6 @@ class Werk2 implements Site
                         self::URL . str_replace('_liste.', '_detail.', $liMatches[5]),
                         $liMatches[3],
                     );
-
-                    yield $event->getID() => $event;
                 }
             }
         }

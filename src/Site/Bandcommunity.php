@@ -44,15 +44,13 @@ class Bandcommunity implements Site
                 $name = preg_replace('#\s+\(.*\)\s*$#U', '', $match[3]);
                 $name = html_entity_decode($name);
 
-                $event = new Event(
+                yield new Event(
                     $name,
                     new \DateTimeImmutable($date),
                     $location,
                     $url,
                     $image,
                 );
-
-                yield $event->getID() => $event;
             }
         }
     }

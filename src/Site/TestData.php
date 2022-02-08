@@ -32,12 +32,11 @@ class TestData implements Site
         for ($i = 0; $i < 100; $i++) {
             $now = new \DateTime();
             $now->add(new \DateInterval('P' . random_int(1, 360) . 'D'));
-            $event = new Event(
+            yield new Event(
                 $this->getRandomString(random_int(5, 100)),
                 $now,
                 $locations[random_int(0, 2)],
             );
-            yield $event->getID() => $event;
         }
     }
 

@@ -27,14 +27,12 @@ class Rocklounge implements Site
             foreach ($matches as $match) {
                 $date  = $match[1];
                 $date  = substr($date, 0, -2) . '20' . substr($date, -2);
-                $event = new Event(
+                yield new Event(
                     $match[3],
                     new \DateTimeImmutable($date),
                     $location,
                     $match[2],
                 );
-
-                yield $event->getID() => $event;
             }
         }
     }

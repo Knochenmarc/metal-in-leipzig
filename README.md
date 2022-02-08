@@ -5,13 +5,14 @@ EN: This projects generates a static website of metal music events in Leipzig (G
 
 DE: Dieses Projekt erstellt einen Webkalender zu diversen Metal-Veranstaltungen in Leipzig. 
 
-### Angebundene Locations:
+### Angebundene Seiten:
+- der Anker
 - bandcommunity-leipzig.org
 - haus-auensee-leipzig.de
 - hellraiser-leipzig.de
+- moritzbastei.de
 - rocklounge-leipzig.de
 - tankbar-leipzig.de
-- moritzbastei.de
 - werk-2.de
 
 ### Geplante Locations:
@@ -19,10 +20,14 @@ DE: Dieses Projekt erstellt einen Webkalender zu diversen Metal-Veranstaltungen 
 - dark-flower
 - arena/festwiese/stadion
 - Messe
+- Geyserhaus (Parkbühne/UnterRock?)
 - div. Pubs? Black Label, McCormacks
-- was fehlt noch? schreibt es mir als Issue
+- was fehlt noch? schreibt es mir als [Issue](https://github.com/Knochenmarc/metal-in-leipzig/issues)
 
 ### Mehr Ideen:
 - mehr Monate
+- Gesetzeskrams
+- SEO
+- mobile Optimierung
 - ics/ical-Export
-- Filters (Rock/Punk; Konzert/Party; Ausverkauft/Verschoben/Abgesagt)
+- Filters (Metal/Rock/Punk; Konzert/Party; Ausverkauft/Verschoben/Abgesagt)

@@ -26,7 +26,7 @@ class Moritzbastei implements Site
                 PREG_SET_ORDER
             ) > 0) {
             foreach ($matches as $match) {
-                $event = new Event(
+                yield new Event(
                     $match[4],
                     new \DateTimeImmutable($match[2]. ' ' . $match[3]),
                     $location,
@@ -34,8 +34,6 @@ class Moritzbastei implements Site
                     $match[1],
                     $match[5],
                 );
-
-                yield $event->getID() => $event;
             }
         }
     }

@@ -9,6 +9,8 @@ use MetalLE\Event\Location;
 
 class Hellraiser implements Site
 {
+    private const URL = 'https://hellraiser-leipzig.de';
+
     private const DATE_SEARCH = [
         'Mo, ',
         'Di, ',
@@ -54,15 +56,11 @@ class Hellraiser implements Site
 
     public function getIterator(): \Traversable
     {
-        $location = new Location(
-            'hr',
-            'Hellraiser Leipzig',
-            'https://hellraiser-leipzig.de/',
-        );
+        $location = new Location('hr', 'Hellraiser Leipzig', self::URL,);
 
-        yield from $this->parseEvents($location,'https://hellraiser-leipzig.de/produkt-kategorie/tickets/');
-        yield from $this->parseEvents($location,'https://hellraiser-leipzig.de/produkt-kategorie/tickets/page/2/');
-        yield from $this->parseEvents($location,'https://hellraiser-leipzig.de/produkt-kategorie/tickets/page/3/');
+        yield from $this->parseEvents($location, self::URL . '/produkt-kategorie/tickets/');
+        yield from $this->parseEvents($location, self::URL . '/produkt-kategorie/tickets/page/2/');
+        yield from $this->parseEvents($location, self::URL . '/produkt-kategorie/tickets/page/3/');
     }
 
     /**
@@ -82,8 +80,14 @@ class Hellraiser implements Site
                 $name = html_entity_decode($name, ENT_HTML5);
                 $date = str_replace(self::DATE_SEARCH, self::DATE_REPLACE, $match[4]);
 
-                $event = new Event($name, new \DateTimeImmutable($date), $location, $match[1], $match[2]);
-                yield $event->getID() => $event;
+                yield new Event(
+                    $name,
+                    new \DateTimeImmutable($date),
+                    $location,
+                    $match[1],
+                    $match[2],
+                    str_replace(self::URL, '', $match[1])
+                );
             }
         }
     }

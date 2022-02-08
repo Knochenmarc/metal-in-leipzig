@@ -3,6 +3,8 @@ body {
     color: #a8a8a8;
     font-family: Arial, serif;
     text-align: center;
+    padding: 0;
+    margin: 0;
 }
 
 a {
@@ -138,6 +140,26 @@ main {
 .event.w2 .event-location {
     background: url("img/werk2.png") no-repeat center;
     background-size: contain;
+}
+
+a.more {
+    display: inline-block;
+    padding: 20px;
+    margin: 10px;
+    background: #a8a8a8;
+    color: black;
+    box-shadow: 0 0 0 4px rgba(52, 52, 52, 0.7);
+}
+a.more:hover {
+    box-shadow: 0 0 0 4px #c0c0c0;
+}
+
+iframe {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    overflow: visible;
 }
 
 footer {

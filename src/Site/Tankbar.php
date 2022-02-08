@@ -30,12 +30,11 @@ class Tankbar implements Site
                 $date  = $parts[0];
                 $date  = substr($date, 0, -2) . '20' . substr($date, -2);
 
-                $event = new Event(
+                yield new Event(
                     html_entity_decode($parts[1], ENT_HTML5),
                     new \DateTimeImmutable($date),
                     $location,
                 );
-                yield $event->getID() => $event;
             }
         }
     }
