@@ -6,6 +6,7 @@ namespace MetalLE\Site;
 
 use MetalLE\Event\Event;
 use MetalLE\Event\Location;
+use MetalLE\Site\Shop\Eventim;
 use Traversable;
 
 class HausAuensee implements Site
@@ -14,7 +15,7 @@ class HausAuensee implements Site
 
     public function getIterator(): Traversable
     {
-        $eventim  = new Eventim();
+        $eventim  = new Eventim('haus-auensee-leipzig-7301');
         $location = new Location('ha', 'Haus Auensee', self::URL);
 
         $plainHtml = file_get_contents(self::URL);
@@ -23,7 +24,7 @@ class HausAuensee implements Site
         }
 
         if (preg_match_all('#<a href="(.*)".*</a>#isU', $plainHtml, $matches, PREG_SET_ORDER)) {
-            foreach ($eventim->fetchDates('haus-auensee-leipzig-7301') as $date) {
+            foreach ($eventim->fetchDates() as $date) {
                 foreach ($matches as $key => $match) {
                     if (str_contains($match[0], $date->format('>d.<'))
                         && str_contains($match[0], $date->format('>m.y<'))
