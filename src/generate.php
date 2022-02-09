@@ -12,15 +12,16 @@ use MetalLE\View\Renderer;
 include "bootstrap.php";
 
 $sites  = [
-//    new Site\Anker(),
-//    new Site\Bandcommunity(),
+    new Site\Anker(),
+    new Site\Bandcommunity(),
     new Site\ConneIsland(),
-//    new Site\HausAuensee(),
-//    new Site\Hellraiser(),
-//    new Site\Moritzbastei(),
-//    new Site\Rocklounge(),
-//    new Site\Tankbar(),
-//    new Site\Werk2(),
+    new Site\Felsenkeller(),
+    new Site\HausAuensee(),
+    new Site\Hellraiser(),
+    new Site\Moritzbastei(),
+    new Site\Rocklounge(),
+    new Site\Tankbar(),
+    new Site\Werk2(),
 //    new Site\TestData(),
 ];
 $events = (new Collector())->collectEvents($sites);
