@@ -94,14 +94,32 @@ main {
 
 .event-img {
     width: 100%;
+    aspect-ratio: auto 1;
     vertical-align: bottom;
 }
-.event.tb {
-    background-color: #e8e6d4;
+.event.bc {
+    background-color: #167aad;
+    color: #fefefe;
+}
+.event.bc .event-location {
+    background: url("img/bandcommunity.png") no-repeat center;
+    background-position-x: 1px;
+}
+.event.ci {
+    background-color: #d8d895;
     color: black;
 }
-.event.tb .event-location {
-    background: url("img/tankbar.jpg");
+.event.ci .event-location {
+    background: url("img/conne_island.webp") no-repeat center;
+    background-position-x: -1px;
+}
+.event.fk {
+    background-color: #fefefe;
+    color: #1b2024;
+}
+.event.fk .event-location {
+    background: url("img/felsenkeller.jpg") no-repeat center;
+    background-size: contain;
 }
 .event.ha {
     background-color: #2e4d77;
@@ -118,20 +136,19 @@ main {
 .event.hr .event-location {
     background: url("img/hellraiser.jpg");
 }
-.event.bc {
-    background-color: #167aad;
-    color: #fefefe;
-}
-.event.bc .event-location {
-    background: url("img/bandcommunity.png") no-repeat center;
-    background-position-x: 1px;
+.event.mb .event-location {
+    background: url("img/moritzbastei.png") no-repeat center;
+    background-size: contain;
 }
 .event.rl .event-location {
     background: url("img/rocklounge.png");
 }
-.event.mb .event-location {
-    background: url("img/moritzbastei.png") no-repeat center;
-    background-size: contain;
+.event.tb {
+    background-color: #e8e6d4;
+    color: black;
+}
+.event.tb .event-location {
+    background: url("img/tankbar.jpg");
 }
 .event.w2 {
     background-color: #20110e;
