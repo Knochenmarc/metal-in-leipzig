@@ -8,19 +8,19 @@ DE: Dieses Projekt erstellt einen Webkalender zu diversen Metal-Veranstaltungen 
 ### Angebundene Seiten:
 - bandcommunity-leipzig.org
 - conne-island.de
+- felsenkeller-leipzig.com
 - haus-auensee-leipzig.de
 - hellraiser-leipzig.de
 - moritzbastei.de
 - rocklounge-leipzig.de
+- taeubchenthal.com
 - tankbar-leipzig.de
 - werk-2.de
 
 ### Geplante Locations:
 - der Anker
-- felsenkeller
 - dark-flower
 - arena/festwiese/stadion
-- Messe
 - Geyserhaus (Parkbühne/UnterRock?)
 - div. Pubs? Black Label, McCormacks
 - was fehlt noch? schreibt es mir als [Issue](https://github.com/Knochenmarc/metal-in-leipzig/issues)
@@ -30,5 +30,6 @@ DE: Dieses Projekt erstellt einen Webkalender zu diversen Metal-Veranstaltungen 
 - Gesetzeskrams
 - SEO
 - mobile Optimierung
+- Imageoptimizer (shrink/webp)
 - ics/ical-Export
 - Filters (Metal/Rock/Punk; Konzert/Party; Ausverkauft/Verschoben/Abgesagt)

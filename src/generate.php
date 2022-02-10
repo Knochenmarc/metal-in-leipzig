@@ -20,6 +20,7 @@ $sites  = [
     new Site\Hellraiser(),
     new Site\Moritzbastei(),
     new Site\Rocklounge(),
+    new Site\Taeubchenthal(),
     new Site\Tankbar(),
     new Site\Werk2(),
 //    new Site\TestData(),

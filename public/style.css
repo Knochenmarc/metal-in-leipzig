@@ -118,7 +118,7 @@ main {
     color: #1b2024;
 }
 .event.fk .event-location {
-    background: url("img/felsenkeller.jpg") no-repeat center;
+    background: url("img/felsenkeller.webp") no-repeat center;
     background-size: contain;
 }
 .event.ha {
@@ -134,7 +134,7 @@ main {
     color: #e61e1e;
 }
 .event.hr .event-location {
-    background: url("img/hellraiser.jpg");
+    background: url("img/hellraiser.webp");
 }
 .event.mb .event-location {
     background: url("img/moritzbastei.png") no-repeat center;
@@ -148,14 +148,17 @@ main {
     color: black;
 }
 .event.tb .event-location {
-    background: url("img/tankbar.jpg");
+    background: url("img/tankbar.webp");
+}
+.event.tt .event-location {
+    background: transparent url("img/taeubchenthal.svg");
 }
 .event.w2 {
     background-color: #20110e;
     color: #ffffff;
 }
 .event.w2 .event-location {
-    background: url("img/werk2.png") no-repeat center;
+    background: url("img/werk2.webp") no-repeat center;
     background-size: contain;
 }
 

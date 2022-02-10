@@ -20,7 +20,7 @@ class Felsenkeller implements Site
 
         $html = file_get_contents('https://www.felsenkeller-leipzig.com/programm/');
         if (preg_match_all(
-            '#<div class="wp-block-columns has-3-columns.*data-cat="\D*".*<img src=\'(.*)\'.*<span class="date">(.*)</span>.*<p class="event-name">(.*)</?span.*class="event-details">(.*)data-url#isU',
+            '#<div class="wp-block-columns has-3-columns.*data-cat="\D*".*<span class="date">(.*)</span>.*<p class="event-name">(.*)</?span.*class="event-details">(.*)data-url#isU',
             $html,
             $matches,
             PREG_SET_ORDER,
@@ -29,15 +29,15 @@ class Felsenkeller implements Site
             $nextYear    = $thisYear + 1;
             $hadDecember = false;
             foreach ($matches as $key => $match) {
-                $matches[$key][3] = trim(html_entity_decode($match[3], ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5));
-                $date             = substr($match[2], 0, 6);
+                $matches[$key][2] = trim(html_entity_decode($match[2], ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5));
+                $date             = substr($match[1], 0, 6);
                 if (str_ends_with($date, '.12.')) {
                     $hadDecember      = true;
-                    $matches[$key][2] = $date . $thisYear;
+                    $matches[$key][1] = $date . $thisYear;
                 } elseif ($hadDecember) {
-                    $matches[$key][2] = $date . $nextYear;
+                    $matches[$key][1] = $date . $nextYear;
                 } else {
-                    $matches[$key][2] = $date . $thisYear;
+                    $matches[$key][1] = $date . $thisYear;
                 }
             }
 
@@ -59,32 +59,45 @@ class Felsenkeller implements Site
             foreach ($matches as $index => $match) {
                 if (($noBallroom === false
                         || ($noBallroom && false === str_contains($match[0], 'data-loc="Ballsaal"')))
-                    && $date->format('d.m.Y') === $match[2]
+                    && $date->format('d.m.Y') === $match[1]
                 ) {
-                    yield new Event($match[3], $date, $location, picture: $match[1], eventId: $match[3]);
+                    yield new Event(
+                                 $match[2],
+                                 $date,
+                                 $location,
+                        picture: $this->parsePicture($match[0]),
+                        eventId: $match[2]
+                    );
                     unset($matches[$index]);
                     continue 2;
                 }
             }
-            //TODO :(
-            var_dump($title, $date);
         }
     }
 
     private function filterByDescription(array &$matches, Location $location): \Generator
     {
         foreach ($matches as $match) {
-            if (str_contains($match[4], 'Metal')
-                && false === str_contains($match[3], 'Soul Tour')
+            if (str_contains($match[3], 'Metal')
+                && false === str_contains($match[2], 'Soul Tour')
             ) {
                 yield new Event(
-                             $match[3],
-                             new \DateTimeImmutable($match[2]),
+                             $match[2],
+                             new \DateTimeImmutable($match[1]),
                              $location,
-                    picture: $match[1],
-                    eventId: $match[3]
+                    picture: $this->parsePicture($match[0]),
+                    eventId: $match[2]
                 );
             }
         }
+    }
+
+    private function parsePicture(string $html): ?string
+    {
+        if (preg_match("#<img src='(.*)'#iU", $html, $match)) {
+            return $match[1];
+        }
+
+        return null;
     }
 }

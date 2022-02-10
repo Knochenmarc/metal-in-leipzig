@@ -11,7 +11,18 @@ class Eventim implements ShopCrawler
     ) {
     }
 
+    /**
+     * @return iterable|\DateTimeInterface[]
+     */
     public function fetchDates(): iterable
+    {
+        yield from $this->crawl(
+            'https://www.eventim.de/city/leipzig-10/venue/' . $this->venue
+            . '/?maincategoryId=1&shownonbookable=true&subcategoryId=2'
+        );
+    }
+
+    private function crawl(string $url): iterable
     {
         $customHeaders =
             "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:96.0) Gecko/20100101 Firefox/96.0\r\n"
@@ -24,12 +35,7 @@ class Eventim implements ShopCrawler
             . "Cache-Control: no-cache\r\n";
         $context       = stream_context_create(['http' => ['method' => 'GET', 'header' => $customHeaders]]);
 
-        $plainHtml = file_get_contents(
-            'https://www.eventim.de/city/leipzig-10/venue/' . $this->venue
-            . '/?maincategoryId=1&shownonbookable=true&subcategoryId=2',
-            false,
-            $context,
-        );
+        $plainHtml = file_get_contents($url, false, $context);
 
         if (preg_match_all(
             '#<script type="application/ld\+json">(.*"@type":"MusicEvent".*)</script>#iU',
@@ -43,6 +49,8 @@ class Eventim implements ShopCrawler
             }
         }
 
-        return [];
+        if (preg_match('#<link rel="next" href="(.*)"#iU', $plainHtml, $matches)) {
+            yield from $this->crawl('https://www.eventim.de' . $matches[1]);
+        }
     }
 }
