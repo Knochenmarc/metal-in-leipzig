@@ -15,7 +15,8 @@ class Taeubchenthal implements Site
     {
         $location = new Location('tt', 'Täubchenthal', 'https://www.taeubchenthal.com/');
 
-        $json = file_get_contents(
+        $http = new Crawler();
+        $json = $http->get(
             'https://www.taeubchenthal.com/wp-admin/admin-ajax.php?id=&post_id=36&slug=programm&posts_per_page=100&page=0&offset=0&post_type=event&repeater=default&meta_key=evetndatum&meta_type=DATE&order=ASC&orderby=meta_value_num&action=alm_get_posts&query_type=standard'
         );
         $json = json_decode($json, false, 512, JSON_THROW_ON_ERROR);

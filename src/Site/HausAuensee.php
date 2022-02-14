@@ -18,7 +18,8 @@ class HausAuensee implements Site
         $eventim  = new Eventim('haus-auensee-leipzig-7301');
         $location = new Location('ha', 'Haus Auensee', self::URL);
 
-        $plainHtml = file_get_contents(self::URL);
+        $http = new Crawler();
+        $plainHtml = $http->get(self::URL);
         if (preg_match('#<div class="md-col md-col-8">.*</a>\s+</div>#isU', $plainHtml, $matches)) {
             $plainHtml = $matches[0];
         }
@@ -32,7 +33,7 @@ class HausAuensee implements Site
                     ) {
                         $imgUrl  = null;
                         $url     = self::URL . '/' . $match[1];
-                        $subPage = file_get_contents($url);
+                        $subPage = $http->get($url);
                         if (preg_match('#<img src="(.*)".*class="block col-12"#iU', $subPage, $imgMatch)) {
                             $imgUrl = self::URL . $imgMatch[1];
                         }

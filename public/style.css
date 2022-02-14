@@ -1,7 +1,7 @@
 body {
     background: black;
     color: #a8a8a8;
-    font-family: Arial, serif;
+    font-family: sans-serif;
     text-align: center;
     padding: 0;
     margin: 0;
@@ -9,6 +9,7 @@ body {
 
 a {
     text-decoration: none;
+    color: #a8a8a8;
 }
 a[href] {
     cursor: url('img/metalhand.cur'), url('img/metalhand.png'), url('img/metalhand.gif'), auto;
@@ -30,8 +31,7 @@ header .logo {
     background-size: contain;
 }
 header div:last-child {
-    text-align: right;
-    padding-right: 5px;
+    padding: 5px;
 }
 header .github {
     display: inline-block;
@@ -43,6 +43,9 @@ header .github {
 }
 header .github:hover {
     opacity: 100%;
+}
+header a:hover {
+    color: white;
 }
 
 main {
@@ -72,7 +75,7 @@ main {
     display: inline-block;
     box-shadow: 0 0 0 4px rgba(52, 52, 52, 0.7);
     margin: 5px;
-    max-width: 200px;
+    max-width: 290px;
     min-width: 166px;
     min-height: 30px;
     height: fit-content;
@@ -94,8 +97,19 @@ main {
 
 .event-img {
     width: 100%;
-    aspect-ratio: auto 1;
     vertical-align: bottom;
+    display: inline-block;
+}
+.event-img img {
+    width: 100%;
+    vertical-align: bottom;
+}
+.event.ank {
+    background-color: #ffffff;
+    color: #000000;
+}
+.event.ank .event-location {
+    background: url("img/anker.webp") no-repeat center;
 }
 .event.bc {
     background-color: #167aad;
@@ -178,19 +192,8 @@ a.more:hover:before, a.more:hover:after {
     content: " ! ";
 }
 
-iframe {
-    border: 0;
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    overflow: visible;
-}
-
-footer {
-    display: none;
-    font-size: smaller;
-    width: 100%;
-    background: black;
-    padding-top: 15px;
-    padding-bottom: 15px;
+.recht h1, .recht p {
+    text-align: left;
+    padding-left: 10px;
+    padding-right: 10px;
 }

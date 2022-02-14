@@ -56,19 +56,19 @@ class Hellraiser implements Site
 
     public function getIterator(): \Traversable
     {
+        $http = new Crawler();
         $location = new Location('hr', 'Hellraiser Leipzig', self::URL,);
 
-        yield from $this->parseEvents($location, self::URL . '/produkt-kategorie/tickets/');
-        yield from $this->parseEvents($location, self::URL . '/produkt-kategorie/tickets/page/2/');
-        yield from $this->parseEvents($location, self::URL . '/produkt-kategorie/tickets/page/3/');
+        yield from $this->parseEvents($location, $http->get(self::URL . '/produkt-kategorie/tickets/'));
+        yield from $this->parseEvents($location, $http->get(self::URL . '/produkt-kategorie/tickets/page/2/'));
+        yield from $this->parseEvents($location, $http->get(self::URL . '/produkt-kategorie/tickets/page/3/'));
     }
 
     /**
      * @return Event[]
      */
-    private function parseEvents(Location $location, string $url): iterable
+    private function parseEvents(Location $location, string $plainHTML): iterable
     {
-        $plainHTML = file_get_contents($url);
         if (preg_match_all(
                 '#<li class="product.*<a href="(.*)".*<img.*src="(.*)".*<h2.*>(.*)</h2>.*<div class="date-published">(.*)</div>.*</li>#isU',
                 $plainHTML,

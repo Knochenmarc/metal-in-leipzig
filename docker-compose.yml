@@ -1,6 +1,6 @@
 services:
   generator:
-    image: php:8.1-cli-alpine
+    build: ./src
     working_dir: /app
     volumes:
       - ./src:/app:ro

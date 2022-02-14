@@ -36,6 +36,7 @@ class TestData implements Site
                 $this->getRandomString(random_int(5, 100)),
                 $now,
                 $locations[random_int(0, 2)],
+                $locations[random_int(0, 2)]->website
             );
         }
     }

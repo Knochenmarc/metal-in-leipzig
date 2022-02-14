@@ -6,6 +6,7 @@ namespace MetalLE;
 
 use MetalLE\Event\Collector;
 use MetalLE\Event\Splitter;
+use MetalLE\Image\Optimizer;
 use MetalLE\Site;
 use MetalLE\View\Renderer;
 
@@ -31,6 +32,13 @@ if ([] === $events) {
     throw new \LogicException('no data parsed');
 }
 
+$optimizer = new Optimizer();
+foreach ($events as $event) {
+    if ($event->image) {
+        $optimizer->optimize($event->image);
+    }
+}
+
 $events = (new Splitter())->splitInChunks($events);
 
 $view      = new Renderer();
@@ -40,8 +48,9 @@ $templates = [
     'mehr.php'  => '/public/mehr.html',
     'mehr2.php' => '/public/viel_mehr.html',
     'mehr3.php' => '/public/noch_mehr.html',
+    'recht.php' => '/public/recht.html',
 ];
 foreach ($templates as $template => $file) {
-    $content = $view->render($template, ['events' => $events[$indy++],],);
-    file_put_contents($file, preg_replace('#(\s)\s+#', '$1', $content));
+    $content = $view->render($template, ['events' => $events[$indy++] ?? [],],);
+    file_put_contents($file, $content);
 }

@@ -18,19 +18,22 @@ class Moritzbastei implements Site
             'https://www.moritzbastei.de/',
         );
 
-        $plainHTML = file_get_contents('https://www.moritzbastei.de/programm/tag/metal');
-        if (preg_match_all(
+        $http      = new Crawler();
+        $plainHTML = $http->get('https://www.moritzbastei.de/programm/tag/metal');
+        if (
+            preg_match_all(
                 '#<div class="infobox.*<img src="(.*)".*<span class="date-display-single">(\d\d\.\d\d.\d\d\d\d)</span> / <span class="date-display-single">(\d\d:\d\d)</span>.*<div class="infobox-details-title">(.*)</div>.*<a href="(.*)">Mehr Infos</a>#isU',
                 $plainHTML,
                 $matches,
                 PREG_SET_ORDER
-            ) > 0) {
+            ) > 0
+        ) {
             foreach ($matches as $match) {
                 yield new Event(
                     $match[4],
-                    new \DateTimeImmutable($match[2]. ' ' . $match[3]),
+                    new \DateTimeImmutable($match[2] . ' ' . $match[3]),
                     $location,
-                    'https://www.moritzbastei.de'.$match[5],
+                    'https://www.moritzbastei.de' . $match[5],
                     $match[1],
                     $match[5],
                 );

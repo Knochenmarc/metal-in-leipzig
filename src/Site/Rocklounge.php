@@ -17,7 +17,8 @@ class Rocklounge implements Site
             'https://rocklounge-leipzig.de/',
         );
 
-        $plainHTML = file_get_contents('https://rocklounge-leipzig.de/termine/');
+        $http = new Crawler();
+        $plainHTML = $http->get('https://rocklounge-leipzig.de/termine/');
         if (preg_match_all(
                 '#<p>(\d\d.\d\d.\d\d) \| <a href="(.*)">(.*)</a></p>#iU',
                 $plainHTML,

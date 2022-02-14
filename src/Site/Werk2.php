@@ -28,7 +28,8 @@ class Werk2 implements Site
     {
         $hasDecember = false;
         $currentYear = (int) date('Y');
-        $plainHTML   = file_get_contents($url);
+        $http        = new Crawler();
+        $plainHTML   = $http->get($url);
         if (preg_match_all('#<li .*</li>#isU', $plainHTML, $matches)) {
             foreach ($matches[0] as $listItem) {
                 if (preg_match(
