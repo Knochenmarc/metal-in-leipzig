@@ -39,8 +39,10 @@ class Optimizer
     {
         $rawData = $this->http->get($image->remoteUrl);
         if ($rawData) {
-            $tmpFile = tempnam('/tmp', '');
-            file_put_contents($tmpFile, $rawData);
+            $tmpFile = tempnam('/tmp', $image->hash);
+            if (false === file_put_contents($tmpFile, $rawData)) {
+                throw new \Exception('could not write file: '. $tmpFile);
+            }
             shell_exec('convert -resize 300 -strip -define heic:speed=1 ' . $tmpFile . ' ' . $localFilePath);
             unlink($tmpFile);
 
