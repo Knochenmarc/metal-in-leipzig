@@ -18,11 +18,11 @@ a[href] {
 header {
     display: grid;
     grid-column: 3;
-    grid-template-columns: 80px auto 80px;
+    grid-template-columns: 80px auto 60px;
     height: 100px;
 }
 header .update-time {
-    font-size: smaller;
+    font-size: 9pt;
 }
 header .logo {
     display: block;
@@ -77,6 +77,7 @@ main {
     margin: 5px;
     max-width: 290px;
     min-width: 166px;
+    width: 290px;
     min-height: 30px;
     height: fit-content;
     color: #fefefe;

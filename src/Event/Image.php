@@ -6,7 +6,8 @@ namespace MetalLE\Event;
 
 class Image
 {
-    public readonly string $publicUrl;
+    public readonly string $publicAvifUrl;
+    public readonly string $publicJpgUrl;
     public readonly string $hash;
     public readonly ?int $width;
     public readonly ?int $height;
@@ -15,8 +16,9 @@ class Image
     public function __construct(
         public readonly string $remoteUrl
     ) {
-        $this->hash      = hash('xxh3', $remoteUrl);
-        $this->publicUrl = 'flyer/' . $this->hash . '.avif';
+        $this->hash          = hash('xxh3', $remoteUrl);
+        $this->publicAvifUrl = 'flyer/' . $this->hash . '.avif';
+        $this->publicJpgUrl  = 'flyer/' . $this->hash . '.jpg';
     }
 
     public function setSize(int $width, int $height): void

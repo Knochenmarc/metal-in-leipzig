@@ -9,6 +9,8 @@ use MetalLE\Site\Crawler;
 
 class Optimizer
 {
+    private const LOCAL_DIR = '/public/';
+
     public function __construct(
         private Crawler $http = new Crawler(),
     ) {
@@ -16,26 +18,24 @@ class Optimizer
 
     public function optimize(Image $image): Image
     {
-        $localFilePath = '/public/' . $image->publicUrl;
-
-        if (file_exists($localFilePath)) {
-            $this->decodeSize($localFilePath, $image);
+        if (file_exists(self::LOCAL_DIR . $image->publicJpgUrl)) {
+            $this->decodeSize($image);
         } else {
-            $this->convertToAvif($localFilePath, $image);
+            $this->convertThumbs($image);
         }
 
         return $image;
     }
 
-    private function decodeSize(string $localFilePath, Image $image): void
+    private function decodeSize(Image $image): void
     {
-        $shell = shell_exec('avifdec -i ' . $localFilePath);
-        if (preg_match('#Resolution\s+: (\d+)x(\d+)#i', $shell, $matches)) {
-            $image->setSize((int) $matches[1], (int) $matches[2]);
+        [$width, $height] = getimagesize(self::LOCAL_DIR . $image->publicJpgUrl);
+        if ($width > 0 && $height > 0) {
+            $image->setSize((int) $width, (int) $height);
         }
     }
 
-    private function convertToAvif(string $localFilePath, Image $image): void
+    private function convertThumbs(Image $image): void
     {
         $rawData = $this->http->get($image->remoteUrl);
         if ($rawData) {
@@ -44,11 +44,11 @@ class Optimizer
                 throw new \Exception('could not write file: ' . $tmpFile);
             }
 
-            print 'convert: convert -resize 300 -strip -define heic:speed=1 ' . $tmpFile . ' ' . $localFilePath . PHP_EOL;
-            shell_exec('convert -resize 300 -strip -define heic:speed=1 ' . $tmpFile . ' ' . $localFilePath);
+            shell_exec('convert -resize 300 -strip ' . $tmpFile . ' ' . self::LOCAL_DIR . $image->publicJpgUrl);
+            shell_exec('convert -resize 300 -strip -define heic:speed=2 ' . $tmpFile . ' ' . self::LOCAL_DIR . $image->publicAvifUrl);
             unlink($tmpFile);
 
-            $this->decodeSize($localFilePath, $image);
+            $this->decodeSize($image);
         }
     }
 }
