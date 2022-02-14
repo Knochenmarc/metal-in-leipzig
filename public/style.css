@@ -97,12 +97,10 @@ main {
 }
 
 .event-img {
-    width: 100%;
     vertical-align: bottom;
     display: inline-block;
 }
 .event-img img {
-    width: 100%;
     vertical-align: bottom;
 }
 .event.ank {
