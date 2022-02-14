@@ -41,8 +41,10 @@ class Optimizer
         if ($rawData) {
             $tmpFile = tempnam('/tmp', $image->hash);
             if (false === file_put_contents($tmpFile, $rawData)) {
-                throw new \Exception('could not write file: '. $tmpFile);
+                throw new \Exception('could not write file: ' . $tmpFile);
             }
+
+            print 'convert: convert -resize 300 -strip -define heic:speed=1 ' . $tmpFile . ' ' . $localFilePath . PHP_EOL;
             shell_exec('convert -resize 300 -strip -define heic:speed=1 ' . $tmpFile . ' ' . $localFilePath);
             unlink($tmpFile);
 
