@@ -44,7 +44,7 @@ header .github {
 header .github:hover {
     opacity: 100%;
 }
-header a:hover {
+header a:hover, .recht a:hover {
     color: white;
 }
 
@@ -97,12 +97,10 @@ main {
 }
 
 .event-img {
-    width: 100%;
     vertical-align: bottom;
     display: inline-block;
 }
 .event-img img {
-    width: 100%;
     vertical-align: bottom;
 }
 .event.ank {
