@@ -37,7 +37,7 @@ jobs:
         run: docker-compose up --exit-code-from generator
 
       - name: Minify
-        uses: anthonyftwang/minify-action
+        uses: anthonyftwang/minify-action@v1.0.1
 
       # https://dev.to/pierresaid/deploy-node-projects-to-github-pages-with-github-actions-4jco
       - name: Deploy 🚀
