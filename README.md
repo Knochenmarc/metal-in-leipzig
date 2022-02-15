@@ -21,12 +21,13 @@ DE: Dieses Projekt erstellt einen Webkalender zu diversen Metal-Veranstaltungen 
 ### Geplante Locations:
 - dark-flower
 - arena/festwiese/stadion
+- messe
 - Geyserhaus (Parkbühne/UnterRock?)
 - div. Pubs? Black Label, McCormacks
-- was fehlt noch? schreibt es mir als [Issue](https://github.com/Knochenmarc/metal-in-leipzig/issues)
+
+Was fehlt noch? schreibt es mir als [Issue](https://github.com/Knochenmarc/metal-in-leipzig/issues).
 
 ### Mehr Ideen:
-- favicons
 - SEO
 - mobile Optimierung
 - ics/ical-Export
