@@ -77,14 +77,12 @@ main {
 }
 
 .event {
-    display: inline-block;
     box-shadow: 0 0 0 4px rgba(52, 52, 52, 0.7);
     margin: 5px;
-    max-width: 290px;
-    min-width: 166px;
     width: 290px;
     min-height: 30px;
     height: fit-content;
+    max-height: fit-content;
     color: #fefefe;
     background-color: black;
     text-decoration: none;
@@ -95,16 +93,18 @@ main {
 .event:first-line {
     line-height: 32px;
 }
-.event-location {
+
+.event object {
     float: left;
     width: 32px;
     height: 32px;
 }
-
-.event-img {
-    vertical-align: bottom;
-    display: inline-block;
+.event-location {
+    display: block;
+    width: 32px;
+    height: 32px;
 }
+
 .event-img img {
     vertical-align: bottom;
 }
@@ -200,4 +200,7 @@ a.more:hover:before, a.more:hover:after {
     text-align: left;
     padding-left: 10px;
     padding-right: 10px;
+}
+.recht a {
+    text-decoration: underline;
 }
