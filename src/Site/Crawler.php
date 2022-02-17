@@ -32,4 +32,23 @@ class Crawler
             stream_context_create(['http' => ['method' => 'GET', 'header' => self::HEADERS]])
         );
     }
+
+    public function post(string $url, array $payload): bool|string
+    {
+        if ($this->debug) {
+            print 'get: ' . $url . PHP_EOL;
+        }
+
+        $options = [
+            'method'  => 'POST',
+            'header'  => self::HEADERS . "Content-Type: application/x-www-form-urlencoded\r\n",
+            'content' => http_build_query($payload),
+        ];
+
+        return file_get_contents(
+            $url,
+            false,
+            stream_context_create(['http' => $options,])
+        );
+    }
 }

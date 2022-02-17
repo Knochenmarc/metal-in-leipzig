@@ -30,7 +30,7 @@ class Moritzbastei implements Site
         ) {
             foreach ($matches as $match) {
                 yield new Event(
-                    $match[4],
+                    html_entity_decode(strip_tags($match[4])),
                     new \DateTimeImmutable($match[2] . ' ' . $match[3]),
                     $location,
                     'https://www.moritzbastei.de' . $match[5],

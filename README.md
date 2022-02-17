@@ -14,6 +14,7 @@ DE: Dieses Projekt erstellt einen Webkalender zu diversen Metal-Veranstaltungen 
 - hellraiser-leipzig.de
 - moritzbastei.de
 - quarterback-immobilien-arena.de
+- parkbuehne-leipzig.com
 - rocklounge-leipzig.de
 - taeubchenthal.com
 - tankbar-leipzig.de
