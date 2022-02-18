@@ -56,7 +56,7 @@ header a:hover, .recht a:hover {
 main {
     display: grid;
     grid-column: 2;
-    grid-template-columns: 65px auto;
+    grid-template-columns: 60px auto;
 }
 
 .event-date {
