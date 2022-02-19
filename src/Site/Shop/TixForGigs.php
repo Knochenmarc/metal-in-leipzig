@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace MetalLE\Site\Shop;
 
 use MetalLE\Site\Crawler;
+use MetalLE\Site\LinkedDataParser;
 
 class TixForGigs implements ShopCrawler
 {
+    use LinkedDataParser;
+
     public function __construct(
         private int $locationId,
         private Crawler $http = new Crawler(),
@@ -32,8 +35,8 @@ class TixForGigs implements ShopCrawler
     private function crawlEvent(int $eventId): ?\stdClass
     {
         $plainHtml = $this->http->get('https://www.tixforgigs.com/de-DE/Event/' . $eventId);
-        if (preg_match('#<script type=\'application/ld\+json\'>({.*})</script>#isU', $plainHtml, $matches)) {
-            return json_decode($matches[1], false, 512, JSON_THROW_ON_ERROR);
+        foreach ($this->iterateEvents($plainHtml) as $data) {
+            return $data;
         }
 
         return null;
