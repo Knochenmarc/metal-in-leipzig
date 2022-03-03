@@ -131,6 +131,12 @@ main {
     background: url("img/conne_island.webp") no-repeat center;
     background-position-x: -1px;
 }
+.event.df {
+    background-color: #09212a;
+}
+.event.df .event-location {
+    background: url("img/darkflower.png") no-repeat center;
+}
 .event.fk {
     background-color: #fefefe;
     color: #1b2024;

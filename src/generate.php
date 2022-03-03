@@ -18,6 +18,7 @@ $sites  = [
     new Site\Arena(),
     new Site\Bandcommunity(),
     new Site\ConneIsland(),
+    new Site\Darkflower(),
     new Site\Felsenkeller(),
     new Site\HausAuensee(),
     new Site\Hellraiser(),
