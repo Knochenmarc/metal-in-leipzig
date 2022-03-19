@@ -9,14 +9,13 @@ use MetalLE\Event\Location;
 
 class Bandcommunity implements Site
 {
+    public function __construct(
+        private Location $location = new Location('bc', 'Bandcommunity Leipzig', 'https://bandcommunity-leipzig.org/'),
+    ) {
+    }
+
     public function getIterator(): \Traversable
     {
-        $location = new Location(
-            'bc',
-            'Bandcommunity Leipzig',
-            'https://bandcommunity-leipzig.org/',
-        );
-
         $http = new Crawler();
 
         $plainHTML = $http->get('https://bandcommunity-leipzig.org/blog.html');
@@ -49,11 +48,16 @@ class Bandcommunity implements Site
                 yield new Event(
                     $name,
                     new \DateTimeImmutable($date),
-                    $location,
+                    $this->location,
                     $url,
                     $image,
                 );
             }
         }
+    }
+
+    public function getLocations(): iterable
+    {
+        yield $this->location;
     }
 }

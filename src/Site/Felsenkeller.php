@@ -14,10 +14,13 @@ use Traversable;
 
 class Felsenkeller implements Site
 {
+    public function __construct(
+        private Location $location = new Location('fk', 'Felsenkeller', 'https://felsenkeller-leipzig.com'),
+    ) {
+    }
+
     public function getIterator(): Traversable
     {
-        $location = new Location('fk', 'Felsenkeller', 'https://felsenkeller-leipzig.com');
-
         $http = new Crawler();
         $html = $http->get('https://www.felsenkeller-leipzig.com/programm/');
         if (preg_match_all(
@@ -42,18 +45,17 @@ class Felsenkeller implements Site
                 }
             }
 
-            yield from $this->filterByShop(new Eventim('felsenkeller-leipzig-7394'), $matches, $location);
-            yield from $this->filterByShop(new EventimLight('573474f9e4b0e47b2924e6a3'), $matches, $location, true);
-            yield from $this->filterByShop(new TixForGigs(2628), $matches, $location);
+            yield from $this->filterByShop(new Eventim('felsenkeller-leipzig-7394'), $matches);
+            yield from $this->filterByShop(new EventimLight('573474f9e4b0e47b2924e6a3'), $matches, true);
+            yield from $this->filterByShop(new TixForGigs(2628), $matches);
 
-            yield from $this->filterByDescription($matches, $location);
+            yield from $this->filterByDescription($matches);
         }
     }
 
     private function filterByShop(
         ShopCrawler $shopCrawler,
         array &$matches,
-        Location $location,
         bool $noBallroom = false
     ): \Generator {
         foreach ($shopCrawler->fetchDates() as $title => $date) {
@@ -65,7 +67,7 @@ class Felsenkeller implements Site
                     yield new Event(
                         $match[2],
                         $date,
-                        $location,
+                        $this->location,
                         'https://www.felsenkeller-leipzig.com/programm/',
                         $this->parsePicture($match[0]),
                         $match[2]
@@ -77,7 +79,7 @@ class Felsenkeller implements Site
         }
     }
 
-    private function filterByDescription(array &$matches, Location $location): \Generator
+    private function filterByDescription(array &$matches): \Generator
     {
         foreach ($matches as $match) {
             if (str_contains($match[3], 'Metal')
@@ -86,7 +88,7 @@ class Felsenkeller implements Site
                 yield new Event(
                     $match[2],
                     new \DateTimeImmutable($match[1]),
-                    $location,
+                    $this->location,
                     'https://www.felsenkeller-leipzig.com/programm/',
                     $this->parsePicture($match[0]),
                     $match[2]
@@ -102,5 +104,10 @@ class Felsenkeller implements Site
         }
 
         return null;
+    }
+
+    public function getLocations(): iterable
+    {
+        yield $this->location;
     }
 }

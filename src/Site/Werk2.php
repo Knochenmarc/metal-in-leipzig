@@ -12,19 +12,19 @@ class Werk2 implements Site
 {
     private const URL = 'https://www.werk-2.de';
 
-    public function getIterator(): Traversable
-    {
-        $location = new Location(
-            'w2',
-            'WERK 2',
-            self::URL,
-        );
-
-        yield from $this->fetch(self::URL, $location);
-        yield from $this->fetch(self::URL . '/programm/vorschau', $location);
+    public function __construct(
+        private Location $location = new Location('w2', 'WERK 2', self::URL,),
+    ) {
     }
 
-    private function fetch(string $url, Location $location): iterable
+
+    public function getIterator(): Traversable
+    {
+        yield from $this->fetch(self::URL);
+        yield from $this->fetch(self::URL . '/programm/vorschau');
+    }
+
+    private function fetch(string $url): iterable
     {
         $hasDecember = false;
         $currentYear = (int) date('Y');
@@ -53,7 +53,7 @@ class Werk2 implements Site
                     yield new Event(
                         $liMatches[4],
                         $date,
-                        $location,
+                        $this->location,
                         self::URL . $liMatches[3],
                         self::URL . str_replace('_liste.', '_detail.', $liMatches[5]),
                         $liMatches[3],
@@ -81,5 +81,10 @@ class Werk2 implements Site
             'November' => 11,
             'Dezember' => 12,
         };
+    }
+
+    public function getLocations(): iterable
+    {
+        yield $this->location;
     }
 }

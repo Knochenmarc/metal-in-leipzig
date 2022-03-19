@@ -13,10 +13,13 @@ use Traversable;
 
 class Taeubchenthal implements Site
 {
+    public function __construct(
+        private Location $location = new Location('tt', 'Täubchenthal', 'https://www.taeubchenthal.com/'),
+    ) {
+    }
+
     public function getIterator(): Traversable
     {
-        $location = new Location('tt', 'Täubchenthal', 'https://www.taeubchenthal.com/');
-
         $http = new Crawler();
         $json = $http->get(
             'https://www.taeubchenthal.com/wp-admin/admin-ajax.php?id=&post_id=36&slug=programm&posts_per_page=100&page=0&offset=0&post_type=event&repeater=default&meta_key=evetndatum&meta_type=DATE&order=ASC&orderby=meta_value_num&action=alm_get_posts&query_type=standard'
@@ -28,12 +31,12 @@ class Taeubchenthal implements Site
             $matches,
             PREG_SET_ORDER
         )) {
-            yield from $this->filter(new Eventim('taeubchenthal-leipzig-18055'), $matches, $location);
-            yield from $this->filter(new LiveGigs('Täubchenthal'), $matches, $location);
+            yield from $this->filter(new Eventim('taeubchenthal-leipzig-18055'), $matches);
+            yield from $this->filter(new LiveGigs('Täubchenthal'), $matches);
         }
     }
 
-    private function filter(ShopCrawler $shop, array &$matches, Location $location): \Generator
+    private function filter(ShopCrawler $shop, array &$matches): \Generator
     {
         foreach ($shop->fetchDates() as $date) {
             foreach ($matches as $key => $match) {
@@ -41,7 +44,7 @@ class Taeubchenthal implements Site
                     yield new Event(
                         $match[4],
                         $date,
-                        $location,
+                        $this->location,
                         $match[1],
                         $match[2],
                     );
@@ -50,5 +53,10 @@ class Taeubchenthal implements Site
                 }
             }
         }
+    }
+
+    public function getLocations(): iterable
+    {
+        yield $this->location;
     }
 }

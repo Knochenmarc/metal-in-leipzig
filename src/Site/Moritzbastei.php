@@ -12,14 +12,13 @@ class Moritzbastei implements Site
 {
     use LinkedDataParser;
 
+    public function __construct(
+        private Location $location = new Location('mb', 'Moritzbastei', 'https://www.moritzbastei.de/',),
+    ) {
+    }
+
     public function getIterator(): Traversable
     {
-        $location = new Location(
-            'mb',
-            'Moritzbastei',
-            'https://www.moritzbastei.de/',
-        );
-
         $http      = new Crawler();
         $plainHTML = $http->get('https://www.moritzbastei.de/programm/tag/metal');
         $plainHTML = substr($plainHTML, strpos($plainHTML, 'id="desc-tag"'));
@@ -28,10 +27,15 @@ class Moritzbastei implements Site
             yield new Event(
                 $data->name,
                 new \DateTimeImmutable($data->startDate),
-                $location,
+                $this->location,
                 $data->offers->url,
                 $data->image,
             );
         }
+    }
+
+    public function getLocations(): iterable
+    {
+        yield $this->location;
     }
 }

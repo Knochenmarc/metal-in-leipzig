@@ -26,4 +26,23 @@ class Collector
 
         return $events;
     }
+
+    /**
+     * @param Site[] $sites
+     *
+     * @return Location[]
+     */
+    public function collectLocations(array $sites): array
+    {
+        $locations = [];
+        foreach ($sites as $site) {
+            foreach ($site->getLocations() as $location) {
+                $locations[$location->slug] = $location;
+            }
+        }
+
+        uasort($locations, static fn($a, $b) => strcasecmp($a->name,$b->name));
+
+        return $locations;
+    }
 }

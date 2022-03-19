@@ -1,0 +1,321 @@
+main
+  display: grid
+  grid-column: 2
+  grid-template-columns: 60px auto
+  margin-top: 7px
+
+.event-date
+  grid-column: 1
+  padding: 5px
+  &:nth-child(4n+1)
+    background: #202020
+  a:hover
+    color: white
+
+.events
+  grid-column: 2
+  display: flex
+  flex-flow: wrap
+  &:nth-child(4n+2)
+    background: #202020
+
+.event
+  box-shadow: 0 0 0 4px rgba(52, 52, 52, 0.7)
+  margin: 5px
+  width: 290px
+  min-height: 30px
+  height: fit-content
+  max-height: fit-content
+  color: #fefefe
+  background-color: black
+  text-decoration: none
+  &:hover
+    box-shadow: 0 0 0 4px #c0c0c0
+  &:first-line
+    line-height: 32px
+  object
+    float: left
+    width: 32px
+    height: 32px
+
+  .event-location
+    display: block
+    width: 32px
+    height: 32px
+    background-repeat: no-repeat
+    background-position: center
+    background-color: transparent
+  .event-img img
+    vertical-align: bottom
+
+  &.ank
+    background-color: #ffffff
+    color: #000000
+    .event-location
+      background-image: url("../img/anker.webp")
+  &.bc
+    background-color: #167aad
+    color: #fefefe
+    .event-location
+      background-image: url("../img/bandcommunity.png")
+      background-position-x: 1px
+  &.ci
+    background-color: #d8d895
+    color: black
+    .event-location
+      background-image: url("../img/conne_island.webp")
+      background-position-x: -1px
+  &.df
+    background-color: #09212a
+    .event-location
+      background-image: url("../img/darkflower.png")
+  &.fk
+    background-color: #fefefe
+    color: #1b2024
+    .event-location
+      background-image: url("../img/felsenkeller.webp")
+      background-size: contain
+  &.fw
+    background-color: #00527e
+    color: white
+    .event-location
+      background-image: url("../img/festwiese.png")
+      background-size: contain
+  &.ha
+    background-color: #2e4d77
+    color: #f8f4e9
+    .event-location
+      background-image: url("../img/hausauensee.jpg")
+      background-size: contain
+  &.hr
+    background-color: black
+    color: #e61e1e
+    .event-location
+      background-image: url("../img/hellraiser.webp")
+  &.lm
+    background-color: #f7f8f8
+    color: #06a0e2
+    .event-location
+      background-image: url("../img/messe.webp")
+  &.mb
+    .event-location
+      background-image: url("../img/moritzbastei.png")
+      background-size: contain
+  &.pb
+    background-color: #116e28
+    color: #ffcc03
+    .event-location
+      background-image: url("../img/parkbuehne.webp")
+  &.qi
+    background-color: #00527e
+    color: white
+    .event-location
+      background-image: url("../img/qi-arena.png")
+      background-size: contain
+  &.rb
+    background-color: #f7f8f8
+    color: #dd0741
+    .event-location
+      background-image: url("../img/red-bull-arena.png")
+      background-size: contain
+  &.rl
+    .event-location
+      background-image: url("../img/rocklounge.png")
+  &.tb
+    background-color: #e8e6d4
+    color: black
+    .event-location
+      background-image: url("../img/tankbar.webp")
+  &.tt
+    .event-location
+      background-image: url("../img/taeubchenthal.svg")
+  &.w2
+    background-color: #20110e
+    color: #ffffff
+    .event-location
+      background-image: url("../img/werk2.webp")
+      background-size: contain
+
+
+a.more
+  display: inline-block
+  padding: 20px
+  margin: 10px
+  background: #a8a8a8
+  color: black
+  box-shadow: 0 0 0 4px rgba(52, 52, 52, 0.7)
+  &:hover
+    box-shadow: 0 0 0 4px #c0c0c0
+    font-weight: bolder
+  &:hover:before, &:hover:after
+    content: " ! "
+
+#event-filter, input.filter[type="checkbox"]
+  display: none
+
+.filters
+  overflow: hidden
+  height: 1.1em
+  //transition: height 2s
+
+  label.toggle
+    display: block
+    color: white
+    cursor: url('../img/metalhand.cur'), url('../img/metalhand.png'), url('../img/metalhand.gif'), auto
+    &:before, &:after
+      content: "➤"
+      display: inline-block
+      margin: 0 4px 0 3px
+
+  .toggle-down
+    &:before, &:after
+      transform: rotate(90deg)
+  .toggle-up
+    &:before, &::after
+      transform: rotate(-90deg)
+
+  label:not(.toggle)
+    color: white
+    padding-right: 1px
+    margin: 1px
+    line-height: 30px
+    display: inline-block
+    border: #2a882a solid 4px
+    &::before
+      content: ""
+      width: 30px
+      height: 30px
+      display: inline-flex
+      vertical-align: bottom
+      background-position: center
+      background-repeat: no-repeat
+      background-size: contain
+
+    &.ank
+      background-color: #ffffff
+      color: #000000
+      &::before
+        background-image: url("../img/anker.webp")
+    &.bc
+      background-color: #167aad
+      color: #fefefe
+      &::before
+        background-image: url("../img/bandcommunity.png")
+        background-position-x: 1px
+    &.ci
+      background-color: #d8d895
+      color: black
+      &::before
+        background-image: url("../img/conne_island.webp")
+        background-position-x: -1px
+    &.df
+      background-color: #09212a
+      &::before
+        background-image: url("../img/darkflower.png")
+    &.fk
+      background-color: #fefefe
+      color: #1b2024
+      &::before
+        background-image: url("../img/felsenkeller.webp")
+        background-size: contain
+    &.fw
+      background-color: #00527e
+      color: white
+      &::before
+        background-image: url("../img/festwiese.png")
+        background-size: contain
+    &.ha
+      background-color: #2e4d77
+      color: #f8f4e9
+      &::before
+        background-image: url("../img/hausauensee.jpg")
+        background-size: contain
+    &.hr
+      background-color: black
+      color: #e61e1e
+      &::before
+        background-image: url("../img/hellraiser.webp")
+    &.lm
+      background-color: #f7f8f8
+      color: #06a0e2
+      &::before
+        background-image: url("../img/messe.webp")
+    &.mb
+      &::before
+        background-image: url("../img/moritzbastei.png")
+    &.pb
+      background-color: #116e28
+      color: #ffcc03
+      &::before
+        background-image: url("../img/parkbuehne.webp")
+    &.qi
+      background-color: #00527e
+      color: white
+      &::before
+        background-image: url("../img/qi-arena.png")
+        background-size: contain
+    &.rb
+      background-color: #f7f8f8
+      color: #dd0741
+      &::before
+        background-image: url("../img/red-bull-arena.png")
+        background-size: contain
+    &.rl
+      &::before
+        background-image: url("../img/rocklounge.png")
+    &.tb
+      background-color: #e8e6d4
+      color: black
+      &::before
+        background-image: url("../img/tankbar.webp")
+    &.tt
+      &::before
+        background-image: url("../img/taeubchenthal.svg")
+    &.w2
+      background-color: #20110e
+      color: #ffffff
+      &::before
+        background-image: url("../img/werk2.webp")
+
+#filter-loc-ank:checked ~ .filters label[for="filter-loc-ank"],
+#filter-loc-bc:checked ~ .filters label[for="filter-loc-bc"],
+#filter-loc-ci:checked ~ .filters label[for="filter-loc-ci"],
+#filter-loc-df:checked ~ .filters label[for="filter-loc-df"],
+#filter-loc-fk:checked ~ .filters label[for="filter-loc-fk"],
+#filter-loc-fw:checked ~ .filters label[for="filter-loc-fw"],
+#filter-loc-ha:checked ~ .filters label[for="filter-loc-ha"],
+#filter-loc-hr:checked ~ .filters label[for="filter-loc-hr"],
+#filter-loc-lm:checked ~ .filters label[for="filter-loc-lm"],
+#filter-loc-mb:checked ~ .filters label[for="filter-loc-mb"],
+#filter-loc-pb:checked ~ .filters label[for="filter-loc-pb"],
+#filter-loc-qi:checked ~ .filters label[for="filter-loc-qi"],
+#filter-loc-rb:checked ~ .filters label[for="filter-loc-rb"],
+#filter-loc-rl:checked ~ .filters label[for="filter-loc-rl"],
+#filter-loc-tb:checked ~ .filters label[for="filter-loc-tb"],
+#filter-loc-tt:checked ~ .filters label[for="filter-loc-tt"],
+#filter-loc-w2:checked ~ .filters label[for="filter-loc-w2"]
+  border-color: #981919
+
+#filter-loc-ank:checked ~ main .event.ank,
+#filter-loc-bc:checked ~ main .event.bc,
+#filter-loc-ci:checked ~ main .event.ci,
+#filter-loc-df:checked ~ main .event.df,
+#filter-loc-fk:checked ~ main .event.fk,
+#filter-loc-fw:checked ~ main .event.fw,
+#filter-loc-ha:checked ~ main .event.ha,
+#filter-loc-hr:checked ~ main .event.hr,
+#filter-loc-lm:checked ~ main .event.lm,
+#filter-loc-mb:checked ~ main .event.mb,
+#filter-loc-pb:checked ~ main .event.pb,
+#filter-loc-qi:checked ~ main .event.qi,
+#filter-loc-rb:checked ~ main .event.rb,
+#filter-loc-rl:checked ~ main .event.rl,
+#filter-loc-tb:checked ~ main .event.tb,
+#filter-loc-tt:checked ~ main .event.tt,
+#filter-loc-w2:checked ~ main .event.w2
+    display: none
+
+#filter-toggle:checked ~ .filters
+  height: 100%
+  .toggle-down
+    display: none

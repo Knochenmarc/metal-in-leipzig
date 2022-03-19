@@ -11,10 +11,13 @@ use Traversable;
 
 class Parkbuehne implements Site
 {
+    public function __construct(
+        private Location $location = new Location('pb', 'Parkbühne im Clara-Zetkin-Park', 'https://www.parkbuehne-leipzig.com'),
+    ) {
+    }
+
     public function getIterator(): Traversable
     {
-        $location = new Location('pb', 'Parkbühne im Clara-Zetkin-Park', 'https://www.parkbuehne-leipzig.com');
-
         $http = new Crawler();
         $html = $http->get('https://www.parkbuehne-leipzig.com/wordpress/veranstaltungen/');
         if (preg_match_all(
@@ -24,7 +27,7 @@ class Parkbuehne implements Site
             PREG_SET_ORDER
         )) {
             foreach ($matches as $key => $match) {
-                if(preg_match('#, (\d\d? [a-z]{2,3} \d\d\d\d)#iU', $match[0], $dateMatch)) {
+                if (preg_match('#, (\d\d? [a-z]{2,3} \d\d\d\d)#iU', $match[0], $dateMatch)) {
                     $matches[$key][4] = new \DateTimeImmutable($dateMatch[1]);
                 } else {
                     unset($matches[$key]);
@@ -38,7 +41,7 @@ class Parkbuehne implements Site
                         yield new Event(
                             html_entity_decode($match[3]),
                             $date,
-                            $location,
+                            $this->location,
                             $match[2],
                             $match[1],
                         );
@@ -47,5 +50,10 @@ class Parkbuehne implements Site
                 }
             }
         }
+    }
+
+    public function getLocations(): iterable
+    {
+        yield $this->location;
     }
 }

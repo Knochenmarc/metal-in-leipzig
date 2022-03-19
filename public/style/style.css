@@ -1,0 +1,360 @@
+@charset "UTF-8";
+body {
+  background: black;
+  color: #a8a8a8;
+  font-family: sans-serif;
+  text-align: center;
+  padding: 0;
+  margin: 0; }
+
+a {
+  text-decoration: none;
+  color: #a8a8a8; }
+  a[href] {
+    cursor: url("../img/metalhand.cur"), url("../img/metalhand.png"), url("../img/metalhand.gif"), auto; }
+
+header {
+  display: grid;
+  grid-column: 3;
+  grid-template-columns: 80px auto 60px;
+  height: 100px; }
+  header .update-time {
+    font-size: 9pt; }
+  header .logo {
+    display: block;
+    height: 100%;
+    background: url("../img/logo.svg") no-repeat center;
+    background-size: contain; }
+  header div:last-child {
+    padding: 5px; }
+  header .github {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    background: url("../img/GitHub-Mark-Light-64px.png") no-repeat center;
+    background-size: contain;
+    opacity: 50%; }
+  header .github:hover {
+    opacity: 100%; }
+  header a:hover {
+    color: white; }
+
+@media (max-width: 671px) {
+  header {
+    height: 65px; } }
+
+main {
+  display: grid;
+  grid-column: 2;
+  grid-template-columns: 60px auto;
+  margin-top: 7px; }
+
+.event-date {
+  grid-column: 1;
+  padding: 5px; }
+  .event-date:nth-child(4n+1) {
+    background: #202020; }
+  .event-date a:hover {
+    color: white; }
+
+.events {
+  grid-column: 2;
+  display: flex;
+  flex-flow: wrap; }
+  .events:nth-child(4n+2) {
+    background: #202020; }
+
+.event {
+  box-shadow: 0 0 0 4px rgba(52, 52, 52, 0.7);
+  margin: 5px;
+  width: 290px;
+  min-height: 30px;
+  height: fit-content;
+  max-height: fit-content;
+  color: #fefefe;
+  background-color: black;
+  text-decoration: none; }
+  .event:hover {
+    box-shadow: 0 0 0 4px #c0c0c0; }
+  .event:first-line {
+    line-height: 32px; }
+  .event object {
+    float: left;
+    width: 32px;
+    height: 32px; }
+  .event .event-location {
+    display: block;
+    width: 32px;
+    height: 32px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: transparent; }
+  .event .event-img img {
+    vertical-align: bottom; }
+  .event.ank {
+    background-color: #ffffff;
+    color: #000000; }
+    .event.ank .event-location {
+      background-image: url("../img/anker.webp"); }
+  .event.bc {
+    background-color: #167aad;
+    color: #fefefe; }
+    .event.bc .event-location {
+      background-image: url("../img/bandcommunity.png");
+      background-position-x: 1px; }
+  .event.ci {
+    background-color: #d8d895;
+    color: black; }
+    .event.ci .event-location {
+      background-image: url("../img/conne_island.webp");
+      background-position-x: -1px; }
+  .event.df {
+    background-color: #09212a; }
+    .event.df .event-location {
+      background-image: url("../img/darkflower.png"); }
+  .event.fk {
+    background-color: #fefefe;
+    color: #1b2024; }
+    .event.fk .event-location {
+      background-image: url("../img/felsenkeller.webp");
+      background-size: contain; }
+  .event.fw {
+    background-color: #00527e;
+    color: white; }
+    .event.fw .event-location {
+      background-image: url("../img/festwiese.png");
+      background-size: contain; }
+  .event.ha {
+    background-color: #2e4d77;
+    color: #f8f4e9; }
+    .event.ha .event-location {
+      background-image: url("../img/hausauensee.jpg");
+      background-size: contain; }
+  .event.hr {
+    background-color: black;
+    color: #e61e1e; }
+    .event.hr .event-location {
+      background-image: url("../img/hellraiser.webp"); }
+  .event.lm {
+    background-color: #f7f8f8;
+    color: #06a0e2; }
+    .event.lm .event-location {
+      background-image: url("../img/messe.webp"); }
+  .event.mb .event-location {
+    background-image: url("../img/moritzbastei.png");
+    background-size: contain; }
+  .event.pb {
+    background-color: #116e28;
+    color: #ffcc03; }
+    .event.pb .event-location {
+      background-image: url("../img/parkbuehne.webp"); }
+  .event.qi {
+    background-color: #00527e;
+    color: white; }
+    .event.qi .event-location {
+      background-image: url("../img/qi-arena.png");
+      background-size: contain; }
+  .event.rb {
+    background-color: #f7f8f8;
+    color: #dd0741; }
+    .event.rb .event-location {
+      background-image: url("../img/red-bull-arena.png");
+      background-size: contain; }
+  .event.rl .event-location {
+    background-image: url("../img/rocklounge.png"); }
+  .event.tb {
+    background-color: #e8e6d4;
+    color: black; }
+    .event.tb .event-location {
+      background-image: url("../img/tankbar.webp"); }
+  .event.tt .event-location {
+    background-image: url("../img/taeubchenthal.svg"); }
+  .event.w2 {
+    background-color: #20110e;
+    color: #ffffff; }
+    .event.w2 .event-location {
+      background-image: url("../img/werk2.webp");
+      background-size: contain; }
+
+a.more {
+  display: inline-block;
+  padding: 20px;
+  margin: 10px;
+  background: #a8a8a8;
+  color: black;
+  box-shadow: 0 0 0 4px rgba(52, 52, 52, 0.7); }
+  a.more:hover {
+    box-shadow: 0 0 0 4px #c0c0c0;
+    font-weight: bolder; }
+  a.more:hover:before, a.more:hover:after {
+    content: " ! "; }
+
+#event-filter, input.filter[type="checkbox"] {
+  display: none; }
+
+.filters {
+  overflow: hidden;
+  height: 1.1em; }
+  .filters label.toggle {
+    display: block;
+    color: white;
+    cursor: url("../img/metalhand.cur"), url("../img/metalhand.png"), url("../img/metalhand.gif"), auto; }
+    .filters label.toggle:before, .filters label.toggle:after {
+      content: "➤";
+      display: inline-block;
+      margin: 0 4px 0 3px; }
+  .filters .toggle-down:before, .filters .toggle-down:after {
+    transform: rotate(90deg); }
+  .filters .toggle-up:before, .filters .toggle-up::after {
+    transform: rotate(-90deg); }
+  .filters label:not(.toggle) {
+    color: white;
+    padding-right: 1px;
+    margin: 1px;
+    line-height: 30px;
+    display: inline-block;
+    border: #2a882a solid 4px; }
+    .filters label:not(.toggle)::before {
+      content: "";
+      width: 30px;
+      height: 30px;
+      display: inline-flex;
+      vertical-align: bottom;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain; }
+    .filters label:not(.toggle).ank {
+      background-color: #ffffff;
+      color: #000000; }
+      .filters label:not(.toggle).ank::before {
+        background-image: url("../img/anker.webp"); }
+    .filters label:not(.toggle).bc {
+      background-color: #167aad;
+      color: #fefefe; }
+      .filters label:not(.toggle).bc::before {
+        background-image: url("../img/bandcommunity.png");
+        background-position-x: 1px; }
+    .filters label:not(.toggle).ci {
+      background-color: #d8d895;
+      color: black; }
+      .filters label:not(.toggle).ci::before {
+        background-image: url("../img/conne_island.webp");
+        background-position-x: -1px; }
+    .filters label:not(.toggle).df {
+      background-color: #09212a; }
+      .filters label:not(.toggle).df::before {
+        background-image: url("../img/darkflower.png"); }
+    .filters label:not(.toggle).fk {
+      background-color: #fefefe;
+      color: #1b2024; }
+      .filters label:not(.toggle).fk::before {
+        background-image: url("../img/felsenkeller.webp");
+        background-size: contain; }
+    .filters label:not(.toggle).fw {
+      background-color: #00527e;
+      color: white; }
+      .filters label:not(.toggle).fw::before {
+        background-image: url("../img/festwiese.png");
+        background-size: contain; }
+    .filters label:not(.toggle).ha {
+      background-color: #2e4d77;
+      color: #f8f4e9; }
+      .filters label:not(.toggle).ha::before {
+        background-image: url("../img/hausauensee.jpg");
+        background-size: contain; }
+    .filters label:not(.toggle).hr {
+      background-color: black;
+      color: #e61e1e; }
+      .filters label:not(.toggle).hr::before {
+        background-image: url("../img/hellraiser.webp"); }
+    .filters label:not(.toggle).lm {
+      background-color: #f7f8f8;
+      color: #06a0e2; }
+      .filters label:not(.toggle).lm::before {
+        background-image: url("../img/messe.webp"); }
+    .filters label:not(.toggle).mb::before {
+      background-image: url("../img/moritzbastei.png"); }
+    .filters label:not(.toggle).pb {
+      background-color: #116e28;
+      color: #ffcc03; }
+      .filters label:not(.toggle).pb::before {
+        background-image: url("../img/parkbuehne.webp"); }
+    .filters label:not(.toggle).qi {
+      background-color: #00527e;
+      color: white; }
+      .filters label:not(.toggle).qi::before {
+        background-image: url("../img/qi-arena.png");
+        background-size: contain; }
+    .filters label:not(.toggle).rb {
+      background-color: #f7f8f8;
+      color: #dd0741; }
+      .filters label:not(.toggle).rb::before {
+        background-image: url("../img/red-bull-arena.png");
+        background-size: contain; }
+    .filters label:not(.toggle).rl::before {
+      background-image: url("../img/rocklounge.png"); }
+    .filters label:not(.toggle).tb {
+      background-color: #e8e6d4;
+      color: black; }
+      .filters label:not(.toggle).tb::before {
+        background-image: url("../img/tankbar.webp"); }
+    .filters label:not(.toggle).tt::before {
+      background-image: url("../img/taeubchenthal.svg"); }
+    .filters label:not(.toggle).w2 {
+      background-color: #20110e;
+      color: #ffffff; }
+      .filters label:not(.toggle).w2::before {
+        background-image: url("../img/werk2.webp"); }
+
+#filter-loc-ank:checked ~ .filters label[for="filter-loc-ank"],
+#filter-loc-bc:checked ~ .filters label[for="filter-loc-bc"],
+#filter-loc-ci:checked ~ .filters label[for="filter-loc-ci"],
+#filter-loc-df:checked ~ .filters label[for="filter-loc-df"],
+#filter-loc-fk:checked ~ .filters label[for="filter-loc-fk"],
+#filter-loc-fw:checked ~ .filters label[for="filter-loc-fw"],
+#filter-loc-ha:checked ~ .filters label[for="filter-loc-ha"],
+#filter-loc-hr:checked ~ .filters label[for="filter-loc-hr"],
+#filter-loc-lm:checked ~ .filters label[for="filter-loc-lm"],
+#filter-loc-mb:checked ~ .filters label[for="filter-loc-mb"],
+#filter-loc-pb:checked ~ .filters label[for="filter-loc-pb"],
+#filter-loc-qi:checked ~ .filters label[for="filter-loc-qi"],
+#filter-loc-rb:checked ~ .filters label[for="filter-loc-rb"],
+#filter-loc-rl:checked ~ .filters label[for="filter-loc-rl"],
+#filter-loc-tb:checked ~ .filters label[for="filter-loc-tb"],
+#filter-loc-tt:checked ~ .filters label[for="filter-loc-tt"],
+#filter-loc-w2:checked ~ .filters label[for="filter-loc-w2"] {
+  border-color: #981919; }
+
+#filter-loc-ank:checked ~ main .event.ank,
+#filter-loc-bc:checked ~ main .event.bc,
+#filter-loc-ci:checked ~ main .event.ci,
+#filter-loc-df:checked ~ main .event.df,
+#filter-loc-fk:checked ~ main .event.fk,
+#filter-loc-fw:checked ~ main .event.fw,
+#filter-loc-ha:checked ~ main .event.ha,
+#filter-loc-hr:checked ~ main .event.hr,
+#filter-loc-lm:checked ~ main .event.lm,
+#filter-loc-mb:checked ~ main .event.mb,
+#filter-loc-pb:checked ~ main .event.pb,
+#filter-loc-qi:checked ~ main .event.qi,
+#filter-loc-rb:checked ~ main .event.rb,
+#filter-loc-rl:checked ~ main .event.rl,
+#filter-loc-tb:checked ~ main .event.tb,
+#filter-loc-tt:checked ~ main .event.tt,
+#filter-loc-w2:checked ~ main .event.w2 {
+  display: none; }
+
+#filter-toggle:checked ~ .filters {
+  height: 100%; }
+  #filter-toggle:checked ~ .filters .toggle-down {
+    display: none; }
+
+.recht h1, .recht p {
+  text-align: left;
+  padding-left: 10px;
+  padding-right: 10px; }
+
+.recht a {
+  text-decoration: underline; }
+  .recht a:hover {
+    color: white; }
