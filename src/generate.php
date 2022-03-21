@@ -12,7 +12,7 @@ use MetalLE\View\Renderer;
 
 include "bootstrap.php";
 
-$sites  = [
+$sites = [
     new Site\ManualEvents(),
     new Site\Anker(),
     new Site\Arena(),
@@ -22,7 +22,7 @@ $sites  = [
     new Site\Felsenkeller(),
     new Site\HausAuensee(),
     new Site\Hellraiser(),
-//    new Site\Moritzbastei(),
+    new Site\Moritzbastei(),
     new Site\Parkbuehne(),
     new Site\Rocklounge(),
     new Site\Taeubchenthal(),
@@ -47,19 +47,29 @@ foreach ($events as $event) {
 
 $events = (new Splitter())->splitInChunks($events);
 
-$view      = new Renderer();
-$indy      = 0;
-$templates = [
-    'index.phtml' => '/public/index.html',
-    'mehr.phtml'  => '/public/mehr.html',
-    'mehr2.phtml' => '/public/viel_mehr.html',
-    'mehr3.phtml' => '/public/noch_mehr.html',
-    'recht.phtml' => '/public/recht.html',
-];
-foreach ($templates as $template => $file) {
-    $content = $view->render(
-        $template,
-        ['events' => $events[$indy++] ?? [], 'locations' => $locations],
-    );
-    file_put_contents($file, $content);
-}
+$view = new Renderer();
+$view->render(
+    'index.phtml',
+    '/public/index.html',
+    'Events',
+    ['events' => $events[0] ?? [], 'locations' => $locations],
+);
+$view->render(
+    'mehr.phtml',
+    '/public/mehr.html',
+    'Mehr Events',
+    ['events' => $events[1] ?? [], 'locations' => $locations],
+);
+$view->render(
+    'mehr2.phtml',
+    '/public/viel_mehr.html',
+    'Viel mehr Events',
+    ['events' => $events[2] ?? [], 'locations' => $locations],
+);
+$view->render(
+    'mehr3.phtml',
+    '/public/noch_mehr.html',
+    'Noch mehr Events',
+    ['events' => $events[3] ?? [], 'locations' => $locations],
+);
+$view->render('recht.phtml', '/public/recht.html', 'Rechtliches');
