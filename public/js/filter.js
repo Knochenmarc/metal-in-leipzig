@@ -1,20 +1,13 @@
 (function (doc) {
-
-    function storeFilters() {
+    const storeFilters = () => {
         let formData = new FormData(doc.getElementById('event-filter'))
         let data = {};
         formData.forEach((value, key) => (data[key] = value));
         localStorage.setItem('filter', JSON.stringify(data));
-    }
+    };
+    const init = JSON.parse(localStorage.getItem('filter') || '{}');
 
-    let inputs = doc.querySelectorAll('input[form="event-filter"]')
-    let init = {}
-    let loaded = localStorage.getItem('filter')
-    if (loaded) {
-        init = JSON.parse(loaded)
-    }
-
-    inputs.forEach(function (input) {
+    doc.querySelectorAll('input[form="event-filter"]').forEach(input => {
         if (input.getAttribute('type') === 'checkbox' && input.getAttribute('name') in init) {
             input.checked = true
         }

@@ -13,6 +13,7 @@ DE: Dieses Projekt erstellt einen Webkalender zu diversen Metal-Veranstaltungen 
 - felsenkeller-leipzig.com
 - haus-auensee-leipzig.de
 - hellraiser-leipzig.de
+- moritzbastei.de
 - quarterback-immobilien-arena.de
 - parkbuehne-leipzig.com
 - rocklounge-leipzig.de
@@ -21,7 +22,6 @@ DE: Dieses Projekt erstellt einen Webkalender zu diversen Metal-Veranstaltungen 
 - werk-2.de
 
 ### Geplante Locations:
-- moritzbastei.de
 - Moertelwerk
 - Geyserhaus (Parkbühne/UnterRock?)
 - div. Pubs? Black Label, Noels, McCormacks
