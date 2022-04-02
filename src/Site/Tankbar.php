@@ -25,10 +25,11 @@ class Tankbar implements Site
                 PREG_SET_ORDER
             ) > 0) {
             foreach ($matches as $match) {
-                [$date, $name] = explode(' : ', $match[1]);
+                [$date, $name] = explode(':', $match[1], 2);
                 if (false === str_contains($name, 'Schlager')) {
+                    $date = trim($date);
                     $date = substr($date, 0, -2) . '20' . substr($date, -2);
-                    $name = str_replace('<br>', ' ', $name);
+                    $name = str_replace('<br>', ' ', trim($name));
 
                     yield new Event(
                         html_entity_decode($name, ENT_HTML5),
