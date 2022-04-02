@@ -13,7 +13,7 @@ use MetalLE\View\Renderer;
 include "bootstrap.php";
 
 $sites = [
-    new Site\ManualEvents(),
+//    new Site\ManualEvents(),
     new Site\Anker(),
     new Site\Arena(),
     new Site\Bandcommunity(),
