@@ -167,8 +167,10 @@ main {
     color: black; }
     .event.tb .event-location {
       background-image: url("../img/tankbar.webp"); }
-  .event.tt .event-location {
-    background-image: url("../img/taeubchenthal.svg"); }
+  .event.tt {
+    background-color: #333333; }
+    .event.tt .event-location {
+      background-image: url("../img/taeubchenthal.svg"); }
   .event.w2 {
     background-color: #20110e;
     color: #ffffff; }
@@ -298,8 +300,10 @@ a.more {
       color: black; }
       .filters label:not(.toggle).tb::before {
         background-image: url("../img/tankbar.webp"); }
-    .filters label:not(.toggle).tt::before {
-      background-image: url("../img/taeubchenthal.svg"); }
+    .filters label:not(.toggle).tt {
+      background-color: #333333; }
+      .filters label:not(.toggle).tt::before {
+        background-image: url("../img/taeubchenthal.svg"); }
     .filters label:not(.toggle).w2 {
       background-color: #20110e;
       color: #ffffff; }
