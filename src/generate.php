@@ -26,7 +26,7 @@ $sites = [
     new Site\Parkbuehne(),
     new Site\Rocklounge(),
     new Site\Taeubchenthal(),
-    new Site\Tankbar(),
+    //new Site\Tankbar(),
     new Site\Werk2(),
 //    new Site\TestData(),
 ];
