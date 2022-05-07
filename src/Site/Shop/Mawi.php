@@ -16,7 +16,7 @@ class Mawi implements ShopCrawler
 
     public function fetchDates(): iterable
     {
-        $html = $this->http->get('https://www.mawi-concert.de/index.php?menus_id=2');
+        $html = $this->http->get('https://www.mawi-concert.de/index.php?menus_id=2', false);
         if (preg_match_all(
             '#class=\'grid-item framepic 15\' data-category=\'\'>\s*<a href=\'index\.php\?menus_id=2&solo=1&id=(\d+)\'#iU',
             $html,
@@ -26,7 +26,8 @@ class Mawi implements ShopCrawler
 
             $html = $this->http->post(
                 'https://www.mawi-concert.de/worker/searching_inc.php',
-                ['sk' => $this->location . '##location##']
+                ['sk' => $this->location . '##location##'],
+                false,
             );
             if (preg_match_all(
                 '#index.php\?menus_id=2&solo=1&id=(\d+)&.*am (\d\d\.\d\d\.\d\d\d\d)#isU',
