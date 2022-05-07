@@ -20,7 +20,7 @@ class Crawler
     ) {
     }
 
-    public function get(string $url): bool|string
+    public function get(string $url, bool $checkCert = true): bool|string
     {
         if ($this->debug) {
             print 'get: ' . $url . PHP_EOL;
@@ -29,14 +29,17 @@ class Crawler
         return file_get_contents(
             $url,
             false,
-            stream_context_create(['http' => ['method' => 'GET', 'header' => self::HEADERS]])
+            stream_context_create([
+                'http' => ['method' => 'GET', 'header' => self::HEADERS],
+                'ssl' => ['verify_peer' => $checkCert, 'verify_peer_name' => $checkCert,]
+            ])
         );
     }
 
-    public function post(string $url, array $payload): bool|string
+    public function post(string $url, array $payload, bool $checkCert = true): bool|string
     {
         if ($this->debug) {
-            print 'get: ' . $url . PHP_EOL;
+            print 'post: ' . $url . PHP_EOL;
         }
 
         $options = [
@@ -48,7 +51,10 @@ class Crawler
         return file_get_contents(
             $url,
             false,
-            stream_context_create(['http' => $options,])
+            stream_context_create([
+                'http' => $options,
+                'ssl' => ['verify_peer' => $checkCert, 'verify_peer_name' => $checkCert,]
+            ])
         );
     }
 }
