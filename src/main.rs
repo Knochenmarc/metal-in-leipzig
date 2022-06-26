@@ -1,7 +1,8 @@
 use crate::event::{Event, Location};
 use crate::site::anker::Anker;
 use crate::site::Site;
-use crate::tools::{ImageOptimizer, HTTP};
+use crate::tools::image::optimize_image;
+use crate::tools::HTTP;
 
 mod event;
 mod site;
@@ -15,22 +16,18 @@ fn main() {
 
     let sites = [Anker::new()];
     for site in &sites {
-        events.extend(site.fetch_events());
-        locations.extend(site.get_locations());
+        let mut evts = site.fetch_events();
+        events.append(&mut evts);
+        locations.append(&mut site.get_locations());
     }
 
-    // events.sort_by(|a, b| b.date.cmp(&a.date));
-    // locations.sort_by(|a, b| b.name.cmp(&a.name));
+    events.sort_by(|a, b| b.date.cmp(&a.date));
+    locations.sort_by(|a, b| b.name.cmp(&a.name));
 
     for event in &mut events {
-        println!("event");
-
         match &mut event.image {
             None => {}
-            Some(img) => {
-                println!("optimize");
-                ImageOptimizer::optimize(img, &http)
-            }
+            Some(img) => optimize_image(img, &http),
         }
     }
 }

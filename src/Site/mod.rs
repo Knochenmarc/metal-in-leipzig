@@ -19,7 +19,8 @@ trait Filter {
 fn parse_linked_data_events(html: &str) -> Vec<Value> {
     lazy_static! {
         static ref REG: Regex =
-            Regex::new(r#"<script type=["']application/ld\+json["']>(.*?s)</script>"#).unwrap();
+            Regex::new(r#"(?s)<script type=[""']application/ld\+json[""']>(.*?)</script>"#)
+                .unwrap();
     }
 
     let mut result: Vec<Value> = Vec::new();

@@ -1,10 +1,11 @@
 use std::borrow::Borrow;
 
-use chrono::DateTime;
+use regex::Regex;
 
 use crate::event::{Event, Location};
 use crate::site::eventim::Eventim;
 use crate::site::{Filter, Site};
+use crate::tools::date::parse_german_date;
 use crate::tools::HTTP;
 
 pub struct Anker {
@@ -40,26 +41,42 @@ impl Site for Anker {
                 .to_string()
                 .as_str(),
         );
+        let api_items = api.as_array().unwrap();
 
-        for item in api.as_array().unwrap() {
-            let image_url = match item["_links"]["wp:featuredmedia"][0]["href"].as_str() {
-                None => None,
-                Some(url) => Some(http.get_json(url)["source_url"].to_string()),
-            };
+        // api doesnt provide actual dates :(
+        let html = http.get("https://anker-leipzig.de/va/veranstaltungen/");
+        let reg: Regex = Regex::new("(?si)wpem-single-event-widget.*?<a href=\"(.*?)\".*?wpem-event-date-time-text\">.*?,\\s(.*?)<").unwrap();
 
-            let evt = Event::new(
-                item["title"]["rendered"].to_string(), //TODO: decode html
-                DateTime::parse_from_rfc3339(
-                    (item["date"].as_str().unwrap().to_owned() + "Z").as_str(),
-                )
-                .unwrap(),
-                self.location.borrow(),
-                item["link"].to_string(),
-                image_url,
-            );
+        for captures in reg.captures_iter(html.as_str()) {
+            let html_link = captures[1].to_string();
 
-            if eventim.is_it_metal(evt.borrow()) {
-                result.push(evt);
+            'api_loop: for item in api_items {
+                let api_link = item["link"].as_str().unwrap().to_string();
+                if api_link.eq(&html_link) {
+                    let image_url = match item["_links"]["wp:featuredmedia"][0]["href"].as_str() {
+                        None => None,
+                        Some(url) => Some(
+                            http.get_json(url)["guid"]["rendered"]
+                                .as_str()
+                                .unwrap()
+                                .to_string(),
+                        ),
+                    };
+
+                    let evt = Event::new(
+                        item["title"]["rendered"].as_str().unwrap().to_string(), //TODO: decode html
+                        parse_german_date(&captures[2]).and_hms(0, 0, 0),
+                        self.location.borrow(),
+                        api_link,
+                        image_url,
+                    );
+
+                    if eventim.is_it_metal(evt.borrow()) {
+                        result.push(evt);
+                    }
+
+                    break 'api_loop;
+                }
             }
         }
 

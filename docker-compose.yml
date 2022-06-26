@@ -6,3 +6,10 @@ services:
       - ./src_php:/app:ro
       - ./public:/public
     command: php generate.php
+
+  rust_generator:
+    profiles:
+      - dev
+    build: .
+    volumes:
+      - ./public:/app/public
