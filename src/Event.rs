@@ -8,7 +8,7 @@ pub struct Event<'l> {
     pub date: DateTime<FixedOffset>,
     pub location: &'l Location,
     pub url: String,
-    pub image: Image,
+    pub image: Option<Image>,
 }
 
 impl<'a> Event<'a> {
@@ -17,14 +17,19 @@ impl<'a> Event<'a> {
         date: DateTime<FixedOffset>,
         location: &'a Location,
         url: String,
-        image: String,
+        image_url: Option<String>,
     ) -> Self {
+        let image = match image_url {
+            None => None,
+            Some(str) => Some(Image::new(str)),
+        };
+
         Self {
             name,
             date,
             location,
             url,
-            image: Image::new(image),
+            image,
         }
     }
 }
@@ -33,6 +38,16 @@ pub struct Location {
     pub slug: String,
     pub name: String,
     pub website: String,
+}
+
+impl Clone for Location {
+    fn clone(&self) -> Self {
+        Self {
+            slug: self.slug.clone(),
+            name: self.name.clone(),
+            website: self.website.clone(),
+        }
+    }
 }
 
 pub struct Image {

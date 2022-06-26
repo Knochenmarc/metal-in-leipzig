@@ -8,7 +8,7 @@ pub(crate) mod anker;
 mod eventim;
 
 pub trait Site {
-    fn get_location(&self) -> &Location;
+    fn get_locations(&self) -> Vec<Location>;
     fn fetch_events(&self) -> Vec<Event>;
 }
 
