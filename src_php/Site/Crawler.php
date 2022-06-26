@@ -32,7 +32,7 @@ class Crawler
             stream_context_create([
                 'http' => ['method' => 'GET', 'header' => self::HEADERS],
                 'ssl' => ['verify_peer' => $checkCert, 'verify_peer_name' => $checkCert,]
-            ])
+                                  ])
         );
     }
 
@@ -54,7 +54,7 @@ class Crawler
             stream_context_create([
                 'http' => $options,
                 'ssl' => ['verify_peer' => $checkCert, 'verify_peer_name' => $checkCert,]
-            ])
+              ])
         );
     }
 }

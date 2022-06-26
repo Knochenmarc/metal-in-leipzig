@@ -27,7 +27,7 @@ class Mawi implements ShopCrawler
             $html = $this->http->post(
                 'https://www.mawi-concert.de/worker/searching_inc.php',
                 ['sk' => $this->location . '##location##'],
-                false,
+                false
             );
             if (preg_match_all(
                 '#index.php\?menus_id=2&solo=1&id=(\d+)&.*am (\d\d\.\d\d\.\d\d\d\d)#isU',
