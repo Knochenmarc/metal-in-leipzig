@@ -63,9 +63,12 @@ class Hellraiser implements Site
     {
         $http = new Crawler();
 
-        yield from $this->parseEvents($http->get(self::URL . '/produkt-kategorie/tickets/'));
-        yield from $this->parseEvents($http->get(self::URL . '/produkt-kategorie/tickets/page/2/'));
-        yield from $this->parseEvents($http->get(self::URL . '/produkt-kategorie/tickets/page/3/'));
+        $url = self::URL . '/produkt-kategorie/tickets/';
+        do {
+            $generator = $this->parseEvents($http->get($url));
+            yield from $generator;
+            $url = $generator->getReturn();
+        } while($url);
     }
 
     /**
@@ -94,6 +97,11 @@ class Hellraiser implements Site
                 );
             }
         }
+        if (preg_match('/class="next page-numbers" href="(.*)"/iU', $plainHtTML, $match)) {
+            return $match[1];
+        }
+        
+        return null;
     }
 
     public function getLocations(): iterable
