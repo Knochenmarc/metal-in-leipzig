@@ -12,4 +12,4 @@ services:
       - dev
     build: .
     volumes:
-      - ./public:/app/public
+      - ./public:/app/public:rw
