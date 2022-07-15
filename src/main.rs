@@ -1,3 +1,7 @@
+use std::borrow::Borrow;
+
+use chrono::NaiveDate;
+
 use crate::event::{Event, Location};
 use crate::site::anker::Anker;
 use crate::site::Site;
@@ -5,6 +9,7 @@ use crate::tools::image::optimize_image;
 use crate::tools::HTTP;
 
 mod event;
+mod renderer;
 mod site;
 mod tools;
 
@@ -30,4 +35,19 @@ fn main() {
             Some(img) => optimize_image(img, &http),
         }
     }
+
+    let mut grouped_events: Vec<Vec<Event>> = vec![];
+    {
+        let mut previous_date: NaiveDate = NaiveDate::from_ymd(1970, 1, 1);
+        for event in events {
+            if event.date.date().cmp(previous_date.borrow()).is_gt() {
+                grouped_events.push(Vec::new());
+            }
+
+            previous_date = event.date.date();
+            grouped_events.last_mut().unwrap().push(event);
+        }
+    }
+
+    renderer::render(grouped_events, locations);
 }
