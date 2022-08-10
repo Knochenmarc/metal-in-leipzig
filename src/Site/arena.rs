@@ -1,12 +1,11 @@
 use std::borrow::Borrow;
 
-use chrono::NaiveDate;
 use regex::Regex;
 
 use crate::event::{Event, Location};
 use crate::site::eventim::Eventim;
 use crate::site::{Filter, Site};
-use crate::tools::date::{parse_german_date, parse_short_date};
+use crate::tools::date::parse_short_date;
 use crate::tools::HTTP;
 
 const URL: &str = "https://www.quarterback-immobilien-arena.de";

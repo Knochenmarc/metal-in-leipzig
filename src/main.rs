@@ -20,11 +20,11 @@ fn main() {
     let mut locations: Vec<Location> = vec![];
     let mut events: Vec<Event> = vec![];
 
-    let sites = [
-        // Anker::new(),
-        Arena::new_red_bull(),
-        Arena::new_quarterback(),
-        Arena::new_festwiese(),
+    let sites: [Box<dyn Site>; 4] = [
+        Box::new(Anker::new()),
+        Box::new(Arena::new_red_bull()),
+        Box::new(Arena::new_quarterback()),
+        Box::new(Arena::new_festwiese()),
     ];
     for site in &sites {
         let mut evts = site.fetch_events();

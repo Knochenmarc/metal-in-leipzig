@@ -55,7 +55,7 @@ impl<'a> Serialize for Event<'a> {
         if self.date.year() == Utc::now().year() {
             date = self.date.format(" %d.%m.").to_string();
         } else {
-            date = self.date.format(" %d.%m.%Y").to_string();
+            date = self.date.format(" %d.%m. %Y").to_string();
         }
         s.serialize_field("date", &(weekday.to_owned() + &date))?;
         s.serialize_field("date_slug", &self.date.format("%Y%m%d").to_string())?;
