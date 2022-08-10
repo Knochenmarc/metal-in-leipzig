@@ -4,6 +4,7 @@ use chrono::NaiveDate;
 
 use crate::event::{Event, Location};
 use crate::site::anker::Anker;
+use crate::site::arena::Arena;
 use crate::site::Site;
 use crate::tools::image::optimize_image;
 use crate::tools::HTTP;
@@ -19,14 +20,19 @@ fn main() {
     let mut locations: Vec<Location> = vec![];
     let mut events: Vec<Event> = vec![];
 
-    let sites = [Anker::new()];
+    let sites = [
+        // Anker::new(),
+        Arena::new_red_bull(),
+        Arena::new_quarterback(),
+        Arena::new_festwiese(),
+    ];
     for site in &sites {
         let mut evts = site.fetch_events();
         events.append(&mut evts);
         locations.append(&mut site.get_locations());
     }
 
-    events.sort_by(|a, b| b.date.cmp(&a.date));
+    events.sort_by(|a, b| a.date.cmp(&b.date));
     locations.sort_by(|a, b| b.name.cmp(&a.name));
 
     for event in &mut events {

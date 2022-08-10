@@ -5,6 +5,7 @@ use serde_json::Value;
 use crate::event::{Event, Location};
 
 pub(crate) mod anker;
+pub(crate) mod arena;
 mod eventim;
 
 pub trait Site {
