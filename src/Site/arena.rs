@@ -1,5 +1,6 @@
 use std::borrow::Borrow;
 
+use html_escape::decode_html_entities;
 use regex::Regex;
 
 use crate::event::{Event, Location};
@@ -77,7 +78,7 @@ impl Site for Arena {
 
             for captures in reg.captures_iter(html.as_str()) {
                 let evt = Event::new(
-                    captures[4].to_string(), //TODO: decode html
+                    decode_html_entities(&captures[4]).to_string(),
                     parse_short_date(&captures[3]).and_hms(0, 0, 0),
                     self.location.borrow(),
                     URL.to_owned() + captures[1].borrow(),

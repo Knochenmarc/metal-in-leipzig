@@ -2,7 +2,7 @@ use std::fs::{remove_file, File};
 
 use chrono::Utc;
 use chrono_tz::Europe::Berlin;
-use handlebars::{to_json, Handlebars};
+use handlebars::{no_escape, to_json, Handlebars};
 use serde_json::value::Map;
 use serde_json::Value;
 
@@ -15,8 +15,9 @@ fn prepare_file(file: &str) -> File {
 
 pub(crate) fn render(events: Vec<Vec<Event>>, locations: Vec<Location>) {
     let mut hb = Handlebars::new();
-    hb.register_templates_directory(".hbs", "/app/templates/")
+    hb.register_templates_directory(".hbs", "templates/")
         .unwrap();
+    hb.register_escape_fn(no_escape);
 
     let now = Utc::now().with_timezone(&Berlin);
     let mut data = Map::new();

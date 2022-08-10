@@ -1,5 +1,6 @@
 use std::borrow::Borrow;
 
+use html_escape::decode_html_entities;
 use regex::Regex;
 
 use crate::event::{Event, Location};
@@ -63,8 +64,9 @@ impl Site for Anker {
                         ),
                     };
 
+                    let name = item["title"]["rendered"].as_str().unwrap().to_string();
                     let evt = Event::new(
-                        item["title"]["rendered"].as_str().unwrap().to_string(), //TODO: decode html
+                        decode_html_entities(&name).to_string(),
                         parse_german_date(&captures[2]).and_hms(0, 0, 0),
                         self.location.borrow(),
                         api_link,
