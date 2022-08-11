@@ -7,6 +7,7 @@ use crate::event::{Event, Location};
 pub(crate) mod anker;
 pub(crate) mod arena;
 pub(crate) mod bandcommunity;
+pub(crate) mod conne_island;
 mod eventim;
 
 pub trait Site {

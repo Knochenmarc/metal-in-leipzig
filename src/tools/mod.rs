@@ -1,6 +1,8 @@
 use std::str;
+use std::str::FromStr;
 
 use reqwest::blocking::Client;
+use rss::Channel;
 use serde_json::Value;
 
 pub(crate) mod date;
@@ -40,5 +42,10 @@ impl HTTP {
     pub fn get_json(&self, url: &str) -> Value {
         let resp = self.get(url);
         serde_json::from_str(resp.as_str()).unwrap()
+    }
+
+    pub fn get_rss(&self, url: &str) -> Channel {
+        let resp = self.get(url);
+        Channel::from_str(resp.as_str()).unwrap()
     }
 }
