@@ -1,9 +1,4 @@
 use std::borrow::Borrow;
-use std::str::FromStr;
-
-use chrono::NaiveTime;
-use html_escape::decode_html_entities;
-use regex::Regex;
 
 use crate::event::{Event, Location};
 use crate::site::Site;
