@@ -8,6 +8,7 @@ pub struct Event<'l> {
     pub location: &'l Location,
     pub url: String,
     pub image: Option<Image>,
+    pub bands: Vec<BandInfo>,
 }
 
 impl<'a> Event<'a> {
@@ -23,13 +24,26 @@ impl<'a> Event<'a> {
             Some(str) => Some(Image::new(str)),
         };
 
+        let bands: Vec<BandInfo> = Vec::new();
+
         Self {
             name,
             date,
             location,
             url,
             image,
+            bands,
         }
+    }
+
+    pub fn add_band(&mut self, name: String) {
+        self.bands.push(BandInfo {
+            name,
+            genre: None,
+            website: None,
+            metallum_link: None,
+            spirit_link: None,
+        });
     }
 }
 
@@ -139,4 +153,12 @@ impl Serialize for Image {
         s.serialize_field("height", &height)?;
         s.end()
     }
+}
+
+pub struct BandInfo {
+    pub name: String,
+    pub genre: Option<String>,
+    pub website: Option<String>,
+    pub metallum_link: Option<String>,
+    pub spirit_link: Option<String>,
 }

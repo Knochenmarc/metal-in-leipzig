@@ -41,7 +41,7 @@ impl Eventim {
             next.push_str("&shownonbookable=true");
         }
 
-        //TODO: gets each event twice as jsonld
+        // TODO: gets each event twice as jsonld
 
         Self { collected_events }
     }
@@ -50,11 +50,12 @@ impl Eventim {
 impl Filter for Eventim {
     fn is_it_metal(&self, evt: &Event) -> bool {
         let date = evt.date.format("%Y-%m-%d").to_string();
+        let date = date.as_str();
         for collected_event in &self.collected_events {
             if collected_event["startDate"]
                 .as_str()
                 .unwrap()
-                .starts_with(date.as_str())
+                .starts_with(date)
             {
                 return true;
             }
