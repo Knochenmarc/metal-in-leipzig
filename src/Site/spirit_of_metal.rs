@@ -1,5 +1,3 @@
-use std::borrow::Borrow;
-
 use lazy_static::lazy_static;
 use regex::{Captures, Regex};
 
