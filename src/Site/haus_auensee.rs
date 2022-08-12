@@ -1,12 +1,11 @@
 use std::borrow::Borrow;
 
-use chrono::{NaiveDate, NaiveDateTime};
+use chrono::NaiveDate;
 use html_escape::decode_html_entities;
-use regex::{Captures, Match, Regex};
+use regex::{Match, Regex};
 
 use crate::site::eventim::Eventim;
 use crate::site::{metallum, spirit_of_metal, Filter, HasMetalBands};
-use crate::tools::date::parse_short_date;
 use crate::{Event, Location, Site, HTTP};
 
 const URL: &str = "https://haus-auensee-leipzig.de/";
