@@ -15,6 +15,7 @@ pub(crate) mod felsenkeller;
 pub(crate) mod haus_auensee;
 pub(crate) mod hellraiser;
 mod metallum;
+pub(crate) mod moritzbastei;
 mod spirit_of_metal;
 
 pub trait Site {

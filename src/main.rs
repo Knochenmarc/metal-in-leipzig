@@ -11,6 +11,7 @@ use crate::site::darkflower::Darkflower;
 use crate::site::felsenkeller::Felsenkeller;
 use crate::site::haus_auensee::HausAuensee;
 use crate::site::hellraiser::Hellraiser;
+use crate::site::moritzbastei::Moritzbastei;
 use crate::site::Site;
 use crate::tools::image::optimize_image;
 use crate::tools::HTTP;
@@ -27,16 +28,17 @@ fn main() {
     let mut events: Vec<Event> = vec![];
 
     let sites: Vec<Box<dyn Site>> = vec![
-        Box::new(Anker::new()),
-        Box::new(Arena::new_red_bull()),
-        Box::new(Arena::new_quarterback()),
-        Box::new(Arena::new_festwiese()),
-        Box::new(Bandcommunity::new()),
-        Box::new(ConneIsland::new()),
-        Box::new(Darkflower::new()),
-        Box::new(Felsenkeller::new()),
-        Box::new(HausAuensee::new()),
-        Box::new(Hellraiser::new()),
+        // Box::new(Anker::new()),
+        // Box::new(Arena::new_red_bull()),
+        // Box::new(Arena::new_quarterback()),
+        // Box::new(Arena::new_festwiese()),
+        // Box::new(Bandcommunity::new()),
+        // Box::new(ConneIsland::new()),
+        // Box::new(Darkflower::new()),
+        // Box::new(Felsenkeller::new()),
+        // Box::new(HausAuensee::new()),
+        // Box::new(Hellraiser::new()),
+        Box::new(Moritzbastei::new()),
     ];
     for site in &sites {
         let mut evts = site.fetch_events();
