@@ -13,7 +13,7 @@ pub struct Eventim {
 }
 
 impl Eventim {
-    pub fn new(venue: String, http: &HTTP) -> Self {
+    pub fn new(venue: &str, http: &HTTP) -> Self {
         lazy_static! {
             static ref REG: Regex = Regex::new(r#"<link rel="next" href="(.*?s)""#).unwrap();
         }
@@ -21,7 +21,7 @@ impl Eventim {
         let mut collected_events: Vec<Value> = Vec::new();
 
         let mut next: String = String::from("/city/leipzig-10/venue/");
-        next.push_str(venue.as_str());
+        next.push_str(venue);
         next.push_str("/?maincategoryId=1&shownonbookable=true&subcategoryId=2");
 
         loop {

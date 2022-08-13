@@ -39,7 +39,7 @@ impl Site for Felsenkeller {
         let reg: Regex = Regex::new(r#"(?is)<div class="wp-block-columns has-3-columns.*?data-cat="\D*?".*?<img src='(?P<img>.*?)'.*?<span class="date">(?P<date>.*?)</span>.*?<p class="event-name">(?P<name>.*?)</?span.*?class="event-details">(?P<detail>.*?)data-url(?:.*?href="(?P<tix>.*?)" target="_blank">Tickets</a>)?"#).unwrap();
         let html = http.get("https://www.felsenkeller-leipzig.com/programm/");
 
-        let eventim = Eventim::new("felsenkeller-leipzig-7394".to_string(), http.borrow());
+        let eventim = Eventim::new("felsenkeller-leipzig-7394", http.borrow());
         let eventim_light =
             EventimLight::new("573474f9e4b0e47b2924e6a3".to_string(), http.borrow());
         let has_metal_band = HasMetalBands {};
