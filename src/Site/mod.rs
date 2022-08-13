@@ -19,6 +19,7 @@ mod metallum;
 pub(crate) mod moritzbastei;
 pub(crate) mod parkbuehne;
 mod spirit_of_metal;
+pub(crate) mod taeubchenthal;
 
 pub trait Site {
     fn get_locations(&self) -> Vec<Location>;

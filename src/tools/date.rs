@@ -34,14 +34,16 @@ pub fn parse_short_date(str: &str) -> NaiveDate {
 }
 
 pub fn parse_iso_datetime(str: &str) -> NaiveDateTime {
-    NaiveDateTime::parse_from_str(
-        str.to_string()
-            .replace("+0:00", "+00:00")
-            .replace("+1:00", "+01:00")
-            .replace("+2:00", "+02:00")
-            .replace("+3:00", "+03:00")
-            .as_str(),
-        "%Y-%m-%dT%H:%M%:z",
-    )
-    .unwrap()
+    let date = str
+        .to_string()
+        .replace("+0:00", "+00:00")
+        .replace("+1:00", "+01:00")
+        .replace("+2:00", "+02:00")
+        .replace("+3:00", "+03:00");
+    let format = if date.len() == 25 {
+        "%Y-%m-%dT%H:%M:%S%:z"
+    } else {
+        "%Y-%m-%dT%H:%M%:z"
+    };
+    NaiveDateTime::parse_from_str(date.as_str(), format).unwrap()
 }

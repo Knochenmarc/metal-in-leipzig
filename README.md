@@ -18,13 +18,13 @@ Alle Event-Informationen stammen aus öffentlichen Internetquellen und werden ei
 - moritzbastei.de
 - quarterback-immobilien-arena.de
 - parkbuehne-leipzig.com
-- rocklounge-leipzig.de
 - taeubchenthal.com
 - tankbar-leipzig.de
 - werk-2.de
 
 ### Geplante Locations:
 - Moertelwerk
+- rocklounge-leipzig.de
 - Geyserhaus (Parkbühne/UnterRock?)
 - div. Pubs? Black Label, Noels, McCormacks
 - Spizz?
