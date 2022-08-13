@@ -14,6 +14,7 @@ use crate::site::hellraiser::Hellraiser;
 use crate::site::moritzbastei::Moritzbastei;
 use crate::site::parkbuehne::Parkbuehne;
 use crate::site::taeubchenthal::Taeubchenthal;
+use crate::site::tankbar::Tankbar;
 use crate::site::Site;
 use crate::tools::image::optimize_image;
 use crate::tools::HTTP;
@@ -43,6 +44,7 @@ fn main() {
         Box::new(Moritzbastei::new()),
         Box::new(Parkbuehne::new()),
         Box::new(Taeubchenthal::new()),
+        Box::new(Tankbar::new()),
     ];
     for site in &sites {
         let mut evts = site.fetch_events();
