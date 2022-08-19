@@ -28,7 +28,7 @@ impl<'a> Site for ConneIsland<'a> {
         return vec![self.location.clone()];
     }
 
-    fn fetch_events(&self, http: &HTTP) -> Vec<Event> {
+    fn fetch_events(&self, _http: &HTTP) -> Vec<Event> {
         let mut result = Vec::new();
         let rss = self
             .insecure_http
