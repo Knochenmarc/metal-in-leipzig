@@ -1,6 +1,9 @@
 use std::collections::HashMap;
+use std::error::Error;
 use std::str;
 use std::str::FromStr;
+use std::thread::sleep;
+use std::time::Duration;
 
 use reqwest::blocking::{Client, ClientBuilder};
 use reqwest::header::{HeaderMap, HeaderValue};
@@ -46,13 +49,25 @@ impl HTTP {
         println!("get: {:?}", url);
 
         let mut buf: Vec<u8> = vec![];
-        self.client
-            .get(url)
-            .send()
-            .unwrap()
-            .copy_to(&mut buf)
-            .unwrap();
-        buf
+        let result = self.client.get(url).send();
+        match result {
+            Ok(mut response) => {
+                response.copy_to(&mut buf).unwrap();
+                buf
+            }
+            Err(error) => {
+                if error.is_timeout() {
+                    sleep(Duration::from_secs(5));
+                    self.get_raw(url)
+                } else if error.is_request() && error.source().is_some() {
+                    // probably api limit of github -> wait a bit
+                    sleep(Duration::from_secs(30));
+                    self.get_raw(url)
+                } else {
+                    panic!("{error:?}")
+                }
+            }
+        }
     }
 
     pub fn get(&self, url: &str) -> String {
