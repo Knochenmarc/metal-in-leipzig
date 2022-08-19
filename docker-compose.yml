@@ -1,16 +1,16 @@
 services:
   generator:
+    build: .
+    volumes:
+      - ./public:/app/public:rw
+      - ./templates:/app/templates:ro
+
+  generator_php:
+    profiles:
+      - dev
     build: ./src_php
     working_dir: /app
     volumes:
       - ./src_php:/app:ro
       - ./public:/public
     command: php generate.php
-
-  rust_generator:
-    profiles:
-      - dev
-    build: .
-    volumes:
-      - ./public:/app/public:rw
-      - ./templates:/app/templates:ro
