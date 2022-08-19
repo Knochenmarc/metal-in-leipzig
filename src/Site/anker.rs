@@ -30,9 +30,7 @@ impl Site for Anker {
         return vec![self.location.clone()];
     }
 
-    fn fetch_events(&self) -> Vec<Event> {
-        let http = HTTP::new();
-
+    fn fetch_events(&self, http: &HTTP) -> Vec<Event> {
         let mut result = Vec::new();
 
         let eventim = Eventim::new("der-anker-leipzig-7330", http.borrow());

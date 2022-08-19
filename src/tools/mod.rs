@@ -15,7 +15,7 @@ pub struct HTTP {
 }
 
 impl HTTP {
-    pub(crate) fn new() -> HTTP {
+    pub(crate) fn new(accepts_invalid_certs: bool) -> HTTP {
         let mut headers = HeaderMap::new();
         headers.insert(
             "User-Agent",
@@ -33,7 +33,9 @@ impl HTTP {
         headers.insert("Pragma", HeaderValue::from_static("no-cache"));
         headers.insert("Cache-Control", HeaderValue::from_static("no-cache"));
 
-        let builder = ClientBuilder::new().default_headers(headers);
+        let builder = ClientBuilder::new()
+            .default_headers(headers)
+            .danger_accept_invalid_certs(accepts_invalid_certs);
 
         HTTP {
             client: builder.build().unwrap(),

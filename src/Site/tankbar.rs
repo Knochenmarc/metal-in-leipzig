@@ -27,8 +27,7 @@ impl Site for Tankbar {
         return vec![self.location.clone()];
     }
 
-    fn fetch_events(&self) -> Vec<Event> {
-        let http = HTTP::new();
+    fn fetch_events(&self, http: &HTTP) -> Vec<Event> {
         let mut result = Vec::new();
 
         let html = http.get("https://tankbar-leipzig.de/tankevents/");
