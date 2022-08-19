@@ -150,6 +150,7 @@ impl Serialize for Image {
     {
         let width: i32 = 290;
         let height = 290.0 * (self.height as f32) / (self.width as f32);
+        let height = height as i32;
         let mut s = serializer.serialize_struct("Image", 4)?;
         s.serialize_field("public_avif_url", &self.public_avif_url)?;
         s.serialize_field("public_jpg_url", &self.public_jpg_url)?;

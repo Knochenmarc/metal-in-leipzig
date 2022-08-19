@@ -13,6 +13,7 @@ use crate::site::haus_auensee::HausAuensee;
 use crate::site::hellraiser::Hellraiser;
 use crate::site::moritzbastei::Moritzbastei;
 use crate::site::parkbuehne::Parkbuehne;
+use crate::site::soltmann::Soltmann;
 use crate::site::taeubchenthal::Taeubchenthal;
 use crate::site::tankbar::Tankbar;
 use crate::site::werk2::Werk2;
@@ -33,21 +34,22 @@ fn main() {
     let mut events: Vec<Event> = vec![];
 
     let sites: Vec<Box<dyn Site>> = vec![
-        Box::new(Anker::new()),
-        Box::new(Arena::new_red_bull()),
-        Box::new(Arena::new_quarterback()),
-        Box::new(Arena::new_festwiese()),
-        Box::new(Bandcommunity::new()),
-        Box::new(ConneIsland::new(insecure_http.borrow())),
-        Box::new(Darkflower::new()),
-        Box::new(Felsenkeller::new()),
-        Box::new(HausAuensee::new()),
-        Box::new(Hellraiser::new()),
-        Box::new(Moritzbastei::new()),
-        Box::new(Parkbuehne::new(insecure_http.borrow())),
-        Box::new(Taeubchenthal::new()),
+        // Box::new(Anker::new()),
+        // Box::new(Arena::new_red_bull()),
+        // Box::new(Arena::new_quarterback()),
+        // Box::new(Arena::new_festwiese()),
+        // Box::new(Bandcommunity::new()),
+        // Box::new(ConneIsland::new(insecure_http.borrow())),
+        // Box::new(Darkflower::new()),
+        // Box::new(Felsenkeller::new()),
+        // Box::new(HausAuensee::new()),
+        // Box::new(Hellraiser::new()),
+        // Box::new(Moritzbastei::new()),
+        // Box::new(Parkbuehne::new(insecure_http.borrow())),
+        // Box::new(Taeubchenthal::new()),
         Box::new(Tankbar::new()),
-        Box::new(Werk2::new()),
+        Box::new(Soltmann::new()),
+        // Box::new(Werk2::new()),
     ];
     for site in &sites {
         let mut evts = site.fetch_events(http.borrow());

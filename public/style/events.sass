@@ -130,6 +130,12 @@ main
     background-color: #333333
     .event-location
       background-image: url("../img/taeubchenthal.svg")
+  &.sm
+    background-color: #101015
+    .event-location
+      background-image: url("../img/soltmann.png")
+      background-size: 28px
+      background-position: center
   &.w2
     background-color: #20110e
     color: #ffffff
@@ -272,6 +278,12 @@ a.more
       background-color: #333333
       &::before
         background-image: url("../img/taeubchenthal.svg")
+    &.sm
+      background-color: #101015
+      &::before
+        background-image: url("../img/soltmann.png")
+        background-size: 28px
+        background-position: center
     &.w2
       background-color: #20110e
       color: #ffffff
@@ -294,6 +306,7 @@ a.more
 #filter-loc-rl:checked ~ .filters label[for="filter-loc-rl"],
 #filter-loc-tb:checked ~ .filters label[for="filter-loc-tb"],
 #filter-loc-tt:checked ~ .filters label[for="filter-loc-tt"],
+#filter-loc-sm:checked ~ .filters label[for="filter-loc-sm"],
 #filter-loc-w2:checked ~ .filters label[for="filter-loc-w2"]
   border-color: #981919
 
@@ -313,6 +326,7 @@ a.more
 #filter-loc-rl:checked ~ main .event.rl,
 #filter-loc-tb:checked ~ main .event.tb,
 #filter-loc-tt:checked ~ main .event.tt,
+#filter-loc-sm:checked ~ main .event.sm,
 #filter-loc-w2:checked ~ main .event.w2
     display: none
 
