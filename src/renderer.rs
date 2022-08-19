@@ -9,7 +9,7 @@ use serde_json::Value;
 use crate::event::{Event, Location};
 
 fn prepare_file(file: &str) -> File {
-    remove_file("public/".to_owned() + &file).unwrap();
+    remove_file("public/".to_owned() + &file).unwrap_or(());
     File::create("public/".to_owned() + file).unwrap()
 }
 
