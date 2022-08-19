@@ -48,20 +48,15 @@ impl HTTP {
     pub fn get_raw(&self, url: &str) -> Vec<u8> {
         println!("get: {:?}", url);
 
-        let mut buf: Vec<u8> = vec![];
-        let result = self.client.get(url).send();
-        match result {
+        match self.client.get(url).send() {
             Ok(mut response) => {
+                let mut buf: Vec<u8> = vec![];
                 response.copy_to(&mut buf).unwrap();
                 buf
             }
             Err(error) => {
                 if error.is_timeout() {
                     sleep(Duration::from_secs(5));
-                    self.get_raw(url)
-                } else if error.is_request() && error.source().is_some() {
-                    // probably api limit of github -> wait a bit
-                    sleep(Duration::from_secs(30));
                     self.get_raw(url)
                 } else {
                     panic!("{error:?}")
