@@ -40,7 +40,10 @@ jobs:
         with:
           shared-key: crates-${{ steps.date.outputs.date }}
 
-      - name: Run generator
+      - name: Build app
+        run: cargo build --release
+
+      - name: Run app
         run: cargo run --release
 
       - name: Minify
