@@ -36,6 +36,10 @@ jobs:
 #      - name: Run docker
 #        run: docker-compose up --build --exit-code-from generator
 
+      - uses: Swatinem/rust-cache@v2
+        with:
+          shared-key: crates-${{ steps.date.outputs.date }}
+
       - name: Run generator
         run: cargo run --release
 
