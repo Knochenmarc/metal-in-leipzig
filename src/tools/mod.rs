@@ -1,5 +1,4 @@
 use std::collections::HashMap;
-use std::error::Error;
 use std::str;
 use std::str::FromStr;
 use std::thread::sleep;
