@@ -35,6 +35,7 @@ impl HTTP {
 
         let builder = ClientBuilder::new()
             .default_headers(headers)
+            .pool_max_idle_per_host(0) // https://github.com/hyperium/hyper/issues/2136#issuecomment-861826148
             .danger_accept_invalid_certs(accepts_invalid_certs);
 
         HTTP {
