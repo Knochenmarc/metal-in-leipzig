@@ -1,3 +1,4 @@
+
 body
   background: black
   color: #a8a8a8
@@ -5,12 +6,14 @@ body
   text-align: center
   padding: 0
   margin: 0
+  --metalhand : url('../img/metalhand.cur'), url('../img/metalhand.png'), auto
+
 
 a
   text-decoration: none
   color: #a8a8a8
   &[href]
-    cursor: url('../img/metalhand.cur'), url('../img/metalhand.png'), url('../img/metalhand.gif'), auto
+    cursor: var(--metalhand)
 
 header
   display: grid
