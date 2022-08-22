@@ -1,8 +1,7 @@
 <main>
     {{#each event_group}}
-        <div class="event-date"><a href="#{{this.[0].date_slug}}" id="{{this.[0].date_slug}}">{{this.[0].date}}</a>
-        </div>
         <div class="events">
+            <a class="date" href="#{{this.[0].date_slug}}" id="{{this.[0].date_slug}}">{{this.[0].date}}</a>
             {{#each this}}
                 <a {{#if this.url}} href="{{this.url}}"{{/if}}
                                     title="{{this.name}}"

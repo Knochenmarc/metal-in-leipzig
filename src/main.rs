@@ -53,19 +53,21 @@ fn main() {
     ];
     for site in &sites {
         let mut evts = site.fetch_events(http.borrow());
-        events.append(&mut evts);
-        locations.append(&mut site.get_locations());
+        if !evts.is_empty() {
+            locations.append(&mut site.get_locations());
+
+            for event in &mut evts {
+                match &mut event.image {
+                    None => {}
+                    Some(img) => optimize_image(img, &http),
+                }
+            }
+            events.append(&mut evts);
+        }
     }
 
     events.sort_by(|a, b| a.date.cmp(&b.date));
     locations.sort_by(|a, b| b.name.cmp(&a.name));
-
-    for event in &mut events {
-        match &mut event.image {
-            None => {}
-            Some(img) => optimize_image(img, &http),
-        }
-    }
 
     let mut grouped_events: Vec<Vec<Event>> = vec![];
     {
