@@ -1,5 +1,6 @@
 use std::borrow::Borrow;
 
+use html_escape::decode_html_entities;
 use regex::Regex;
 
 use crate::event::{Event, Location};
@@ -36,12 +37,14 @@ impl<'a> Site for ConneIsland<'a> {
         let reg =
             Regex::new("(?si)<item>\\s*<title>(?P<title>.*?)</title>.*?<link>(?P<link>.*?)</link>")
                 .unwrap();
+        let strip_html = Regex::new("(?si)</?.*?>").unwrap();
 
         let xml = self
             .insecure_http
             .get("https://conne-island.de/rss.php?genre=Metal");
         for item in reg.captures_iter(xml.as_str()) {
-            let title = item.name("title").unwrap().as_str();
+            let title = decode_html_entities(item.name("title").unwrap().as_str()).to_string();
+            let title = strip_html.replace_all(title.as_str(), "").to_string();
             result.push(Event::new(
                 title[12..].to_string(),
                 parse_short_date(title[..10].borrow()).and_hms(0, 0, 0),
