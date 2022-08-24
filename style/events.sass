@@ -22,12 +22,11 @@ main
   margin-top: 7px
 
 .events
-  grid-column: 2
-  display: flex
-  flex-flow: wrap
   padding-left: 70px
   overflow: hidden
   position: relative
+  column-width: 300px
+  gap: 0
   &:nth-child(2n)
     background: #202020
   .date
@@ -48,6 +47,7 @@ main
   color: #fefefe
   background-color: black
   text-decoration: none
+  display: inline-block
   &:hover
     box-shadow: 0 0 0 4px #c0c0c0
   &:first-line
