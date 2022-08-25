@@ -59,9 +59,10 @@ body {
   --qi-background: url("../img/qi-arena.png") center;
   --rb-background: url("../img/red-bull-arena.png") center;
   --rl-background: url("../img/rocklounge.png") center;
+  --sm-background: url("../img/soltmann.png") center;
   --tb-background: url("../img/tankbar.webp") center;
   --tt-background: url("../img/taeubchenthal.svg") center;
-  --sm-background: url("../img/soltmann.png") center;
+  --ut-background: url("../img/ut.png") center;
   --w2-background: url("../img/werk2.webp") center; }
 
 main {
@@ -174,6 +175,10 @@ main {
       background: var(--rb-background); }
   .event.rl .event-location {
     background: var(--rl-background); }
+  .event.sm {
+    background-color: #101015; }
+    .event.sm .event-location {
+      background: var(--sm-background); }
   .event.tb {
     background-color: #e8e6d4;
     color: black; }
@@ -183,10 +188,11 @@ main {
     background-color: #333333; }
     .event.tt .event-location {
       background: var(--tt-background); }
-  .event.sm {
-    background-color: #101015; }
-    .event.sm .event-location {
-      background: var(--sm-background); }
+  .event.ut {
+    background-color: #eaeaea;
+    color: #b19a71; }
+    .event.ut .event-location {
+      background: var(--ut-background); }
   .event.w2 {
     background-color: #20110e;
     color: #ffffff; }
@@ -303,6 +309,10 @@ a.more {
         background: var(--rb-background); }
     .filters label:not(.toggle).rl::before {
       background: var(--rl-background); }
+    .filters label:not(.toggle).sm {
+      background-color: #101015; }
+      .filters label:not(.toggle).sm::before {
+        background: var(--sm-background); }
     .filters label:not(.toggle).tb {
       background-color: #e8e6d4;
       color: black; }
@@ -312,10 +322,11 @@ a.more {
       background-color: #333333; }
       .filters label:not(.toggle).tt::before {
         background: var(--tt-background); }
-    .filters label:not(.toggle).sm {
-      background-color: #101015; }
-      .filters label:not(.toggle).sm::before {
-        background: var(--sm-background); }
+    .filters label:not(.toggle).ut {
+      background-color: #eaeaea;
+      color: #b19a71; }
+      .filters label:not(.toggle).ut::before {
+        background: var(--ut-background); }
     .filters label:not(.toggle).w2 {
       background-color: #20110e;
       color: #ffffff; }
@@ -336,9 +347,10 @@ a.more {
 #filter-loc-qi:checked ~ .filters label[for="filter-loc-qi"],
 #filter-loc-rb:checked ~ .filters label[for="filter-loc-rb"],
 #filter-loc-rl:checked ~ .filters label[for="filter-loc-rl"],
+#filter-loc-sm:checked ~ .filters label[for="filter-loc-sm"],
 #filter-loc-tb:checked ~ .filters label[for="filter-loc-tb"],
 #filter-loc-tt:checked ~ .filters label[for="filter-loc-tt"],
-#filter-loc-sm:checked ~ .filters label[for="filter-loc-sm"],
+#filter-loc-ut:checked ~ .filters label[for="filter-loc-ut"],
 #filter-loc-w2:checked ~ .filters label[for="filter-loc-w2"] {
   border-color: #981919; }
 
@@ -356,9 +368,10 @@ a.more {
 #filter-loc-qi:checked ~ main .event.qi,
 #filter-loc-rb:checked ~ main .event.rb,
 #filter-loc-rl:checked ~ main .event.rl,
+#filter-loc-sm:checked ~ main .event.sm,
 #filter-loc-tb:checked ~ main .event.tb,
 #filter-loc-tt:checked ~ main .event.tt,
-#filter-loc-sm:checked ~ main .event.sm,
+#filter-loc-ut:checked ~ main .event.ut,
 #filter-loc-w2:checked ~ main .event.w2 {
   display: none; }
 
