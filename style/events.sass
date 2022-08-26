@@ -13,9 +13,10 @@ body
   --qi-background: url("../img/qi-arena.png") center
   --rb-background: url("../img/red-bull-arena.png") center
   --rl-background: url("../img/rocklounge.png") center
+  --sm-background: url("../img/soltmann.png") center
   --tb-background: url("../img/tankbar.webp") center
   --tt-background: url("../img/taeubchenthal.svg") center
-  --sm-background: url("../img/soltmann.png") center
+  --ut-background: url("../img/ut.png") center
   --w2-background: url("../img/werk2.webp") center
 
 main
@@ -132,6 +133,10 @@ main
   &.rl
     .event-location
       background: var(--rl-background)
+  &.sm
+    background-color: #101015
+    .event-location
+      background: var(--sm-background)
   &.tb
     background-color: #e8e6d4
     color: black
@@ -141,10 +146,11 @@ main
     background-color: #333333
     .event-location
       background: var(--tt-background)
-  &.sm
-    background-color: #101015
+  &.ut
+    background-color: #eaeaea
+    color: #b19a71
     .event-location
-      background: var(--sm-background)
+      background: var(--ut-background)
   &.w2
     background-color: #20110e
     color: #ffffff
@@ -270,6 +276,10 @@ a.more
     &.rl
       &::before
         background: var(--rl-background)
+    &.sm
+      background-color: #101015
+      &::before
+        background: var(--sm-background)
     &.tb
       background-color: #e8e6d4
       color: black
@@ -279,10 +289,11 @@ a.more
       background-color: #333333
       &::before
         background: var(--tt-background)
-    &.sm
-      background-color: #101015
+    &.ut
+      background-color: #eaeaea
+      color: #b19a71
       &::before
-        background: var(--sm-background)
+        background: var(--ut-background)
     &.w2
       background-color: #20110e
       color: #ffffff
@@ -303,9 +314,10 @@ a.more
 #filter-loc-qi:checked ~ .filters label[for="filter-loc-qi"],
 #filter-loc-rb:checked ~ .filters label[for="filter-loc-rb"],
 #filter-loc-rl:checked ~ .filters label[for="filter-loc-rl"],
+#filter-loc-sm:checked ~ .filters label[for="filter-loc-sm"],
 #filter-loc-tb:checked ~ .filters label[for="filter-loc-tb"],
 #filter-loc-tt:checked ~ .filters label[for="filter-loc-tt"],
-#filter-loc-sm:checked ~ .filters label[for="filter-loc-sm"],
+#filter-loc-ut:checked ~ .filters label[for="filter-loc-ut"],
 #filter-loc-w2:checked ~ .filters label[for="filter-loc-w2"]
   border-color: #981919
 
@@ -323,9 +335,10 @@ a.more
 #filter-loc-qi:checked ~ main .event.qi,
 #filter-loc-rb:checked ~ main .event.rb,
 #filter-loc-rl:checked ~ main .event.rl,
+#filter-loc-sm:checked ~ main .event.sm,
 #filter-loc-tb:checked ~ main .event.tb,
 #filter-loc-tt:checked ~ main .event.tt,
-#filter-loc-sm:checked ~ main .event.sm,
+#filter-loc-ut:checked ~ main .event.ut,
 #filter-loc-w2:checked ~ main .event.w2
     display: none
 
