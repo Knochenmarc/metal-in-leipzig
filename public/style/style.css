@@ -189,7 +189,7 @@ main {
     .event.tt .event-location {
       background: var(--tt-background); }
   .event.ut {
-    background-color: #eaeaea;
+    background-color: #fff;
     color: #b19a71; }
     .event.ut .event-location {
       background: var(--ut-background); }
@@ -323,7 +323,7 @@ a.more {
       .filters label:not(.toggle).tt::before {
         background: var(--tt-background); }
     .filters label:not(.toggle).ut {
-      background-color: #eaeaea;
+      background-color: #fff;
       color: #b19a71; }
       .filters label:not(.toggle).ut::before {
         background: var(--ut-background); }
