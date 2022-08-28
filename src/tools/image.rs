@@ -1,8 +1,10 @@
 use std::env::temp_dir;
 use std::fs::{remove_file, File};
-use std::io::Write;
+use std::io::{BufReader, Write};
 use std::path::Path;
-use std::process::{Command, Stdio};
+use std::process::Command;
+
+use jpeg_decoder::Decoder;
 
 use crate::event::Image;
 use crate::tools::HTTP;
@@ -53,17 +55,16 @@ pub fn optimize_image(img: &mut Image, http: &HTTP) {
         remove_file(tmp_path).unwrap();
     }
 
-    let height: u32 = {
-        let output = Command::new("identify")
-            .args(["-format", "%h", local_path.to_str().unwrap()])
-            .stdout(Stdio::piped())
-            .spawn()
-            .expect("could not start height detection")
-            .wait_with_output()
-            .unwrap();
-        String::from_utf8(output.stdout).unwrap().parse().unwrap()
-    };
-    if height > 0 {
-        img.set_size(300, height);
+    let (width, height) = get_dimension(local_path.to_str().unwrap());
+    if width > 0 && height > 0 {
+        img.set_size(width, height);
     }
+}
+
+fn get_dimension(file_path: &str) -> (u32, u32) {
+    let file = File::open(file_path).expect("failed to open file");
+    let mut decoder = Decoder::new(BufReader::new(file));
+    decoder.read_info().expect("failed to read metadata");
+    let metadata = decoder.info().expect("failed extracting image metadata");
+    (metadata.width as u32, metadata.height as u32)
 }
