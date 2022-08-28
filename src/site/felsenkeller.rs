@@ -35,7 +35,7 @@ impl Site for Felsenkeller {
         let mut result = Vec::new();
 
         let split_name = Regex::new(r"\s&\sBand|\s[&x+|•]\s").unwrap();
-        let reg: Regex = Regex::new(r#"(?is)<div class="wp-block-columns has-3-columns.*?data-cat="\D*?".*?<img src='(?P<img>.*?)'.*?<span class="date">(?P<date>.*?)</span>.*?<p class="event-name">(?P<name>.*?)</?span.*?class="event-details">(?P<detail>.*?)data-url(?:.*?href="(?P<tix>.*?)" target="_blank">Tickets</a>)?"#).unwrap();
+        let reg: Regex = Regex::new(r#"(?is)<div class="em-event-list-item" data-cat="\D*?".*?<img width="\d+" height="\d+" src="(?P<img>.*?)".*?<span class="date">(?P<date>.*?)</span>.*?<p class="event-name">(?P<name>.*?)</?span.*?class="event-details">(?P<detail>.*?)data-url(?:.*?href="(?P<tix>.*?)" target="_blank"><span class="fa fa-ticket">)?"#).unwrap();
         let html = http.get("https://www.felsenkeller-leipzig.com/programm/");
 
         let eventim = Eventim::new("felsenkeller-leipzig-7394", http.borrow());
