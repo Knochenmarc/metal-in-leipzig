@@ -99,14 +99,13 @@ main {
     box-shadow: 0 0 0 4px #c0c0c0; }
   .event:first-line {
     line-height: 32px; }
-  .event object {
-    float: left;
-    width: 32px;
-    height: 32px; }
   .event .event-location {
+    cursor: var(--metalhand);
+    float: left;
     display: block;
     width: 32px;
     height: 32px;
+    border: 0;
     background-repeat: no-repeat !important;
     background-color: transparent !important;
     background-size: contain !important; }
