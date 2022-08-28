@@ -69,7 +69,7 @@ fn main() {
     }
 
     events.sort_by(|a, b| a.date.cmp(&b.date));
-    locations.sort_by(|a, b| b.name.cmp(&a.name));
+    locations.sort_by(|a, b| a.name.to_lowercase().cmp(&b.name.to_lowercase()));
 
     let mut grouped_events: Vec<Vec<Event>> = vec![];
     {
