@@ -61,14 +61,12 @@ impl Site for Anker<'_> {
                 if !data_events.is_empty() {
                     let data_event = data_events.first().unwrap();
 
-                    let img = data_event["image"]
+                    data_event["image"]
                         .as_array()
                         .unwrap()
                         .first()
-                        .map(|i| i.as_str().unwrap().to_string());
-                    if img.is_some() {
-                        evt.set_image(img.unwrap());
-                    }
+                        .map(|i| i.as_str().unwrap().to_string())
+                        .map(|i| evt.set_image(i));
 
                     evt.status =
                         EventStatus::from_schema(data_event["eventStatus"].as_str().unwrap());

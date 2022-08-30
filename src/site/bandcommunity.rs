@@ -40,13 +40,9 @@ impl Site for Bandcommunity<'_> {
             let url = "https://bandcommunity-leipzig.org/".to_owned() + &captures[1];
             let event_page = http.get(&url);
 
-            let mut image_url = Option::None;
-            let image_cap = img_reg.captures(event_page.as_str());
-            if image_cap.is_some() {
-                image_url = Option::Some(
-                    "https://bandcommunity-leipzig.org/".to_owned() + &image_cap.unwrap()[1],
-                );
-            }
+            let image_url = img_reg
+                .captures(event_page.as_str())
+                .map(|c| "https://bandcommunity-leipzig.org/".to_owned() + &c[1]);
 
             let mut time = NaiveTime::from_hms(0, 0, 0);
             if captures.get(4).is_some() {
