@@ -5,7 +5,7 @@ use twox_hash::xxh3::hash64;
 pub struct Event<'l> {
     pub name: String,
     pub date: NaiveDateTime,
-    pub location: &'l Location,
+    pub location: &'l Location<'l, 'l, 'l>,
     pub url: String,
     pub image: Option<Image>,
     pub bands: Vec<BandInfo>,
@@ -85,31 +85,21 @@ impl<'a> Serialize for Event<'a> {
     }
 }
 
-pub struct Location {
-    pub slug: String,
-    pub name: String,
-    pub website: String,
+pub struct Location<'s, 'n, 'w> {
+    pub slug: &'s str,
+    pub name: &'n str,
+    pub website: &'w str,
 }
 
-impl Clone for Location {
-    fn clone(&self) -> Self {
-        Self {
-            slug: self.slug.clone(),
-            name: self.name.clone(),
-            website: self.website.clone(),
-        }
-    }
-}
-
-impl Serialize for Location {
+impl Serialize for Location<'_, '_, '_> {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: Serializer,
     {
         let mut s = serializer.serialize_struct("Location", 3)?;
-        s.serialize_field("slug", &self.slug)?;
-        s.serialize_field("name", &self.name)?;
-        s.serialize_field("website", &self.website)?;
+        s.serialize_field("slug", self.slug)?;
+        s.serialize_field("name", self.name)?;
+        s.serialize_field("website", self.website)?;
         s.end()
     }
 }

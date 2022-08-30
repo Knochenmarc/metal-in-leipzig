@@ -6,25 +6,25 @@ use crate::site::parse_linked_data_events;
 use crate::tools::date::parse_iso_datetime;
 use crate::{Event, Location, Site, HTTP};
 
-pub(crate) struct Soltmann {
-    location: Location,
+pub(crate) struct Soltmann<'l> {
+    location: Location<'l, 'l, 'l>,
 }
 
-impl Soltmann {
+impl Soltmann<'_> {
     pub fn new() -> Self {
         Self {
             location: Location {
-                slug: "sm".to_string(),
-                name: "Soltmann".to_string(),
-                website: "https://www.soltmann-bar.de/".to_string(),
+                slug: "sm",
+                name: "Soltmann",
+                website: "https://www.soltmann-bar.de/",
             },
         }
     }
 }
 
-impl Site for Soltmann {
-    fn get_locations(&self) -> Vec<Location> {
-        return vec![self.location.clone()];
+impl Site for Soltmann<'_> {
+    fn get_location(&self) -> &Location {
+        self.location.borrow()
     }
 
     fn fetch_events(&self, http: &HTTP) -> Vec<Event> {

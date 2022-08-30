@@ -7,25 +7,25 @@ use crate::site::{parse_linked_data_events, Site};
 use crate::tools::date::parse_iso_datetime;
 use crate::tools::HTTP;
 
-pub struct Darkflower {
-    location: Location,
+pub struct Darkflower<'l> {
+    location: Location<'l, 'l, 'l>,
 }
 
-impl Darkflower {
+impl Darkflower<'_> {
     pub(crate) fn new() -> Self {
         Self {
             location: Location {
-                slug: "df".to_string(),
-                name: "Darkflower".to_string(),
-                website: "https://darkflower.club/".to_string(),
+                slug: "df",
+                name: "Darkflower",
+                website: "https://darkflower.club/",
             },
         }
     }
 }
 
-impl Site for Darkflower {
-    fn get_locations(&self) -> Vec<Location> {
-        return vec![self.location.clone()];
+impl Site for Darkflower<'_> {
+    fn get_location(&self) -> &Location {
+        self.location.borrow()
     }
 
     fn fetch_events(&self, http: &HTTP) -> Vec<Event> {

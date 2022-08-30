@@ -27,7 +27,7 @@ pub(crate) mod ut_connewitz;
 pub(crate) mod werk2;
 
 pub trait Site {
-    fn get_locations(&self) -> Vec<Location>;
+    fn get_location(&self) -> &Location;
     fn fetch_events(&self, http: &HTTP) -> Vec<Event>;
 }
 

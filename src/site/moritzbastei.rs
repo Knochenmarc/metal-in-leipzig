@@ -7,25 +7,25 @@ use regex::Regex;
 use crate::tools::date::parse_short_date;
 use crate::{Event, Location, Site, HTTP};
 
-pub struct Moritzbastei {
-    location: Location,
+pub struct Moritzbastei<'l> {
+    location: Location<'l, 'l, 'l>,
 }
 
-impl Moritzbastei {
+impl Moritzbastei<'_> {
     pub(crate) fn new() -> Self {
         Self {
             location: Location {
-                slug: "mb".to_string(),
-                name: "Moritzbastei".to_string(),
-                website: "https://www.moritzbastei.de/".to_string(),
+                slug: "mb",
+                name: "Moritzbastei",
+                website: "https://www.moritzbastei.de/",
             },
         }
     }
 }
 
-impl Site for Moritzbastei {
-    fn get_locations(&self) -> Vec<Location> {
-        return vec![self.location.clone()];
+impl Site for Moritzbastei<'_> {
+    fn get_location(&self) -> &Location {
+        self.location.borrow()
     }
 
     fn fetch_events(&self, http: &HTTP) -> Vec<Event> {

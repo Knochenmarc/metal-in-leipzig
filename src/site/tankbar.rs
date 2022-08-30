@@ -6,25 +6,25 @@ use regex::Regex;
 use crate::tools::date::parse_short_date;
 use crate::{Event, Location, Site, HTTP};
 
-pub(crate) struct Tankbar {
-    location: Location,
+pub(crate) struct Tankbar<'l> {
+    location: Location<'l, 'l, 'l>,
 }
 
-impl Tankbar {
+impl Tankbar<'_> {
     pub fn new() -> Self {
         Self {
             location: Location {
-                slug: "tb".to_string(),
-                name: "TankBar Leipzig".to_string(),
-                website: "https://tankbar-leipzig.de/".to_string(),
+                slug: "tb",
+                name: "TankBar Leipzig",
+                website: "https://tankbar-leipzig.de/",
             },
         }
     }
 }
 
-impl Site for Tankbar {
-    fn get_locations(&self) -> Vec<Location> {
-        return vec![self.location.clone()];
+impl Site for Tankbar<'_> {
+    fn get_location(&self) -> &Location {
+        self.location.borrow()
     }
 
     fn fetch_events(&self, http: &HTTP) -> Vec<Event> {

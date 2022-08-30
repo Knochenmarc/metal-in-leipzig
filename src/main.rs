@@ -31,7 +31,7 @@ fn main() {
     let http = HTTP::new(false);
     let insecure_http = HTTP::new(true);
 
-    let mut locations: Vec<Location> = vec![];
+    let mut locations: Vec<&Location> = vec![];
     let mut events: Vec<Event> = vec![];
 
     let sites: Vec<Box<dyn Site>> = vec![
@@ -56,7 +56,7 @@ fn main() {
     for site in &sites {
         let mut evts = site.fetch_events(http.borrow());
         if !evts.is_empty() {
-            locations.append(&mut site.get_locations());
+            locations.push(site.get_location());
 
             for event in &mut evts {
                 match &mut event.image {

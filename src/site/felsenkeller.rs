@@ -10,25 +10,25 @@ use crate::site::eventim_light::EventimLight;
 use crate::site::{metallum, spirit_of_metal, Filter, HasMetalBands, Site};
 use crate::tools::HTTP;
 
-pub struct Felsenkeller {
-    location: Location,
+pub struct Felsenkeller<'l> {
+    location: Location<'l, 'l, 'l>,
 }
 
-impl Felsenkeller {
+impl Felsenkeller<'_> {
     pub(crate) fn new() -> Self {
         Self {
             location: Location {
-                slug: "fk".to_string(),
-                name: "Felsenkeller".to_string(),
-                website: "https://felsenkeller-leipzig.com".to_string(),
+                slug: "fk",
+                name: "Felsenkeller",
+                website: "https://felsenkeller-leipzig.com",
             },
         }
     }
 }
 
-impl Site for Felsenkeller {
-    fn get_locations(&self) -> Vec<Location> {
-        return vec![self.location.clone()];
+impl Site for Felsenkeller<'_> {
+    fn get_location(&self) -> &Location {
+        self.location.borrow()
     }
 
     fn fetch_events(&self, http: &HTTP) -> Vec<Event> {

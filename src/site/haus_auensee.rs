@@ -10,17 +10,17 @@ use crate::{Event, Location, Site, HTTP};
 
 const URL: &str = "https://haus-auensee-leipzig.de/";
 
-pub struct HausAuensee {
-    location: Location,
+pub struct HausAuensee<'l> {
+    location: Location<'l, 'l, 'l>,
 }
 
-impl HausAuensee {
+impl HausAuensee<'_> {
     pub(crate) fn new() -> Self {
         Self {
             location: Location {
-                slug: "ha".to_string(),
-                name: "Haus Auensee".to_string(),
-                website: URL.to_string(),
+                slug: "ha",
+                name: "Haus Auensee",
+                website: URL,
             },
         }
     }
@@ -30,9 +30,9 @@ fn parse_int(data: Option<Match>) -> u32 {
     data.unwrap().as_str().to_string().parse().unwrap()
 }
 
-impl Site for HausAuensee {
-    fn get_locations(&self) -> Vec<Location> {
-        return vec![self.location.clone()];
+impl Site for HausAuensee<'_> {
+    fn get_location(&self) -> &Location {
+        self.location.borrow()
     }
 
     fn fetch_events(&self, http: &HTTP) -> Vec<Event> {

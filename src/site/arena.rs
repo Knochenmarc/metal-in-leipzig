@@ -11,59 +11,59 @@ use crate::tools::HTTP;
 
 const URL: &str = "https://www.quarterback-immobilien-arena.de";
 
-pub(crate) struct Arena {
-    location: Location,
+pub(crate) struct Arena<'l> {
+    location: Location<'l, 'l, 'l>,
     location_id: i8,
-    eventim_id: String,
+    eventim_id: &'l str,
 }
 
-impl Arena {
+impl Arena<'_> {
     pub(crate) fn new_red_bull() -> Self {
         Self {
             location: Location {
-                slug: "rb".to_string(),
-                name: "Red Bull Arena".to_string(),
-                website: URL.to_owned() + "/red-bull-arena",
+                slug: "rb",
+                name: "Red Bull Arena",
+                website: "https://www.quarterback-immobilien-arena.de/red-bull-arena",
             },
             location_id: 2,
-            eventim_id: "red-bull-arena-16304".to_string(),
+            eventim_id: "red-bull-arena-16304",
         }
     }
 
     pub(crate) fn new_quarterback() -> Self {
         Self {
             location: Location {
-                slug: "qi".to_string(),
-                name: "QUARTERBACK Immobilien ARENA".to_string(),
-                website: URL.to_owned() + "/quarterback-immobilien-arena",
+                slug: "qi",
+                name: "QUARTERBACK Immobilien ARENA",
+                website: "https://www.quarterback-immobilien-arena.de/quarterback-immobilien-arena",
             },
             location_id: 1,
-            eventim_id: "quarterback-immobilien-arena-leipzig-383".to_string(),
+            eventim_id: "quarterback-immobilien-arena-leipzig-383",
         }
     }
 
     pub(crate) fn new_festwiese() -> Self {
         Self {
             location: Location {
-                slug: "fw".to_string(),
-                name: "Festwiese Leipzig".to_string(),
-                website: URL.to_owned() + "/festwiese-leipzig",
+                slug: "fw",
+                name: "Festwiese Leipzig",
+                website: "https://www.quarterback-immobilien-arena.de/festwiese-leipzig",
             },
             location_id: 3,
-            eventim_id: "festwiese-leipzig-7410".to_string(),
+            eventim_id: "festwiese-leipzig-7410",
         }
     }
 }
 
-impl Site for Arena {
-    fn get_locations(&self) -> Vec<Location> {
-        return vec![self.location.clone()];
+impl Site for Arena<'_> {
+    fn get_location(&self) -> &Location {
+        self.location.borrow()
     }
 
     fn fetch_events(&self, http: &HTTP) -> Vec<Event> {
         let mut result = Vec::new();
 
-        let eventim = Eventim::new(self.eventim_id.as_str(), http.borrow());
+        let eventim = Eventim::new(self.eventim_id, http.borrow());
         let reg: Regex = Regex::new(
             "(?si)<div class=\"event\".*?<a href=\"(.*?)\">.*?<source srcset=\"(.*?)\" media=\"[(]max-width: 320px[)]\">.*?<div>\\w+,\\s+(\\d\\d\\.\\d\\d\\.\\d\\d\\d\\d)</div>.*?<h2>(.*?)</h2>",
         )
