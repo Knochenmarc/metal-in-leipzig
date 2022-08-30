@@ -68,18 +68,18 @@ fn main() {
         }
     }
 
-    events.sort_by(|a, b| a.date.cmp(&b.date));
+    events.sort_by(|a, b| a.start_date.cmp(&b.start_date));
     locations.sort_by(|a, b| a.name.to_lowercase().cmp(&b.name.to_lowercase()));
 
     let mut grouped_events: Vec<Vec<Event>> = vec![];
     {
         let mut previous_date: NaiveDate = NaiveDate::from_ymd(1970, 1, 1);
         for event in events {
-            if event.date.date().cmp(previous_date.borrow()).is_gt() {
+            if event.start_date.date().cmp(previous_date.borrow()).is_gt() {
                 grouped_events.push(Vec::new());
             }
 
-            previous_date = event.date.date();
+            previous_date = event.start_date.date();
             grouped_events.last_mut().unwrap().push(event);
         }
     }

@@ -1,20 +1,41 @@
-use chrono::{Datelike, NaiveDateTime, Utc, Weekday};
+use chrono::{Datelike, NaiveDateTime, NaiveTime, Utc, Weekday};
 use serde::ser::{Serialize, SerializeStruct, Serializer};
 use twox_hash::xxh3::hash64;
 
+enum EventType {
+    Concert,
+    Party,
+    Online,
+    Festival,
+    Unknown,
+}
+enum EventStatus {
+    Cancelled,
+    Postponed,
+    SoldOut,
+    Scheduled,
+    Unknown,
+}
+
 pub struct Event<'l> {
     pub name: String,
-    pub date: NaiveDateTime,
+    pub door_time: Option<NaiveTime>,
+    pub start_date: NaiveDateTime,
+    pub end_date: Option<NaiveDateTime>,
     pub location: &'l Location<'l, 'l, 'l>,
     pub url: String,
     pub image: Option<Image>,
     pub bands: Vec<BandInfo>,
+    pub price: Option<f32>,
+    pub evt_type: EventType,
+    pub status: EventStatus,
+    pub description: Option<String>,
 }
 
 impl<'a> Event<'a> {
     pub fn new(
         name: String,
-        date: NaiveDateTime,
+        start_date: NaiveDateTime,
         location: &'a Location,
         url: String,
         image_url: Option<String>,
@@ -28,11 +49,17 @@ impl<'a> Event<'a> {
 
         Self {
             name,
-            date,
+            door_time: None,
+            start_date,
+            end_date: None,
             location,
             url,
             image,
             bands,
+            price: None,
+            evt_type: EventType::Unknown,
+            status: EventStatus::Unknown,
+            description: None,
         }
     }
 
@@ -60,7 +87,7 @@ impl<'a> Serialize for Event<'a> {
         s.serialize_field("name", self.name.replace("\"", "&quot;").as_str())?;
         s.serialize_field("name_html", html_escape::encode_safe(&self.name).as_ref())?;
 
-        let weekday = match self.date.weekday() {
+        let weekday = match self.start_date.weekday() {
             Weekday::Mon => "Mo.",
             Weekday::Tue => "Di.",
             Weekday::Wed => "Mi.",
@@ -70,13 +97,13 @@ impl<'a> Serialize for Event<'a> {
             Weekday::Sun => "So.",
         };
         let date: String;
-        if self.date.year() == Utc::now().year() {
-            date = self.date.format(" %d.%m.").to_string();
+        if self.start_date.year() == Utc::now().year() {
+            date = self.start_date.format(" %d.%m.").to_string();
         } else {
-            date = self.date.format(" %d.%m. %Y").to_string();
+            date = self.start_date.format(" %d.%m. %Y").to_string();
         }
         s.serialize_field("date", &(weekday.to_owned() + &date))?;
-        s.serialize_field("date_slug", &self.date.format("%Y%m%d").to_string())?;
+        s.serialize_field("date_slug", &self.start_date.format("%Y%m%d").to_string())?;
 
         s.serialize_field("location", &self.location)?;
         s.serialize_field("url", &self.url)?;
@@ -119,8 +146,8 @@ impl Image {
 
         Self {
             remote_url,
-            public_avif_url: String::from("flyer/".to_owned() + &hash + ".avif"),
-            public_jpg_url: String::from("flyer/".to_owned() + &hash + ".jpg"),
+            public_avif_url: format!("flyer/{}.avif", hash),
+            public_jpg_url: format!("flyer/{}.jpg", hash),
             hash,
             width: 0,
             height: 0,

@@ -35,6 +35,10 @@ pub(crate) fn render(events: Vec<Vec<Event>>, locations: Vec<&Location>) {
         "update_time".to_string(),
         Value::String(now.format("%d.%m. %H:%M").to_string()),
     );
+    data.insert(
+        "date_modified".to_string(),
+        Value::String(now.format("%Y-%m-%dT%H:%M:S").to_string()),
+    );
     data.insert("locations".to_string(), to_json(locations));
     data.insert("event_group".to_string(), to_json(events));
 

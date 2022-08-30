@@ -52,7 +52,7 @@ impl Mawi {
 
 impl Filter for Mawi {
     fn is_it_metal(&self, evt: &Event) -> bool {
-        let date = evt.date.format("%d.%m.%Y").to_string();
+        let date = evt.start_date.format("%d.%m.%Y").to_string();
 
         match self.collected_dates.get(&*date) {
             None => false,
