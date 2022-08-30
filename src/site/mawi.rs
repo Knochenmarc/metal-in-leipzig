@@ -3,14 +3,14 @@ use std::collections::HashMap;
 use regex::Regex;
 
 use crate::site::Filter;
-use crate::{Event, HTTP};
+use crate::{Event, Http};
 
 pub struct Mawi {
     collected_dates: HashMap<String, String>,
 }
 
 impl Mawi {
-    pub fn new(location: &str, http: &HTTP) -> Self {
+    pub fn new(location: &str, http: &Http) -> Self {
         let mut event_ids = {
             let reg = Regex::new("(?i)class='grid-item framepic (?P<cat>\\d+)' data-category=''>\\s*<a href='index\\.php\\?menus_id=2&solo=1&id=(?P<id>\\d+)'").unwrap();
             let html = http.get("https://www.mawi-concert.de/index.php?menus_id=2");

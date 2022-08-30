@@ -7,7 +7,7 @@ use crate::event::{Event, Location};
 use crate::site::eventim::Eventim;
 use crate::site::{Filter, Site};
 use crate::tools::date::parse_german_date;
-use crate::tools::HTTP;
+use crate::tools::Http;
 
 pub struct Anker<'l> {
     location: Location<'l, 'l, 'l>,
@@ -30,7 +30,7 @@ impl Site for Anker<'_> {
         self.location.borrow()
     }
 
-    fn fetch_events(&self, http: &HTTP) -> Vec<Event> {
+    fn fetch_events(&self, http: &Http) -> Vec<Event> {
         let mut result = Vec::new();
 
         let eventim = Eventim::new("der-anker-leipzig-7330", http.borrow());

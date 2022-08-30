@@ -6,15 +6,15 @@ use regex::Regex;
 use crate::site::mawi::Mawi;
 use crate::site::Filter;
 use crate::tools::date::parse_german_date;
-use crate::{Event, Location, Site, HTTP};
+use crate::{Event, Http, Location, Site};
 
 pub(crate) struct Parkbuehne<'h, 'l> {
     location: Location<'l, 'l, 'l>,
-    insecure_http: &'h HTTP,
+    insecure_http: &'h Http,
 }
 
 impl<'a> Parkbuehne<'a, '_> {
-    pub fn new(insecure_http: &'a HTTP) -> Self {
+    pub fn new(insecure_http: &'a Http) -> Self {
         Self {
             location: Location {
                 slug: "pb",
@@ -31,7 +31,7 @@ impl<'a> Site for Parkbuehne<'a, '_> {
         self.location.borrow()
     }
 
-    fn fetch_events(&self, http: &HTTP) -> Vec<Event> {
+    fn fetch_events(&self, http: &Http) -> Vec<Event> {
         let html = http.get("https://www.parkbuehne-leipzig.com/wordpress/veranstaltungen/");
         let reg = Regex::new("(?is)<article\\s.*?<img\\s.*?src=\"(?P<img>.*?)\".*?<h3\\s.*?<a href=\"(?P<url>.*?)\">(?P<name>.*?)</a></h3>.*?, (?P<date>\\d\\d? [a-z]{2,3} \\d\\d\\d\\d).*?</article>").unwrap();
         let mawi = Mawi::new("Parkbühne Clara-Zetkin-Park", self.insecure_http.borrow());

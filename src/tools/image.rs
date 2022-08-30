@@ -7,15 +7,15 @@ use std::process::Command;
 use jpeg_decoder::Decoder;
 
 use crate::event::Image;
-use crate::tools::HTTP;
+use crate::tools::Http;
 
 const LOCAL_DIR: &str = "public/";
 
-pub fn optimize_image(img: &mut Image, http: &HTTP) {
+pub fn optimize_image(img: &mut Image, http: &Http) {
     let local_path = LOCAL_DIR.to_string() + &img.public_jpg_url;
     let local_path = Path::new(local_path.as_str());
 
-    if false == local_path.exists() {
+    if !local_path.exists() {
         let tmp_path = temp_dir().to_str().unwrap().to_string() + "/" + &img.hash;
         {
             let raw: Vec<u8> = http.get_raw(&img.remote_url);

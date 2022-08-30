@@ -5,7 +5,7 @@ use html_escape::decode_html_entities;
 use regex::Regex;
 
 use crate::tools::date::parse_short_date;
-use crate::{Event, Location, Site, HTTP};
+use crate::{Event, Http, Location, Site};
 
 pub struct Moritzbastei<'l> {
     location: Location<'l, 'l, 'l>,
@@ -28,7 +28,7 @@ impl Site for Moritzbastei<'_> {
         self.location.borrow()
     }
 
-    fn fetch_events(&self, http: &HTTP) -> Vec<Event> {
+    fn fetch_events(&self, http: &Http) -> Vec<Event> {
         let mut result = Vec::new();
 
         let security_token = {

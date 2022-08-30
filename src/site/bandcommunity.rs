@@ -7,7 +7,7 @@ use regex::Regex;
 use crate::event::{Event, Location};
 use crate::site::Site;
 use crate::tools::date::parse_short_date;
-use crate::tools::HTTP;
+use crate::tools::Http;
 
 pub struct Bandcommunity<'l> {
     location: Location<'l, 'l, 'l>,
@@ -30,22 +30,21 @@ impl Site for Bandcommunity<'_> {
         self.location.borrow()
     }
 
-    fn fetch_events(&self, http: &HTTP) -> Vec<Event> {
+    fn fetch_events(&self, http: &Http) -> Vec<Event> {
         let mut result = Vec::new();
         let html = http.get("https://bandcommunity-leipzig.org/blog.html");
         let reg: Regex = Regex::new("(?si)<div class=\"event layout_upcoming upcoming.*?<a\\s+href=\"(.*?)\"\\s+title=\"(.*?) [(].*?(\\d\\d\\.\\d\\d\\.\\d\\d\\d\\d)[, ]+(\\d\\d:\\d\\d)?.*?[)].*?\">") .unwrap();
         let img_reg: Regex = Regex::new("(?si)<div class=\"image\"><img src=\"(.*?)\"").unwrap();
 
         for captures in reg.captures_iter(html.as_str()) {
-            let url = "https://bandcommunity-leipzig.org/".to_owned() + &captures[1].to_string();
+            let url = "https://bandcommunity-leipzig.org/".to_owned() + &captures[1];
             let event_page = http.get(&url);
 
             let mut image_url = Option::None;
             let image_cap = img_reg.captures(event_page.as_str());
             if image_cap.is_some() {
                 image_url = Option::Some(
-                    "https://bandcommunity-leipzig.org/".to_owned()
-                        + &image_cap.unwrap()[1].to_string(),
+                    "https://bandcommunity-leipzig.org/".to_owned() + &image_cap.unwrap()[1],
                 );
             }
 

@@ -6,14 +6,14 @@ use serde_json::Value;
 
 use crate::event::Event;
 use crate::site::{parse_linked_data_events, Filter};
-use crate::tools::HTTP;
+use crate::tools::Http;
 
 pub struct Eventim {
     collected_events: Vec<Value>,
 }
 
 impl Eventim {
-    pub fn new(venue: &str, http: &HTTP) -> Self {
+    pub fn new(venue: &str, http: &Http) -> Self {
         lazy_static! {
             static ref REG: Regex = Regex::new(r#"<link rel="next" href="(.*?s)""#).unwrap();
         }
@@ -31,7 +31,7 @@ impl Eventim {
             let mut events = parse_linked_data_events(plain_html.borrow());
             collected_events.append(&mut events);
 
-            if false == REG.is_match(plain_html.borrow()) {
+            if !REG.is_match(plain_html.borrow()) {
                 break;
             }
 
@@ -61,6 +61,6 @@ impl Filter for Eventim {
             }
         }
 
-        return false;
+        false
     }
 }

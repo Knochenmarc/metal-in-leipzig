@@ -3,7 +3,7 @@ use regex::Regex;
 use serde_json::Value;
 
 use crate::event::{Event, Location};
-use crate::HTTP;
+use crate::Http;
 
 pub(crate) mod anker;
 pub(crate) mod arena;
@@ -28,7 +28,7 @@ pub(crate) mod werk2;
 
 pub trait Site {
     fn get_location(&self) -> &Location;
-    fn fetch_events(&self, http: &HTTP) -> Vec<Event>;
+    fn fetch_events(&self, http: &Http) -> Vec<Event>;
 }
 
 trait Filter {
@@ -62,7 +62,7 @@ fn parse_linked_data_events(html: &str) -> Vec<Value> {
         }
     }
 
-    return result;
+    result
 }
 
 struct HasMetalBands {}

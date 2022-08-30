@@ -4,7 +4,7 @@ use chrono::Datelike;
 use regex::Regex;
 
 use crate::tools::date::parse_german_date;
-use crate::{Event, Location, Site, HTTP};
+use crate::{Event, Http, Location, Site};
 
 const URL: &str = "https://www.werk-2.de";
 
@@ -29,7 +29,7 @@ impl Site for Werk2<'_> {
         self.location.borrow()
     }
 
-    fn fetch_events(&self, http: &HTTP) -> Vec<Event> {
+    fn fetch_events(&self, http: &Http) -> Vec<Event> {
         let mut result = Vec::new();
 
         let reg = Regex::new("(?is)<div class='monat'>(?P<month>.*?)</div>.*?<div class='tag'>(?P<day>\\d\\d)</div>.*?<p class='typen'>(?P<typen>.*?)</p>.*?<h2><a href='(?P<url>.*?)'>(?P<name>.*?)</a>.*?<img .*?src='(?P<img>.*?)'").unwrap();
@@ -50,7 +50,7 @@ impl Site for Werk2<'_> {
                 let img = captures.name("img").unwrap().as_str();
                 let typen = captures.name("typen").unwrap().as_str();
 
-                if has_december == false && month == "Dezember" {
+                if !has_december && month == "Dezember" {
                     has_december = true;
                 }
 

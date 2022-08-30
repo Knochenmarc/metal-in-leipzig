@@ -8,7 +8,7 @@ use crate::event::{Event, Location};
 use crate::site::eventim::Eventim;
 use crate::site::eventim_light::EventimLight;
 use crate::site::{metallum, spirit_of_metal, Filter, HasMetalBands, Site};
-use crate::tools::HTTP;
+use crate::tools::Http;
 
 pub struct Felsenkeller<'l> {
     location: Location<'l, 'l, 'l>,
@@ -31,7 +31,7 @@ impl Site for Felsenkeller<'_> {
         self.location.borrow()
     }
 
-    fn fetch_events(&self, http: &HTTP) -> Vec<Event> {
+    fn fetch_events(&self, http: &Http) -> Vec<Event> {
         let mut result = Vec::new();
 
         let split_name = Regex::new(r"\s&\sBand|\s[&x+|•]\s").unwrap();
@@ -63,10 +63,9 @@ impl Site for Felsenkeller<'_> {
                 raw_date[0..2].parse().unwrap(),
             );
 
-            let image = match captures.name("img") {
-                None => None,
-                Some(payload) => Some(payload.as_str().to_string()),
-            };
+            let image = captures
+                .name("img")
+                .map(|payload| payload.as_str().to_string());
 
             let name = {
                 let mut name =
@@ -89,7 +88,7 @@ impl Site for Felsenkeller<'_> {
 
             let chunks: Vec<&str> = split_name.split(name.as_str()).collect();
             for chunk in chunks {
-                if chunk != ""
+                if !chunk.is_empty()
                     && !chunk.contains("Tour")
                     && !chunk.contains("TOUR")
                     && !chunk.contains("Live")

@@ -6,7 +6,7 @@ use regex::{Match, Regex};
 
 use crate::site::eventim::Eventim;
 use crate::site::{metallum, spirit_of_metal, Filter, HasMetalBands};
-use crate::{Event, Location, Site, HTTP};
+use crate::{Event, Http, Location, Site};
 
 const URL: &str = "https://haus-auensee-leipzig.de/";
 
@@ -35,7 +35,7 @@ impl Site for HausAuensee<'_> {
         self.location.borrow()
     }
 
-    fn fetch_events(&self, http: &HTTP) -> Vec<Event> {
+    fn fetch_events(&self, http: &Http) -> Vec<Event> {
         let mut result = Vec::new();
 
         let html = http.get(&*(URL.to_string() + "/?categorie=1"));
@@ -73,7 +73,7 @@ impl Site for HausAuensee<'_> {
             );
 
             for chunk in split_reg.split(name.as_str()) {
-                if chunk != "" {
+                if !chunk.is_empty() {
                     evt.add_band(chunk.to_string());
                 }
             }
