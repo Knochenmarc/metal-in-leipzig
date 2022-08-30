@@ -1,11 +1,12 @@
 use std::borrow::Borrow;
 
+use chrono::NaiveDateTime;
 use html_escape::decode_html_entities;
 use regex::Regex;
 
-use crate::event::{Event, Location};
+use crate::event::{Event, EventStatus, EventType, Location};
 use crate::site::eventim::Eventim;
-use crate::site::{Filter, Site};
+use crate::site::{parse_linked_data_events, Filter, Site};
 use crate::tools::date::parse_german_date;
 use crate::tools::Http;
 
@@ -35,48 +36,59 @@ impl Site for Anker<'_> {
 
         let eventim = Eventim::new("der-anker-leipzig-7330", http.borrow());
 
-        let api = http.get_json(
-            "https://anker-leipzig.de/wp-json/wp/v2/event_listing?per_page=100"
-                .to_string()
-                .as_str(),
-        );
-        let api_items = api.as_array().unwrap();
-
-        // api doesnt provide actual dates :(
         let html = http.get("https://anker-leipzig.de/va/veranstaltungen/");
-        let reg: Regex = Regex::new("(?si)wpem-single-event-widget.*?<a href=\"(.*?)\".*?wpem-event-date-time-text\">.*?,\\s(.*?)<").unwrap();
+        let reg: Regex = Regex::new(
+            "(?si)wpem-single-event-widget.*?<a href=\"(?P<url>.*?)\".*?<h3 class=\"wpem-heading-text\" title=\"(?P<title>.*?)\">.*?wpem-event-date-time-text\">.*?,\\s(?P<date>.*?)<",
+        )
+        .unwrap();
 
         for captures in reg.captures_iter(html.as_str()) {
-            let html_link = captures[1].to_string();
+            let name = captures.name("title").unwrap().as_str();
+            let date = captures.name("date").unwrap().as_str();
+            let url = captures.name("url").unwrap().as_str();
 
-            'api_loop: for item in api_items {
-                let api_link = item["link"].as_str().unwrap().to_string();
-                if api_link.eq(&html_link) {
-                    let name = item["title"]["rendered"].as_str().unwrap().to_string();
-                    let mut evt = Event::new(
-                        decode_html_entities(&name).to_string(),
-                        parse_german_date(&captures[2]).and_hms(0, 0, 0),
-                        self.location.borrow(),
-                        api_link,
-                        None,
-                    );
+            let mut evt = Event::new(
+                decode_html_entities(name).to_string(),
+                parse_german_date(date).and_hms(0, 0, 0),
+                self.location.borrow(),
+                url.to_string(),
+                None,
+            );
 
-                    if eventim.is_it_metal(evt.borrow()) {
-                        match item["_links"]["wp:featuredmedia"][0]["href"].as_str() {
-                            None => (),
-                            Some(url) => evt.set_image(
-                                http.get_json(url)["guid"]["rendered"]
-                                    .as_str()
-                                    .unwrap()
-                                    .to_string(),
-                            ),
-                        };
+            if eventim.is_it_metal(evt.borrow()) {
+                let sub_html = http.get(url);
+                let data_events = parse_linked_data_events(sub_html.as_str());
+                if !data_events.is_empty() {
+                    let data_event = data_events.first().unwrap();
 
-                        result.push(evt);
+                    let img = data_event["image"]
+                        .as_array()
+                        .unwrap()
+                        .first()
+                        .map(|i| i.as_str().unwrap().to_string());
+                    if img.is_some() {
+                        evt.set_image(img.unwrap());
                     }
 
-                    break 'api_loop;
+                    evt.status =
+                        EventStatus::from_schema(data_event["eventStatus"].as_str().unwrap());
+                    evt.start_date = NaiveDateTime::parse_from_str(
+                        data_event["startDate"].as_str().unwrap(),
+                        "%Y-%m-%d %H:%M:%S",
+                    )
+                    .unwrap()
                 }
+                if sub_html.contains("event-category konzert") {
+                    evt.evt_type = EventType::Concert;
+                }
+
+                if name.to_lowercase().starts_with("abgesagt!") {
+                    evt.status = EventStatus::Cancelled;
+                } else if name.to_lowercase().starts_with("ausverkauft") {
+                    evt.status = EventStatus::SoldOut;
+                }
+
+                result.push(evt);
             }
         }
 

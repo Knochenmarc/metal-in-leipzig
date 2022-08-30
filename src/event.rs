@@ -17,6 +17,18 @@ pub enum EventStatus {
     Unknown,
 }
 
+impl EventStatus {
+    pub fn from_schema(status: &str) -> Self {
+        match status {
+            "EventScheduled" => Self::Scheduled,
+            "EventCancelled" => Self::Cancelled,
+            "EventPostponed" => Self::Postponed,
+            "EventRescheduled" => Self::Postponed,
+            _ => Self::Unknown,
+        }
+    }
+}
+
 pub struct Event<'l> {
     pub name: String,
     pub door_time: Option<NaiveTime>,
