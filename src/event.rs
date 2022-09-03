@@ -20,10 +20,14 @@ pub enum EventStatus {
 impl EventStatus {
     pub fn from_schema(status: &str) -> Self {
         match status {
-            "EventScheduled" => Self::Scheduled,
             "EventCancelled" => Self::Cancelled,
             "EventPostponed" => Self::Postponed,
             "EventRescheduled" => Self::Postponed,
+            "EventScheduled" => Self::Scheduled,
+            "https://schema.org/EventCancelled" => Self::Cancelled,
+            "https://schema.org/EventPostponed" => Self::Postponed,
+            "https://schema.org/EventRescheduled" => Self::Postponed,
+            "https://schema.org/EventScheduled" => Self::Scheduled,
             _ => Self::Unknown,
         }
     }
