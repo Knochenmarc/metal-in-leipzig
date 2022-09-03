@@ -33,7 +33,7 @@ impl Site for Taeubchenthal<'_> {
     fn fetch_events(&self, http: &Http) -> Vec<Event> {
         let mut result = Vec::new();
 
-        let html = http.get(&*(URL.to_string() + "programm"));
+        let html = http.get(&*(URL.to_string() + "programm")).unwrap();
         let reg = Regex::new("(?is)<div class=\"event event--list.*?<img src=\"(?P<img>.*?)\".*?<h2><a href=\"(?P<url>programm/.*?)\".*?>(?P<name>.*?)</a></h2>.*?<time datetime=\"(?P<date>.*?)\">").unwrap();
 
         let eventim = Eventim::new("taeubchenthal-leipzig-18055", http.borrow());

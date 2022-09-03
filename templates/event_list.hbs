@@ -8,12 +8,14 @@
                                     target="_blank" class="event {{this.location.slug}}">
                     {{this.name_html}}
                     {{#if this.image}}
-                        <picture class="event-img">
-                            <source srcset="{{this.image.public_avif_url}}" type="image/avif">
-                            <img src="{{this.image.public_jpg_url}}" alt="{{this.name}}"
-                                 width="{{this.image.width}}" height="{{this.image.height}}"
-                                 {{#if @../index }}loading="lazy"{{/if}} />
-                        </picture>
+                        {{#if this.image.height}}
+                            <picture class="event-img">
+                                <source srcset="{{this.image.public_avif_url}}" type="image/avif">
+                                <img src="{{this.image.public_jpg_url}}" alt="{{this.name}}"
+                                     width="{{this.image.width}}" height="{{this.image.height}}"
+                                     {{#if @../index }}loading="lazy"{{/if}} />
+                            </picture>
+                        {{/if}}
                     {{/if}}
                 </a>
             {{/each}}

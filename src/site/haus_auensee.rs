@@ -38,7 +38,7 @@ impl Site for HausAuensee<'_> {
     fn fetch_events(&self, http: &Http) -> Vec<Event> {
         let mut result = Vec::new();
 
-        let html = http.get(&*(URL.to_string() + "/?categorie=1"));
+        let html = http.get(&*(URL.to_string() + "/?categorie=1")).unwrap();
 
         let wrap_reg = Regex::new("(?is)<div class=\"md-col md-col-8\">.*?</a>\\s+</div>").unwrap();
         let main_reg = Regex::new(
@@ -84,7 +84,7 @@ impl Site for HausAuensee<'_> {
             }
 
             if eventim.is_it_metal(evt.borrow()) || has_metal_band.is_it_metal(evt.borrow()) {
-                let sub_page = http.get(url.as_str());
+                let sub_page = http.get(url.as_str()).unwrap();
                 match image_reg.captures(sub_page.as_str()) {
                     None => {}
                     Some(cap) => {

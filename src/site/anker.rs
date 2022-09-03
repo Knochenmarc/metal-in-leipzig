@@ -36,7 +36,9 @@ impl Site for Anker<'_> {
 
         let eventim = Eventim::new("der-anker-leipzig-7330", http.borrow());
 
-        let html = http.get("https://anker-leipzig.de/va/veranstaltungen/");
+        let html = http
+            .get("https://anker-leipzig.de/va/veranstaltungen/")
+            .unwrap();
         let reg: Regex = Regex::new(
             "(?si)wpem-single-event-widget.*?<a href=\"(?P<url>.*?)\".*?<h3 class=\"wpem-heading-text\" title=\"(?P<title>.*?)\">.*?wpem-event-date-time-text\">.*?,\\s(?P<date>.*?)<",
         )
@@ -56,7 +58,7 @@ impl Site for Anker<'_> {
             );
 
             if eventim.is_it_metal(evt.borrow()) {
-                let sub_html = http.get(url);
+                let sub_html = http.get(url).unwrap();
                 let data_events = parse_linked_data_events(sub_html.as_str());
                 if !data_events.is_empty() {
                     let data_event = data_events.first().unwrap();

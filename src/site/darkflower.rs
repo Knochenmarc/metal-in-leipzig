@@ -30,7 +30,9 @@ impl Site for Darkflower<'_> {
 
     fn fetch_events(&self, http: &Http) -> Vec<Event> {
         let mut result = Vec::new();
-        let json = http.get_json("https://darkflower.club/wp-json/wp/v2/pages/932");
+        let json = http
+            .get_json("https://darkflower.club/wp-json/wp/v2/pages/932")
+            .unwrap();
         let html = json["content"]["rendered"].as_str().unwrap();
         for data_event in parse_linked_data_events(html) {
             let name = data_event["name"].as_str().unwrap();

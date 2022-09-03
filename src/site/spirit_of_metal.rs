@@ -17,16 +17,18 @@ pub fn find_band(band: &mut BandInfo, http: &Http) {
         return;
     }
 
-    let html = http.get(
-        format!(
-            "{}{}{}{}",
-            r"https://www.spirit-of-metal.com/liste_groupe.php?recherche_groupe=",
-            name,
-            r"&lettre=",
-            name
+    let html = http
+        .get(
+            format!(
+                "{}{}{}{}",
+                r"https://www.spirit-of-metal.com/liste_groupe.php?recherche_groupe=",
+                name,
+                r"&lettre=",
+                name
+            )
+            .as_str(),
         )
-        .as_str(),
-    );
+        .unwrap();
     let res: Vec<Captures> = REG.captures_iter(html.as_str()).collect();
     if res.len() == 1 {
         let first = res.first().unwrap();
