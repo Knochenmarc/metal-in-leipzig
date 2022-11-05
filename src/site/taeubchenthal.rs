@@ -48,7 +48,7 @@ impl Site for Taeubchenthal<'_> {
 
             let mut evt = Event::new(
                 name.to_string(),
-                parse_iso_datetime(date),
+                parse_iso_datetime(date).unwrap(),
                 self.location.borrow(),
                 URL.to_owned() + &capture.name("url").unwrap().as_str(),
                 Some(URL.to_owned() + &capture.name("img").unwrap().as_str()),

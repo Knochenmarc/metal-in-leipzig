@@ -38,7 +38,7 @@ impl Site for Soltmann<'_> {
         for data_event in events {
             let evt = Event::new(
                 decode_html_entities(data_event["name"].as_str().unwrap()).replace("@Soltmann", ""),
-                parse_iso_datetime(data_event["startDate"].as_str().unwrap()),
+                parse_iso_datetime(data_event["startDate"].as_str().unwrap()).unwrap(),
                 self.location.borrow(),
                 data_event["url"].as_str().unwrap().to_string(),
                 Some(data_event["image"].as_str().unwrap().to_string()),
