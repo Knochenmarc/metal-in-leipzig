@@ -94,11 +94,11 @@ impl Site for UTConnewitz<'_> {
                     month = capture.name("month").unwrap().as_str().trim();
                 }
 
-                if !had_december && month == "Dezember" {
+                if !had_december && month == "December" {
                     had_december = true;
                 }
 
-                let year = if had_december && month != "Dezember" {
+                let year = if had_december && month != "December" {
                     next_year
                 } else {
                     this_year
