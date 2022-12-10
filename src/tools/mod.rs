@@ -5,7 +5,6 @@ use std::time::Duration;
 
 use reqwest::blocking::{Client, ClientBuilder};
 use reqwest::header::{HeaderMap, HeaderValue};
-use reqwest::redirect::Policy;
 use reqwest::Error;
 use serde_json::Value;
 
@@ -36,7 +35,6 @@ impl Http {
         headers.insert("Cache-Control", HeaderValue::from_static("no-cache"));
 
         let builder = ClientBuilder::new()
-            .redirect(Policy::limited(20))
             .default_headers(headers)
             .pool_max_idle_per_host(0) // https://github.com/hyperium/hyper/issues/2136#issuecomment-861826148
             .danger_accept_invalid_certs(accepts_invalid_certs);

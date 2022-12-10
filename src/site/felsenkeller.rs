@@ -6,7 +6,6 @@ use regex::Regex;
 
 use crate::event::{Event, Location};
 use crate::site::eventim::Eventim;
-use crate::site::eventim_light::EventimLight;
 use crate::site::{metallum, spirit_of_metal, Filter, HasMetalBands, Site};
 use crate::tools::Http;
 
@@ -41,8 +40,6 @@ impl Site for Felsenkeller<'_> {
             .unwrap();
 
         let eventim = Eventim::new("felsenkeller-leipzig-7394", http.borrow());
-        let eventim_light =
-            EventimLight::new("573474f9e4b0e47b2924e6a3".to_string(), http.borrow());
         let has_metal_band = HasMetalBands {};
 
         let this_year = chrono::Utc::now().year();
@@ -73,6 +70,7 @@ impl Site for Felsenkeller<'_> {
                 let mut name =
                     decode_html_entities(captures.name("name").unwrap().as_str()).to_string();
                 name = name.replace(" (Ausverkauft)", "");
+                name = name.replace("Ausverkauft: ", "");
                 name = name.replace("Abgesagt: ", "");
                 name = name.replace("Vortrag: ", "");
                 name = name.replace("Verschoben: ", "");
@@ -113,8 +111,6 @@ impl Site for Felsenkeller<'_> {
                 Some(m) => m.as_str(),
             };
             if (tix_url.contains("www.eventim.de") && eventim.is_it_metal(evt.borrow()))
-                || (tix_url.contains("eventim-light.com")
-                    && eventim_light.is_it_metal(evt.borrow()))
                 || tix_url.contains("impericon.com")
                 || detail.contains("Avocado Booking")
                 || detail.contains("metal.de")

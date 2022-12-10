@@ -11,7 +11,6 @@ pub(crate) mod bandcommunity;
 pub(crate) mod conne_island;
 pub(crate) mod darkflower;
 mod eventim;
-mod eventim_light;
 pub(crate) mod felsenkeller;
 pub(crate) mod haus_auensee;
 pub(crate) mod hellraiser;
