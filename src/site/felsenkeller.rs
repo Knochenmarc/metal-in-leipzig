@@ -34,7 +34,7 @@ impl Site for Felsenkeller<'_> {
         let mut result = Vec::new();
 
         let split_name = Regex::new(r"\s&\sBand|\s[&x+|•]\s").unwrap();
-        let reg: Regex = Regex::new(r#"(?is)<div class="em-event-list-item" data-cat="\D*?".*?<img width="\d+" height="\d+" src="(?P<img>.*?)".*?<span class="date">(?P<date>.*?)</span>.*?<p class="event-name">(?P<name>.*?)</?span.*?class="event-details">(?P<detail>.*?)data-url(?:.*?href="(?P<tix>.*?)" target="_blank"><span class="fa fa-ticket">)?"#).unwrap();
+        let reg: Regex = Regex::new(r#"(?is)<div class="em-event-list-item" data-cat="\D*?".*?<img width="\d+" height="\d+" src="(?P<img>.*?)".*?<span class="date">(?P<date>.*?)</span>.*?<p class="event-name">(?P<name>.*?)</?span.*?class="event-details">(?P<detail>.*?)event-actions(?:.*?href="(?P<tix>.*?)" target="_blank"><span class="fa fa-ticket">)?"#).unwrap();
         let html = http
             .get("https://www.felsenkeller-leipzig.com/programm/")
             .unwrap();
@@ -75,6 +75,9 @@ impl Site for Felsenkeller<'_> {
                 name = name.replace("Vortrag: ", "");
                 name = name.replace("Verschoben: ", "");
                 name = name.replace("Kultursommer: ", "");
+                name = name.replace("verlegt: ", "");
+                name = name.replace("Verlegt: ", "");
+                name = name.replace("Hochverlegt: ", "");
                 name.trim().to_string()
             };
 
@@ -110,12 +113,20 @@ impl Site for Felsenkeller<'_> {
                 None => "",
                 Some(m) => m.as_str(),
             };
-            if (tix_url.contains("www.eventim.de") && eventim.is_it_metal(evt.borrow()))
-                || tix_url.contains("impericon.com")
+
+            if tix_url.contains("impericon.com")
                 || detail.contains("Avocado Booking")
                 || detail.contains("metal.de")
-                || (has_metal_band.is_it_metal(evt.borrow())
-                    && !detail.to_lowercase().contains("pop-band"))
+            {
+                result.push(evt);
+            } else if tix_url.contains("www.eventim.de")
+                || tix_url.contains("landstreicher-konzerte.de")
+            {
+                if eventim.is_it_metal(evt.borrow()) {
+                    result.push(evt);
+                }
+            } else if has_metal_band.is_it_metal(evt.borrow())
+                && !detail.to_lowercase().contains("pop-band")
             {
                 result.push(evt);
             }
