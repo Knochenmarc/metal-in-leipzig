@@ -36,22 +36,24 @@ impl Site for Darkflower<'_> {
         let html = json["content"]["rendered"].as_str().unwrap();
         for data_event in parse_linked_data_events(html) {
             let name = data_event["name"].as_str().unwrap();
-            let date = parse_iso_datetime(data_event["startDate"].as_str().unwrap());
-            match date {
-                Ok(start_date) => {
-                    result.push(Event::new(
-                        decode_html_entities(decode_html_entities(name).to_mut()).to_string(),
-                        start_date,
-                        self.location.borrow(),
-                        data_event["url"].as_str().unwrap().to_string(),
-                        Option::Some(data_event["image"].as_str().unwrap().to_string()),
-                    ));
-                }
-                Err(_) => {
-                    println!(
-                        "[df] error parsing date: {}",
-                        data_event["startDate"].as_str().unwrap()
-                    )
+            if !name.contains("Darkflower Electro Party") {
+                let date = parse_iso_datetime(data_event["startDate"].as_str().unwrap());
+                match date {
+                    Ok(start_date) => {
+                        result.push(Event::new(
+                            decode_html_entities(decode_html_entities(name).to_mut()).to_string(),
+                            start_date,
+                            self.location.borrow(),
+                            data_event["url"].as_str().unwrap().to_string(),
+                            Option::Some(data_event["image"].as_str().unwrap().to_string()),
+                        ));
+                    }
+                    Err(_) => {
+                        println!(
+                            "[df] error parsing date: {}",
+                            data_event["startDate"].as_str().unwrap()
+                        )
+                    }
                 }
             }
         }
