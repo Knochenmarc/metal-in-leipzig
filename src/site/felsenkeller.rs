@@ -56,11 +56,12 @@ impl Site for Felsenkeller<'_> {
             } else {
                 this_year
             };
-            let date = NaiveDate::from_ymd(
+            let date = NaiveDate::from_ymd_opt(
                 year,
                 raw_date[3..5].parse().unwrap(),
                 raw_date[0..2].parse().unwrap(),
-            );
+            )
+            .unwrap();
 
             let image = captures
                 .name("img")
@@ -83,7 +84,7 @@ impl Site for Felsenkeller<'_> {
 
             let mut evt = Event::new(
                 name.clone(),
-                date.and_hms(0, 0, 0),
+                date.and_hms_opt(0, 0, 0).unwrap(),
                 self.location.borrow(),
                 "https://www.felsenkeller-leipzig.com/programm/".to_string(),
                 image,

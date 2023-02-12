@@ -66,7 +66,10 @@ impl Site for HausAuensee<'_> {
             let url = URL.to_string() + &*captures.name("url").unwrap().as_str().to_string();
             let mut evt = Event::new(
                 name.clone(),
-                NaiveDate::from_ymd(2000 + year, month, day).and_hms(0, 0, 0),
+                NaiveDate::from_ymd_opt(2000 + year, month, day)
+                    .unwrap()
+                    .and_hms_opt(0, 0, 0)
+                    .unwrap(),
                 self.location.borrow(),
                 url.clone(),
                 None,

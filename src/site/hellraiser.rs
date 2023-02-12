@@ -46,7 +46,9 @@ impl Site for Hellraiser<'_> {
 
                 let evt = Event::new(
                     decode_html_entities(name.as_str()).to_string(),
-                    parse_german_date(capture.name("date").unwrap().as_str()).and_hms(0, 0, 0),
+                    parse_german_date(capture.name("date").unwrap().as_str())
+                        .and_hms_opt(0, 0, 0)
+                        .unwrap(),
                     self.location.borrow(),
                     capture.name("url").unwrap().as_str().to_string(),
                     Some(capture.name("img").unwrap().as_str().to_string()),

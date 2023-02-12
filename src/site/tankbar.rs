@@ -41,7 +41,7 @@ impl Site for Tankbar<'_> {
 
                 result.push(Event::new(
                     decode_html_entities(name.trim()).to_string(),
-                    parse_short_date(&*(date.to_owned() + "20" + year)).and_hms(0, 0, 0),
+                    parse_short_date(&*(date.to_owned() + "20" + year)),
                     self.location.borrow(),
                     "https://tankbar-leipzig.de/tankevents/".to_string(),
                     None,
