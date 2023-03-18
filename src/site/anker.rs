@@ -33,6 +33,7 @@ impl Site for Anker<'_> {
 
     fn fetch_events(&self, http: &Http) -> Vec<Event> {
         let mut result = Vec::new();
+        let mut collected_events = Vec::new();
 
         let eventim = Eventim::new("der-anker-leipzig-7330", http.borrow());
 
@@ -57,18 +58,20 @@ impl Site for Anker<'_> {
                 None,
             );
 
-            if eventim.is_it_metal(evt.borrow()) {
+            if !collected_events.contains(&url.to_string()) && eventim.is_it_metal(evt.borrow()) {
                 let sub_html = http.get(url).unwrap();
                 let data_events = parse_linked_data_events(sub_html.as_str());
                 if !data_events.is_empty() {
                     let data_event = data_events.first().unwrap();
 
-                    data_event["image"]
+                    if let Some(i) = data_event["image"]
                         .as_array()
                         .unwrap()
                         .first()
                         .map(|i| i.as_str().unwrap().to_string())
-                        .map(|i| evt.set_image(i));
+                    {
+                        evt.set_image(i)
+                    }
 
                     evt.status =
                         EventStatus::from_schema(data_event["eventStatus"].as_str().unwrap());
@@ -89,6 +92,7 @@ impl Site for Anker<'_> {
                 }
 
                 result.push(evt);
+                collected_events.push(url.to_string());
             }
         }
 
