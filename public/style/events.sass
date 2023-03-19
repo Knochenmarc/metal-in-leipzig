@@ -21,7 +21,7 @@ body
   --w2-background: url("../img/werk2.webp") center
 
 main
-  margin-top: 7px
+  margin-top: -12px
 
 .events
   padding-left: 80px
@@ -167,9 +167,17 @@ main
   display: none
 
 .filters
+  position: relative
+  top: -20px
+  width: 200px
+  display: inline-block
+  &[open]
+    width: 100%
+
   summary
     color: white
     cursor: var(--metalhand)
+    display: inline-list-item
 
   label
     color: white
