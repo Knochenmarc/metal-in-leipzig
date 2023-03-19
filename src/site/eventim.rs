@@ -49,15 +49,30 @@ impl Eventim {
 
 impl Filter for Eventim {
     fn is_it_metal(&self, evt: &Event) -> bool {
-        let date = evt.start_date.format("%Y-%m-%d").to_string();
-        let date = date.as_str();
+        let event_name = evt.name.to_lowercase();
         for collected_event in &self.collected_events {
-            if collected_event["startDate"]
+            let eventim_name = collected_event["name"].as_str().unwrap().to_lowercase();
+            let performer_name = collected_event["performer"]["name"]
                 .as_str()
                 .unwrap()
-                .starts_with(date)
+                .to_lowercase();
+
+            if eventim_name.contains(&event_name)
+                || event_name.contains(&eventim_name)
+                || performer_name.contains(&event_name)
+                || event_name.contains(&performer_name)
             {
                 return true;
+            }
+            for band in evt.bands.iter() {
+                let band_name = band.name.to_lowercase();
+                if eventim_name.contains(&band_name)
+                    || band_name.contains(&eventim_name)
+                    || performer_name.contains(&band_name)
+                    || band_name.contains(&performer_name)
+                {
+                    return true;
+                }
             }
         }
 
