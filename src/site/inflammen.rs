@@ -40,7 +40,7 @@ impl Site for InFlammen<'_> {
         );
         evt.end_date = Some(NaiveDateTime::new(
             NaiveDate::from_ymd_opt(2023, 7, 15).unwrap(),
-            NaiveTime::default(),
+            NaiveTime::from_hms_opt(23, 59, 00).unwrap(),
         ));
         evt.evt_type = EventType::Festival;
 
