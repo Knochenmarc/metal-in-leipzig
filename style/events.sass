@@ -21,7 +21,7 @@ body
   --w2-background: url("../img/werk2.webp") center
 
 main
-  margin-top: 7px
+  margin-top: -12px
 
 .events
   padding-left: 80px
@@ -167,26 +167,19 @@ main
   display: none
 
 .filters
-  overflow: hidden
-  height: 1.1em
+  position: relative
+  top: -20px
+  width: 200px
+  display: inline-block
+  &[open]
+    width: 100%
 
-  label.toggle
-    display: block
+  summary
     color: white
     cursor: var(--metalhand)
-    &:before, &:after
-      content: "➤"
-      display: inline-block
-      margin: 0 4px 0 3px
+    display: inline-list-item
 
-  .toggle-down
-    &:before, &:after
-      transform: rotate(90deg)
-  .toggle-up
-    &:before, &::after
-      transform: rotate(-90deg)
-
-  label:not(.toggle)
+  label
     color: white
     padding-right: 1px
     margin: 1px
