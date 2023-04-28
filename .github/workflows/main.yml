@@ -47,7 +47,7 @@ jobs:
         run: cargo run --release
 
       - name: Minify
-        uses: anthonyftwang/minify-action@v1.0.1
+        uses: dra1ex/minify-action@v1.0.3
 
       # https://dev.to/pierresaid/deploy-node-projects-to-github-pages-with-github-actions-4jco
       - name: Deploy 🚀
