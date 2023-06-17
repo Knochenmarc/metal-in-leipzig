@@ -1,5 +1,7 @@
 # [![metal-in-leipzig.de](public/img/logo.svg "metal-in-leipzig.de")](https://metal-in-leipzig.de)
 
+[![build page](https://github.com/Knochenmarc/metal-in-leipzig/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/Knochenmarc/metal-in-leipzig/actions/workflows/main.yml)
+
 ### About
 EN: This projects generates a static website of metal music events in Leipzig (Germany).
 

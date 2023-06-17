@@ -1,5 +1,7 @@
 use std::borrow::Borrow;
 
+use html_escape::decode_html_entities;
+
 use crate::event::{Event, EventStatus, EventType, Location};
 use crate::site::{parse_linked_data_events, Site};
 use crate::tools::date::parse_iso_datetime;
@@ -37,7 +39,7 @@ impl Site for Bandcommunity<'_> {
             if !description.contains("Rapper") && !description.contains("HipHop") {
                 let name = data_event["name"].as_str().unwrap();
                 let mut evt = Event::new(
-                    name.to_string(),
+                    decode_html_entities(name).to_string(),
                     parse_iso_datetime(data_event["startDate"].as_str().unwrap()).unwrap(),
                     self.location.borrow(),
                     data_event["url"].as_str().unwrap().to_string(),
