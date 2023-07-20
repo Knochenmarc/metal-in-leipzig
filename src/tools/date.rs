@@ -12,6 +12,7 @@ pub fn parse_german_date(str: &str) -> NaiveDate {
     str = str.replace(" Jan ", " January ");
     str = str.replace(" Feb ", " February ");
     str = str.replace(" Mär ", " March ");
+    str = str.replace(" Mrz ", " March ");
     str = str.replace(" Apr ", " April ");
     str = str.replace(" Jun ", " June ");
     str = str.replace(" Jul ", " July ");
