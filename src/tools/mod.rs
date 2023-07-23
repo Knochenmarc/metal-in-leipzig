@@ -54,12 +54,17 @@ impl Http {
                     response.copy_to(&mut buf).unwrap();
                     Ok(buf)
                 }
-                Err(a) => Err(a),
+                Err(error) => {
+                    if error.is_status() && error.status().unwrap().to_string() == "520" {
+                        sleep(Duration::from_secs(5));
+                        self.get_raw(url)
+                    } else {
+                        Err(error)
+                    }
+                }
             },
             Err(error) => {
-                if error.is_timeout()
-                    || error.is_status() && error.status().unwrap().to_string() == "520"
-                {
+                if error.is_timeout() {
                     sleep(Duration::from_secs(5));
                     self.get_raw(url)
                 } else {
