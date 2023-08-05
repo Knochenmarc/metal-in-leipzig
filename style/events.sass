@@ -2,7 +2,6 @@ body
   --ank-background: url("../img/anker.webp") center
   --bc-background: url("../img/bandhaus.png") center
   --ci-background: url("../img/conne_island.webp") -1px
-  --df-background: url("../img/darkflower.png") center
   --fk-background: url("../img/felsenkeller.webp") center
   --fw-background: url("../img/festwiese.png") center
   --ha-background: url("../img/hausauensee.jpg") center
@@ -10,12 +9,12 @@ body
   --if-background: url("../img/inflammen.webp") center
   --lm-background: url("../img/messe.webp") center
   --mb-background: url("../img/moritzbastei.png") center
+  --noel-background: url("../img/noel.png") center
   --pb-background: url("../img/parkbuehne.png") center
   --qi-background: url("../img/qi-arena.png") center
   --rb-background: url("../img/red-bull-arena.png") center
   --rl-background: url("../img/rocklounge.png") center
   --sm-background: url("../img/soltmann.png") center
-  --tb-background: url("../img/tankbar.webp") center
   --tt-background: url("../img/taeubchenthal.svg") center
   --ut-background: url("../img/ut.png") center
   --w2-background: url("../img/werk2.webp") center
@@ -82,10 +81,6 @@ main
     color: black
     &:before
       background: var(--ci-background)
-  &.df
-    background-color: #09212a
-    &:before
-      background: var(--df-background)
   &.fk
     background-color: #fefefe
     color: #1b2024
@@ -120,6 +115,11 @@ main
   &.mb
     &:before
       background: var(--mb-background)
+  &.noel
+    background-color: #00503c
+    color: #dad8d2
+    &:before
+      background: var(--noel-background)
   &.pb
     background-color: white
     color: #004627
@@ -142,11 +142,6 @@ main
     background-color: #101015
     &:before
       background: var(--sm-background)
-  &.tb
-    background-color: #e8e6d4
-    color: black
-    &:before
-      background: var(--tb-background)
   &.tt
     background-color: #333333
     &:before
@@ -210,10 +205,6 @@ main
       color: black
       &::before
         background: var(--ci-background)
-    &.df
-      background-color: #09212a
-      &::before
-        background: var(--df-background)
     &.fk
       background-color: #fefefe
       color: #1b2024
@@ -248,6 +239,11 @@ main
     &.mb
       &::before
         background: var(--mb-background)
+    &.noel
+      background-color: #00503c
+      color: #dad8d2
+      &:before
+        background: var(--noel-background)
     &.pb
       background-color: white
       color: #004627
@@ -270,11 +266,6 @@ main
       background-color: #101015
       &::before
         background: var(--sm-background)
-    &.tb
-      background-color: #e8e6d4
-      color: black
-      &::before
-        background: var(--tb-background)
     &.tt
       background-color: #333333
       &::before
@@ -294,7 +285,6 @@ main
 #filter-loc-ank:checked ~ .filters label[for="filter-loc-ank"],
 #filter-loc-bc:checked ~ .filters label[for="filter-loc-bc"],
 #filter-loc-ci:checked ~ .filters label[for="filter-loc-ci"],
-#filter-loc-df:checked ~ .filters label[for="filter-loc-df"],
 #filter-loc-fk:checked ~ .filters label[for="filter-loc-fk"],
 #filter-loc-fw:checked ~ .filters label[for="filter-loc-fw"],
 #filter-loc-ha:checked ~ .filters label[for="filter-loc-ha"],
@@ -302,12 +292,12 @@ main
 #filter-loc-if:checked ~ .filters label[for="filter-loc-if"],
 #filter-loc-lm:checked ~ .filters label[for="filter-loc-lm"],
 #filter-loc-mb:checked ~ .filters label[for="filter-loc-mb"],
+#filter-loc-noel:checked ~ .filters label[for="filter-loc-noel"],
 #filter-loc-pb:checked ~ .filters label[for="filter-loc-pb"],
 #filter-loc-qi:checked ~ .filters label[for="filter-loc-qi"],
 #filter-loc-rb:checked ~ .filters label[for="filter-loc-rb"],
 #filter-loc-rl:checked ~ .filters label[for="filter-loc-rl"],
 #filter-loc-sm:checked ~ .filters label[for="filter-loc-sm"],
-#filter-loc-tb:checked ~ .filters label[for="filter-loc-tb"],
 #filter-loc-tt:checked ~ .filters label[for="filter-loc-tt"],
 #filter-loc-ut:checked ~ .filters label[for="filter-loc-ut"],
 #filter-loc-w2:checked ~ .filters label[for="filter-loc-w2"]
@@ -317,7 +307,6 @@ main
 #filter-loc-ank:checked ~ main .event.ank,
 #filter-loc-bc:checked ~ main .event.bc,
 #filter-loc-ci:checked ~ main .event.ci,
-#filter-loc-df:checked ~ main .event.df,
 #filter-loc-fk:checked ~ main .event.fk,
 #filter-loc-fw:checked ~ main .event.fw,
 #filter-loc-ha:checked ~ main .event.ha,
@@ -325,12 +314,12 @@ main
 #filter-loc-if:checked ~ main .event.if,
 #filter-loc-lm:checked ~ main .event.lm,
 #filter-loc-mb:checked ~ main .event.mb,
+#filter-loc-noel:checked ~ main .event.noel,
 #filter-loc-pb:checked ~ main .event.pb,
 #filter-loc-qi:checked ~ main .event.qi,
 #filter-loc-rb:checked ~ main .event.rb,
 #filter-loc-rl:checked ~ main .event.rl,
 #filter-loc-sm:checked ~ main .event.sm,
-#filter-loc-tb:checked ~ main .event.tb,
 #filter-loc-tt:checked ~ main .event.tt,
 #filter-loc-ut:checked ~ main .event.ut,
 #filter-loc-w2:checked ~ main .event.w2
