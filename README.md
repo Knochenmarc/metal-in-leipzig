@@ -20,7 +20,6 @@ Alle Event-Informationen stammen aus öffentlichen Internetquellen und werden ei
 - quarterback-immobilien-arena.de
 - soltmann-bar.de
 - taeubchenthal.com
-- tankbar-leipzig.de
 - utconnewitz.de
 - werk-2.de
 
