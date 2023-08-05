@@ -17,6 +17,7 @@ pub(crate) mod inflammen;
 mod mawi;
 mod metallum;
 pub(crate) mod moritzbastei;
+pub(crate) mod noels;
 pub(crate) mod parkbuehne;
 pub(crate) mod soltmann;
 mod spirit_of_metal;
