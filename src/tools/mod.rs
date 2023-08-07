@@ -55,6 +55,7 @@ impl Http {
                     Ok(buf)
                 }
                 Err(error) => {
+                    println!("error_for_status: {}", error);
                     if error.is_status() && error.status().unwrap().as_u16() == 520 {
                         sleep(Duration::from_secs(5));
                         self.get_raw(url)
@@ -64,6 +65,7 @@ impl Http {
                 }
             },
             Err(error) => {
+                println!("send: {}", error);
                 if (error.is_status() && error.status().unwrap().as_u16() == 520)
                     || error.is_timeout()
                 {
