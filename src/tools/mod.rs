@@ -55,7 +55,7 @@ impl Http {
                     Ok(buf)
                 }
                 Err(error) => {
-                    if error.is_status() && error.status().unwrap().to_string() == "520" {
+                    if error.is_status() && error.status().unwrap().as_u16() == 520 {
                         sleep(Duration::from_secs(5));
                         self.get_raw(url)
                     } else {
@@ -64,7 +64,7 @@ impl Http {
                 }
             },
             Err(error) => {
-                if (error.is_status() && error.status().unwrap().to_string() == "520")
+                if (error.is_status() && error.status().unwrap().as_u16() == 520)
                     || error.is_timeout()
                 {
                     sleep(Duration::from_secs(5));
