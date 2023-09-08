@@ -11,6 +11,7 @@ pub(crate) mod bandcommunity;
 pub(crate) mod conne_island;
 mod eventim;
 pub(crate) mod felsenkeller;
+mod google_calendar;
 pub(crate) mod haus_auensee;
 pub(crate) mod hellraiser;
 pub(crate) mod inflammen;
