@@ -36,7 +36,7 @@ impl Site for Taeubchenthal<'_> {
         let html = http.get(&*(URL.to_string() + "programm")).unwrap();
         let reg = Regex::new("(?is)<div class=\"event event--list.*?<img src=\"(?P<img>.*?)\".*?<h2><a href=\"(?P<url>programm/.*?)\".*?>(?P<name>.*?)</a></h2>.*?<time datetime=\"(?P<date>.*?)\">").unwrap();
 
-        let eventim = Eventim::new("taeubchenthal-leipzig-18055", http.borrow());
+        let eventim = Eventim::new("taeubchenthal-leipzig-18055", http);
         let has_metal_band = HasMetalBands {};
 
         for capture in reg.captures_iter(html.as_str()) {
@@ -59,8 +59,8 @@ impl Site for Taeubchenthal<'_> {
             }
 
             for band in evt.bands.iter_mut() {
-                spirit_of_metal::find_band(band, http.borrow());
-                metallum::find_band(band, http.borrow());
+                spirit_of_metal::find_band(band, http);
+                metallum::find_band(band, http);
             }
 
             if eventim.is_it_metal(evt.borrow()) || has_metal_band.is_it_metal(evt.borrow()) {

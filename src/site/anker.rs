@@ -35,7 +35,7 @@ impl Site for Anker<'_> {
         let mut result = Vec::new();
         let mut collected_events = Vec::new();
 
-        let eventim = Eventim::new("der-anker-leipzig-7330", http.borrow());
+        let eventim = Eventim::new("der-anker-leipzig-7330", http);
 
         let html = http
             .get("https://anker-leipzig.de/va/veranstaltungen/")

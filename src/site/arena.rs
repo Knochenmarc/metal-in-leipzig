@@ -64,7 +64,7 @@ impl Site for Arena<'_> {
     fn fetch_events(&self, http: &Http) -> Vec<Event> {
         let mut result = Vec::new();
 
-        let eventim = Eventim::new(self.eventim_id, http.borrow());
+        let eventim = Eventim::new(self.eventim_id, http);
         let reg: Regex = Regex::new(
             "(?si)<div class=\"event\".*?<a href=\"(.*?)\">.*?<source srcset=\"(.*?)\" media=\"[(]max-width: 320px[)]\">.*?<div>\\w+,\\s+(\\d\\d\\.\\d\\d\\.\\d\\d\\d\\d)</div>.*?<h2>(.*?)</h2>.*?Beginn\\s*:.*?(\\d\\d):(\\d\\d)",
         )

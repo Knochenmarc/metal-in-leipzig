@@ -44,6 +44,7 @@ jobs:
         run: cargo build --release
 
       - name: Run app
+        timeout-minutes: 120
         run: cargo run --release
 
       - name: Minify
