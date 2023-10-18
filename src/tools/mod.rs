@@ -18,24 +18,20 @@ pub struct Http {
 impl Http {
     pub(crate) fn new(accepts_invalid_certs: bool) -> Http {
         let mut headers = HeaderMap::new();
-        headers.insert(
-            "User-Agent",
-            HeaderValue::from_static(
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/109.0",
-            ),
-        );
         headers.insert("Accept", HeaderValue::from_static("text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8"));
         headers.insert(
             "Accept-Language",
             HeaderValue::from_static("de,en-US;q=0.7,en;q=0.3"),
         );
-        headers.insert("Accept-Encoding", HeaderValue::from_static("identity"));
         headers.insert("DNT", HeaderValue::from_static("1"));
         headers.insert("Pragma", HeaderValue::from_static("no-cache"));
         headers.insert("Cache-Control", HeaderValue::from_static("no-cache"));
 
         let builder = ClientBuilder::new()
             .default_headers(headers)
+            .user_agent(
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/109.0",
+            )
             .pool_max_idle_per_host(0) // https://github.com/hyperium/hyper/issues/2136#issuecomment-861826148
             .danger_accept_invalid_certs(accepts_invalid_certs);
 
@@ -44,7 +40,7 @@ impl Http {
         }
     }
 
-    pub fn get_raw(&self, url: &str) -> Result<Vec<u8>, Error> {
+    fn internal_get(&self, url: &str, try_number: u8) -> Result<Vec<u8>, Error> {
         println!("get: {:?}", url);
 
         match self.client.get(url).send() {
@@ -56,9 +52,12 @@ impl Http {
                 }
                 Err(error) => {
                     println!("error_for_status: {}", error);
-                    if error.is_status() && error.status().unwrap().as_u16() == 520 {
+                    if try_number < 5
+                        && error.is_status()
+                        && error.status().unwrap().as_u16() == 520
+                    {
                         sleep(Duration::from_secs(5));
-                        self.get_raw(url)
+                        self.internal_get(url, try_number + 1)
                     } else {
                         Err(error)
                     }
@@ -66,16 +65,20 @@ impl Http {
             },
             Err(error) => {
                 println!("send: {}", error);
-                if (error.is_status() && error.status().unwrap().as_u16() == 520)
-                    || error.is_timeout()
+                if try_number < 5
+                    && ((error.is_status() && error.status().unwrap().as_u16() == 520)
+                        || error.is_timeout())
                 {
                     sleep(Duration::from_secs(5));
-                    self.get_raw(url)
+                    self.internal_get(url, try_number + 1)
                 } else {
                     Err(error)
                 }
             }
         }
+    }
+    pub fn get_raw(&self, url: &str) -> Result<Vec<u8>, Error> {
+        self.internal_get(url, 1)
     }
 
     pub fn get(&self, url: &str) -> Result<String, Error> {
