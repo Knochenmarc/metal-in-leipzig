@@ -12,6 +12,7 @@ Alle Event-Informationen stammen aus öffentlichen Internetquellen und werden ei
 - anker-leipzig.de
 - bandcommunity-leipzig.org
 - conne-island.de
+- darkflower.club
 - felsenkeller-leipzig.com
 - haus-auensee-leipzig.de
 - hellraiser-leipzig.de
