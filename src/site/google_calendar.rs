@@ -101,13 +101,7 @@ pub fn fetch_calendar_events<'a, 'b, 'c>(
                 item.get("htmlLink").unwrap().as_str().unwrap().to_string(),
                 None,
             );
-            event.description = Some(
-                item.get("description")
-                    .unwrap()
-                    .as_str()
-                    .unwrap()
-                    .to_string(),
-            );
+            event.description = item.get("description").map(|s| s.to_string());
             event.end_date = Some(parse_date(item.get("end")));
             response.push(event);
         }
