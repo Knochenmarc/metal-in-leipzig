@@ -53,6 +53,7 @@ body {
   --ha-background: url("../img/hausauensee.jpg") center;
   --hr-background: url("../img/hellraiser.webp") center;
   --if-background: url("../img/inflammen.webp") center;
+  --imp-background: url("../img/impericon.webp") center;
   --lm-background: url("../img/messe.webp") center;
   --mb-background: url("../img/moritzbastei.png") center;
   --noel-background: url("../img/noel.png") center;
@@ -157,6 +158,12 @@ main {
     color: #fff; }
     .event.if:before {
       background: var(--if-background); }
+  .event.imp {
+    background-color: #611122;
+    font-weight: bold;
+    color: #fff; }
+    .event.imp:before {
+      background: var(--imp-background); }
   .event.lm {
     background-color: #f7f8f8;
     color: #06a0e2; }
@@ -280,6 +287,12 @@ main {
       color: #fff; }
       .filters label.if::before {
         background: var(--if-background); }
+    .filters label.imp {
+      background-color: #611122;
+      font-weight: bold;
+      color: #fff; }
+      .filters label.imp::before {
+        background: var(--imp-background); }
     .filters label.lm {
       background-color: #f7f8f8;
       color: #06a0e2; }
@@ -338,6 +351,7 @@ main {
 #filter-loc-ha:checked ~ .filters label[for="filter-loc-ha"],
 #filter-loc-hr:checked ~ .filters label[for="filter-loc-hr"],
 #filter-loc-if:checked ~ .filters label[for="filter-loc-if"],
+#filter-loc-imp:checked ~ .filters label[for="filter-loc-imp"],
 #filter-loc-lm:checked ~ .filters label[for="filter-loc-lm"],
 #filter-loc-mb:checked ~ .filters label[for="filter-loc-mb"],
 #filter-loc-noel:checked ~ .filters label[for="filter-loc-noel"],
@@ -361,6 +375,7 @@ main {
 #filter-loc-ha:checked ~ main .event.ha,
 #filter-loc-hr:checked ~ main .event.hr,
 #filter-loc-if:checked ~ main .event.if,
+#filter-loc-imp:checked ~ main .event.imp,
 #filter-loc-lm:checked ~ main .event.lm,
 #filter-loc-mb:checked ~ main .event.mb,
 #filter-loc-noel:checked ~ main .event.noel,
