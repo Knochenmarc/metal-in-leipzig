@@ -1,4 +1,4 @@
-FROM rust:slim-bullseye as build
+FROM rust:bullseye as build
 
 RUN apt-get -y update && apt-get -y upgrade && \
     apt-get install -y pkg-config libssl-dev
