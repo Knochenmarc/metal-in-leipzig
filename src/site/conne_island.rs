@@ -5,6 +5,7 @@ use regex::Regex;
 
 use crate::event::{Event, Location};
 use crate::site::Site;
+use crate::site::tixforgigs::fetch_tixforgigs_event;
 use crate::tools::date::parse_short_date;
 use crate::tools::Http;
 
@@ -31,11 +32,13 @@ impl<'a> Site for ConneIsland<'_, 'a> {
         self.location.borrow()
     }
 
-    fn fetch_events(&self, _http: &Http) -> Vec<Event> {
+    fn fetch_events(&self, http: &Http) -> Vec<Event> {
         let mut result = Vec::new();
 
-        let reg =
-            Regex::new("(?si)<item>\\s*<title>(?P<title>.*?)</title>.*?<link>(?P<link>.*?)</link>")
+        let tix_reg = Regex::new("https://www.tixforgigs.com/de-de/Event/(\\d+)").unwrap();
+
+        let xml_reg =
+            Regex::new("(?si)<item>\\s*<title>(?P<title>.*?)</title>.*?<description>(?P<description>.*?)</description>.*?<link>(?P<link>.*?)</link>")
                 .unwrap();
         let strip_html = Regex::new("(?si)</?.*?>").unwrap();
 
@@ -43,10 +46,11 @@ impl<'a> Site for ConneIsland<'_, 'a> {
             .insecure_http
             .get("https://conne-island.de/rss.php?genre=Metal")
             .unwrap();
-        for item in reg.captures_iter(xml.as_str()) {
+        for item in xml_reg.captures_iter(xml.as_str()) {
             let title = decode_html_entities(item.name("title").unwrap().as_str()).to_string();
             let title = strip_html.replace_all(title.as_str(), "").to_string();
-            result.push(Event::new(
+
+            let mut event = Event::new(
                 title[12..].to_string(),
                 parse_short_date(title[..10].borrow()),
                 self.location.borrow(),
@@ -54,8 +58,29 @@ impl<'a> Site for ConneIsland<'_, 'a> {
                     .unwrap()
                     .as_str()
                     .replace(r"http://", r"https://"),
-                Option::None,
-            ));
+                None,
+            );
+            event.description =
+                Some(decode_html_entities(item.name("description").unwrap().as_str()).to_string());
+
+            let id = event
+                .url
+                .replace("https://www.conne-island.de/termin/nr", "")
+                .replace(".html", "");
+            let ticket_info = self
+                .insecure_http
+                .get(format!("https://conne-island.de/ticket_info.php?nr={}", id).as_str())
+                .unwrap();
+            let caps = tix_reg.captures(ticket_info.as_str()).unwrap();
+            let tixforgigs_event = caps.get(1).unwrap().as_str();
+            let tixforgigs_data = fetch_tixforgigs_event(http, tixforgigs_event);
+
+            event.set_image(tixforgigs_data["image"].as_str().unwrap().to_string());
+            for performer in tixforgigs_data["performer"].as_array().unwrap() {
+                event.add_band(performer["name"].as_str().unwrap().to_string());
+            }
+
+            result.push(event);
         }
 
         result
