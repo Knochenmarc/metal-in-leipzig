@@ -26,7 +26,8 @@ mod site;
 mod tools;
 
 fn main() {
-    let http = HTTP::new();
+    let http = HTTP::new(false);
+    let insecure_http = HTTP::new(true);
 
     let mut locations: Vec<Location> = vec![];
     let mut events: Vec<Event> = vec![];
@@ -37,19 +38,19 @@ fn main() {
         Box::new(Arena::new_quarterback()),
         Box::new(Arena::new_festwiese()),
         Box::new(Bandcommunity::new()),
-        Box::new(ConneIsland::new()),
+        Box::new(ConneIsland::new(insecure_http.borrow())),
         Box::new(Darkflower::new()),
         Box::new(Felsenkeller::new()),
         Box::new(HausAuensee::new()),
         Box::new(Hellraiser::new()),
         Box::new(Moritzbastei::new()),
-        Box::new(Parkbuehne::new()),
+        Box::new(Parkbuehne::new(insecure_http.borrow())),
         Box::new(Taeubchenthal::new()),
         Box::new(Tankbar::new()),
         Box::new(Werk2::new()),
     ];
     for site in &sites {
-        let mut evts = site.fetch_events();
+        let mut evts = site.fetch_events(http.borrow());
         events.append(&mut evts);
         locations.append(&mut site.get_locations());
     }

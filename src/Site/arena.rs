@@ -60,8 +60,7 @@ impl Site for Arena {
         return vec![self.location.clone()];
     }
 
-    fn fetch_events(&self) -> Vec<Event> {
-        let http = HTTP::new();
+    fn fetch_events(&self, http: &HTTP) -> Vec<Event> {
         let mut result = Vec::new();
 
         let eventim = Eventim::new(self.eventim_id.as_str(), http.borrow());

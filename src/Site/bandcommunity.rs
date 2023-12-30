@@ -30,9 +30,7 @@ impl Site for Bandcommunity {
         return vec![self.location.clone()];
     }
 
-    fn fetch_events(&self) -> Vec<Event> {
-        let http = HTTP::new();
-
+    fn fetch_events(&self, http: &HTTP) -> Vec<Event> {
         let mut result = Vec::new();
         let html = http.get("https://bandcommunity-leipzig.org/blog.html");
         let reg: Regex = Regex::new("(?si)<div class=\"event layout_upcoming upcoming.*?<a\\s+href=\"(.*?)\"\\s+title=\"(.*?) [(].*?(\\d\\d\\.\\d\\d\\.\\d\\d\\d\\d)[, ]+(\\d\\d:\\d\\d)?.*?[)].*?\">") .unwrap();

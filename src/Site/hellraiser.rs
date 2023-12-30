@@ -29,9 +29,7 @@ impl Site for Hellraiser {
         return vec![self.location.clone()];
     }
 
-    fn fetch_events(&self) -> Vec<Event> {
-        let http = HTTP::new();
-
+    fn fetch_events(&self, http: &HTTP) -> Vec<Event> {
         let mut result = Vec::new();
 
         let reg = Regex::new("(?si)<li class=\"product.*?<a href=\"(?P<url>.*?)\".*?<img.*?src=\"(?P<img>.*?)\".*?<h2.*?>(?P<name>.*?)</h2>.*?<div class=\"date-published\">.*?, (?P<date>.*?)</div>.*?</li>").unwrap();

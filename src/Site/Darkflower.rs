@@ -28,9 +28,7 @@ impl Site for Darkflower {
         return vec![self.location.clone()];
     }
 
-    fn fetch_events(&self) -> Vec<Event> {
-        let http = HTTP::new();
-
+    fn fetch_events(&self, http: &HTTP) -> Vec<Event> {
         let mut result = Vec::new();
         let json = http.get_json("https://darkflower.club/wp-json/wp/v2/pages/932");
         let html = json["content"]["rendered"].as_str().unwrap();

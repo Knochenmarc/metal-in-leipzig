@@ -3,6 +3,7 @@ use regex::Regex;
 use serde_json::Value;
 
 use crate::event::{Event, Location};
+use crate::HTTP;
 
 pub(crate) mod anker;
 pub(crate) mod arena;
@@ -25,7 +26,7 @@ pub(crate) mod werk2;
 
 pub trait Site {
     fn get_locations(&self) -> Vec<Location>;
-    fn fetch_events(&self) -> Vec<Event>;
+    fn fetch_events(&self, http: &HTTP) -> Vec<Event>;
 }
 
 trait Filter {
