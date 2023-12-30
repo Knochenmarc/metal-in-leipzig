@@ -1,9 +1,22 @@
 <!DOCTYPE html>
 <html lang="de">
 {{> head title="Bands, Konzerte und Parties"
-        description="Kalender zu Metal-Bands, Konzerten und Parties in und um Leipzig." }}
+        description="Veranstaltungskalender zu Metal-Events in und um Leipzig. Finde Konzerte, Parties und weitere Events von Metal- und Rockbands!" }}
 
 <body>
+<script type="application/ld+json" async>
+{
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Metal in Leipzig",
+    "url": "https://metal-in-leipzig.de/",
+    "image": "https://metal-in-leipzig.de/img/logo.png",
+    "thumbnailUrl": "https://metal-in-leipzig.de/img/icon.png",
+    "abstract": "Veranstaltungskalender zu Metal-Events in und um Leipzig. Finde Konzerte, Parties und weitere Events von Metal- und Rockbands!",
+    "dateModified": "{{date_modified}}"
+}
+</script>
+
 {{> header }}
 {{> filter }}
 {{> event_list }}
