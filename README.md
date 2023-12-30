@@ -5,6 +5,8 @@ EN: This projects generates a static website of metal music events in Leipzig (G
 
 DE: Dieses Projekt erstellt einen Webkalender zu diversen Metal-Veranstaltungen in Leipzig.
 
+Alle Event-Informationen stammen aus öffentlichen Internetquellen und werden einmal täglich gesammelt und mittels GitHub publiziert.
+
 ### Angebundene Seiten:
 - anker-leipzig.de
 - bandcommunity-leipzig.org
