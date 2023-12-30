@@ -1,4 +1,8 @@
 <main>
+    {{#each locations}}
+        <form action="{{this.website}}" method="get" target="_blank" id="linkout-{{this.slug}}"></form>
+    {{/each}}
+
     {{#each event_group}}
         <div class="events">
             <a class="date" href="#{{this.[0].date_slug}}" id="{{this.[0].date_slug}}">{{this.[0].date}}</a>
@@ -6,14 +10,15 @@
                 <a {{#if this.url}} href="{{this.url}}"{{/if}}
                                     title="{{this.name}}"
                                     target="_blank" class="event {{this.location.slug}}">
-                    <object><a class="event-location" href="{{this.location.website}}" target="_blank"
-                               title="{{this.location.name}}"></a></object>
+                    <input class="event-location" type="submit" form="linkout-{{this.location.slug}}"
+                           title="{{this.location.name}}" value=""/>
                     {{this.name_html}}
                     {{#if this.image}}
                         <picture class="event-img">
                             <source srcset="{{this.image.public_avif_url}}" type="image/avif">
                             <img src="{{this.image.public_jpg_url}}" width="{{this.image.width}}"
-                                 height="{{this.image.height}}" {{#if @../index }}loading="lazy" decoding="async"{{/if}} alt=""/>
+                                 height="{{this.image.height}}" {{#if @../index }}loading="lazy" decoding="async"{{/if}}
+                                 alt="{{this.name}}"/>
                         </picture>
                     {{/if}}
                 </a>
