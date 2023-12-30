@@ -71,7 +71,7 @@ impl Site for UTConnewitz<'_> {
             ),
         ];
 
-        let mut had_december = false;
+        let mut had_december = this_month == 12;
         let has_metal_bands = HasMetalBands {};
 
         for (url, reg) in urls {
