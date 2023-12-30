@@ -7,7 +7,6 @@ This projects generates a static website of local metal music events in Leipzig 
 Dieses Projekt erstellt einen Webkalender zu diversen Metal-Veranstaltungen in Leipzig. 
 
 ### TODOs:
-- grid+flex layout
 - https://www.moritzbastei.de/programm/tag/metal
 - https://www.werk-2.de/programm/vorschau
 - gh-pages & actions (https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule)
