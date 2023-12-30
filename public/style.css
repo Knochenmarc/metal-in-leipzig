@@ -173,6 +173,13 @@ main {
     background: url("img/moritzbastei.png") no-repeat center;
     background-size: contain;
 }
+.event.pb {
+    background-color: #116e28;
+    color: #ffcc03;
+}
+.event.pb .event-location {
+    background: url("img/parkbuehne.webp") no-repeat center;
+}
 .event.qi {
     background-color: #00527e;
     color: white;
