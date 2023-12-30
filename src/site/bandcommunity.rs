@@ -33,27 +33,31 @@ impl Site for Bandcommunity<'_> {
             .unwrap();
 
         for data_event in parse_linked_data_events(html.as_str()) {
-            let name = data_event["name"].as_str().unwrap();
-            let mut evt = Event::new(
-                name.to_string(),
-                parse_iso_datetime(data_event["startDate"].as_str().unwrap()).unwrap(),
-                self.location.borrow(),
-                data_event["url"].as_str().unwrap().to_string(),
-                Some(data_event["image"].as_str().unwrap().to_string()),
-            );
+            let description = data_event["description"].as_str().unwrap();
+            if !description.contains("Rapper") && !description.contains("HipHop") {
+                let name = data_event["name"].as_str().unwrap();
+                let mut evt = Event::new(
+                    name.to_string(),
+                    parse_iso_datetime(data_event["startDate"].as_str().unwrap()).unwrap(),
+                    self.location.borrow(),
+                    data_event["url"].as_str().unwrap().to_string(),
+                    Some(data_event["image"].as_str().unwrap().to_string()),
+                );
 
-            let lower_name = name.to_lowercase();
-            evt.evt_type = if lower_name.contains("festival") || lower_name.contains("festevil") {
-                EventType::Festival
-            } else {
-                EventType::Concert
-            };
+                let lower_name = name.to_lowercase();
+                evt.evt_type = if lower_name.contains("festival") || lower_name.contains("festevil")
+                {
+                    EventType::Festival
+                } else {
+                    EventType::Concert
+                };
 
-            evt.end_date =
-                Some(parse_iso_datetime(data_event["endDate"].as_str().unwrap()).unwrap());
-            evt.status = EventStatus::from_schema(data_event["eventStatus"].as_str().unwrap());
+                evt.end_date =
+                    Some(parse_iso_datetime(data_event["endDate"].as_str().unwrap()).unwrap());
+                evt.status = EventStatus::from_schema(data_event["eventStatus"].as_str().unwrap());
 
-            result.push(evt);
+                result.push(evt);
+            }
         }
 
         result

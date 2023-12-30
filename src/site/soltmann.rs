@@ -30,6 +30,10 @@ impl Site for Soltmann<'_> {
     fn fetch_events(&self, http: &Http) -> Vec<Event> {
         let mut result = Vec::new();
 
+        // use event api instead with tag-filter
+        // https://www.soltmann-bar.de/wp-json/tribe/events/v1/events?per_page=100
+        // doc: https://www.soltmann-bar.de/wp-json/tribe/events/v1/doc
+
         let html = http
             .get("https://www.soltmann-bar.de/veranstaltungen/liste/")
             .unwrap();
