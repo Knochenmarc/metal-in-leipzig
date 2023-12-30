@@ -39,7 +39,7 @@ class Optimizer
     {
         $rawData = $this->http->get($image->remoteUrl);
         if ($rawData) {
-            $tmpFile = '/tmp/' . $image->hash;
+            $tmpFile = tempnam('/tmp', '');
             file_put_contents($tmpFile, $rawData);
             shell_exec('convert -resize 300 -strip -define heic:speed=1 ' . $tmpFile . ' ' . $localFilePath);
             unlink($tmpFile);
