@@ -1,12 +1,10 @@
 use std::collections::HashMap;
 use std::str;
-use std::str::FromStr;
 use std::thread::sleep;
 use std::time::Duration;
 
 use reqwest::blocking::{Client, ClientBuilder};
 use reqwest::header::{HeaderMap, HeaderValue};
-use rss::Channel;
 use serde_json::Value;
 
 pub(crate) mod date;
@@ -71,11 +69,6 @@ impl HTTP {
     pub fn get_json(&self, url: &str) -> Value {
         let resp = self.get(url);
         serde_json::from_str(resp.as_str()).unwrap()
-    }
-
-    pub fn get_rss(&self, url: &str) -> Channel {
-        let resp = self.get(url);
-        Channel::from_str(resp.as_str()).unwrap()
     }
 
     pub fn post(&self, url: &str, payload: HashMap<&str, &str>) -> String {
