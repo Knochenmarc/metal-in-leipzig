@@ -27,7 +27,7 @@ impl Eventim {
         loop {
             let mut url: String = String::from("https://www.eventim.de");
             url.push_str(next.as_str());
-            let plain_html = http.get(&url);
+            let plain_html = http.get(&url).unwrap();
             let mut events = parse_linked_data_events(plain_html.borrow());
             collected_events.append(&mut events);
 

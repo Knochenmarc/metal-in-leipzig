@@ -30,7 +30,7 @@ impl Site for Tankbar<'_> {
     fn fetch_events(&self, http: &Http) -> Vec<Event> {
         let mut result = Vec::new();
 
-        let html = http.get("https://tankbar-leipzig.de/tankevents/");
+        let html = http.get("https://tankbar-leipzig.de/tankevents/").unwrap();
         let reg = Regex::new("(?is)<span class=\"elementor-icon-list-text\">(?P<date>\\d\\d\\.\\d\\d\\.)(?P<year>\\d\\d) : (?P<name>.*?)</span>").unwrap();
         for capture in reg.captures_iter(html.as_str()) {
             let name = capture.name("name").unwrap().as_str();

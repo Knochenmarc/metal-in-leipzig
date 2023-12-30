@@ -35,8 +35,9 @@ impl Site for UTConnewitz<'_> {
         let month_reg =
             Regex::new("(?i)<a href=\".*?month=(\\d+)\" class=\"active\">(.*?)</a>").unwrap();
 
-        let this_month_html =
-            http.get("https://utconnewitz.de/index.php?article_id=1&category=MUSIK");
+        let this_month_html = http
+            .get("https://utconnewitz.de/index.php?article_id=1&category=MUSIK")
+            .unwrap();
 
         let this_month: u8 = {
             let captures = month_reg.captures(this_month_html.as_str()).unwrap();
@@ -74,7 +75,7 @@ impl Site for UTConnewitz<'_> {
         let has_metal_bands = HasMetalBands {};
 
         for (url, reg) in urls {
-            let html = http.get(url);
+            let html = http.get(url).unwrap();
 
             let mut month = match month_reg.captures(html.as_str()) {
                 Some(cap) => cap.get(2).unwrap().as_str(),

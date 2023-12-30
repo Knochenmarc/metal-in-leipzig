@@ -73,7 +73,7 @@ impl Site for Arena<'_> {
             let html = http.get(&(URL.to_owned() + "/events-tickets/events?tx_ifabeventmanagementextend_searchfilter[eventSearch][category]=1"
             +"&tx_ifabeventmanagementextend_searchfilter[eventSearch][location]="+ &self.location_id.to_string()
             +"&tx_ifabeventmanagement_events[@widget_0][currentPage]="+&page.to_string())
-            );
+            ).unwrap();
 
             for captures in reg.captures_iter(html.as_str()) {
                 let evt = Event::new(

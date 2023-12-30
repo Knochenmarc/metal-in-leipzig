@@ -32,7 +32,7 @@ impl Site for Moritzbastei<'_> {
         let mut result = Vec::new();
 
         let security_token = {
-            let response = http.get("https://www.moritzbastei.de/");
+            let response = http.get("https://www.moritzbastei.de/").unwrap();
             let security_reg = Regex::new("(?i)\"security\":\"([a-z0-9]+?)\"").unwrap();
             let capture = security_reg.captures(response.as_str()).unwrap();
             capture.get(1).unwrap().as_str().to_string()

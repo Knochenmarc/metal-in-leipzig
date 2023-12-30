@@ -35,8 +35,9 @@ impl Site for Hellraiser<'_> {
         let reg = Regex::new("(?si)<li class=\"product.*?<a href=\"(?P<url>.*?)\".*?<img.*?src=\"(?P<img>.*?)\".*?<h2.*?>(?P<name>.*?)</h2>.*?<div class=\"date-published\">.*?, (?P<date>.*?)</div>.*?</li>").unwrap();
 
         for i in 1..10 {
-            let html =
-                http.get(&(URL.to_string() + "/produkt-kategorie/tickets/page/" + &*i.to_string()));
+            let html = http
+                .get(&(URL.to_string() + "/produkt-kategorie/tickets/page/" + &*i.to_string()))
+                .unwrap();
 
             for capture in reg.captures_iter(html.as_str()) {
                 let name = capture.name("name").unwrap().as_str().to_string();

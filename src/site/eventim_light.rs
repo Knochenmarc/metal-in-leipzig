@@ -21,7 +21,9 @@ impl EventimLight {
 
         let mut collected_events: Vec<Value> = Vec::new();
 
-        let html = http.get(("https://www.eventim-light.com/de/a/".to_owned() + &venue).as_str());
+        let html = http
+            .get(("https://www.eventim-light.com/de/a/".to_owned() + &venue).as_str())
+            .unwrap();
 
         let matches = REG.captures(html.borrow()).unwrap();
         let text: &str = matches.get(1).map_or("", |m| m.as_str());

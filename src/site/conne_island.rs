@@ -41,7 +41,8 @@ impl<'a> Site for ConneIsland<'_, 'a> {
 
         let xml = self
             .insecure_http
-            .get("https://conne-island.de/rss.php?genre=Metal");
+            .get("https://conne-island.de/rss.php?genre=Metal")
+            .unwrap();
         for item in reg.captures_iter(xml.as_str()) {
             let title = decode_html_entities(item.name("title").unwrap().as_str()).to_string();
             let title = strip_html.replace_all(title.as_str(), "").to_string();

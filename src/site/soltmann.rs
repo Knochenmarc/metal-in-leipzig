@@ -30,7 +30,9 @@ impl Site for Soltmann<'_> {
     fn fetch_events(&self, http: &Http) -> Vec<Event> {
         let mut result = Vec::new();
 
-        let html = http.get("https://www.soltmann-bar.de/veranstaltungen/liste/");
+        let html = http
+            .get("https://www.soltmann-bar.de/veranstaltungen/liste/")
+            .unwrap();
 
         let events = parse_linked_data_events(html.as_str());
         for data_event in events {

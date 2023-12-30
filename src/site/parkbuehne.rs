@@ -32,7 +32,9 @@ impl<'a> Site for Parkbuehne<'a, '_> {
     }
 
     fn fetch_events(&self, http: &Http) -> Vec<Event> {
-        let html = http.get("https://www.parkbuehne-leipzig.com/wordpress/veranstaltungen/");
+        let html = http
+            .get("https://www.parkbuehne-leipzig.com/wordpress/veranstaltungen/")
+            .unwrap();
         let reg = Regex::new("(?is)<article\\s.*?<img\\s.*?src=\"(?P<img>.*?)\".*?<h3\\s.*?<a href=\"(?P<url>.*?)\">(?P<name>.*?)</a></h3>.*?, (?P<date>\\d\\d? [a-z]{2,3} \\d\\d\\d\\d).*?</article>").unwrap();
         let mawi = Mawi::new("Parkbühne Clara-Zetkin-Park", self.insecure_http.borrow());
 

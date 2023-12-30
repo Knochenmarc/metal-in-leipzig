@@ -5,6 +5,7 @@ use std::time::Duration;
 
 use reqwest::blocking::{Client, ClientBuilder};
 use reqwest::header::{HeaderMap, HeaderValue};
+use reqwest::Error;
 use serde_json::Value;
 
 pub(crate) mod date;
@@ -43,33 +44,37 @@ impl Http {
         }
     }
 
-    pub fn get_raw(&self, url: &str) -> Vec<u8> {
+    pub fn get_raw(&self, url: &str) -> Result<Vec<u8>, Error> {
         println!("get: {:?}", url);
 
         match self.client.get(url).send() {
-            Ok(mut response) => {
-                let mut buf: Vec<u8> = vec![];
-                response.copy_to(&mut buf).unwrap();
-                buf
-            }
+            Ok(response) => match response.error_for_status() {
+                Ok(mut response) => {
+                    let mut buf: Vec<u8> = vec![];
+                    response.copy_to(&mut buf).unwrap();
+                    Ok(buf)
+                }
+                Err(a) => Err(a),
+            },
             Err(error) => {
                 if error.is_timeout() {
                     sleep(Duration::from_secs(5));
                     self.get_raw(url)
                 } else {
-                    panic!("{error:?}")
+                    Err(error)
                 }
             }
         }
     }
 
-    pub fn get(&self, url: &str) -> String {
-        String::from_utf8(self.get_raw(url)).unwrap()
+    pub fn get(&self, url: &str) -> Result<String, Error> {
+        self.get_raw(url)
+            .map(|data| String::from_utf8(data).unwrap())
     }
 
-    pub fn get_json(&self, url: &str) -> Value {
-        let resp = self.get(url);
-        serde_json::from_str(resp.as_str()).unwrap()
+    pub fn get_json(&self, url: &str) -> Result<Value, Error> {
+        self.get(url)
+            .map(|data| serde_json::from_str(data.as_str()).unwrap())
     }
 
     pub fn post(&self, url: &str, payload: HashMap<&str, &str>) -> String {
