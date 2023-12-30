@@ -27,20 +27,15 @@ impl Site for Darkflower<'_> {
     }
 
     fn fetch_events(&self, http: &Http) -> Vec<Event> {
-        fetch_facebook_events(
-            http,
-            self.get_location(),
-            100064530226536,
-            dotenv!("ML_DF_KEY"),
-        )
-        .into_iter()
-        .filter(|event| {
-            event
-                .description
-                .clone()
-                .unwrap_or_default()
-                .contains("Metal")
-        })
-        .collect()
+        fetch_facebook_events(http, self.get_location(), "Darkflower.Leipzig")
+            .into_iter()
+            .filter(|event| {
+                event
+                    .description
+                    .clone()
+                    .unwrap_or_default()
+                    .contains("Metal")
+            })
+            .collect()
     }
 }

@@ -1,6 +1,3 @@
-#[macro_use]
-extern crate dotenv_codegen;
-
 use std::borrow::Borrow;
 use std::collections::BTreeMap;
 
