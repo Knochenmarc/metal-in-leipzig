@@ -4,11 +4,19 @@ declare(strict_types=1);
 
 namespace MetalLE\Site;
 
+use MetalLE\Event\Event;
+use MetalLE\Event\Location;
+
 class Bandcommunity implements Site
 {
-    public function crawl(): Location
+    public function getIterator(): \Traversable
     {
-        $events = [];
+        $location = new Location(
+            'bc',
+            'Bandcommunity Leipzig',
+            'https://bandcommunity-leipzig.org/',
+            'img/bandcommunity.png',
+        );
 
         $plainHTML = file_get_contents('https://bandcommunity-leipzig.org/blog.html');
         if (preg_match_all(
@@ -37,22 +45,16 @@ class Bandcommunity implements Site
                 $name = preg_replace('#\s+\(.*\)\s*$#U', '', $match[3]);
                 $name = html_entity_decode($name);
 
-                $events[] = new Event(
+                $event = new Event(
                     $name,
                     new \DateTimeImmutable($date),
+                    $location,
                     $url,
                     $image,
                 );
+
+                yield $event->getID() => $event;
             }
         }
-
-        return new Location(
-            'bc',
-            'Bandcommunity Leipzig',
-            'https://bandcommunity-leipzig.org/',
-            'img/bandcommunity.png',
-            $events,
-        );
     }
-
 }

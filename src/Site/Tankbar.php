@@ -4,11 +4,19 @@ declare(strict_types=1);
 
 namespace MetalLE\Site;
 
+use MetalLE\Event\Event;
+use MetalLE\Event\Location;
+
 class Tankbar implements Site
 {
-    public function crawl(): Location
+    public function getIterator(): \Traversable
     {
-        $events = [];
+        $location = new Location(
+            'tb',
+            'TankBar Leipzig',
+            'https://tankbar-leipzig.de/',
+            'img/tankbar.svg',
+        );
 
         $plainHTML = file_get_contents('https://tankbar-leipzig.de/tankevents/');
         if (preg_match_all(
@@ -18,25 +26,18 @@ class Tankbar implements Site
                 PREG_SET_ORDER
             ) > 0) {
             foreach ($matches as $match) {
-                $txt = $match[1];
+                $txt   = $match[1];
                 $parts = explode(' : ', $txt);
-                $date = $parts[0];
-                $date = substr($date, 0, -2) . '20' . substr($date, -2);
+                $date  = $parts[0];
+                $date  = substr($date, 0, -2) . '20' . substr($date, -2);
 
-                $events[] = new Event(
+                $event = new Event(
                     html_entity_decode($parts[1], ENT_HTML5),
                     new \DateTimeImmutable($date),
+                    $location,
                 );
+                yield $event->getID() => $event;
             }
         }
-
-        return new Location(
-            'tb',
-            'TankBar Leipzig',
-            'https://tankbar-leipzig.de/',
-            'img/tankbar.svg',
-            $events,
-        );
     }
-
 }

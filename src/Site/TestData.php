@@ -1,0 +1,59 @@
+<?php
+
+declare(strict_types=1);
+
+namespace MetalLE\Site;
+
+use MetalLE\Event\Event;
+use MetalLE\Event\Location;
+use Traversable;
+
+class TestData implements Site
+{
+    public function getIterator(): Traversable
+    {
+        $locations   = [];
+        $locations[] = new Location(
+            'aa',
+            'AA AA',
+            'http://example.org/aa',
+            'aa.png',
+        );
+        $locations[] = new Location(
+            'bb',
+            'BBB BBB',
+            'http://example.org/bbb',
+            'bbb.png',
+        );
+        $locations[] = new Location(
+            'cc',
+            'CCCC CCCC',
+            'http://example.org/cccc',
+            'cccc.png',
+        );
+
+        for ($i = 0; $i < 100; $i++) {
+            $now = new \DateTime();
+            $now->add(new \DateInterval('P' . random_int(1, 360) . 'D'));
+            $event = new Event(
+                $this->getRandomString(random_int(5, 100)),
+                $now,
+                $locations[random_int(0, 2)],
+            );
+            yield $event->getID() => $event;
+        }
+    }
+
+    private function getRandomString($n): string
+    {
+        $characters   = ' &0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $randomString = '';
+
+        for ($i = 0; $i < $n; $i++) {
+            $index        = random_int(0, 63);
+            $randomString .= $characters[$index];
+        }
+
+        return $randomString;
+    }
+}

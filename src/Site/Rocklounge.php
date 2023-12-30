@@ -4,11 +4,19 @@ declare(strict_types=1);
 
 namespace MetalLE\Site;
 
+use MetalLE\Event\Event;
+use MetalLE\Event\Location;
+
 class Rocklounge implements Site
 {
-    public function crawl(): Location
+    public function getIterator(): \Traversable
     {
-        $events = [];
+        $location = new Location(
+            'rl',
+            'Rocklounge Leipzig',
+            'https://rocklounge-leipzig.de/',
+            'img/rocklounge.png',
+        );
 
         $plainHTML = file_get_contents('https://rocklounge-leipzig.de/termine/');
         if (preg_match_all(
@@ -18,22 +26,17 @@ class Rocklounge implements Site
                 PREG_SET_ORDER
             ) > 0) {
             foreach ($matches as $match) {
-                $date     = $match[1];
-                $date     = substr($date, 0, -2) . '20' . substr($date, -2);
-                $events[] = new Event(
+                $date  = $match[1];
+                $date  = substr($date, 0, -2) . '20' . substr($date, -2);
+                $event = new Event(
                     $match[3],
                     new \DateTimeImmutable($date),
+                    $location,
                     $match[2],
                 );
+
+                yield $event->getID() => $event;
             }
         }
-
-        return new Location(
-            'rl',
-            'Rocklounge Leipzig',
-            'https://rocklounge-leipzig.de/',
-            'img/rocklounge.png',
-            $events,
-        );
     }
 }
