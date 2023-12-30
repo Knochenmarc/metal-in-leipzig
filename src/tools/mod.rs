@@ -97,7 +97,7 @@ impl Http {
 
     pub fn get(&self, url: &str) -> Result<String, Error> {
         self.get_raw(url)
-            .map(|data| String::from_utf8(data).unwrap())
+            .map(|data| String::from_utf8_lossy(&data).to_string())
     }
 
     pub fn get_json(&self, url: &str) -> Result<Value, Error> {
