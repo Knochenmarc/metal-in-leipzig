@@ -29,8 +29,11 @@ pub fn parse_german_date(str: &str) -> NaiveDate {
     NaiveDate::parse_from_str(str.as_str(), format).unwrap()
 }
 
-pub fn parse_short_date(str: &str) -> NaiveDate {
-    NaiveDate::parse_from_str(str, "%d.%m.%Y").unwrap()
+pub fn parse_short_date(str: &str) -> NaiveDateTime {
+    NaiveDate::parse_from_str(str, "%d.%m.%Y")
+        .unwrap()
+        .and_hms_opt(0, 0, 0)
+        .unwrap()
 }
 
 pub fn parse_iso_datetime(str: &str) -> ParseResult<NaiveDateTime> {

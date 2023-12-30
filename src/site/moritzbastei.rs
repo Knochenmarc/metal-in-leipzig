@@ -60,7 +60,7 @@ impl Site for Moritzbastei<'_> {
                     .to_string();
                 result.push(Event::new(
                     decode_html_entities(captures.name("name").unwrap().as_str()).to_string(),
-                    parse_short_date(captures.name("date").unwrap().as_str()).and_hms(0, 0, 0),
+                    parse_short_date(captures.name("date").unwrap().as_str()),
                     self.location.borrow(),
                     captures.name("url").unwrap().as_str().to_string(),
                     Some(img),

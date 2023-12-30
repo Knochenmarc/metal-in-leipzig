@@ -64,7 +64,8 @@ impl Site for Werk2<'_> {
                     let evt = Event::new(
                         name.to_string(),
                         parse_german_date(format!("{}. {} {}", day, month, year).as_str())
-                            .and_hms(0, 0, 0),
+                            .and_hms_opt(0, 0, 0)
+                            .unwrap(),
                         self.location.borrow(),
                         format!("{}{}", URL, url),
                         Some(format!("{}{}", URL, img.replace("_liste", "_detail"))),

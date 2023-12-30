@@ -1,6 +1,6 @@
 use std::borrow::Borrow;
 
-use chrono::NaiveDate;
+use chrono::{Days, NaiveDate, Timelike};
 
 use crate::event::{Event, Location};
 use crate::site::anker::Anker;
@@ -31,6 +31,15 @@ fn main() {
     let http = Http::new(false);
     let insecure_http = Http::new(true);
 
+    let yesterday = chrono::Utc::now()
+        .checked_sub_days(Days::new(1))
+        .unwrap()
+        .with_hour(0)
+        .unwrap()
+        .with_minute(0)
+        .unwrap()
+        .naive_local();
+
     let mut locations: Vec<&Location> = vec![];
     let mut events: Vec<Event> = vec![];
 
@@ -54,7 +63,12 @@ fn main() {
         Box::new(Werk2::new()),
     ];
     for site in &sites {
-        let mut evts = site.fetch_events(http.borrow());
+        let mut evts: Vec<Event> = site
+            .fetch_events(http.borrow())
+            .into_iter()
+            .filter(|evt| evt.start_date.gt(&yesterday))
+            .collect();
+
         if !evts.is_empty() {
             locations.push(site.get_location());
 
@@ -73,7 +87,7 @@ fn main() {
 
     let mut grouped_events: Vec<Vec<Event>> = vec![];
     {
-        let mut previous_date: NaiveDate = NaiveDate::from_ymd(1970, 1, 1);
+        let mut previous_date: NaiveDate = NaiveDate::default();
         for event in events {
             if event.start_date.date().cmp(previous_date.borrow()).is_gt() {
                 grouped_events.push(Vec::new());

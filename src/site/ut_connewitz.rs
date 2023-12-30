@@ -107,7 +107,8 @@ impl Site for UTConnewitz<'_> {
                 let mut evt = Event::new(
                     title.to_string(),
                     parse_german_date(format!("{} {} {}", day, month, year).as_str())
-                        .and_hms(0, 0, 0),
+                        .and_hms_opt(0, 0, 0)
+                        .unwrap(),
                     self.location.borrow(),
                     format!("{}&event={}#{}", url, id, id),
                     img,

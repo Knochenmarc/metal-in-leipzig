@@ -78,7 +78,7 @@ impl Site for Arena<'_> {
             for captures in reg.captures_iter(html.as_str()) {
                 let evt = Event::new(
                     decode_html_entities(&captures[4]).to_string(),
-                    parse_short_date(&captures[3]).and_hms(0, 0, 0),
+                    parse_short_date(&captures[3]),
                     self.location.borrow(),
                     URL.to_owned() + captures[1].borrow(),
                     Option::Some(URL.to_owned() + captures[2].borrow()),

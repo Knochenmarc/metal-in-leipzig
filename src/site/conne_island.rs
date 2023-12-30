@@ -48,7 +48,7 @@ impl<'a> Site for ConneIsland<'_, 'a> {
             let title = strip_html.replace_all(title.as_str(), "").to_string();
             result.push(Event::new(
                 title[12..].to_string(),
-                parse_short_date(title[..10].borrow()).and_hms(0, 0, 0),
+                parse_short_date(title[..10].borrow()),
                 self.location.borrow(),
                 item.name("link")
                     .unwrap()
