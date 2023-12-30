@@ -5,7 +5,7 @@ use regex::Regex;
 use crate::site::eventim::Eventim;
 use crate::site::{metallum, spirit_of_metal, Filter, HasMetalBands};
 use crate::tools::date::parse_iso_datetime;
-use crate::{Event, Location, Site, HTTP};
+use crate::{Event, Http, Location, Site};
 
 const URL: &str = "https://www.taeubchenthal.com/";
 
@@ -30,7 +30,7 @@ impl Site for Taeubchenthal<'_> {
         self.location.borrow()
     }
 
-    fn fetch_events(&self, http: &HTTP) -> Vec<Event> {
+    fn fetch_events(&self, http: &Http) -> Vec<Event> {
         let mut result = Vec::new();
 
         let html = http.get(&*(URL.to_string() + "programm"));
@@ -50,8 +50,8 @@ impl Site for Taeubchenthal<'_> {
                 name.to_string(),
                 parse_iso_datetime(date),
                 self.location.borrow(),
-                URL.to_owned() + &capture.name("url").unwrap().as_str().to_string(),
-                Some(URL.to_owned() + &capture.name("img").unwrap().as_str().to_string()),
+                URL.to_owned() + &capture.name("url").unwrap().as_str(),
+                Some(URL.to_owned() + &capture.name("img").unwrap().as_str()),
             );
 
             if name != "CHECKMATE" {

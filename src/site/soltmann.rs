@@ -4,7 +4,7 @@ use html_escape::decode_html_entities;
 
 use crate::site::parse_linked_data_events;
 use crate::tools::date::parse_iso_datetime;
-use crate::{Event, Location, Site, HTTP};
+use crate::{Event, Http, Location, Site};
 
 pub(crate) struct Soltmann<'l> {
     location: Location<'l, 'l, 'l>,
@@ -27,7 +27,7 @@ impl Site for Soltmann<'_> {
         self.location.borrow()
     }
 
-    fn fetch_events(&self, http: &HTTP) -> Vec<Event> {
+    fn fetch_events(&self, http: &Http) -> Vec<Event> {
         let mut result = Vec::new();
 
         let html = http.get("https://www.soltmann-bar.de/veranstaltungen/liste/");

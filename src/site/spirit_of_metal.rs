@@ -2,9 +2,9 @@ use lazy_static::lazy_static;
 use regex::{Captures, Regex};
 
 use crate::event::BandInfo;
-use crate::HTTP;
+use crate::Http;
 
-pub fn find_band(band: &mut BandInfo, http: &HTTP) {
+pub fn find_band(band: &mut BandInfo, http: &Http) {
     lazy_static! {
         static ref REG: Regex =
             Regex::new("(?is)<div class=\"BandResult\"><a href=\"(?P<url>.*?)\".*?<h3>(?P<name>.*?)(?: \\(.*?\\))?</h3>(?P<genre>.*?) - .*?<br/>").unwrap();

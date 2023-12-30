@@ -6,15 +6,15 @@ use regex::Regex;
 use crate::event::{Event, Location};
 use crate::site::Site;
 use crate::tools::date::parse_short_date;
-use crate::tools::HTTP;
+use crate::tools::Http;
 
 pub struct ConneIsland<'l, 'h> {
     location: Location<'l, 'l, 'l>,
-    insecure_http: &'h HTTP,
+    insecure_http: &'h Http,
 }
 
 impl<'a> ConneIsland<'_, 'a> {
-    pub(crate) fn new(insecure_http: &'a HTTP) -> Self {
+    pub(crate) fn new(insecure_http: &'a Http) -> Self {
         Self {
             location: Location {
                 slug: "ci",
@@ -31,7 +31,7 @@ impl<'a> Site for ConneIsland<'_, 'a> {
         self.location.borrow()
     }
 
-    fn fetch_events(&self, _http: &HTTP) -> Vec<Event> {
+    fn fetch_events(&self, _http: &Http) -> Vec<Event> {
         let mut result = Vec::new();
 
         let reg =

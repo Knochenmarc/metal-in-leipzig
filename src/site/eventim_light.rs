@@ -5,7 +5,7 @@ use regex::Regex;
 use serde_json::Value;
 
 use crate::site::Filter;
-use crate::tools::HTTP;
+use crate::tools::Http;
 use crate::Event;
 
 pub struct EventimLight {
@@ -13,7 +13,7 @@ pub struct EventimLight {
 }
 
 impl EventimLight {
-    pub fn new(venue: String, http: &HTTP) -> Self {
+    pub fn new(venue: String, http: &Http) -> Self {
         lazy_static! {
             static ref REG: Regex =
                 Regex::new("(?i)window.__INITIAL_STATE__=(\\{.*?\\});").unwrap();

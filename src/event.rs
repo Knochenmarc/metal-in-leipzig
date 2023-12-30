@@ -2,14 +2,14 @@ use chrono::{Datelike, NaiveDateTime, NaiveTime, Utc, Weekday};
 use serde::ser::{Serialize, SerializeStruct, Serializer};
 use twox_hash::xxh3::hash64;
 
-enum EventType {
+pub enum EventType {
     Concert,
     Party,
     Online,
     Festival,
     Unknown,
 }
-enum EventStatus {
+pub enum EventStatus {
     Cancelled,
     Postponed,
     SoldOut,
@@ -40,11 +40,7 @@ impl<'a> Event<'a> {
         url: String,
         image_url: Option<String>,
     ) -> Self {
-        let image = match image_url {
-            None => None,
-            Some(str) => Some(Image::new(str)),
-        };
-
+        let image = image_url.map(Image::new);
         let bands: Vec<BandInfo> = Vec::new();
 
         Self {
@@ -96,12 +92,11 @@ impl<'a> Serialize for Event<'a> {
             Weekday::Sat => "Sa.",
             Weekday::Sun => "So.",
         };
-        let date: String;
-        if self.start_date.year() == Utc::now().year() {
-            date = self.start_date.format(" %d.%m.").to_string();
+        let date: String = if self.start_date.year() == Utc::now().year() {
+            self.start_date.format(" %d.%m.").to_string()
         } else {
-            date = self.start_date.format(" %d.%m. %Y").to_string();
-        }
+            self.start_date.format(" %d.%m. %Y").to_string()
+        };
         s.serialize_field("date", &(weekday.to_owned() + &date))?;
         s.serialize_field("date_slug", &self.start_date.format("%Y%m%d").to_string())?;
 

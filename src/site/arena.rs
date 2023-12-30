@@ -7,7 +7,7 @@ use crate::event::{Event, Location};
 use crate::site::eventim::Eventim;
 use crate::site::{Filter, Site};
 use crate::tools::date::parse_short_date;
-use crate::tools::HTTP;
+use crate::tools::Http;
 
 const URL: &str = "https://www.quarterback-immobilien-arena.de";
 
@@ -60,7 +60,7 @@ impl Site for Arena<'_> {
         self.location.borrow()
     }
 
-    fn fetch_events(&self, http: &HTTP) -> Vec<Event> {
+    fn fetch_events(&self, http: &Http) -> Vec<Event> {
         let mut result = Vec::new();
 
         let eventim = Eventim::new(self.eventim_id, http.borrow());

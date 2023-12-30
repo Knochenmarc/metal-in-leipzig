@@ -21,7 +21,7 @@ pub fn parse_german_date(str: &str) -> NaiveDate {
     str = str.replace(" Nov ", " November ");
     str = str.replace(" Dez ", " December ");
 
-    let format = if str.contains(".") {
+    let format = if str.contains('.') {
         "%d. %B %Y"
     } else {
         "%d %B %Y"

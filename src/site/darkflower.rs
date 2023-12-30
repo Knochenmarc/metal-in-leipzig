@@ -5,7 +5,7 @@ use html_escape::decode_html_entities;
 use crate::event::{Event, Location};
 use crate::site::{parse_linked_data_events, Site};
 use crate::tools::date::parse_iso_datetime;
-use crate::tools::HTTP;
+use crate::tools::Http;
 
 pub struct Darkflower<'l> {
     location: Location<'l, 'l, 'l>,
@@ -28,7 +28,7 @@ impl Site for Darkflower<'_> {
         self.location.borrow()
     }
 
-    fn fetch_events(&self, http: &HTTP) -> Vec<Event> {
+    fn fetch_events(&self, http: &Http) -> Vec<Event> {
         let mut result = Vec::new();
         let json = http.get_json("https://darkflower.club/wp-json/wp/v2/pages/932");
         let html = json["content"]["rendered"].as_str().unwrap();

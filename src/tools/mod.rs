@@ -10,12 +10,12 @@ use serde_json::Value;
 pub(crate) mod date;
 pub(crate) mod image;
 
-pub struct HTTP {
+pub struct Http {
     client: Client,
 }
 
-impl HTTP {
-    pub(crate) fn new(accepts_invalid_certs: bool) -> HTTP {
+impl Http {
+    pub(crate) fn new(accepts_invalid_certs: bool) -> Http {
         let mut headers = HeaderMap::new();
         headers.insert(
             "User-Agent",
@@ -38,7 +38,7 @@ impl HTTP {
             .pool_max_idle_per_host(0) // https://github.com/hyperium/hyper/issues/2136#issuecomment-861826148
             .danger_accept_invalid_certs(accepts_invalid_certs);
 
-        HTTP {
+        Http {
             client: builder.build().unwrap(),
         }
     }

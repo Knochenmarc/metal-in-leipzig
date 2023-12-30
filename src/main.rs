@@ -20,7 +20,7 @@ use crate::site::ut_connewitz::UTConnewitz;
 use crate::site::werk2::Werk2;
 use crate::site::Site;
 use crate::tools::image::optimize_image;
-use crate::tools::HTTP;
+use crate::tools::Http;
 
 mod event;
 mod renderer;
@@ -28,8 +28,8 @@ mod site;
 mod tools;
 
 fn main() {
-    let http = HTTP::new(false);
-    let insecure_http = HTTP::new(true);
+    let http = Http::new(false);
+    let insecure_http = Http::new(true);
 
     let mut locations: Vec<&Location> = vec![];
     let mut events: Vec<Event> = vec![];

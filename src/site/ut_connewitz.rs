@@ -5,7 +5,7 @@ use regex::Regex;
 
 use crate::site::{metallum, spirit_of_metal, Filter, HasMetalBands};
 use crate::tools::date::parse_german_date;
-use crate::{Event, Location, Site, HTTP};
+use crate::{Event, Http, Location, Site};
 
 pub(crate) struct UTConnewitz<'l> {
     location: Location<'l, 'l, 'l>,
@@ -27,7 +27,7 @@ impl Site for UTConnewitz<'_> {
         self.location.borrow()
     }
 
-    fn fetch_events(&self, http: &HTTP) -> Vec<Event> {
+    fn fetch_events(&self, http: &Http) -> Vec<Event> {
         let mut result = Vec::new();
 
         let split_name = Regex::new(r", | & ").unwrap();
@@ -85,16 +85,15 @@ impl Site for UTConnewitz<'_> {
                 let id = capture.name("id").unwrap().as_str();
                 let title = capture.name("title").unwrap().as_str();
                 let day = capture.name("day").unwrap().as_str();
-                let img = match capture.name("img") {
-                    Some(cap) => Some(format!("https://utconnewitz.de/{}", cap.as_str())),
-                    None => None,
-                };
+                let img = capture
+                    .name("img")
+                    .map(|cap| format!("https://utconnewitz.de/{}", cap.as_str()));
 
                 if capture.name("month").is_some() {
                     month = capture.name("month").unwrap().as_str().trim();
                 }
 
-                if had_december == false && month == "Dezember" {
+                if !had_december && month == "Dezember" {
                     had_december = true;
                 }
 
@@ -116,7 +115,7 @@ impl Site for UTConnewitz<'_> {
                 let chunks: Vec<&str> = split_name.split(title).collect();
                 for chunk in chunks {
                     let chunk = clear_name.replace(chunk, "").to_string();
-                    if chunk != "" {
+                    if !chunk.is_empty() {
                         evt.add_band(chunk);
                     }
                 }
