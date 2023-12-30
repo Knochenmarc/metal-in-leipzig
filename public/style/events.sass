@@ -1,26 +1,42 @@
 body
-  --ank-image: url("../img/anker.webp")
+  --ank-background: url("../img/anker.webp") center
+  --bc-background: url("../img/bandcommunity.png") 1px
+  --ci-background: url("../img/conne_island.webp") -1px
+  --df-background: url("../img/darkflower.png") center
+  --fk-background: url("../img/felsenkeller.webp") center
+  --fw-background: url("../img/festwiese.png") center
+  --ha-background: url("../img/hausauensee.jpg") center
+  --hr-background: url("../img/hellraiser.webp") center
+  --lm-background: url("../img/messe.webp") center
+  --mb-background: url("../img/moritzbastei.png") center
+  --pb-background: url("../img/parkbuehne.webp") center
+  --qi-background: url("../img/qi-arena.png") center
+  --rb-background: url("../img/red-bull-arena.png") center
+  --rl-background: url("../img/rocklounge.png") center
+  --tb-background: url("../img/tankbar.webp") center
+  --tt-background: url("../img/taeubchenthal.svg") center
+  --sm-background: url("../img/soltmann.png") center
+  --w2-background: url("../img/werk2.webp") center
 
 main
-  display: grid
-  grid-column: 2
-  grid-template-columns: 60px auto
   margin-top: 7px
-
-.event-date
-  grid-column: 1
-  padding: 5px
-  &:nth-child(4n+1)
-    background: #202020
-  a:hover
-    color: white
 
 .events
   grid-column: 2
   display: flex
   flex-flow: wrap
-  &:nth-child(4n+2)
+  padding-left: 70px
+  overflow: hidden
+  position: relative
+  &:nth-child(2n)
     background: #202020
+  .date
+    position: absolute
+    left: 2px
+    padding-top: 5px
+    width: 66px
+    &:hover
+      color: white
 
 .event
   box-shadow: 0 0 0 4px rgba(52, 52, 52, 0.7)
@@ -45,9 +61,9 @@ main
     display: block
     width: 32px
     height: 32px
-    background-repeat: no-repeat
-    background-position: center
-    background-color: transparent
+    background-repeat: no-repeat !important
+    background-color: transparent !important
+    background-size: contain !important
   .event-img img
     vertical-align: bottom
 
@@ -55,96 +71,85 @@ main
     background-color: #ffffff
     color: #000000
     .event-location
-      background: var(--ank-image)
+      background: var(--ank-background)
   &.bc
     background-color: #167aad
     color: #fefefe
     .event-location
-      background-image: url("../img/bandcommunity.png")
-      background-position-x: 1px
+      background: var(--bc-background)
   &.ci
     background-color: #d8d895
     color: black
     .event-location
-      background-image: url("../img/conne_island.webp")
-      background-position-x: -1px
+      background: var(--ci-background)
   &.df
     background-color: #09212a
     .event-location
-      background-image: url("../img/darkflower.png")
+      background: var(--df-background)
   &.fk
     background-color: #fefefe
     color: #1b2024
     .event-location
-      background-image: url("../img/felsenkeller.webp")
-      background-size: contain
+      background: var(--fk-background)
   &.fw
     background-color: #00527e
     color: white
     .event-location
-      background-image: url("../img/festwiese.png")
-      background-size: contain
+      background: var(--fw-background)
   &.ha
     background-color: #2e4d77
     color: #f8f4e9
     .event-location
-      background-image: url("../img/hausauensee.jpg")
-      background-size: contain
+      background: var(--ha-background)
   &.hr
     background-color: black
     color: #e61e1e
     .event-location
-      background-image: url("../img/hellraiser.webp")
+      background: var(--hr-background)
   &.lm
     background-color: #f7f8f8
     color: #06a0e2
     .event-location
-      background-image: url("../img/messe.webp")
+      background: var(--lm-background)
   &.mb
     .event-location
-      background-image: url("../img/moritzbastei.png")
-      background-size: contain
+      background: var(--mb-background)
   &.pb
     background-color: #116e28
     color: #ffcc03
     .event-location
-      background-image: url("../img/parkbuehne.webp")
+      background: var(--pb-background)
   &.qi
     background-color: #00527e
     color: white
     .event-location
-      background-image: url("../img/qi-arena.png")
-      background-size: contain
+      background: var(--qi-background)
   &.rb
     background-color: #f7f8f8
     color: #dd0741
     .event-location
-      background-image: url("../img/red-bull-arena.png")
-      background-size: contain
+      background: var(--rb-background)
   &.rl
     .event-location
-      background-image: url("../img/rocklounge.png")
+      background: var(--rl-background)
   &.tb
     background-color: #e8e6d4
     color: black
     .event-location
-      background-image: url("../img/tankbar.webp")
+      background: var(--tb-background)
   &.tt
     background-color: #333333
     .event-location
-      background-image: url("../img/taeubchenthal.svg")
+      background: var(--tt-background)
   &.sm
     background-color: #101015
     .event-location
-      background-image: url("../img/soltmann.png")
-      background-size: 28px
-      background-position: center
+      background: var(--sm-background)
   &.w2
     background-color: #20110e
     color: #ffffff
     .event-location
-      background-image: url("../img/werk2.webp")
-      background-size: contain
+      background: var(--w2-background)
 
 
 a.more
@@ -196,102 +201,93 @@ a.more
       height: 30px
       display: inline-flex
       vertical-align: bottom
-      background-position: center
-      background-repeat: no-repeat
-      background-size: contain
+      background-repeat: no-repeat !important
+      background-size: contain !important
+      background-color: transparent !important
 
     &.ank
       background-color: #ffffff
       color: #000000
       &::before
-        background-image: var(--an)
+        background: var(--ank-background)
     &.bc
       background-color: #167aad
       color: #fefefe
       &::before
-        background-image: url("../img/bandcommunity.png")
-        background-position-x: 1px
+        background: var(--bc-background)
     &.ci
       background-color: #d8d895
       color: black
       &::before
-        background-image: url("../img/conne_island.webp")
-        background-position-x: -1px
+        background: var(--ci-background)
     &.df
       background-color: #09212a
       &::before
-        background-image: url("../img/darkflower.png")
+        background: var(--df-background)
     &.fk
       background-color: #fefefe
       color: #1b2024
       &::before
-        background-image: url("../img/felsenkeller.webp")
-        background-size: contain
+        background: var(--fk-background)
     &.fw
       background-color: #00527e
       color: white
       &::before
-        background-image: url("../img/festwiese.png")
-        background-size: contain
+        background: var(--fw-background)
     &.ha
       background-color: #2e4d77
       color: #f8f4e9
       &::before
-        background-image: url("../img/hausauensee.jpg")
-        background-size: contain
+        background: var(--ha-background)
     &.hr
       background-color: black
       color: #e61e1e
       &::before
-        background-image: url("../img/hellraiser.webp")
+        background: var(--hr-background)
     &.lm
       background-color: #f7f8f8
       color: #06a0e2
       &::before
-        background-image: url("../img/messe.webp")
+        background: var(--lm-background)
     &.mb
       &::before
-        background-image: url("../img/moritzbastei.png")
+        background: var(--mb-background)
     &.pb
       background-color: #116e28
       color: #ffcc03
       &::before
-        background-image: url("../img/parkbuehne.webp")
+        background: var(--pb-background)
     &.qi
       background-color: #00527e
       color: white
       &::before
-        background-image: url("../img/qi-arena.png")
-        background-size: contain
+        background: var(--qi-background)
     &.rb
       background-color: #f7f8f8
       color: #dd0741
       &::before
-        background-image: url("../img/red-bull-arena.png")
-        background-size: contain
+        background: var(--rb-background)
     &.rl
       &::before
-        background-image: url("../img/rocklounge.png")
+        background: var(--rl-background)
     &.tb
       background-color: #e8e6d4
       color: black
       &::before
-        background-image: url("../img/tankbar.webp")
+        background: var(--tb-background)
     &.tt
       background-color: #333333
       &::before
-        background-image: url("../img/taeubchenthal.svg")
+        background: var(--tt-background)
     &.sm
       background-color: #101015
       &::before
-        background-image: url("../img/soltmann.png")
-        background-size: 28px
-        background-position: center
+        background: var(--sm-background)
     &.w2
       background-color: #20110e
       color: #ffffff
       &::before
-        background-image: url("../img/werk2.webp")
+        background: var(--w2-background)
 
 #filter-loc-ank:checked ~ .filters label[for="filter-loc-ank"],
 #filter-loc-bc:checked ~ .filters label[for="filter-loc-bc"],
