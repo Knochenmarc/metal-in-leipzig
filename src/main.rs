@@ -92,20 +92,19 @@ fn main() {
         let mut grouped_events: BTreeMap<NaiveDate, Vec<Event>> = BTreeMap::new();
 
         for event in events {
-            grouped_events
-                .entry(event.start_date.date())
-                .or_insert(Vec::new())
-                .push(event.clone());
-
-            if event.end_date.is_some() {
-                let mut date = event.start_date.date();
-                while date < event.end_date.unwrap().date() {
-                    date = date.checked_add_days(Days::new(1)).unwrap();
-                    grouped_events
-                        .entry(date)
-                        .or_insert(Vec::new())
-                        .push(event.clone());
-                }
+            let mut date = event.start_date;
+            while date <= event.end_date.unwrap_or(event.start_date) {
+                grouped_events
+                    .entry(date.date())
+                    .or_insert(Vec::new())
+                    .push(event.clone());
+                date = date
+                    .checked_add_days(Days::new(1))
+                    .unwrap()
+                    .with_hour(8)
+                    .unwrap()
+                    .with_minute(0)
+                    .unwrap();
             }
         }
 

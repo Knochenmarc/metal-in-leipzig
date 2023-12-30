@@ -1,5 +1,6 @@
 use std::borrow::Borrow;
 
+use chrono::Timelike;
 use html_escape::decode_html_entities;
 use regex::Regex;
 
@@ -65,7 +66,7 @@ impl Site for Arena<'_> {
 
         let eventim = Eventim::new(self.eventim_id, http.borrow());
         let reg: Regex = Regex::new(
-            "(?si)<div class=\"event\".*?<a href=\"(.*?)\">.*?<source srcset=\"(.*?)\" media=\"[(]max-width: 320px[)]\">.*?<div>\\w+,\\s+(\\d\\d\\.\\d\\d\\.\\d\\d\\d\\d)</div>.*?<h2>(.*?)</h2>",
+            "(?si)<div class=\"event\".*?<a href=\"(.*?)\">.*?<source srcset=\"(.*?)\" media=\"[(]max-width: 320px[)]\">.*?<div>\\w+,\\s+(\\d\\d\\.\\d\\d\\.\\d\\d\\d\\d)</div>.*?<h2>(.*?)</h2>.*?Beginn\\s*:.*?(\\d\\d):(\\d\\d)",
         )
         .unwrap();
 
@@ -78,7 +79,11 @@ impl Site for Arena<'_> {
             for captures in reg.captures_iter(html.as_str()) {
                 let evt = Event::new(
                     decode_html_entities(&captures[4]).to_string(),
-                    parse_short_date(&captures[3]),
+                    parse_short_date(&captures[3])
+                        .with_hour(captures[5].parse().unwrap())
+                        .unwrap()
+                        .with_minute(captures[6].parse().unwrap())
+                        .unwrap(),
                     self.location.borrow(),
                     URL.to_owned() + captures[1].borrow(),
                     Option::Some(URL.to_owned() + captures[2].borrow()),
