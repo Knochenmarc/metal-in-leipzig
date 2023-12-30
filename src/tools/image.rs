@@ -54,8 +54,8 @@ pub fn optimize_image(img: &mut Image, http: &HTTP) {
     }
 
     let height: u32 = {
-        let output = Command::new("magick")
-            .args(["identify", "-format", "%h", local_path.to_str().unwrap()])
+        let output = Command::new("identify")
+            .args(["-format", "%h", local_path.to_str().unwrap()])
             .stdout(Stdio::piped())
             .spawn()
             .expect("could not start height detection")
