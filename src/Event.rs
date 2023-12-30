@@ -1,7 +1,5 @@
-use std::hash::{BuildHasher, Hash, Hasher};
-
 use chrono::NaiveDateTime;
-use twox_hash::RandomXxh3HashBuilder64;
+use twox_hash::xxh3::hash64;
 
 pub struct Event<'l> {
     pub name: String,
@@ -62,9 +60,7 @@ pub struct Image {
 
 impl Image {
     fn new(remote_url: String) -> Self {
-        let mut hasher = RandomXxh3HashBuilder64::default().build_hasher();
-        remote_url.hash(&mut hasher);
-        let hash = hasher.finish().to_string();
+        let hash = hash64(remote_url.as_bytes()).to_string();
 
         Self {
             remote_url,
