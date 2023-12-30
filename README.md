@@ -13,6 +13,7 @@ DE: Dieses Projekt erstellt einen Webkalender zu diversen Metal-Veranstaltungen 
 - haus-auensee-leipzig.de
 - hellraiser-leipzig.de
 - moritzbastei.de
+- quarterback-immobilien-arena.de
 - rocklounge-leipzig.de
 - taeubchenthal.com
 - tankbar-leipzig.de
@@ -20,8 +21,6 @@ DE: Dieses Projekt erstellt einen Webkalender zu diversen Metal-Veranstaltungen 
 
 ### Geplante Locations:
 - dark-flower
-- arena/festwiese/stadion
-- messe
 - Geyserhaus (Parkbühne/UnterRock?)
 - div. Pubs? Black Label, McCormacks
 

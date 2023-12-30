@@ -30,14 +30,13 @@ class Eventim implements ShopCrawler
         $plainHtml = $this->http->get($url);
 
         if (preg_match_all(
-            '#<script type="application/ld\+json">(.*"@type":"MusicEvent".*)</script>#iU',
+            '#<article\s.*data-teaser-name="(.*)".*datetime="(.*)"#isU',
             $plainHtml,
             $matches,
             PREG_SET_ORDER
         )) {
             foreach ($matches as $match) {
-                $data = json_decode($match[1], true, 512, JSON_THROW_ON_ERROR);
-                yield $data['name'] => new \DateTimeImmutable($data['startDate']);
+                yield $match[1] => new \DateTimeImmutable($match[2]);
             }
         }
 
