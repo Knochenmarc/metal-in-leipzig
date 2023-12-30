@@ -14,8 +14,10 @@ mod eventim_light;
 pub(crate) mod felsenkeller;
 pub(crate) mod haus_auensee;
 pub(crate) mod hellraiser;
+mod mawi;
 mod metallum;
 pub(crate) mod moritzbastei;
+pub(crate) mod parkbuehne;
 mod spirit_of_metal;
 
 pub trait Site {

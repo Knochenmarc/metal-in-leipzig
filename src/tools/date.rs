@@ -9,8 +9,24 @@ pub fn parse_german_date(str: &str) -> NaiveDate {
     str = str.replace(" Juli ", " July ");
     str = str.replace(" Oktober ", " October ");
     str = str.replace(" Dezember ", " December ");
+    str = str.replace(" Jan ", " January ");
+    str = str.replace(" Feb ", " February ");
+    str = str.replace(" Mär ", " March ");
+    str = str.replace(" Apr ", " April ");
+    str = str.replace(" Jun ", " June ");
+    str = str.replace(" Jul ", " July ");
+    str = str.replace(" Aug ", " August ");
+    str = str.replace(" Sep ", " September ");
+    str = str.replace(" Okt ", " October ");
+    str = str.replace(" Nov ", " November ");
+    str = str.replace(" Dez ", " December ");
 
-    NaiveDate::parse_from_str(str.as_str(), "%d. %B %Y").unwrap()
+    let format = if str.contains(".") {
+        "%d. %B %Y"
+    } else {
+        "%d %B %Y"
+    };
+    NaiveDate::parse_from_str(str.as_str(), format).unwrap()
 }
 
 pub fn parse_short_date(str: &str) -> NaiveDate {
