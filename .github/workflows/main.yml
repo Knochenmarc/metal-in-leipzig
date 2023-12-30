@@ -34,7 +34,7 @@ jobs:
           key: flyer-${{ steps.date.outputs.date }}
 
       - name: Run docker
-        run: docker-compose up --force-recreate --exit-code-from generator
+        run: docker-compose up --build --exit-code-from generator
 
       - name: Minify
         uses: anthonyftwang/minify-action@v1.0.1
