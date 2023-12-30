@@ -25,7 +25,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run docker
-        run: docker-compose up --exit-code-from generate
+        run: docker-compose up --exit-code-from generator
 
       # https://dev.to/pierresaid/deploy-node-projects-to-github-pages-with-github-actions-4jco
       - name: Deploy 🚀
