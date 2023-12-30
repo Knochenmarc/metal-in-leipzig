@@ -1,3 +1,6 @@
+body
+  --ank-image: url("../img/anker.webp")
+
 main
   display: grid
   grid-column: 2
@@ -52,7 +55,7 @@ main
     background-color: #ffffff
     color: #000000
     .event-location
-      background-image: url("../img/anker.webp")
+      background: var(--ank-image)
   &.bc
     background-color: #167aad
     color: #fefefe
@@ -167,7 +170,7 @@ a.more
   label.toggle
     display: block
     color: white
-    cursor: url('../img/metalhand.cur'), url('../img/metalhand.png'), url('../img/metalhand.gif'), auto
+    cursor: var(--metalhand)
     &:before, &:after
       content: "➤"
       display: inline-block
@@ -201,7 +204,7 @@ a.more
       background-color: #ffffff
       color: #000000
       &::before
-        background-image: url("../img/anker.webp")
+        background-image: var(--an)
     &.bc
       background-color: #167aad
       color: #fefefe

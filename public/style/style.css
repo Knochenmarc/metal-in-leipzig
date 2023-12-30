@@ -5,13 +5,14 @@ body {
   font-family: sans-serif;
   text-align: center;
   padding: 0;
-  margin: 0; }
+  margin: 0;
+  --metalhand: url("../img/metalhand.cur"), url("../img/metalhand.png"), auto; }
 
 a {
   text-decoration: none;
   color: #a8a8a8; }
   a[href] {
-    cursor: url("../img/metalhand.cur"), url("../img/metalhand.png"), url("../img/metalhand.gif"), auto; }
+    cursor: var(--metalhand); }
 
 header {
   display: grid;
@@ -42,6 +43,9 @@ header {
 @media (max-width: 671px) {
   header {
     height: 65px; } }
+
+body {
+  --ank-image: url("../img/anker.webp"); }
 
 main {
   display: grid;
@@ -95,7 +99,7 @@ main {
     background-color: #ffffff;
     color: #000000; }
     .event.ank .event-location {
-      background-image: url("../img/anker.webp"); }
+      background: var(--ank-image); }
   .event.bc {
     background-color: #167aad;
     color: #fefefe; }
@@ -206,7 +210,7 @@ a.more {
   .filters label.toggle {
     display: block;
     color: white;
-    cursor: url("../img/metalhand.cur"), url("../img/metalhand.png"), url("../img/metalhand.gif"), auto; }
+    cursor: var(--metalhand); }
     .filters label.toggle:before, .filters label.toggle:after {
       content: "➤";
       display: inline-block;
@@ -235,7 +239,7 @@ a.more {
       background-color: #ffffff;
       color: #000000; }
       .filters label:not(.toggle).ank::before {
-        background-image: url("../img/anker.webp"); }
+        background-image: var(--an); }
     .filters label:not(.toggle).bc {
       background-color: #167aad;
       color: #fefefe; }
