@@ -17,13 +17,13 @@
 <p>Diese Website wird auf Servern von <a href="https://www.github.com/" target="_blank">GitHub Inc.</a>,
     88 Colin P Kelly Jr St, San Francisco, CA 94107, USA gehostet. GitHub kann dabei persönliche Informationen des
     Besuchers wie z.B. die IP-Adresse in Log-Dateien abspeichern. siehe:
-    <a href="https://docs.github.com/en/github/site-policy/github-privacy-statement#github-pages" target="_blank">GitHub
-        Privacy Statement</a><br/>
-    Als Betreiber habe ich auf diese Daten <u>keinen</u> Zugriff.</p>
-<p>Es werden <u>keine</u> Cookies, Werbe- oder Trackingskripte eingesetzt.</p>
+    <a href="https://docs.github.com/en/github/site-policy/github-privacy-statement#github-pages" target="_blank">
+        GitHub Privacy Statement</a><br/>
+    Als Betreiber habe ich auf diese Daten keinen Zugriff.</p>
+<p>Es werden keine Cookies, Werbe- oder Trackingskripte eingesetzt.</p>
 
 <h1>Kontakt</h1>
-<p>Ideen, Beschwerden und Liebesbekundungen nehme ich gern unter folgender E-Mail entgegen:<br/>
+<p>Ideen, Beschwerden und Liebesbekundungen nehme ich gern unter folgender E-Mail-Adresse entgegen:<br/>
     webmaster (at) metal (minus) in (minus) leipzig (punkt) de </p>
 </body>
 </html>
