@@ -9,7 +9,6 @@ pub(crate) mod anker;
 pub(crate) mod arena;
 pub(crate) mod bandcommunity;
 pub(crate) mod conne_island;
-pub(crate) mod darkflower;
 mod eventim;
 pub(crate) mod felsenkeller;
 pub(crate) mod haus_auensee;
