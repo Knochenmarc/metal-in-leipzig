@@ -36,6 +36,10 @@ impl<'a> Event<'a> {
         }
     }
 
+    pub fn set_image(&mut self, image_url: String) {
+        self.image = Some(Image::new(image_url));
+    }
+
     pub fn add_band(&mut self, name: String) {
         self.bands.push(BandInfo {
             name,

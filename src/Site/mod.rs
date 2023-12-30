@@ -12,6 +12,7 @@ pub(crate) mod darkflower;
 mod eventim;
 mod eventim_light;
 pub(crate) mod felsenkeller;
+pub(crate) mod haus_auensee;
 mod metallum;
 mod spirit_of_metal;
 
