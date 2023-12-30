@@ -7,6 +7,8 @@ namespace MetalLE\Site;
 use MetalLE\Event\Event;
 use MetalLE\Event\Location;
 use MetalLE\Site\Shop\Eventim;
+use MetalLE\Site\Shop\LiveGigs;
+use MetalLE\Site\Shop\ShopCrawler;
 use Traversable;
 
 class Taeubchenthal implements Site
@@ -26,20 +28,25 @@ class Taeubchenthal implements Site
             $matches,
             PREG_SET_ORDER
         )) {
-            $eventim = new Eventim('taeubchenthal-leipzig-18055');
+            yield from $this->filter(new Eventim('taeubchenthal-leipzig-18055'), $matches, $location);
+            yield from $this->filter(new LiveGigs('Täubchenthal'), $matches, $location);
+        }
+    }
 
-            foreach ($eventim->fetchDates() as $date) {
-                foreach ($matches as $match) {
-                    if ($date->format('d.m.Y') === $match[3]) {
-                        yield new Event(
-                            $match[4],
-                            $date,
-                            $location,
-                            $match[1],
-                            $match[2],
-                        );
-                        continue 2;
-                    }
+    private function filter(ShopCrawler $shop, array &$matches, Location $location): \Generator
+    {
+        foreach ($shop->fetchDates() as $date) {
+            foreach ($matches as $key => $match) {
+                if ($date->format('d.m.Y') === $match[3]) {
+                    yield new Event(
+                        $match[4],
+                        $date,
+                        $location,
+                        $match[1],
+                        $match[2],
+                    );
+                    unset($matches[$key]);
+                    continue 2;
                 }
             }
         }
