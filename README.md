@@ -8,7 +8,6 @@ Dieses Projekt erstellt einen Webkalender zu diversen Metal-Veranstaltungen in L
 
 ### TODOs:
 - https://www.werk-2.de/programm/vorschau
-- gh-pages & actions (https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule)
 
 ### Angebundene Locations:
 - bandcommunity-leipzig.org
