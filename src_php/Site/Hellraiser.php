@@ -97,7 +97,7 @@ class Hellraiser implements Site
                 );
             }
         }
-        if (preg_match('/class="next page-numbers" href="(.*)"/iU', $plainHtTML, $match)) {
+        if (preg_match('/class="next page-numbers" href="(.*)"/iU', $plainHTML, $match)) {
             return $match[1];
         }
         
