@@ -57,7 +57,9 @@ impl Http {
                 Err(a) => Err(a),
             },
             Err(error) => {
-                if error.is_timeout() {
+                if error.is_timeout()
+                    || error.is_status() && error.status().unwrap().to_string() == "520"
+                {
                     sleep(Duration::from_secs(5));
                     self.get_raw(url)
                 } else {
