@@ -5,4 +5,5 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="referrer" content="no-referrer">
     <link href="style.css" rel="stylesheet">
+    <link rel = "icon" href="img/icon.png" type="image/x-icon">
 </head>
