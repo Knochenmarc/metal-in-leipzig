@@ -28,12 +28,14 @@ class Renderer
         );
     }
 
-    public function render(string $file, array $data): string
+    public function render(string $sourceFile, string $targetFile, string $title, array $data = []): void
     {
         $view = $this;
 
         ob_start();
-        include __DIR__ . '/' . $file;
-        return ob_get_clean();
+        include __DIR__ . '/' . $sourceFile;
+        $content = ob_get_clean();
+
+        file_put_contents($targetFile, $content);
     }
 }
