@@ -29,7 +29,7 @@ class Splitter
             if ($key < $minDate) {
                 continue;
             }
-            if ($key >= $chunkedDatesIterator->current()) {
+            while ($key >= $chunkedDatesIterator->current() && $chunkedDatesIterator->key() < 3) {
                 $chunkedDatesIterator->next();
             }
 

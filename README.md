@@ -6,7 +6,6 @@ EN: This projects generates a static website of metal music events in Leipzig (G
 DE: Dieses Projekt erstellt einen Webkalender zu diversen Metal-Veranstaltungen in Leipzig. 
 
 ### Angebundene Seiten:
-- der Anker
 - bandcommunity-leipzig.org
 - haus-auensee-leipzig.de
 - hellraiser-leipzig.de
@@ -16,6 +15,7 @@ DE: Dieses Projekt erstellt einen Webkalender zu diversen Metal-Veranstaltungen 
 - werk-2.de
 
 ### Geplante Locations:
+- der Anker
 - felsenkeller
 - dark-flower
 - arena/festwiese/stadion
