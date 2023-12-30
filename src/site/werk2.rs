@@ -41,8 +41,8 @@ impl Site for Werk2<'_> {
         let urls = [URL, "https://www.werk-2.de/programm/vorschau"];
         for url in urls {
             let html = http.get(url).unwrap();
-
-            for captures in reg.captures_iter(html.as_str()) {
+            let list_position = html.find("<ul class='vak_liste'>");
+            for captures in reg.captures_iter(&html[list_position.unwrap_or(0)..]) {
                 let month = captures.name("month").unwrap().as_str();
                 let day = captures.name("day").unwrap().as_str();
                 let url = captures.name("url").unwrap().as_str();
