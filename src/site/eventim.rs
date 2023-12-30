@@ -45,6 +45,10 @@ impl Eventim {
 
         Self { collected_events }
     }
+
+    pub fn get_raw(self) -> Vec<Value> {
+        self.collected_events
+    }
 }
 
 impl Filter for Eventim {

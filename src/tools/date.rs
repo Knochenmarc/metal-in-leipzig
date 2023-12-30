@@ -43,7 +43,8 @@ pub fn parse_iso_datetime(str: &str) -> ParseResult<NaiveDateTime> {
         .replace("+0:00", "+00:00")
         .replace("+1:00", "+01:00")
         .replace("+2:00", "+02:00")
-        .replace("+3:00", "+03:00");
+        .replace("+3:00", "+03:00")
+        .replace(".000", ""); // skip microseconds
     let format = if date.len() == 25 {
         "%Y-%m-%dT%H:%M:%S%:z"
     } else {

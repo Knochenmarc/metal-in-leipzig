@@ -16,6 +16,7 @@ Alle Event-Informationen stammen aus öffentlichen Internetquellen und werden ei
 - haus-auensee-leipzig.de
 - hellraiser-leipzig.de
 - moritzbastei.de
+- noels-ballroom.de
 - parkbuehne-leipzig.com
 - quarterback-immobilien-arena.de
 - soltmann-bar.de
@@ -27,7 +28,7 @@ Alle Event-Informationen stammen aus öffentlichen Internetquellen und werden ei
 - Moertelwerk
 - rocklounge-leipzig.de
 - Geyserhaus (Parkbühne/UnterRock?)
-- div. Pubs? Black Label, Noels, McCormacks
+- div. Pubs? Black Label, McCormacks
 - Spizz-Keller?
 
 Was fehlt noch? Schreibt es mir als [Issue](https://github.com/Knochenmarc/metal-in-leipzig/issues).
