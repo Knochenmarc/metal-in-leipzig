@@ -1,4 +1,4 @@
-use chrono::{NaiveDate, NaiveDateTime};
+use chrono::{NaiveDate, NaiveDateTime, ParseResult};
 
 pub fn parse_german_date(str: &str) -> NaiveDate {
     let mut str = str.replace(" Januar ", " January ");
@@ -33,7 +33,7 @@ pub fn parse_short_date(str: &str) -> NaiveDate {
     NaiveDate::parse_from_str(str, "%d.%m.%Y").unwrap()
 }
 
-pub fn parse_iso_datetime(str: &str) -> NaiveDateTime {
+pub fn parse_iso_datetime(str: &str) -> ParseResult<NaiveDateTime> {
     let date = str
         .to_string()
         .replace("+0:00", "+00:00")
@@ -45,5 +45,5 @@ pub fn parse_iso_datetime(str: &str) -> NaiveDateTime {
     } else {
         "%Y-%m-%dT%H:%M%:z"
     };
-    NaiveDateTime::parse_from_str(date.as_str(), format).unwrap()
+    NaiveDateTime::parse_from_str(date.as_str(), format)
 }

@@ -36,7 +36,7 @@ impl Site for Bandcommunity<'_> {
             let name = data_event["name"].as_str().unwrap();
             let mut evt = Event::new(
                 name.to_string(),
-                parse_iso_datetime(data_event["startDate"].as_str().unwrap()),
+                parse_iso_datetime(data_event["startDate"].as_str().unwrap()).unwrap(),
                 self.location.borrow(),
                 data_event["url"].as_str().unwrap().to_string(),
                 Some(data_event["image"].as_str().unwrap().to_string()),
@@ -49,7 +49,8 @@ impl Site for Bandcommunity<'_> {
                 EventType::Concert
             };
 
-            evt.end_date = Some(parse_iso_datetime(data_event["endDate"].as_str().unwrap()));
+            evt.end_date =
+                Some(parse_iso_datetime(data_event["endDate"].as_str().unwrap()).unwrap());
             evt.status = EventStatus::from_schema(data_event["eventStatus"].as_str().unwrap());
 
             result.push(evt);
