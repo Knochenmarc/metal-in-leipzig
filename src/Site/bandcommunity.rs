@@ -1,11 +1,10 @@
 use std::borrow::Borrow;
 
-use chrono::{NaiveDateTime, NaiveTime};
+use chrono::NaiveTime;
 use html_escape::decode_html_entities;
 use regex::Regex;
 
 use crate::event::{Event, Location};
-use crate::site::eventim::Eventim;
 use crate::site::Site;
 use crate::tools::date::parse_short_date;
 use crate::tools::HTTP;

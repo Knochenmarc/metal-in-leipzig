@@ -103,7 +103,6 @@ pub struct Image {
     pub hash: String,
     width: u32,
     height: u32,
-    ratio: f32,
 }
 
 impl Image {
@@ -117,14 +116,12 @@ impl Image {
             hash,
             width: 0,
             height: 0,
-            ratio: 0.0,
         }
     }
 
     pub fn set_size(&mut self, width: u32, height: u32) {
         self.width = width;
         self.height = height;
-        self.ratio = (width / height) as f32;
     }
 }
 
@@ -134,7 +131,7 @@ impl Serialize for Image {
         S: Serializer,
     {
         let width: i32 = 290;
-        let height = 290.0 / self.ratio;
+        let height = 290.0 * (self.height as f32) / (self.width as f32);
         let mut s = serializer.serialize_struct("Image", 4)?;
         s.serialize_field("public_avif_url", &self.public_avif_url)?;
         s.serialize_field("public_jpg_url", &self.public_jpg_url)?;
