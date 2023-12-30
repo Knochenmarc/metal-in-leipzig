@@ -48,7 +48,7 @@ impl Site for HausAuensee<'_> {
         let image_reg = Regex::new("(?i)<img src=\"(.*?)\".*class=\"block col-12\"").unwrap();
         let split_reg = Regex::new(r"\s[+&]\s").unwrap();
 
-        let eventim = Eventim::new("haus-auensee-leipzig-7301", http.borrow());
+        let eventim = Eventim::new("haus-auensee-leipzig-7301", http);
         let has_metal_band = HasMetalBands {};
 
         let html = wrap_reg
@@ -82,8 +82,8 @@ impl Site for HausAuensee<'_> {
             }
 
             for band in evt.bands.iter_mut() {
-                spirit_of_metal::find_band(band, http.borrow());
-                metallum::find_band(band, http.borrow());
+                spirit_of_metal::find_band(band, http);
+                metallum::find_band(band, http);
             }
 
             if eventim.is_it_metal(evt.borrow()) || has_metal_band.is_it_metal(evt.borrow()) {

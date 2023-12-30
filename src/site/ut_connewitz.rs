@@ -123,8 +123,8 @@ impl Site for UTConnewitz<'_> {
                 }
 
                 for band in evt.bands.iter_mut() {
-                    spirit_of_metal::find_band(band, http.borrow());
-                    metallum::find_band(band, http.borrow());
+                    spirit_of_metal::find_band(band, http);
+                    metallum::find_band(band, http);
                 }
 
                 if has_metal_bands.is_it_metal(evt.borrow()) {

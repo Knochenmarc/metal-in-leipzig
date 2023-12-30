@@ -39,7 +39,7 @@ impl Site for Felsenkeller<'_> {
             .get("https://www.felsenkeller-leipzig.com/programm/")
             .unwrap();
 
-        let eventim = Eventim::new("felsenkeller-leipzig-7394", http.borrow());
+        let eventim = Eventim::new("felsenkeller-leipzig-7394", http);
         let has_metal_band = HasMetalBands {};
 
         let this_year = chrono::Utc::now().year();
@@ -105,8 +105,8 @@ impl Site for Felsenkeller<'_> {
             }
 
             for band in evt.bands.iter_mut() {
-                spirit_of_metal::find_band(band, http.borrow());
-                metallum::find_band(band, http.borrow());
+                spirit_of_metal::find_band(band, http);
+                metallum::find_band(band, http);
             }
 
             let detail = captures.name("detail").unwrap().as_str();

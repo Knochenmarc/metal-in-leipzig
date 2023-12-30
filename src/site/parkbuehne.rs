@@ -36,7 +36,7 @@ impl<'a> Site for Parkbuehne<'a, '_> {
             .get("https://www.parkbuehne-leipzig.com/wordpress/veranstaltungen/")
             .unwrap();
         let reg = Regex::new("(?is)<article\\s.*?<img\\s.*?src=\"(?P<img>.*?)\".*?<h3\\s.*?<a href=\"(?P<url>.*?)\">(?P<name>.*?)</a></h3>.*?, (?P<date>\\d\\d? [a-z]{2,3} \\d\\d\\d\\d).*?</article>").unwrap();
-        let mawi = Mawi::new("Parkbühne Clara-Zetkin-Park", self.insecure_http.borrow());
+        let mawi = Mawi::new("Parkbühne Clara-Zetkin-Park", self.insecure_http);
 
         let mut result = Vec::new();
         for capture in reg.captures_iter(html.as_str()) {
