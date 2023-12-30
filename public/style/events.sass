@@ -2,6 +2,7 @@ body
   --ank-background: url("../img/anker.webp") center
   --bc-background: url("../img/bandhaus.png") center
   --ci-background: url("../img/conne_island.webp") -1px
+  --df-background: url("../img/darkflower.png") center
   --fk-background: url("../img/felsenkeller.webp") center
   --fw-background: url("../img/festwiese.png") center
   --ha-background: url("../img/hausauensee.jpg") center
@@ -81,6 +82,10 @@ main
     color: black
     &:before
       background: var(--ci-background)
+  &.df
+    background-color: #09212a
+    &:before
+      background: var(--df-background)
   &.fk
     background-color: #fefefe
     color: #1b2024
@@ -205,6 +210,10 @@ main
       color: black
       &::before
         background: var(--ci-background)
+    &.df
+      background-color: #09212a
+      &::before
+        background: var(--df-background)
     &.fk
       background-color: #fefefe
       color: #1b2024
@@ -285,6 +294,7 @@ main
 #filter-loc-ank:checked ~ .filters label[for="filter-loc-ank"],
 #filter-loc-bc:checked ~ .filters label[for="filter-loc-bc"],
 #filter-loc-ci:checked ~ .filters label[for="filter-loc-ci"],
+#filter-loc-df:checked ~ .filters label[for="filter-loc-df"],
 #filter-loc-fk:checked ~ .filters label[for="filter-loc-fk"],
 #filter-loc-fw:checked ~ .filters label[for="filter-loc-fw"],
 #filter-loc-ha:checked ~ .filters label[for="filter-loc-ha"],
@@ -307,6 +317,7 @@ main
 #filter-loc-ank:checked ~ main .event.ank,
 #filter-loc-bc:checked ~ main .event.bc,
 #filter-loc-ci:checked ~ main .event.ci,
+#filter-loc-df:checked ~ main .event.df,
 #filter-loc-fk:checked ~ main .event.fk,
 #filter-loc-fw:checked ~ main .event.fw,
 #filter-loc-ha:checked ~ main .event.ha,
