@@ -10,6 +10,10 @@ pub(crate) mod bandcommunity;
 pub(crate) mod conne_island;
 pub(crate) mod darkflower;
 mod eventim;
+mod eventim_light;
+pub(crate) mod felsenkeller;
+mod metallum;
+mod spirit_of_metal;
 
 pub trait Site {
     fn get_locations(&self) -> Vec<Location>;
@@ -48,4 +52,18 @@ fn parse_linked_data_events(html: &str) -> Vec<Value> {
     }
 
     return result;
+}
+
+struct HasMetalBands {}
+
+impl Filter for HasMetalBands {
+    fn is_it_metal(&self, evt: &Event) -> bool {
+        for band in evt.bands.iter() {
+            if band.spirit_link.is_some() || band.metallum_link.is_some() {
+                return true;
+            }
+        }
+
+        false
+    }
 }
