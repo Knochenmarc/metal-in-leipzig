@@ -16,15 +16,15 @@ Alle Event-Informationen stammen aus öffentlichen Internetquellen und werden ei
 - haus-auensee-leipzig.de
 - hellraiser-leipzig.de
 - moritzbastei.de
-- quarterback-immobilien-arena.de
 - parkbuehne-leipzig.com
+- quarterback-immobilien-arena.de
+- soltmann-bar.de
 - taeubchenthal.com
 - tankbar-leipzig.de
-- soltmann-bar.de
+- utconnewitz.de
 - werk-2.de
 
 ### Geplante Locations:
-- UT Connewitz
 - Moertelwerk
 - rocklounge-leipzig.de
 - Geyserhaus (Parkbühne/UnterRock?)

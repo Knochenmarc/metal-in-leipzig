@@ -16,6 +16,7 @@ use crate::site::parkbuehne::Parkbuehne;
 use crate::site::soltmann::Soltmann;
 use crate::site::taeubchenthal::Taeubchenthal;
 use crate::site::tankbar::Tankbar;
+use crate::site::ut_connewitz::UTConnewitz;
 use crate::site::werk2::Werk2;
 use crate::site::Site;
 use crate::tools::image::optimize_image;
@@ -35,9 +36,9 @@ fn main() {
 
     let sites: Vec<Box<dyn Site>> = vec![
         Box::new(Anker::new()),
-        Box::new(Arena::new_red_bull()),
-        Box::new(Arena::new_quarterback()),
         Box::new(Arena::new_festwiese()),
+        Box::new(Arena::new_quarterback()),
+        Box::new(Arena::new_red_bull()),
         Box::new(Bandcommunity::new()),
         Box::new(ConneIsland::new(insecure_http.borrow())),
         Box::new(Darkflower::new()),
@@ -46,9 +47,10 @@ fn main() {
         Box::new(Hellraiser::new()),
         Box::new(Moritzbastei::new()),
         Box::new(Parkbuehne::new(insecure_http.borrow())),
+        Box::new(Soltmann::new()),
         Box::new(Taeubchenthal::new()),
         Box::new(Tankbar::new()),
-        Box::new(Soltmann::new()),
+        Box::new(UTConnewitz::new()),
         Box::new(Werk2::new()),
     ];
     for site in &sites {
