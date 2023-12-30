@@ -26,9 +26,9 @@ DE: Dieses Projekt erstellt einen Webkalender zu diversen Metal-Veranstaltungen 
 - was fehlt noch? schreibt es mir als [Issue](https://github.com/Knochenmarc/metal-in-leipzig/issues)
 
 ### Mehr Ideen:
-- Gesetzeskrams
+- favicons
 - SEO
 - mobile Optimierung
 - ics/ical-Export
-- Filters (Metal/Rock/Punk; Konzert/Party; Ausverkauft/Verschoben/Abgesagt)
+- Filter (Metal/Rock/Punk; Konzert/Party; Ausverkauft/Verschoben/Abgesagt)
 - endless scrolling

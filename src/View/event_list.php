@@ -1,8 +1,6 @@
 <main>
     <?php foreach ($data['events'] ?? [] as $events) : ?>
-        <div class="event-date">
-            <?= $view->format_date(reset($events)->date) ?>
-        </div>
+        <div class="event-date"><?= $view->format_date(reset($events)->date) ?></div>
         <div class="events">
             <?php $imgCount = 0;
             foreach ($events as $event) : ?>
@@ -13,13 +11,12 @@
                                title="<?= $event->location->name ?>"></a></object>
                     <?= htmlentities($event->name) ?>
                     <?php if ($event->image) : ?>
-                        <picture class="event-img" style="aspect-ratio: <?= $event->image->ratio ?>">
-                            <source srcset="<?= $event->image->publicUrl ?>" type="image/avif">
-                            <img src="<?= $event->image->remoteUrl ?>" <?php if ($imgCount++ > 5) : ?>loading="lazy"<?php endif; ?> alt=""/>
+                        <picture class="event-img" style="aspect-ratio: auto <?= $event->image->ratio ?>">
+                            <source srcset="<?= $event->image->publicAvifUrl ?>" type="image/avif">
+                            <img src="<?= $event->image->publicJpgUrl ?>" <?php if ($imgCount++ > 5) : ?>loading="lazy"<?php endif; ?> alt=""/>
                         </picture>
                     <?php endif; ?>
                 </a>
-
             <?php endforeach ?>
         </div>
     <?php endforeach ?>

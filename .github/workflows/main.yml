@@ -20,8 +20,18 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m')"
+
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+
+      - name: Cache flyers
+        uses: actions/cache@v2
+        with:
+          path: public/flyer
+          key: flyer-${{ steps.date.outputs.date }}
 
       # Runs a single command using the runners shell
       - name: Run docker
