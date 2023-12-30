@@ -18,7 +18,6 @@ use crate::site::noels::NoelsBallroom;
 use crate::site::parkbuehne::Parkbuehne;
 use crate::site::soltmann::Soltmann;
 use crate::site::taeubchenthal::Taeubchenthal;
-use crate::site::tankbar::Tankbar;
 use crate::site::ut_connewitz::UTConnewitz;
 use crate::site::werk2::Werk2;
 use crate::site::Site;
