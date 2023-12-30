@@ -1,4 +1,5 @@
 use std::borrow::Borrow;
+use std::collections::BTreeMap;
 
 use chrono::{Days, NaiveDate, Timelike};
 
@@ -11,6 +12,7 @@ use crate::site::darkflower::Darkflower;
 use crate::site::felsenkeller::Felsenkeller;
 use crate::site::haus_auensee::HausAuensee;
 use crate::site::hellraiser::Hellraiser;
+use crate::site::inflammen::InFlammen;
 use crate::site::moritzbastei::Moritzbastei;
 use crate::site::parkbuehne::Parkbuehne;
 use crate::site::soltmann::Soltmann;
@@ -54,6 +56,7 @@ fn main() {
         Box::new(Felsenkeller::new()),
         Box::new(HausAuensee::new()),
         Box::new(Hellraiser::new()),
+        Box::new(InFlammen::new()),
         Box::new(Moritzbastei::new()),
         Box::new(Parkbuehne::new(insecure_http.borrow())),
         Box::new(Soltmann::new()),
@@ -85,18 +88,29 @@ fn main() {
     events.sort_by(|a, b| a.start_date.cmp(&b.start_date));
     locations.sort_by(|a, b| a.name.to_lowercase().cmp(&b.name.to_lowercase()));
 
-    let mut grouped_events: Vec<Vec<Event>> = vec![];
-    {
-        let mut previous_date: NaiveDate = NaiveDate::default();
-        for event in events {
-            if event.start_date.date().cmp(previous_date.borrow()).is_gt() {
-                grouped_events.push(Vec::new());
-            }
+    let grouped_events = {
+        let mut grouped_events: BTreeMap<NaiveDate, Vec<Event>> = BTreeMap::new();
 
-            previous_date = event.start_date.date();
-            grouped_events.last_mut().unwrap().push(event);
+        for event in events {
+            grouped_events
+                .entry(event.start_date.date())
+                .or_insert(Vec::new())
+                .push(event.clone());
+
+            if event.end_date.is_some() {
+                let mut date = event.start_date.date();
+                while date < event.end_date.unwrap().date() {
+                    date = date.checked_add_days(Days::new(1)).unwrap();
+                    grouped_events
+                        .entry(date)
+                        .or_insert(Vec::new())
+                        .push(event.clone());
+                }
+            }
         }
-    }
+
+        grouped_events
+    };
 
     renderer::render(grouped_events, locations);
 }

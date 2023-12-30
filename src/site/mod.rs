@@ -14,6 +14,7 @@ mod eventim;
 pub(crate) mod felsenkeller;
 pub(crate) mod haus_auensee;
 pub(crate) mod hellraiser;
+pub(crate) mod inflammen;
 mod mawi;
 mod metallum;
 pub(crate) mod moritzbastei;

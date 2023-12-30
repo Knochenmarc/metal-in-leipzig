@@ -1,6 +1,7 @@
+use std::collections::{BTreeMap, HashMap};
 use std::fs::{remove_file, File};
 
-use chrono::Utc;
+use chrono::{Datelike, NaiveDate, Utc, Weekday};
 use chrono_tz::Europe::Berlin;
 use handlebars::{no_escape, to_json, Handlebars};
 use serde_json::value::Map;
@@ -13,7 +14,7 @@ fn prepare_file(file: &str) -> File {
     File::create("public/".to_owned() + file).unwrap()
 }
 
-pub(crate) fn render(events: Vec<Vec<Event>>, locations: Vec<&Location>) {
+pub(crate) fn render(events: BTreeMap<NaiveDate, Vec<Event>>, locations: Vec<&Location>) {
     let mut hb = Handlebars::new();
     hb.register_template_file("event_list", "templates/event_list.hbs")
         .expect("template not found");
@@ -40,6 +41,31 @@ pub(crate) fn render(events: Vec<Vec<Event>>, locations: Vec<&Location>) {
         Value::String(now.format("%Y-%m-%dT%H:%M:S").to_string()),
     );
     data.insert("locations".to_string(), to_json(locations));
+
+    let mut date_slugs = HashMap::new();
+    let mut dates = HashMap::new();
+    for date in events.keys() {
+        date_slugs.insert(date, date.format("%Y%m%d").to_string());
+
+        let weekday = match date.weekday() {
+            Weekday::Mon => "Mo.",
+            Weekday::Tue => "Di.",
+            Weekday::Wed => "Mi.",
+            Weekday::Thu => "Do.",
+            Weekday::Fri => "Fr.",
+            Weekday::Sat => "Sa.",
+            Weekday::Sun => "So.",
+        };
+        let full_date: String = if date.year() == Utc::now().year() {
+            date.format(" %d.%m.").to_string()
+        } else {
+            date.format(" %d.%m. %Y").to_string()
+        };
+        dates.insert(date, weekday.to_owned() + &full_date);
+    }
+
+    data.insert("dates".to_string(), to_json(dates));
+    data.insert("date_slugs".to_string(), to_json(date_slugs));
     data.insert("event_group".to_string(), to_json(events));
 
     hb.render_to_write("index", &data, prepare_file("index.html"))

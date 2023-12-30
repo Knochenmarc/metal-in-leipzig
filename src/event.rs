@@ -2,6 +2,7 @@ use chrono::{Datelike, NaiveDateTime, NaiveTime, Utc, Weekday};
 use serde::ser::{Serialize, SerializeStruct, Serializer};
 use twox_hash::xxh3::hash64;
 
+#[derive(Clone)]
 pub enum EventType {
     Concert,
     Party,
@@ -9,6 +10,7 @@ pub enum EventType {
     Festival,
     Unknown,
 }
+#[derive(Clone)]
 pub enum EventStatus {
     Cancelled,
     Postponed,
@@ -33,6 +35,7 @@ impl EventStatus {
     }
 }
 
+#[derive(Clone)]
 pub struct Event<'l> {
     pub name: String,
     pub door_time: Option<NaiveTime>,
@@ -142,6 +145,7 @@ impl Serialize for Location<'_, '_, '_> {
     }
 }
 
+#[derive(Clone)]
 pub struct Image {
     pub remote_url: String,
     pub public_avif_url: String,
@@ -188,6 +192,7 @@ impl Serialize for Image {
     }
 }
 
+#[derive(Clone)]
 pub struct BandInfo {
     pub name: String,
     pub genre: Option<String>,

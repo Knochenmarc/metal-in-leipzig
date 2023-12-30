@@ -1,7 +1,7 @@
 <main>
     {{#each event_group}}
         <div class="events">
-            <a class="date" href="#{{this.[0].date_slug}}" id="{{this.[0].date_slug}}">{{this.[0].date}}</a>
+            <a class="date" href="#{{lookup ../date_slugs @key}}" id="{{lookup ../date_slugs @key}}">{{lookup ../dates @key}}</a>
             {{#each this}}
                 <a {{#if this.url}} href="{{this.url}}"{{/if}}
                                     title="{{this.name}}"
