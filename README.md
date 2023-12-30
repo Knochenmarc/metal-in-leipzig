@@ -9,6 +9,7 @@ DE: Dieses Projekt erstellt einen Webkalender zu diversen Metal-Veranstaltungen 
 - anker-leipzig.de
 - bandcommunity-leipzig.org
 - conne-island.de
+- darkflower.club
 - felsenkeller-leipzig.com
 - haus-auensee-leipzig.de
 - hellraiser-leipzig.de
@@ -21,9 +22,10 @@ DE: Dieses Projekt erstellt einen Webkalender zu diversen Metal-Veranstaltungen 
 - werk-2.de
 
 ### Geplante Locations:
-- dark-flower
+- Moertelwerk
 - Geyserhaus (Parkbühne/UnterRock?)
-- div. Pubs? Black Label, McCormacks
+- div. Pubs? Black Label, Noels, McCormacks
+- Spizz?
 
 Was fehlt noch? schreibt es mir als [Issue](https://github.com/Knochenmarc/metal-in-leipzig/issues).
 
