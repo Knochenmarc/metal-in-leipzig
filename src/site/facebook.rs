@@ -51,7 +51,7 @@ pub fn fetch_facebook_events<'a, 'b>(
     http: &'a Http,
     location: &'b Location,
     page_id: u64,
-    key: String,
+    key: &str,
 ) -> Vec<Event<'b>> {
     let mut result = vec![];
 

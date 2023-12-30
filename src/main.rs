@@ -1,8 +1,10 @@
+#[macro_use]
+extern crate dotenv_codegen;
+
 use std::borrow::Borrow;
 use std::collections::BTreeMap;
 
 use chrono::{Days, NaiveDate, Timelike};
-use dotenv::dotenv;
 
 use crate::event::{Event, Location};
 use crate::site::anker::Anker;
@@ -32,8 +34,6 @@ mod site;
 mod tools;
 
 fn main() {
-    dotenv().ok();
-
     let http = Http::new(false);
     let insecure_http = Http::new(true);
 

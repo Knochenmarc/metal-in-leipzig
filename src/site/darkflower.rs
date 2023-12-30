@@ -1,5 +1,4 @@
 use std::borrow::Borrow;
-use std::env::var;
 
 use crate::event::{Event, Location};
 use crate::site::facebook::fetch_facebook_events;
@@ -32,7 +31,7 @@ impl Site for Darkflower<'_> {
             http,
             self.get_location(),
             100064530226536,
-            var("ML_DF_KEY").unwrap(),
+            dotenv!("ML_DF_KEY"),
         )
         .into_iter()
         .filter(|event| {

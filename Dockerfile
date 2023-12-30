@@ -12,6 +12,7 @@ RUN rm src/*.rs
 RUN rm ./target/release/deps/metal_in_leipzig*
 
 COPY ./src ./src
+COPY .env .env
 RUN cargo build --release
 
 FROM dpokidov/imagemagick:latest
