@@ -10,9 +10,9 @@
                     {{#if this.image}}
                         <picture class="event-img">
                             <source srcset="{{this.image.public_avif_url}}" type="image/avif">
-                            <img src="{{this.image.public_jpg_url}}" width="{{this.image.width}}"
-                                 height="{{this.image.height}}" {{#if @../index }}loading="lazy" decoding="async"{{/if}}
-                                 alt="{{this.name}}"/>
+                            <img src="{{this.image.public_jpg_url}}" alt="{{this.name}}"
+                                 width="{{this.image.width}}" height="{{this.image.height}}"
+                                 {{#if @../index }}loading="lazy"{{/if}} />
                         </picture>
                     {{/if}}
                 </a>

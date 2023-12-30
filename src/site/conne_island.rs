@@ -8,27 +8,27 @@ use crate::site::Site;
 use crate::tools::date::parse_short_date;
 use crate::tools::HTTP;
 
-pub struct ConneIsland<'h> {
-    location: Location,
+pub struct ConneIsland<'l, 'h> {
+    location: Location<'l, 'l, 'l>,
     insecure_http: &'h HTTP,
 }
 
-impl<'a> ConneIsland<'a> {
+impl<'a> ConneIsland<'_, 'a> {
     pub(crate) fn new(insecure_http: &'a HTTP) -> Self {
         Self {
             location: Location {
-                slug: "ci".to_string(),
-                name: "Conne Island".to_string(),
-                website: "https://conne-island.de".to_string(),
+                slug: "ci",
+                name: "Conne Island",
+                website: "https://conne-island.de",
             },
             insecure_http,
         }
     }
 }
 
-impl<'a> Site for ConneIsland<'a> {
-    fn get_locations(&self) -> Vec<Location> {
-        return vec![self.location.clone()];
+impl<'a> Site for ConneIsland<'_, 'a> {
+    fn get_location(&self) -> &Location {
+        self.location.borrow()
     }
 
     fn fetch_events(&self, _http: &HTTP) -> Vec<Event> {

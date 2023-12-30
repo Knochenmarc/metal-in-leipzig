@@ -8,27 +8,27 @@ use crate::site::Filter;
 use crate::tools::date::parse_german_date;
 use crate::{Event, Location, Site, HTTP};
 
-pub(crate) struct Parkbuehne<'h> {
-    location: Location,
+pub(crate) struct Parkbuehne<'h, 'l> {
+    location: Location<'l, 'l, 'l>,
     insecure_http: &'h HTTP,
 }
 
-impl<'a> Parkbuehne<'a> {
+impl<'a> Parkbuehne<'a, '_> {
     pub fn new(insecure_http: &'a HTTP) -> Self {
         Self {
             location: Location {
-                slug: "pb".to_string(),
-                name: "Parkbühne im Clara-Zetkin-Park".to_string(),
-                website: "https://www.parkbuehne-leipzig.com".to_string(),
+                slug: "pb",
+                name: "Parkbühne im Clara-Zetkin-Park",
+                website: "https://www.parkbuehne-leipzig.com",
             },
             insecure_http,
         }
     }
 }
 
-impl<'a> Site for Parkbuehne<'a> {
-    fn get_locations(&self) -> Vec<Location> {
-        return vec![self.location.clone()];
+impl<'a> Site for Parkbuehne<'a, '_> {
+    fn get_location(&self) -> &Location {
+        self.location.borrow()
     }
 
     fn fetch_events(&self, http: &HTTP) -> Vec<Event> {

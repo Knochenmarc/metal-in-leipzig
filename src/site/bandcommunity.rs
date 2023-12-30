@@ -9,25 +9,25 @@ use crate::site::Site;
 use crate::tools::date::parse_short_date;
 use crate::tools::HTTP;
 
-pub struct Bandcommunity {
-    location: Location,
+pub struct Bandcommunity<'l> {
+    location: Location<'l, 'l, 'l>,
 }
 
-impl Bandcommunity {
+impl Bandcommunity<'_> {
     pub(crate) fn new() -> Self {
         Self {
             location: Location {
-                slug: "bc".to_string(),
-                name: "Bandcommunity Leipzig".to_string(),
-                website: "https://bandcommunity-leipzig.org/".to_string(),
+                slug: "bc",
+                name: "Bandcommunity Leipzig",
+                website: "https://bandcommunity-leipzig.org/",
             },
         }
     }
 }
 
-impl Site for Bandcommunity {
-    fn get_locations(&self) -> Vec<Location> {
-        return vec![self.location.clone()];
+impl Site for Bandcommunity<'_> {
+    fn get_location(&self) -> &Location {
+        self.location.borrow()
     }
 
     fn fetch_events(&self, http: &HTTP) -> Vec<Event> {

@@ -13,7 +13,7 @@ fn prepare_file(file: &str) -> File {
     File::create("public/".to_owned() + file).unwrap()
 }
 
-pub(crate) fn render(events: Vec<Vec<Event>>, locations: Vec<Location>) {
+pub(crate) fn render(events: Vec<Vec<Event>>, locations: Vec<&Location>) {
     let mut hb = Handlebars::new();
     hb.register_template_file("event_list", "templates/event_list.hbs")
         .expect("template not found");

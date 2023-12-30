@@ -7,24 +7,24 @@ use crate::site::{metallum, spirit_of_metal, Filter, HasMetalBands};
 use crate::tools::date::parse_german_date;
 use crate::{Event, Location, Site, HTTP};
 
-pub(crate) struct UTConnewitz {
-    location: Location,
+pub(crate) struct UTConnewitz<'l> {
+    location: Location<'l, 'l, 'l>,
 }
 
-impl UTConnewitz {
+impl UTConnewitz<'_> {
     pub fn new() -> Self {
         Self {
             location: Location {
-                slug: "ut".to_string(),
-                name: "UT Connewitz".to_string(),
-                website: "https://utconnewitz.de/".to_string(),
+                slug: "ut",
+                name: "UT Connewitz",
+                website: "https://utconnewitz.de/",
             },
         }
     }
 }
-impl Site for UTConnewitz {
-    fn get_locations(&self) -> Vec<Location> {
-        return vec![self.location.clone()];
+impl Site for UTConnewitz<'_> {
+    fn get_location(&self) -> &Location {
+        self.location.borrow()
     }
 
     fn fetch_events(&self, http: &HTTP) -> Vec<Event> {

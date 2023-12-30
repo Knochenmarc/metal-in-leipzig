@@ -9,25 +9,25 @@ use crate::site::{Filter, Site};
 use crate::tools::date::parse_german_date;
 use crate::tools::HTTP;
 
-pub struct Anker {
-    location: Location,
+pub struct Anker<'l> {
+    location: Location<'l, 'l, 'l>,
 }
 
-impl Anker {
+impl Anker<'_> {
     pub(crate) fn new() -> Self {
         Self {
             location: Location {
-                slug: "ank".to_string(),
-                name: "der ANKER".to_string(),
-                website: "https://anker-leipzig.de".to_string(),
+                slug: "ank",
+                name: "der ANKER",
+                website: "https://anker-leipzig.de",
             },
         }
     }
 }
 
-impl Site for Anker {
-    fn get_locations(&self) -> Vec<Location> {
-        return vec![self.location.clone()];
+impl Site for Anker<'_> {
+    fn get_location(&self) -> &Location {
+        self.location.borrow()
     }
 
     fn fetch_events(&self, http: &HTTP) -> Vec<Event> {

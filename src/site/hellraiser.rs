@@ -8,25 +8,25 @@ use crate::{Event, Location, Site, HTTP};
 
 const URL: &str = "https://hellraiser-leipzig.de";
 
-pub struct Hellraiser {
-    location: Location,
+pub struct Hellraiser<'l> {
+    location: Location<'l, 'l, 'l>,
 }
 
-impl Hellraiser {
+impl Hellraiser<'_> {
     pub(crate) fn new() -> Self {
         Self {
             location: Location {
-                slug: "hr".to_string(),
-                name: "Hellraiser Leipzig".to_string(),
-                website: URL.to_string(),
+                slug: "hr",
+                name: "Hellraiser Leipzig",
+                website: URL,
             },
         }
     }
 }
 
-impl Site for Hellraiser {
-    fn get_locations(&self) -> Vec<Location> {
-        return vec![self.location.clone()];
+impl Site for Hellraiser<'_> {
+    fn get_location(&self) -> &Location {
+        self.location.borrow()
     }
 
     fn fetch_events(&self, http: &HTTP) -> Vec<Event> {
