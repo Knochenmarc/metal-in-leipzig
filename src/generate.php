@@ -47,11 +47,11 @@ $events = (new Splitter())->splitInChunks($events);
 $view      = new Renderer();
 $indy      = 0;
 $templates = [
-    'index.php' => '/public/index.html',
-    'mehr.php'  => '/public/mehr.html',
-    'mehr2.php' => '/public/viel_mehr.html',
-    'mehr3.php' => '/public/noch_mehr.html',
-    'recht.php' => '/public/recht.html',
+    'index.phtml' => '/public/index.html',
+    'mehr.phtml'  => '/public/mehr.html',
+    'mehr2.phtml' => '/public/viel_mehr.html',
+    'mehr3.phtml' => '/public/noch_mehr.html',
+    'recht.phtml' => '/public/recht.html',
 ];
 foreach ($templates as $template => $file) {
     $content = $view->render($template, ['events' => $events[$indy++] ?? [],],);
