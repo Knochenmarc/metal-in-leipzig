@@ -99,8 +99,8 @@ main {
     box-shadow: 0 0 0 4px #c0c0c0; }
   .event:first-line {
     line-height: 32px; }
-  .event .event-location {
-    cursor: var(--metalhand);
+  .event:before {
+    content: " ";
     float: left;
     display: block;
     width: 32px;
@@ -114,88 +114,88 @@ main {
   .event.ank {
     background-color: #ffffff;
     color: #000000; }
-    .event.ank .event-location {
+    .event.ank:before {
       background: var(--ank-background); }
   .event.bc {
     background-color: #167aad;
     color: #fefefe; }
-    .event.bc .event-location {
+    .event.bc:before {
       background: var(--bc-background); }
   .event.ci {
     background-color: #d8d895;
     color: black; }
-    .event.ci .event-location {
+    .event.ci:before {
       background: var(--ci-background); }
   .event.df {
     background-color: #09212a; }
-    .event.df .event-location {
+    .event.df:before {
       background: var(--df-background); }
   .event.fk {
     background-color: #fefefe;
     color: #1b2024; }
-    .event.fk .event-location {
+    .event.fk:before {
       background: var(--fk-background); }
   .event.fw {
     background-color: #00527e;
     color: white; }
-    .event.fw .event-location {
+    .event.fw:before {
       background: var(--fw-background); }
   .event.ha {
     background-color: #2e4d77;
     color: #f8f4e9; }
-    .event.ha .event-location {
+    .event.ha:before {
       background: var(--ha-background); }
   .event.hr {
     background-color: black;
     color: #e61e1e; }
-    .event.hr .event-location {
+    .event.hr:before {
       background: var(--hr-background); }
   .event.lm {
     background-color: #f7f8f8;
     color: #06a0e2; }
-    .event.lm .event-location {
+    .event.lm:before {
       background: var(--lm-background); }
-  .event.mb .event-location {
+  .event.mb:before {
     background: var(--mb-background); }
   .event.pb {
     background-color: #116e28;
     color: #ffcc03; }
-    .event.pb .event-location {
+    .event.pb:before {
       background: var(--pb-background); }
   .event.qi {
     background-color: #00527e;
     color: white; }
-    .event.qi .event-location {
+    .event.qi:before {
       background: var(--qi-background); }
   .event.rb {
     background-color: #f7f8f8;
     color: #dd0741; }
-    .event.rb .event-location {
+    .event.rb:before {
       background: var(--rb-background); }
-  .event.rl .event-location {
+  .event.rl:before {
     background: var(--rl-background); }
   .event.sm {
     background-color: #101015; }
-    .event.sm .event-location {
+    .event.sm:before {
       background: var(--sm-background); }
   .event.tb {
     background-color: #e8e6d4;
     color: black; }
-    .event.tb .event-location {
+    .event.tb:before {
       background: var(--tb-background); }
   .event.tt {
     background-color: #333333; }
-    .event.tt .event-location {
+    .event.tt:before {
       background: var(--tt-background); }
   .event.ut {
     background-color: #fff;
     color: #b19a71; }
-    .event.ut .event-location {
+    .event.ut:before {
       background: var(--ut-background); }
   .event.w2 {
     background-color: #20110e;
     color: #ffffff; }
-    .event.w2 .event-location {
+    .event.w2:before {
       background: var(--w2-background); }
 
 #event-filter, input.filter[type="checkbox"] {
