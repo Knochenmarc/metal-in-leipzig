@@ -7,7 +7,6 @@ This projects generates a static website of local metal music events in Leipzig 
 Dieses Projekt erstellt einen Webkalender zu diversen Metal-Veranstaltungen in Leipzig. 
 
 ### TODOs:
-- https://www.moritzbastei.de/programm/tag/metal
 - https://www.werk-2.de/programm/vorschau
 - gh-pages & actions (https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule)
 
@@ -16,10 +15,10 @@ Dieses Projekt erstellt einen Webkalender zu diversen Metal-Veranstaltungen in L
 - hellraiser-leipzig.de
 - rocklounge-leipzig.de
 - tankbar-leipzig.de
+- moritzbastei.de
 
 ### Geplante Locations:
 - werk-2
-- moritzbastei
 - felsenkeller
 - dark-flower
 - arena/festwiese/stadion
