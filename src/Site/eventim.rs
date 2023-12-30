@@ -28,8 +28,9 @@ impl Eventim {
             let mut url: String = String::from("https://www.eventim.de");
             url.push_str(next.as_str());
             let plain_html = http.get(&url);
-            let events = parse_linked_data_events(plain_html.borrow());
-            collected_events.extend(events);
+            let mut events = parse_linked_data_events(plain_html.borrow());
+            collected_events.append(&mut events);
+
             if false == REG.is_match(plain_html.borrow()) {
                 break;
             }
@@ -39,6 +40,8 @@ impl Eventim {
             next = String::from(text1);
             next.push_str("&shownonbookable=true");
         }
+
+        //TODO: gets each event twice as jsonld
 
         Self { collected_events }
     }

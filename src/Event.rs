@@ -1,11 +1,11 @@
 use std::hash::{BuildHasher, Hash, Hasher};
 
-use chrono::{DateTime, FixedOffset};
+use chrono::NaiveDateTime;
 use twox_hash::RandomXxh3HashBuilder64;
 
 pub struct Event<'l> {
     pub name: String,
-    pub date: DateTime<FixedOffset>,
+    pub date: NaiveDateTime,
     pub location: &'l Location,
     pub url: String,
     pub image: Option<Image>,
@@ -14,7 +14,7 @@ pub struct Event<'l> {
 impl<'a> Event<'a> {
     pub fn new(
         name: String,
-        date: DateTime<FixedOffset>,
+        date: NaiveDateTime,
         location: &'a Location,
         url: String,
         image_url: Option<String>,
