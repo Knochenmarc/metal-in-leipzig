@@ -4,7 +4,6 @@
 EN: This projects generates a static website of metal music events in Leipzig (Germany).
 
 DE: Dieses Projekt erstellt einen Webkalender zu diversen Metal-Veranstaltungen in Leipzig.
-
 Alle Event-Informationen stammen aus öffentlichen Internetquellen und werden einmal täglich gesammelt und mittels GitHub publiziert.
 
 ### Angebundene Seiten:
@@ -33,11 +32,10 @@ Alle Event-Informationen stammen aus öffentlichen Internetquellen und werden ei
 
 Was fehlt noch? schreibt es mir als [Issue](https://github.com/Knochenmarc/metal-in-leipzig/issues).
 
-### Mehr Ideen:
+### Mehr Ideen/Todos:
 - SEO
-- Toggle für Flyer/Images
-- mobile Optimierung
+- json-ld
 - ics/ical-Export
 - Filter (Metal/Rock/Punk; Konzert/Party; Ausverkauft/Verschoben/Abgesagt)
-- endless scrolling
-- Suche
+- Suche? (-> Strg+F ;))
+- Rust: async/parallel http client/site worker

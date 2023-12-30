@@ -23,7 +23,7 @@ main
   margin-top: 7px
 
 .events
-  padding-left: 70px
+  padding-left: 80px
   overflow: hidden
   position: relative
   column-width: 300px
@@ -34,7 +34,7 @@ main
     position: absolute
     left: 2px
     padding-top: 5px
-    width: 66px
+    width: 76px
     &:hover
       color: white
 
@@ -156,19 +156,6 @@ main
       background: var(--w2-background)
 
 
-a.more
-  display: inline-block
-  padding: 20px
-  margin: 10px
-  background: #a8a8a8
-  color: black
-  box-shadow: 0 0 0 4px rgba(52, 52, 52, 0.7)
-  &:hover
-    box-shadow: 0 0 0 4px #c0c0c0
-    font-weight: bolder
-  &:hover:before, &:hover:after
-    content: " ! "
-
 #event-filter, input.filter[type="checkbox"]
   display: none
 
@@ -199,7 +186,7 @@ a.more
     line-height: 30px
     display: inline-block
     border: #2a882a solid 4px
-    &::before
+    &:not(.setting)::before
       content: ""
       width: 30px
       height: 30px
@@ -298,6 +285,7 @@ a.more
       &::before
         background: var(--w2-background)
 
+#flyer-toggle:checked ~ .filters label[for="flyer-toggle"],
 #filter-loc-ank:checked ~ .filters label[for="filter-loc-ank"],
 #filter-loc-bc:checked ~ .filters label[for="filter-loc-bc"],
 #filter-loc-ci:checked ~ .filters label[for="filter-loc-ci"],
@@ -317,8 +305,9 @@ a.more
 #filter-loc-tt:checked ~ .filters label[for="filter-loc-tt"],
 #filter-loc-ut:checked ~ .filters label[for="filter-loc-ut"],
 #filter-loc-w2:checked ~ .filters label[for="filter-loc-w2"]
-  border-color: #981919
+  border-color: #d81b60
 
+#flyer-toggle:checked ~ main .event picture,
 #filter-loc-ank:checked ~ main .event.ank,
 #filter-loc-bc:checked ~ main .event.bc,
 #filter-loc-ci:checked ~ main .event.ci,
