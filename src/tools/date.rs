@@ -59,3 +59,7 @@ pub fn parse_iso_datetime(str: &str) -> ParseResult<NaiveDateTime> {
     };
     NaiveDateTime::parse_from_str(date.as_str(), format)
 }
+
+pub fn parse_icalendar_datetime(str: &str) -> ParseResult<NaiveDateTime> {
+    NaiveDateTime::parse_from_str(str, "%Y%m%dT%H%M%SZ")
+}

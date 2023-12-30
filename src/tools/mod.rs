@@ -20,17 +20,25 @@ impl Http {
         let mut headers = HeaderMap::new();
         headers.insert("Accept", HeaderValue::from_static("text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8"));
         headers.insert(
+            "Accept-Encoding",
+            HeaderValue::from_static("gzip, deflate, br"),
+        );
+        headers.insert(
             "Accept-Language",
             HeaderValue::from_static("de,en-US;q=0.7,en;q=0.3"),
         );
         headers.insert("DNT", HeaderValue::from_static("1"));
         headers.insert("Pragma", HeaderValue::from_static("no-cache"));
         headers.insert("Cache-Control", HeaderValue::from_static("no-cache"));
+        headers.insert("Sec-Fetch-Dest", HeaderValue::from_static("document"));
+        headers.insert("Sec-Fetch-Mode", HeaderValue::from_static("navigate"));
+        headers.insert("Sec-Fetch-Site", HeaderValue::from_static("none"));
+        headers.insert("Sec-Fetch-User", HeaderValue::from_static("?1"));
 
         let builder = ClientBuilder::new()
             .default_headers(headers)
             .user_agent(
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/109.0",
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0",
             )
             .pool_max_idle_per_host(0) // https://github.com/hyperium/hyper/issues/2136#issuecomment-861826148
             .danger_accept_invalid_certs(accepts_invalid_certs);
@@ -46,8 +54,14 @@ impl Http {
         match self.client.get(url).send() {
             Ok(response) => match response.error_for_status() {
                 Ok(mut response) => {
+                    let encoding = response.headers().get("content-encoding");
+
                     let mut buf: Vec<u8> = vec![];
                     response.copy_to(&mut buf).unwrap();
+
+                    // if encoding.is_some() && encoding.unwrap().to_str().unwrap() == "br" {
+                    //     let decrompres = brotli_decompressor::Decompressor::new(buf, 5000);
+                    // }
                     Ok(buf)
                 }
                 Err(error) => {
