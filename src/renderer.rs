@@ -15,8 +15,18 @@ fn prepare_file(file: &str) -> File {
 
 pub(crate) fn render(events: Vec<Vec<Event>>, locations: Vec<Location>) {
     let mut hb = Handlebars::new();
-    hb.register_templates_directory(".hbs", "templates/")
-        .unwrap();
+    hb.register_template_file("event_list", "templates/event_list.hbs")
+        .expect("template not found");
+    hb.register_template_file("filter", "templates/filter.hbs")
+        .expect("template not found");
+    hb.register_template_file("head", "templates/head.hbs")
+        .expect("template not found");
+    hb.register_template_file("header", "templates/header.hbs")
+        .expect("template not found");
+    hb.register_template_file("index", "templates/index.hbs")
+        .expect("template not found");
+    hb.register_template_file("recht", "templates/recht.hbs")
+        .expect("template not found");
     hb.register_escape_fn(no_escape);
 
     let now = Utc::now().with_timezone(&Berlin);
