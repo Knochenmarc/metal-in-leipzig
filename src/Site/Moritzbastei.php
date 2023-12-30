@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MetalLE\Site;
 
+use MetalLE\Event\Event;
 use MetalLE\Event\Location;
 use Traversable;
 
@@ -23,6 +24,14 @@ class Moritzbastei implements Site
         $plainHTML = $http->get('https://www.moritzbastei.de/programm/tag/metal');
         $plainHTML = substr($plainHTML, strpos($plainHTML, 'id="desc-tag"'));
 
-        yield from $this->iterateEvents($plainHTML, $location);
+        foreach ($this->iterateEvents($plainHTML) as $data) {
+            yield new Event(
+                $data->name,
+                new \DateTimeImmutable($data->startDate),
+                $location,
+                $data->offers->url,
+                $data->image,
+            );
+        }
     }
 }
