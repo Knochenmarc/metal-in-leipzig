@@ -2,9 +2,7 @@ use std::env::temp_dir;
 use std::fs::{remove_file, File};
 use std::io::Write;
 use std::path::Path;
-use std::process::Command;
-
-use image::{EncodableLayout, GenericImageView};
+use std::process::{Command, Stdio};
 
 use crate::event::Image;
 use crate::tools::HTTP;
@@ -18,9 +16,9 @@ pub fn optimize_image(img: &mut Image, http: &HTTP) {
     if false == local_path.exists() {
         let tmp_path = temp_dir().to_str().unwrap().to_string() + "/" + &img.hash;
         {
-            let raw = http.get_raw(&img.remote_url);
+            let raw: Vec<u8> = http.get_raw(&img.remote_url);
             let mut tmp = File::create(&tmp_path).expect("could not create file");
-            tmp.write_all(raw.as_bytes())
+            tmp.write_all(&*raw)
                 .expect("could not write temporary image file");
 
             tmp.sync_data().expect("file sync failed");
@@ -55,8 +53,17 @@ pub fn optimize_image(img: &mut Image, http: &HTTP) {
         remove_file(tmp_path).unwrap();
     }
 
-    let (width, height) = image::open(local_path).unwrap().dimensions();
-    if width > 0 && height > 0 {
-        img.set_size(width, height);
+    let height: u32 = {
+        let output = Command::new("magick")
+            .args(["identify", "-format", "%h", local_path.to_str().unwrap()])
+            .stdout(Stdio::piped())
+            .spawn()
+            .expect("could not start height detection")
+            .wait_with_output()
+            .unwrap();
+        String::from_utf8(output.stdout).unwrap().parse().unwrap()
+    };
+    if height > 0 {
+        img.set_size(300, height);
     }
 }
