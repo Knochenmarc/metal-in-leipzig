@@ -14,7 +14,7 @@ RUN rm ./target/release/deps/metal_in_leipzig*
 COPY ./src ./src
 RUN cargo build --release
 
-FROM dpokidov/imagemagick:latest-bullseye
+FROM dpokidov/imagemagick:latest
 
 WORKDIR /app
 COPY --from=build /app/target/release/metal-in-leipzig /app
