@@ -13,3 +13,4 @@ services:
     build: .
     volumes:
       - ./public:/app/public:rw
+      - ./templates:/app/templates:ro

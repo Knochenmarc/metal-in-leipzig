@@ -1,4 +1,5 @@
-use chrono::NaiveDateTime;
+use chrono::{Datelike, NaiveDateTime, Utc, Weekday};
+use serde::ser::{Serialize, SerializeStruct, Serializer};
 use twox_hash::xxh3::hash64;
 
 pub struct Event<'l> {
@@ -32,6 +33,40 @@ impl<'a> Event<'a> {
     }
 }
 
+impl<'a> Serialize for Event<'a> {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
+        let mut s = serializer.serialize_struct("Event", 6)?;
+        s.serialize_field("name", &self.name)?;
+        s.serialize_field("name_html", html_escape::encode_safe(&self.name).as_ref())?;
+
+        let weekday = match self.date.weekday() {
+            Weekday::Mon => "Mo.",
+            Weekday::Tue => "Di.",
+            Weekday::Wed => "Mi.",
+            Weekday::Thu => "Do.",
+            Weekday::Fri => "Fr.",
+            Weekday::Sat => "Sa.",
+            Weekday::Sun => "So.",
+        };
+        let date: String;
+        if self.date.year() == Utc::now().year() {
+            date = self.date.format(" %d.%m.").to_string();
+        } else {
+            date = self.date.format(" %d.%m.%Y").to_string();
+        }
+        s.serialize_field("date", &(weekday.to_owned() + &date))?;
+        s.serialize_field("date_slug", &self.date.format("%Y%m%d").to_string())?;
+
+        s.serialize_field("location", &self.location)?;
+        s.serialize_field("url", &self.url)?;
+        s.serialize_field("image", &self.image)?;
+        s.end()
+    }
+}
+
 pub struct Location {
     pub slug: String,
     pub name: String,
@@ -45,6 +80,19 @@ impl Clone for Location {
             name: self.name.clone(),
             website: self.website.clone(),
         }
+    }
+}
+
+impl Serialize for Location {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
+        let mut s = serializer.serialize_struct("Location", 3)?;
+        s.serialize_field("slug", &self.slug)?;
+        s.serialize_field("name", &self.name)?;
+        s.serialize_field("website", &self.website)?;
+        s.end()
     }
 }
 
@@ -77,5 +125,21 @@ impl Image {
         self.width = width;
         self.height = height;
         self.ratio = (width / height) as f32;
+    }
+}
+
+impl Serialize for Image {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
+        let width: i32 = 290;
+        let height = 290.0 / self.ratio;
+        let mut s = serializer.serialize_struct("Image", 4)?;
+        s.serialize_field("public_avif_url", &self.public_avif_url)?;
+        s.serialize_field("public_jpg_url", &self.public_jpg_url)?;
+        s.serialize_field("width", &width)?;
+        s.serialize_field("height", &height)?;
+        s.end()
     }
 }

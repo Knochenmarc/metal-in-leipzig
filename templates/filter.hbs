@@ -1,0 +1,17 @@
+<form name="event-filter" autocomplete="on" id="event-filter"><input type="submit"/></form>
+{{#each locations}}
+    <input type="checkbox" class="filter" name="{{this.slug}}" value="{{this.slug}}" id="filter-loc-{{this.slug}}" form="event-filter"/>
+{{/each}}
+<input type="checkbox" class="filter" name="toggle" id="filter-toggle" />
+
+<div class="filters">
+    <label class="toggle toggle-down" for="filter-toggle">Filter</label>
+    Location:
+    {{#each locations}}
+        <label class="{{this.slug}}" for="filter-loc-{{this.slug}}">{{this.name}}</label>
+    {{/each}}
+    <noscript><br/>Du hast kein JavaScript aktiviert. Dadurch sind ein paar Funktionen leider nicht verfügbar.</noscript>
+    <label class="toggle toggle-up" for="filter-toggle">Filter</label>
+</div>
+
+<script src="js/filter.js" async></script>
