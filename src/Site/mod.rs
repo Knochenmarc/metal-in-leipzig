@@ -8,6 +8,7 @@ pub(crate) mod anker;
 pub(crate) mod arena;
 pub(crate) mod bandcommunity;
 pub(crate) mod conne_island;
+pub(crate) mod darkflower;
 mod eventim;
 
 pub trait Site {
@@ -22,7 +23,7 @@ trait Filter {
 fn parse_linked_data_events(html: &str) -> Vec<Value> {
     lazy_static! {
         static ref REG: Regex =
-            Regex::new(r#"(?s)<script type=[""']application/ld\+json[""']>(.*?)</script>"#)
+            Regex::new(r#"(?si)<script type=[""']application/ld\+json[""']>(.*?)</script>"#)
                 .unwrap();
     }
 

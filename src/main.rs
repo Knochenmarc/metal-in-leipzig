@@ -7,6 +7,7 @@ use crate::site::anker::Anker;
 use crate::site::arena::Arena;
 use crate::site::bandcommunity::Bandcommunity;
 use crate::site::conne_island::ConneIsland;
+use crate::site::darkflower::Darkflower;
 use crate::site::Site;
 use crate::tools::image::optimize_image;
 use crate::tools::HTTP;
@@ -29,6 +30,7 @@ fn main() {
         Box::new(Arena::new_festwiese()),
         Box::new(Bandcommunity::new()),
         Box::new(ConneIsland::new()),
+        Box::new(Darkflower::new()),
     ];
     for site in &sites {
         let mut evts = site.fetch_events();
