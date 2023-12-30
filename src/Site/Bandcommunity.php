@@ -15,7 +15,6 @@ class Bandcommunity implements Site
             'bc',
             'Bandcommunity Leipzig',
             'https://bandcommunity-leipzig.org/',
-            'img/bandcommunity.png',
         );
 
         $plainHTML = file_get_contents('https://bandcommunity-leipzig.org/blog.html');

@@ -17,19 +17,16 @@ class TestData implements Site
             'aa',
             'AA AA',
             'http://example.org/aa',
-            'aa.png',
         );
         $locations[] = new Location(
             'bb',
             'BBB BBB',
             'http://example.org/bbb',
-            'bbb.png',
         );
         $locations[] = new Location(
             'cc',
             'CCCC CCCC',
             'http://example.org/cccc',
-            'cccc.png',
         );
 
         for ($i = 0; $i < 100; $i++) {

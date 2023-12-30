@@ -61,6 +61,7 @@ main {
 .events {
     grid-column: 2;
     display: flex;
+    flex-flow: wrap;
 }
 .events:nth-child(4n+2) {
     background: #202020;
@@ -101,6 +102,15 @@ main {
 }
 .event.tb .event-location {
     background: url("img/tankbar.jpg");
+}
+.event.ha {
+    background-color: #2e4d77;
+    color: #f8f4e9;
+    text-decoration-color: #f8f4e9;
+}
+.event.ha .event-location {
+    background: url("img/hausauensee.jpg");
+    background-size: contain;
 }
 .event.hr {
     background-color: #e61e1e;

@@ -7,6 +7,8 @@ include_once 'Event/Location.php';
 include_once 'Event/Splitter.php';
 include_once 'Site/Site.php';
 include_once 'Site/Bandcommunity.php';
+include_once 'Site/Eventim.php';
+include_once 'Site/HausAuensee.php';
 include_once 'Site/Hellraiser.php';
 include_once 'Site/Moritzbastei.php';
 include_once 'Site/Rocklounge.php';

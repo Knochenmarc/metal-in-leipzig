@@ -58,7 +58,6 @@ class Hellraiser implements Site
             'hr',
             'Hellraiser Leipzig',
             'https://hellraiser-leipzig.de/',
-            'img/hellraiser.png',
         );
 
         yield from $this->parseEvents($location,'https://hellraiser-leipzig.de/produkt-kategorie/tickets/');

@@ -1,13 +1,13 @@
-# [![metal-in-leipzig.de](https://metal-in-leipzig.de/img/logo.png)](https://metal-in-leipzig.de)
+# [![metal-in-leipzig.de](https://metal-in-leipzig.de/img/logo.png "metal-in-leipzig.de")](https://metal-in-leipzig.de)
 
-### About (EN)
-This projects generates a static website of local metal music events in Leipzig (Ger).
+### About
+EN: This projects generates a static website of local metal music events in Leipzig (Ger).
 
-### About (DE)
-Dieses Projekt erstellt einen Webkalender zu diversen Metal-Veranstaltungen in Leipzig. 
+DE: Dieses Projekt erstellt einen Webkalender zu diversen Metal-Veranstaltungen in Leipzig. 
 
 ### Angebundene Locations:
 - bandcommunity-leipzig.org
+- haus-auensee-leipzig.de
 - hellraiser-leipzig.de
 - rocklounge-leipzig.de
 - tankbar-leipzig.de
