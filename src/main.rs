@@ -59,7 +59,7 @@ fn main() {
         Box::new(InFlammen::new()),
         Box::new(Moritzbastei::new()),
         Box::new(Parkbuehne::new(insecure_http.borrow())),
-        Box::new(Soltmann::new()),
+        //Box::new(Soltmann::new()),
         Box::new(Taeubchenthal::new()),
         //Box::new(Tankbar::new()),
         Box::new(UTConnewitz::new()),
