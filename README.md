@@ -20,9 +20,11 @@ Alle Event-Informationen stammen aus öffentlichen Internetquellen und werden ei
 - parkbuehne-leipzig.com
 - taeubchenthal.com
 - tankbar-leipzig.de
+- soltmann-bar.de
 - werk-2.de
 
 ### Geplante Locations:
+- UT Connewitz
 - Moertelwerk
 - rocklounge-leipzig.de
 - Geyserhaus (Parkbühne/UnterRock?)
@@ -33,6 +35,7 @@ Was fehlt noch? schreibt es mir als [Issue](https://github.com/Knochenmarc/metal
 
 ### Mehr Ideen:
 - SEO
+- Toggle für Flyer/Images
 - mobile Optimierung
 - ics/ical-Export
 - Filter (Metal/Rock/Punk; Konzert/Party; Ausverkauft/Verschoben/Abgesagt)

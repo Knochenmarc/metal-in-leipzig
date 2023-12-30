@@ -1,3 +1,2 @@
-- run rust in docker
 - async http client
 - Run sites async/parallel
