@@ -7,6 +7,7 @@ DE: Dieses Projekt erstellt einen Webkalender zu diversen Metal-Veranstaltungen 
 
 ### Angebundene Seiten:
 - bandcommunity-leipzig.org
+- conne-island.de
 - haus-auensee-leipzig.de
 - hellraiser-leipzig.de
 - moritzbastei.de
