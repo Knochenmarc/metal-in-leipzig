@@ -5,7 +5,7 @@ use regex::Regex;
 use serde_json::Value;
 
 use crate::event::Event;
-use crate::site::{Filter, parse_linked_data_events};
+use crate::site::{parse_linked_data_events, Filter};
 use crate::tools::HTTP;
 
 pub struct Eventim {
@@ -24,21 +24,21 @@ impl Eventim {
         next.push_str(venue.as_str());
         next.push_str("/?maincategoryId=1&shownonbookable=true&subcategoryId=2");
 
-        'crawler: while {
+        loop {
             let mut url: String = String::from("https://www.eventim.de");
             url.push_str(next.as_str());
             let plain_html = http.get(&url);
             let events = parse_linked_data_events(plain_html.borrow());
             collected_events.extend(events);
             if false == REG.is_match(plain_html.borrow()) {
-                break 'crawler;
+                break;
             }
 
             let matches = REG.captures(plain_html.borrow()).unwrap();
             let text1 = matches.get(1).map_or("", |m| m.as_str());
             next = String::from(text1);
             next.push_str("&shownonbookable=true");
-        } {}
+        }
 
         Self { collected_events }
     }

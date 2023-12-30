@@ -1,4 +1,4 @@
-use std::fs::{File, remove_file};
+use std::fs::{remove_file, File};
 use std::io::Write;
 use std::path::Path;
 use std::process::Command;
@@ -42,29 +42,29 @@ impl HTTP {
     }
 }
 
-struct ImageOptimizer {
-    http: HTTP,
-}
+pub struct ImageOptimizer {}
 
 impl ImageOptimizer {
-    pub fn optimize(&self, img: &mut Image) {
+    pub fn optimize(img: &mut Image, http: &HTTP) {
         if false == Path::new((LOCAL_DIR.to_owned() + &img.public_jpg_url).as_str()).exists() {
             let tmp_path = "/tmp/".to_owned() + &img.hash;
-            let raw = self.http.get(&img.remote_url);
-            let mut tmp = File::create(&tmp_path).unwrap();
-            tmp.write_all(raw.as_ref()).unwrap();
+            let raw = http.get(&img.remote_url);
+            {
+                let mut tmp = File::create(&tmp_path).expect("could not create file");
+                tmp.write_all(raw.as_ref())
+                    .expect("could not write temporary image file");
+                tmp.sync_data().expect("file sync failed");
+            }
 
-            Command::new("convert")
+            let mut c1 = Command::new("convert")
                 .arg("-resize")
                 .arg("300")
                 .arg("-strip")
                 .arg(&tmp_path)
                 .arg(LOCAL_DIR.to_owned() + &img.public_jpg_url)
                 .spawn()
-                .unwrap()
-                .wait()
-                .unwrap();
-            Command::new("convert")
+                .expect("could not start jpeg conversion");
+            let mut c2 = Command::new("convert")
                 .arg("-resize")
                 .arg("300")
                 .arg("-strip")
@@ -73,9 +73,10 @@ impl ImageOptimizer {
                 .arg(&tmp_path)
                 .arg(LOCAL_DIR.to_owned() + &img.public_avif_url)
                 .spawn()
-                .unwrap()
-                .wait()
-                .unwrap();
+                .expect("could not start avif conversion");
+
+            c1.wait().unwrap();
+            c2.wait().unwrap();
 
             remove_file(tmp_path).unwrap();
         }
