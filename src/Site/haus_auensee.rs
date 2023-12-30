@@ -50,7 +50,7 @@ impl Site for HausAuensee {
         let image_reg = Regex::new("(?i)<img src=\"(.*?)\".*class=\"block col-12\"").unwrap();
         let split_reg = Regex::new(r"\s[+&]\s").unwrap();
 
-        let eventim = Eventim::new("haus-auensee-leipzig-7301".to_string(), http.borrow());
+        let eventim = Eventim::new("haus-auensee-leipzig-7301", http.borrow());
         let has_metal_band = HasMetalBands {};
 
         let html = wrap_reg

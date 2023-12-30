@@ -35,7 +35,7 @@ impl Site for Anker {
 
         let mut result = Vec::new();
 
-        let eventim = Eventim::new("der-anker-leipzig-7330".to_string(), http.borrow());
+        let eventim = Eventim::new("der-anker-leipzig-7330", http.borrow());
 
         let api = http.get_json(
             "https://anker-leipzig.de/wp-json/wp/v2/event_listing?per_page=100"
