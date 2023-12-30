@@ -33,9 +33,11 @@ jobs:
           path: public/flyer
           key: flyer-${{ steps.date.outputs.date }}
 
-      # Runs a single command using the runners shell
       - name: Run docker
         run: docker-compose up --exit-code-from generator
+
+      - name: Minify
+        uses: anthonyftwang/minify-action
 
       # https://dev.to/pierresaid/deploy-node-projects-to-github-pages-with-github-actions-4jco
       - name: Deploy 🚀
