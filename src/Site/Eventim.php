@@ -39,7 +39,7 @@ class Eventim
         )) {
             foreach ($matches as $match) {
                 $data = json_decode($match[1], true, 512, JSON_THROW_ON_ERROR);
-                yield new \DateTimeImmutable($data['startDate']);
+                yield $data['name'] => new \DateTimeImmutable($data['startDate']);
             }
         }
 

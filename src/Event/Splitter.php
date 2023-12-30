@@ -13,8 +13,6 @@ class Splitter
      */
     public function splitInChunks(array $events): array
     {
-        ksort($events);
-
         $interval = new \DateInterval('P3M'); // 3 months
 
         $minDate   = (new \DateTime())->format('Ymd');

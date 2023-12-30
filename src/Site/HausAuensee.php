@@ -22,22 +22,23 @@ class HausAuensee implements Site
             $plainHtml = $matches[0];
         }
 
-        foreach ($eventim->fetchDates('haus-auensee-leipzig-7301') as $date) {
-            if (preg_match_all('#<a href="(.*)".*</a>#isU', $plainHtml, $matches, PREG_SET_ORDER)) {
-                foreach ($matches as $match) {
+        if (preg_match_all('#<a href="(.*)".*</a>#isU', $plainHtml, $matches, PREG_SET_ORDER)) {
+            foreach ($eventim->fetchDates('haus-auensee-leipzig-7301') as $date) {
+                foreach ($matches as $key => $match) {
                     if (str_contains($match[0], $date->format('>d.<'))
                         && str_contains($match[0], $date->format('>m.y<'))
                         && preg_match('#<h3.*>(.*)</h3>#iU', $match[0], $subMatches)
                     ) {
                         $imgUrl  = null;
-                        $url = self::URL .'/'. $match[1];
+                        $url     = self::URL . '/' . $match[1];
                         $subPage = file_get_contents($url);
                         if (preg_match('#<img src="(.*)".*class="block col-12"#iU', $subPage, $imgMatch)) {
                             $imgUrl = self::URL . $imgMatch[1];
                         }
 
-                        $evt = new Event(html_entity_decode($subMatches[1]), $date, $location, $url, $imgUrl);
-                        yield $evt->getID() => $evt;
+                        yield new Event(html_entity_decode($subMatches[1]), $date, $location, $url, $imgUrl);
+
+                        unset ($matches[$key]);
                         break;
                     }
                 }
