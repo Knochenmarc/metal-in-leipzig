@@ -57,7 +57,7 @@ impl<'a> Serialize for Event<'a> {
         S: Serializer,
     {
         let mut s = serializer.serialize_struct("Event", 6)?;
-        s.serialize_field("name", &self.name)?;
+        s.serialize_field("name", self.name.replace("\"", "&quot;").as_str())?;
         s.serialize_field("name_html", html_escape::encode_safe(&self.name).as_ref())?;
 
         let weekday = match self.date.weekday() {
