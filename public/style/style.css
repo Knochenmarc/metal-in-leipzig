@@ -66,7 +66,7 @@ body {
   --w2-background: url("../img/werk2.webp") center; }
 
 main {
-  margin-top: 7px; }
+  margin-top: -12px; }
 
 .events {
   padding-left: 80px;
@@ -207,117 +207,124 @@ main {
 #event-filter, input.filter[type="checkbox"] {
   display: none; }
 
-.filters summary {
-  color: white;
-  cursor: var(--metalhand); }
-
-.filters label {
-  color: white;
-  padding-right: 1px;
-  margin: 1px;
-  line-height: 30px;
-  display: inline-block;
-  border: #2a882a solid 4px; }
-  .filters label:not(.setting)::before {
-    content: "";
-    width: 30px;
-    height: 30px;
-    display: inline-flex;
-    vertical-align: bottom;
-    background-repeat: no-repeat !important;
-    background-size: contain !important;
-    background-color: transparent !important; }
-  .filters label.ank {
-    background-color: #ffffff;
-    color: #000000; }
-    .filters label.ank::before {
-      background: var(--ank-background); }
-  .filters label.bc {
-    background-color: #006598; }
-    .filters label.bc::before {
-      background: var(--bc-background); }
-  .filters label.ci {
-    background-color: #d8d895;
-    color: black; }
-    .filters label.ci::before {
-      background: var(--ci-background); }
-  .filters label.df {
-    background-color: #09212a; }
-    .filters label.df::before {
-      background: var(--df-background); }
-  .filters label.fk {
-    background-color: #fefefe;
-    color: #1b2024; }
-    .filters label.fk::before {
-      background: var(--fk-background); }
-  .filters label.fw {
-    background-color: #00527e;
-    color: white; }
-    .filters label.fw::before {
-      background: var(--fw-background); }
-  .filters label.ha {
-    background-color: #2e4d77;
-    color: #f8f4e9; }
-    .filters label.ha::before {
-      background: var(--ha-background); }
-  .filters label.hr {
-    background-color: black;
-    color: #e61e1e; }
-    .filters label.hr::before {
-      background: var(--hr-background); }
-  .filters label.if {
-    background-color: black;
-    font-weight: bold;
-    color: #880000; }
-    .filters label.if::before {
-      background: var(--if-background); }
-  .filters label.lm {
-    background-color: #f7f8f8;
-    color: #06a0e2; }
-    .filters label.lm::before {
-      background: var(--lm-background); }
-  .filters label.mb::before {
-    background: var(--mb-background); }
-  .filters label.pb {
-    background-color: #116e28;
-    color: #ffcc03; }
-    .filters label.pb::before {
-      background: var(--pb-background); }
-  .filters label.qi {
-    background-color: #00527e;
-    color: white; }
-    .filters label.qi::before {
-      background: var(--qi-background); }
-  .filters label.rb {
-    background-color: #f7f8f8;
-    color: #dd0741; }
-    .filters label.rb::before {
-      background: var(--rb-background); }
-  .filters label.rl::before {
-    background: var(--rl-background); }
-  .filters label.sm {
-    background-color: #101015; }
-    .filters label.sm::before {
-      background: var(--sm-background); }
-  .filters label.tb {
-    background-color: #e8e6d4;
-    color: black; }
-    .filters label.tb::before {
-      background: var(--tb-background); }
-  .filters label.tt {
-    background-color: #333333; }
-    .filters label.tt::before {
-      background: var(--tt-background); }
-  .filters label.ut {
-    background-color: #fff;
-    color: #b19a71; }
-    .filters label.ut::before {
-      background: var(--ut-background); }
-  .filters label.w2 {
-    background-color: #20110e;
-    color: #ffffff; }
-    .filters label.w2::before {
-      background: var(--w2-background); }
+.filters {
+  position: relative;
+  top: -20px;
+  width: 200px;
+  display: inline-block; }
+  .filters[open] {
+    width: 100%; }
+  .filters summary {
+    color: white;
+    cursor: var(--metalhand);
+    display: inline-list-item; }
+  .filters label {
+    color: white;
+    padding-right: 1px;
+    margin: 1px;
+    line-height: 30px;
+    display: inline-block;
+    border: #2a882a solid 4px; }
+    .filters label:not(.setting)::before {
+      content: "";
+      width: 30px;
+      height: 30px;
+      display: inline-flex;
+      vertical-align: bottom;
+      background-repeat: no-repeat !important;
+      background-size: contain !important;
+      background-color: transparent !important; }
+    .filters label.ank {
+      background-color: #ffffff;
+      color: #000000; }
+      .filters label.ank::before {
+        background: var(--ank-background); }
+    .filters label.bc {
+      background-color: #006598; }
+      .filters label.bc::before {
+        background: var(--bc-background); }
+    .filters label.ci {
+      background-color: #d8d895;
+      color: black; }
+      .filters label.ci::before {
+        background: var(--ci-background); }
+    .filters label.df {
+      background-color: #09212a; }
+      .filters label.df::before {
+        background: var(--df-background); }
+    .filters label.fk {
+      background-color: #fefefe;
+      color: #1b2024; }
+      .filters label.fk::before {
+        background: var(--fk-background); }
+    .filters label.fw {
+      background-color: #00527e;
+      color: white; }
+      .filters label.fw::before {
+        background: var(--fw-background); }
+    .filters label.ha {
+      background-color: #2e4d77;
+      color: #f8f4e9; }
+      .filters label.ha::before {
+        background: var(--ha-background); }
+    .filters label.hr {
+      background-color: black;
+      color: #e61e1e; }
+      .filters label.hr::before {
+        background: var(--hr-background); }
+    .filters label.if {
+      background-color: black;
+      font-weight: bold;
+      color: #880000; }
+      .filters label.if::before {
+        background: var(--if-background); }
+    .filters label.lm {
+      background-color: #f7f8f8;
+      color: #06a0e2; }
+      .filters label.lm::before {
+        background: var(--lm-background); }
+    .filters label.mb::before {
+      background: var(--mb-background); }
+    .filters label.pb {
+      background-color: #116e28;
+      color: #ffcc03; }
+      .filters label.pb::before {
+        background: var(--pb-background); }
+    .filters label.qi {
+      background-color: #00527e;
+      color: white; }
+      .filters label.qi::before {
+        background: var(--qi-background); }
+    .filters label.rb {
+      background-color: #f7f8f8;
+      color: #dd0741; }
+      .filters label.rb::before {
+        background: var(--rb-background); }
+    .filters label.rl::before {
+      background: var(--rl-background); }
+    .filters label.sm {
+      background-color: #101015; }
+      .filters label.sm::before {
+        background: var(--sm-background); }
+    .filters label.tb {
+      background-color: #e8e6d4;
+      color: black; }
+      .filters label.tb::before {
+        background: var(--tb-background); }
+    .filters label.tt {
+      background-color: #333333; }
+      .filters label.tt::before {
+        background: var(--tt-background); }
+    .filters label.ut {
+      background-color: #fff;
+      color: #b19a71; }
+      .filters label.ut::before {
+        background: var(--ut-background); }
+    .filters label.w2 {
+      background-color: #20110e;
+      color: #ffffff; }
+      .filters label.w2::before {
+        background: var(--w2-background); }
 
 #flyer-toggle:checked ~ .filters label[for="flyer-toggle"],
 #filter-loc-ank:checked ~ .filters label[for="filter-loc-ank"],
