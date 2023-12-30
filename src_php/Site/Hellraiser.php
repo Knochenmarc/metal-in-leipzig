@@ -11,7 +11,7 @@ class Hellraiser implements Site
 {
     private const URL = 'https://hellraiser-leipzig.de';
 
-    private const DATE_SEARCH  = [
+    private const DATE_SEARCH = [
         'Mo, ',
         'Di, ',
         'Mi, ',
@@ -62,27 +62,23 @@ class Hellraiser implements Site
     public function getIterator(): \Traversable
     {
         $http = new Crawler();
-        $page = 1;
 
-        do {
-            $generator = $this->parseEvents($http->get(self::URL . '/produkt-kategorie/tickets/page/' . $page));
-            yield from $generator;
-            $page++;
-        } while ($generator->getReturn());
+        yield from $this->parseEvents($http->get(self::URL . '/produkt-kategorie/tickets/'));
+        yield from $this->parseEvents($http->get(self::URL . '/produkt-kategorie/tickets/page/2/'));
+        yield from $this->parseEvents($http->get(self::URL . '/produkt-kategorie/tickets/page/3/'));
     }
 
     /**
      * @return Event[]
      */
-    private function parseEvents(string $plainHTML): \Generator
+    private function parseEvents(string $plainHTML): iterable
     {
         if (preg_match_all(
                 '#<li class="product.*<a href="(.*)".*<img.*src="(.*)".*<h2.*>(.*)</h2>.*<div class="date-published">(.*)</div>.*</li>#isU',
                 $plainHTML,
                 $matches,
                 PREG_SET_ORDER
-            ) > 0
-        ) {
+            ) > 0) {
             foreach ($matches as $match) {
                 $name = str_replace(['Ticket &#8222;', '&#8220;'], '', $match[3]);
                 $name = html_entity_decode($name, ENT_HTML5);
@@ -98,8 +94,6 @@ class Hellraiser implements Site
                 );
             }
         }
-
-        return str_contains($plainHTML, 'next page-numbers');
     }
 
     public function getLocations(): iterable
