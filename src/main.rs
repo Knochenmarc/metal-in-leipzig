@@ -13,6 +13,7 @@ use crate::site::darkflower::Darkflower;
 use crate::site::felsenkeller::Felsenkeller;
 use crate::site::haus_auensee::HausAuensee;
 use crate::site::hellraiser::Hellraiser;
+use crate::site::impericon::Impericon;
 use crate::site::inflammen::InFlammen;
 use crate::site::moritzbastei::Moritzbastei;
 use crate::site::noels::NoelsBallroom;
@@ -59,6 +60,7 @@ fn main() {
         Box::new(Felsenkeller::new()),
         Box::new(HausAuensee::new()),
         Box::new(Hellraiser::new()),
+        Box::new(Impericon::new()),
         Box::new(InFlammen::new()),
         Box::new(Moritzbastei::new()),
         Box::new(NoelsBallroom::new()),

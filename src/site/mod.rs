@@ -16,6 +16,7 @@ pub(crate) mod felsenkeller;
 mod google_calendar;
 pub(crate) mod haus_auensee;
 pub(crate) mod hellraiser;
+pub(crate) mod impericon;
 pub(crate) mod inflammen;
 mod mawi;
 mod metallum;
