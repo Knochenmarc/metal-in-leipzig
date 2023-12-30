@@ -21,6 +21,11 @@ class Renderer
 
         ob_start();
         include __DIR__ . '/' . $file;
-        return ob_get_clean();
+        return $this->minify(ob_get_clean());
+    }
+
+    private function minify(string $html): string
+    {
+        return preg_replace('#(\s)\s+#', '$1', $html);
     }
 }

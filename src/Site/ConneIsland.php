@@ -14,7 +14,9 @@ class ConneIsland implements Site
     {
         $location = new Location('ci', 'Conne Island', 'https://conne-island.de');
 
-        $xml = file_get_contents('https://www.conne-island.de/rss.php?genre=Metal');
+        $http = new Crawler();
+
+        $xml = $http->get('https://www.conne-island.de/rss.php?genre=Metal');
         $xml = simplexml_load_string($xml);
         foreach ($xml->channel->item as $item) {
             $name = (string) $item->title;

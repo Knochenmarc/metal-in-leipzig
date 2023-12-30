@@ -18,7 +18,8 @@ class Felsenkeller implements Site
     {
         $location = new Location('fk', 'Felsenkeller', 'https://felsenkeller-leipzig.com');
 
-        $html = file_get_contents('https://www.felsenkeller-leipzig.com/programm/');
+        $http = new Crawler();
+        $html = $http->get('https://www.felsenkeller-leipzig.com/programm/');
         if (preg_match_all(
             '#<div class="wp-block-columns has-3-columns.*data-cat="\D*".*<span class="date">(.*)</span>.*<p class="event-name">(.*)</?span.*class="event-details">(.*)data-url#isU',
             $html,
@@ -62,11 +63,12 @@ class Felsenkeller implements Site
                     && $date->format('d.m.Y') === $match[1]
                 ) {
                     yield new Event(
-                                 $match[2],
-                                 $date,
-                                 $location,
-                        picture: $this->parsePicture($match[0]),
-                        eventId: $match[2]
+                        $match[2],
+                        $date,
+                        $location,
+                        'https://www.felsenkeller-leipzig.com/programm/',
+                        $this->parsePicture($match[0]),
+                        $match[2]
                     );
                     unset($matches[$index]);
                     continue 2;
@@ -82,11 +84,12 @@ class Felsenkeller implements Site
                 && false === str_contains($match[2], 'Soul Tour')
             ) {
                 yield new Event(
-                             $match[2],
-                             new \DateTimeImmutable($match[1]),
-                             $location,
-                    picture: $this->parsePicture($match[0]),
-                    eventId: $match[2]
+                    $match[2],
+                    new \DateTimeImmutable($match[1]),
+                    $location,
+                    'https://www.felsenkeller-leipzig.com/programm/',
+                    $this->parsePicture($match[0]),
+                    $match[2]
                 );
             }
         }

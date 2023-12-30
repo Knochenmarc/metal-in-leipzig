@@ -17,7 +17,8 @@ class Tankbar implements Site
             'https://tankbar-leipzig.de/',
         );
 
-        $plainHTML = file_get_contents('https://tankbar-leipzig.de/tankevents/');
+        $http      = new Crawler();
+        $plainHTML = $http->get('https://tankbar-leipzig.de/tankevents/');
         if (preg_match_all(
                 '#<span class="elementor-icon-list-text">(.*)</span>#siU',
                 $plainHTML,
@@ -25,16 +26,17 @@ class Tankbar implements Site
                 PREG_SET_ORDER
             ) > 0) {
             foreach ($matches as $match) {
-                $txt   = $match[1];
-                $parts = explode(' : ', $txt);
-                $date  = $parts[0];
-                $date  = substr($date, 0, -2) . '20' . substr($date, -2);
+                [$date, $name] = explode(' : ', $match[1]);
+                if (false === str_contains($name, 'Schlager')) {
+                    $date = substr($date, 0, -2) . '20' . substr($date, -2);
 
-                yield new Event(
-                    html_entity_decode($parts[1], ENT_HTML5),
-                    new \DateTimeImmutable($date),
-                    $location,
-                );
+                    yield new Event(
+                        html_entity_decode($name, ENT_HTML5),
+                        new \DateTimeImmutable($date),
+                        $location,
+                        'https://tankbar-leipzig.de/tankevents/',
+                    );
+                }
             }
         }
     }
