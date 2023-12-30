@@ -21,7 +21,6 @@ pub(crate) mod parkbuehne;
 pub(crate) mod soltmann;
 mod spirit_of_metal;
 pub(crate) mod taeubchenthal;
-pub(crate) mod tankbar;
 pub(crate) mod ut_connewitz;
 pub(crate) mod werk2;
 

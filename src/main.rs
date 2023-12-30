@@ -57,7 +57,6 @@ fn main() {
         Box::new(Parkbuehne::new(insecure_http.borrow())),
         //Box::new(Soltmann::new()),
         Box::new(Taeubchenthal::new()),
-        //Box::new(Tankbar::new()),
         Box::new(UTConnewitz::new()),
         Box::new(Werk2::new()),
     ];
