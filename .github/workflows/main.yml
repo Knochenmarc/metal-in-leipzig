@@ -5,7 +5,7 @@ name: build page
 # Controls when the workflow will run
 on:
   schedule:
-    # * is a special character in YAML so you have to quote this string
+    # * is a special character in YAML, so you have to quote this string
     - cron:  '33 3 * * *'
 
   # Allows you to run this workflow manually from the Actions tab

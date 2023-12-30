@@ -113,6 +113,14 @@ main {
     background: url("img/conne_island.webp") no-repeat center;
     background-position-x: -1px;
 }
+.event.fk {
+    background-color: #fefefe;
+    color: #1b2024;
+}
+.event.fk .event-location {
+    background: url("img/felsenkeller.jpg") no-repeat center;
+    background-size: contain;
+}
 .event.ha {
     background-color: #2e4d77;
     color: #f8f4e9;
