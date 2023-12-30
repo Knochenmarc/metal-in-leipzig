@@ -167,26 +167,11 @@ main
   display: none
 
 .filters
-  overflow: hidden
-  height: 1.1em
-
-  label.toggle
-    display: block
+  summary
     color: white
     cursor: var(--metalhand)
-    &:before, &:after
-      content: "➤"
-      display: inline-block
-      margin: 0 4px 0 3px
 
-  .toggle-down
-    &:before, &:after
-      transform: rotate(90deg)
-  .toggle-up
-    &:before, &::after
-      transform: rotate(-90deg)
-
-  label:not(.toggle)
+  label
     color: white
     padding-right: 1px
     margin: 1px
