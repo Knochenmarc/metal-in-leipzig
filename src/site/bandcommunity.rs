@@ -30,9 +30,14 @@ impl Site for Bandcommunity<'_> {
 
     fn fetch_events(&self, http: &Http) -> Vec<Event> {
         let mut result = Vec::new();
-        let html = http
-            .get("https://bandcommunity-leipzig.org/veranstaltungen/")
-            .unwrap();
+        let response = http.get("https://bandcommunity-leipzig.org/veranstaltungen/");
+
+        if response.as_ref().is_err() && response.as_ref().unwrap_err().is_connect() {
+            // Maybe something wrong with TLS?
+            return result;
+        }
+
+        let html = response.unwrap();
 
         for data_event in parse_linked_data_events(html.as_str()) {
             let description = data_event["description"].as_str().unwrap();
