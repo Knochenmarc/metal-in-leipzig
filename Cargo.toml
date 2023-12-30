@@ -7,7 +7,7 @@ edition = "2021"
 
 [dependencies]
 chrono = "0.4"
-chrono-tz = "0.4"
+chrono-tz = "0.6"
 handlebars = { version = "4.3", features = ["dir_source"] }
 html-escape = "0.2"
 image = "0.24"

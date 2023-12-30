@@ -80,6 +80,6 @@ impl Site for Anker {
             }
         }
 
-        return result;
+        result
     }
 }

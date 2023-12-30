@@ -12,3 +12,7 @@ pub fn parse_german_date(str: &str) -> NaiveDate {
 
     NaiveDate::parse_from_str(str.as_str(), "%d. %B %Y").unwrap()
 }
+
+pub fn parse_short_date(str: &str) -> NaiveDate {
+    NaiveDate::parse_from_str(str, "%d.%m.%Y").unwrap()
+}
