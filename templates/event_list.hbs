@@ -5,7 +5,7 @@
         <div class="events">
             {{#each this}}
                 <a {{#if this.url}} href="{{this.url}}"{{/if}}
-                                    title="{{this.name_html}}"
+                                    title="{{this.name}}"
                                     target="_blank" class="event {{this.location.slug}}">
                     <object><a class="event-location" href="{{this.location.website}}" target="_blank"
                                title="{{this.location.name}}"></a></object>
