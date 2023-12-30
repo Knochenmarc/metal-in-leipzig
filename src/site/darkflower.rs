@@ -40,7 +40,7 @@ impl Site for Darkflower<'_> {
             match date {
                 Ok(start_date) => {
                     result.push(Event::new(
-                        decode_html_entities(name).to_string(),
+                        decode_html_entities(decode_html_entities(name).to_mut()).to_string(),
                         start_date,
                         self.location.borrow(),
                         data_event["url"].as_str().unwrap().to_string(),
