@@ -55,7 +55,7 @@ body {
   --if-background: url("../img/inflammen.webp") center;
   --lm-background: url("../img/messe.webp") center;
   --mb-background: url("../img/moritzbastei.png") center;
-  --pb-background: url("../img/parkbuehne.webp") center;
+  --pb-background: url("../img/parkbuehne.png") center;
   --qi-background: url("../img/qi-arena.png") center;
   --rb-background: url("../img/red-bull-arena.png") center;
   --rl-background: url("../img/rocklounge.png") center;
@@ -151,9 +151,9 @@ main {
     .event.hr:before {
       background: var(--hr-background); }
   .event.if {
-    background-color: black;
+    background-color: #670000;
     font-weight: bold;
-    color: #880000; }
+    color: #fff; }
     .event.if:before {
       background: var(--if-background); }
   .event.lm {
@@ -164,8 +164,8 @@ main {
   .event.mb:before {
     background: var(--mb-background); }
   .event.pb {
-    background-color: #116e28;
-    color: #ffcc03; }
+    background-color: white;
+    color: #004627; }
     .event.pb:before {
       background: var(--pb-background); }
   .event.qi {
@@ -194,8 +194,8 @@ main {
     .event.tt:before {
       background: var(--tt-background); }
   .event.ut {
-    background-color: #fff;
-    color: #b19a71; }
+    background-color: #4d4d4c;
+    color: white; }
     .event.ut:before {
       background: var(--ut-background); }
   .event.w2 {
@@ -273,9 +273,9 @@ main {
       .filters label.hr::before {
         background: var(--hr-background); }
     .filters label.if {
-      background-color: black;
+      background-color: #670000;
       font-weight: bold;
-      color: #880000; }
+      color: #fff; }
       .filters label.if::before {
         background: var(--if-background); }
     .filters label.lm {
@@ -286,8 +286,8 @@ main {
     .filters label.mb::before {
       background: var(--mb-background); }
     .filters label.pb {
-      background-color: #116e28;
-      color: #ffcc03; }
+      background-color: white;
+      color: #004627; }
       .filters label.pb::before {
         background: var(--pb-background); }
     .filters label.qi {
@@ -316,8 +316,8 @@ main {
       .filters label.tt::before {
         background: var(--tt-background); }
     .filters label.ut {
-      background-color: #fff;
-      color: #b19a71; }
+      background-color: #4d4d4c;
+      color: white; }
       .filters label.ut::before {
         background: var(--ut-background); }
     .filters label.w2 {
