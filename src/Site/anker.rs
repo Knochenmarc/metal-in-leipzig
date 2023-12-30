@@ -54,26 +54,26 @@ impl Site for Anker {
             'api_loop: for item in api_items {
                 let api_link = item["link"].as_str().unwrap().to_string();
                 if api_link.eq(&html_link) {
-                    let image_url = match item["_links"]["wp:featuredmedia"][0]["href"].as_str() {
-                        None => None,
-                        Some(url) => Some(
-                            http.get_json(url)["guid"]["rendered"]
-                                .as_str()
-                                .unwrap()
-                                .to_string(),
-                        ),
-                    };
-
                     let name = item["title"]["rendered"].as_str().unwrap().to_string();
-                    let evt = Event::new(
+                    let mut evt = Event::new(
                         decode_html_entities(&name).to_string(),
                         parse_german_date(&captures[2]).and_hms(0, 0, 0),
                         self.location.borrow(),
                         api_link,
-                        image_url,
+                        None,
                     );
 
                     if eventim.is_it_metal(evt.borrow()) {
+                        match item["_links"]["wp:featuredmedia"][0]["href"].as_str() {
+                            None => (),
+                            Some(url) => evt.set_image(
+                                http.get_json(url)["guid"]["rendered"]
+                                    .as_str()
+                                    .unwrap()
+                                    .to_string(),
+                            ),
+                        };
+
                         result.push(evt);
                     }
 
