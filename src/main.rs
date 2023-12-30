@@ -10,6 +10,7 @@ use crate::site::conne_island::ConneIsland;
 use crate::site::darkflower::Darkflower;
 use crate::site::felsenkeller::Felsenkeller;
 use crate::site::haus_auensee::HausAuensee;
+use crate::site::hellraiser::Hellraiser;
 use crate::site::Site;
 use crate::tools::image::optimize_image;
 use crate::tools::HTTP;
@@ -35,6 +36,7 @@ fn main() {
         Box::new(Darkflower::new()),
         Box::new(Felsenkeller::new()),
         Box::new(HausAuensee::new()),
+        Box::new(Hellraiser::new()),
     ];
     for site in &sites {
         let mut evts = site.fetch_events();
