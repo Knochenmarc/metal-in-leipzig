@@ -5,6 +5,7 @@ use chrono::NaiveDate;
 use crate::event::{Event, Location};
 use crate::site::anker::Anker;
 use crate::site::arena::Arena;
+use crate::site::bandcommunity::Bandcommunity;
 use crate::site::Site;
 use crate::tools::image::optimize_image;
 use crate::tools::HTTP;
@@ -20,11 +21,12 @@ fn main() {
     let mut locations: Vec<Location> = vec![];
     let mut events: Vec<Event> = vec![];
 
-    let sites: [Box<dyn Site>; 4] = [
+    let sites: Vec<Box<dyn Site>> = vec![
         Box::new(Anker::new()),
         Box::new(Arena::new_red_bull()),
         Box::new(Arena::new_quarterback()),
         Box::new(Arena::new_festwiese()),
+        Box::new(Bandcommunity::new()),
     ];
     for site in &sites {
         let mut evts = site.fetch_events();
