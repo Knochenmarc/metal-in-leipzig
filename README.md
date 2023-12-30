@@ -28,9 +28,9 @@ Alle Event-Informationen stammen aus öffentlichen Internetquellen und werden ei
 - rocklounge-leipzig.de
 - Geyserhaus (Parkbühne/UnterRock?)
 - div. Pubs? Black Label, Noels, McCormacks
-- Spizz?
+- Spizz-Keller?
 
-Was fehlt noch? schreibt es mir als [Issue](https://github.com/Knochenmarc/metal-in-leipzig/issues).
+Was fehlt noch? Schreibt es mir als [Issue](https://github.com/Knochenmarc/metal-in-leipzig/issues).
 
 ### Mehr Ideen/Todos:
 - SEO
