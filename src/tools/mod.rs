@@ -54,14 +54,8 @@ impl Http {
         match self.client.get(url).send() {
             Ok(response) => match response.error_for_status() {
                 Ok(mut response) => {
-                    let encoding = response.headers().get("content-encoding");
-
                     let mut buf: Vec<u8> = vec![];
                     response.copy_to(&mut buf).unwrap();
-
-                    // if encoding.is_some() && encoding.unwrap().to_str().unwrap() == "br" {
-                    //     let decrompres = brotli_decompressor::Decompressor::new(buf, 5000);
-                    // }
                     Ok(buf)
                 }
                 Err(error) => {
