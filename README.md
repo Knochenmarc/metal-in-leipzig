@@ -19,7 +19,7 @@ Alle Event-Informationen stammen aus öffentlichen Internetquellen und werden ei
 - noels-ballroom.de
 - parkbuehne-leipzig.com
 - quarterback-immobilien-arena.de
-- soltmann-bar.de
+- soltmann.club
 - taeubchenthal.com
 - utconnewitz.de
 - werk-2.de

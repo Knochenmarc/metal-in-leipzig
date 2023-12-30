@@ -15,6 +15,7 @@ use crate::site::inflammen::InFlammen;
 use crate::site::moritzbastei::Moritzbastei;
 use crate::site::noels::NoelsBallroom;
 use crate::site::parkbuehne::Parkbuehne;
+use crate::site::soltmann::Soltmann;
 use crate::site::taeubchenthal::Taeubchenthal;
 use crate::site::ut_connewitz::UTConnewitz;
 use crate::site::werk2::Werk2;
@@ -57,7 +58,7 @@ fn main() {
         Box::new(Moritzbastei::new()),
         Box::new(NoelsBallroom::new()),
         Box::new(Parkbuehne::new(insecure_http.borrow())),
-        //Box::new(Soltmann::new()),
+        Box::new(Soltmann::new()),
         Box::new(Taeubchenthal::new()),
         Box::new(UTConnewitz::new()),
         Box::new(Werk2::new()),
