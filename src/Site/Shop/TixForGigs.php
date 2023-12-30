@@ -20,7 +20,7 @@ class TixForGigs implements ShopCrawler
         if (preg_match('#vm.setLocationId\(\d+,({.*})\);#iU', $plainHtml, $matches)) {
             $data = json_decode($matches[1], false, 512, JSON_THROW_ON_ERROR);
             foreach ($data->futureEvents as $item) {
-                if (str_contains($item->description, 'Metal')
+                if (str_contains($item->description ?: '', 'Metal')
                     || str_contains($this->crawlEvent($item->eventId)?->description ?? '', 'Metal')
                 ) {
                     yield $item->title => new \DateTimeImmutable($item->beginsAt);
