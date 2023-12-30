@@ -22,7 +22,7 @@ $sites  = [
     new Site\Felsenkeller(),
     new Site\HausAuensee(),
     new Site\Hellraiser(),
-    new Site\Moritzbastei(),
+//    new Site\Moritzbastei(),
     new Site\Parkbuehne(),
     new Site\Rocklounge(),
     new Site\Taeubchenthal(),
@@ -30,7 +30,9 @@ $sites  = [
     new Site\Werk2(),
 //    new Site\TestData(),
 ];
-$events = (new Collector())->collectEvents($sites);
+$collector = new Collector();
+$locations = $collector->collectLocations($sites);
+$events = $collector->collectEvents($sites);
 
 if ([] === $events) {
     throw new \LogicException('no data parsed');
@@ -55,6 +57,9 @@ $templates = [
     'recht.phtml' => '/public/recht.html',
 ];
 foreach ($templates as $template => $file) {
-    $content = $view->render($template, ['events' => $events[$indy++] ?? [],],);
+    $content = $view->render(
+        $template,
+        ['events' => $events[$indy++] ?? [], 'locations' => $locations],
+    );
     file_put_contents($file, $content);
 }

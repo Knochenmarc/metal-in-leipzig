@@ -10,7 +10,7 @@ use Traversable;
 
 class TestData implements Site
 {
-    public function getIterator(): Traversable
+    public function getLocations(): iterable
     {
         $locations   = [];
         $locations[] = new Location(
@@ -28,6 +28,13 @@ class TestData implements Site
             'CCCC CCCC',
             'http://example.org/cccc',
         );
+
+        return $locations;
+    }
+
+    public function getIterator(): Traversable
+    {
+        $locations = $this->getLocations();
 
         for ($i = 0; $i < 100; $i++) {
             $now = new \DateTime();

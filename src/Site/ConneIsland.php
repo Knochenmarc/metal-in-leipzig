@@ -10,10 +10,13 @@ use Traversable;
 
 class ConneIsland implements Site
 {
+    public function __construct(
+        private Location $location = new Location('ci', 'Conne Island', 'https://conne-island.de'),
+    ) {
+    }
+
     public function getIterator(): Traversable
     {
-        $location = new Location('ci', 'Conne Island', 'https://conne-island.de');
-
         $http = new Crawler();
 
         $xml = $http->get('https://www.conne-island.de/rss.php?genre=Metal');
@@ -21,12 +24,17 @@ class ConneIsland implements Site
         foreach ($xml->channel->item as $item) {
             $name = (string) $item->title;
             yield new Event(
-                substr($name, 12),
-                new \DateTimeImmutable(substr($name, 0, 10)),
-                $location,
-                str_replace('http://', 'https://', (string)$item->link),
+                         substr($name, 12),
+                         new \DateTimeImmutable(substr($name, 0, 10)),
+                         $this->location,
+                         str_replace('http://', 'https://', (string) $item->link),
                 eventId: str_replace('http://www.conne-island.de/termin/', '', (string) $item->link),
             );
         }
+    }
+
+    public function getLocations(): iterable
+    {
+        yield $this->location;
     }
 }

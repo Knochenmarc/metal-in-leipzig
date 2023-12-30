@@ -9,14 +9,13 @@ use MetalLE\Event\Location;
 
 class Tankbar implements Site
 {
+    public function __construct(
+        private Location $location = new Location('tb', 'TankBar Leipzig', 'https://tankbar-leipzig.de/',),
+    ) {
+    }
+
     public function getIterator(): \Traversable
     {
-        $location = new Location(
-            'tb',
-            'TankBar Leipzig',
-            'https://tankbar-leipzig.de/',
-        );
-
         $http      = new Crawler();
         $plainHTML = $http->get('https://tankbar-leipzig.de/tankevents/');
         if (preg_match_all(
@@ -29,15 +28,21 @@ class Tankbar implements Site
                 [$date, $name] = explode(' : ', $match[1]);
                 if (false === str_contains($name, 'Schlager')) {
                     $date = substr($date, 0, -2) . '20' . substr($date, -2);
+                    $name = str_replace('<br>', ' ', $name);
 
                     yield new Event(
                         html_entity_decode($name, ENT_HTML5),
                         new \DateTimeImmutable($date),
-                        $location,
+                        $this->location,
                         'https://tankbar-leipzig.de/tankevents/',
                     );
                 }
             }
         }
+    }
+
+    public function getLocations(): iterable
+    {
+        yield $this->location;
     }
 }

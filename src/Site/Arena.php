@@ -14,20 +14,22 @@ class Arena implements Site
     private const URL = 'https://www.quarterback-immobilien-arena.de';
 
     public function __construct(
+        private Location $rb = new Location('rb', 'Red Bull Arena', self::URL . '/red-bull-arena'),
+        private Location $qi = new Location(
+            'qi',
+            'QUARTERBACK Immobilien ARENA',
+            self::URL . '/quarterback-immobilien-arena'
+        ),
+        private Location $fw = new Location('fw', 'Festwiese Leipzig', self::URL . '/festwiese-leipzig'),
         private Crawler $http = new Crawler(),
     ) {
     }
 
     public function getIterator(): Traversable
     {
-        $rb = new Location('rb', 'Red Bull Arena', self::URL . '/red-bull-arena');
-        yield from $this->crawlContent(2, $rb, new Eventim('red-bull-arena-16304'));
-
-        $immo = new Location('qi', 'QUARTERBACK Immobilien ARENA', self::URL . '/quarterback-immobilien-arena');
-        yield from $this->crawlContent(1, $immo, new Eventim('quarterback-immobilien-arena-leipzig-383'));
-
-        $fw = new Location('fw', 'Festwiese Leipzig', self::URL . '/festwiese-leipzig');
-        yield from $this->crawlContent(3, $fw, new Eventim('festwiese-leipzig-7410'));
+        yield from $this->crawlContent(2, $this->rb, new Eventim('red-bull-arena-16304'));
+        yield from $this->crawlContent(1, $this->qi, new Eventim('quarterback-immobilien-arena-leipzig-383'));
+        yield from $this->crawlContent(3, $this->fw, new Eventim('festwiese-leipzig-7410'));
     }
 
     private function crawlContent(int $locationId, Location $location, Eventim $eventim, int $page = 1): \Generator
@@ -47,7 +49,13 @@ class Arena implements Site
             foreach ($eventim->fetchDates() as $date) {
                 foreach ($matches as $match) {
                     if ($date->format('d.m.Y') === $match[3]) {
-                        yield new Event(html_entity_decode($match[4]), $date, $location, self::URL . $match[1], self::URL . $match[2]);
+                        yield new Event(
+                            html_entity_decode($match[4]),
+                            $date,
+                            $location,
+                            self::URL . $match[1],
+                            self::URL . $match[2]
+                        );
                         break;
                     }
                 }
@@ -57,5 +65,12 @@ class Arena implements Site
         if (str_contains($html, '<li class="next">')) {
             yield from $this->crawlContent($locationId, $location, $eventim, $page + 1);
         }
+    }
+
+    public function getLocations(): iterable
+    {
+        yield $this->rb;
+        yield $this->qi;
+        yield $this->fw;
     }
 }

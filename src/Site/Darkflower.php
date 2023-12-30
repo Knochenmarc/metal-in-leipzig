@@ -13,13 +13,16 @@ class Darkflower implements Site
 {
     use LinkedDataParser;
 
+    public function __construct(
+        private Location $location = new Location('df', 'Darkflower', 'https://darkflower.club/'),
+    ) {
+    }
+
     /**
      * @throws JsonException
      */
     public function getIterator(): Traversable
     {
-        $location = new Location('df', 'Darkflower', 'https://darkflower.club/');
-
         $http = new Crawler();
         $json = $http->get('https://darkflower.club/wp-json/wp/v2/pages/932');
         $json = json_decode($json, false, 512, JSON_THROW_ON_ERROR);
@@ -27,7 +30,7 @@ class Darkflower implements Site
             yield new Event(
                 html_entity_decode(html_entity_decode($event->name)),
                 new \DateTimeImmutable($event->startDate),
-                $location,
+                $this->location,
                 $event->url,
                 $event->image,
                 $event->{"@id"},
@@ -35,4 +38,8 @@ class Darkflower implements Site
         }
     }
 
+    public function getLocations(): iterable
+    {
+        yield $this->location;
+    }
 }

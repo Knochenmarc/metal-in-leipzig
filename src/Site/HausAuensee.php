@@ -16,26 +16,26 @@ class HausAuensee implements Site
 {
     private const URL = 'https://haus-auensee-leipzig.de';
 
-    public function __construct(private Crawler $http = new Crawler())
-    {
+    public function __construct(
+        private Location $location = new Location('ha', 'Haus Auensee', self::URL),
+        private Crawler $http = new Crawler(),
+    ) {
     }
 
     public function getIterator(): Traversable
     {
-        $location = new Location('ha', 'Haus Auensee', self::URL);
-
         $plainHtml = $this->http->get(self::URL);
         if (preg_match('#<div class="md-col md-col-8">.*</a>\s+</div>#isU', $plainHtml, $matches)) {
             $plainHtml = $matches[0];
         }
 
         if (preg_match_all('#<a href="(.*)".*</a>#isU', $plainHtml, $matches, PREG_SET_ORDER)) {
-            yield from $this->filter(new Eventim('haus-auensee-leipzig-7301'), $matches, $location);
-            yield from $this->filter(new LiveGigs('Haus Auensee'), $matches, $location);
+            yield from $this->filter(new Eventim('haus-auensee-leipzig-7301'), $matches);
+            yield from $this->filter(new LiveGigs('Haus Auensee'), $matches);
         }
     }
 
-    private function filter(ShopCrawler $shop, array &$matches, Location $location): Generator
+    private function filter(ShopCrawler $shop, array &$matches): Generator
     {
         foreach ($shop->fetchDates() as $date) {
             foreach ($matches as $key => $match) {
@@ -50,12 +50,17 @@ class HausAuensee implements Site
                         $imgUrl = self::URL . $imgMatch[1];
                     }
 
-                    yield new Event(html_entity_decode($subMatches[1]), $date, $location, $url, $imgUrl);
+                    yield new Event(html_entity_decode($subMatches[1]), $date, $this->location, $url, $imgUrl);
 
                     unset ($matches[$key]);
                     break;
                 }
             }
         }
+    }
+
+    public function getLocations(): iterable
+    {
+        yield $this->location;
     }
 }

@@ -54,20 +54,24 @@ class Hellraiser implements Site
         '12.',
     ];
 
+    public function __construct(
+        private Location $location = new Location('hr', 'Hellraiser Leipzig', self::URL,),
+    ) {
+    }
+
     public function getIterator(): \Traversable
     {
         $http = new Crawler();
-        $location = new Location('hr', 'Hellraiser Leipzig', self::URL,);
 
-        yield from $this->parseEvents($location, $http->get(self::URL . '/produkt-kategorie/tickets/'));
-        yield from $this->parseEvents($location, $http->get(self::URL . '/produkt-kategorie/tickets/page/2/'));
-        yield from $this->parseEvents($location, $http->get(self::URL . '/produkt-kategorie/tickets/page/3/'));
+        yield from $this->parseEvents($http->get(self::URL . '/produkt-kategorie/tickets/'));
+        yield from $this->parseEvents($http->get(self::URL . '/produkt-kategorie/tickets/page/2/'));
+        yield from $this->parseEvents($http->get(self::URL . '/produkt-kategorie/tickets/page/3/'));
     }
 
     /**
      * @return Event[]
      */
-    private function parseEvents(Location $location, string $plainHTML): iterable
+    private function parseEvents(string $plainHTML): iterable
     {
         if (preg_match_all(
                 '#<li class="product.*<a href="(.*)".*<img.*src="(.*)".*<h2.*>(.*)</h2>.*<div class="date-published">(.*)</div>.*</li>#isU',
@@ -83,12 +87,17 @@ class Hellraiser implements Site
                 yield new Event(
                     $name,
                     new \DateTimeImmutable($date),
-                    $location,
+                    $this->location,
                     $match[1],
                     $match[2],
                     str_replace(self::URL, '', $match[1])
                 );
             }
         }
+    }
+
+    public function getLocations(): iterable
+    {
+        yield $this->location;
     }
 }

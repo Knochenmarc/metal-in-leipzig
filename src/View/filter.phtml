@@ -1,0 +1,15 @@
+<form name="event-filter" autocomplete="on" id="event-filter"><input type="submit"/></form>
+<?php foreach ($data['locations'] ?? [] as $location) : ?>
+    <input type="checkbox" class="filter" name="loc-<?= $location->slug ?>" value="<?= $location->slug ?>" id="filter-loc-<?= $location->slug ?>" form="event-filter"/>
+<?php endforeach; ?>
+<input type="checkbox" class="filter" name="toggle" id="filter-toggle" />
+
+<div class="filters">
+    <label class="toggle toggle-down" for="filter-toggle">Filter</label>
+    Location:
+    <?php foreach ($data['locations'] ?? [] as $location) : ?>
+        <label class="<?= $location->slug ?>" for="filter-loc-<?= $location->slug ?>"><?= $location->name ?></label>
+    <?php endforeach; ?>
+    <input type="reset" form="event-filter"/>
+    <label class="toggle toggle-up" for="filter-toggle">Filter</label>
+</div>

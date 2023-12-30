@@ -28,14 +28,14 @@ class Anker implements Site
     private const MONTH_REPLACE = ['01.', '02.', '03.', '04.', '05.', '06', '07.', '08.', '09.', '10.', '11.', '12.'];
 
     public function __construct(
+        private Location $location = new Location('ank', 'der ANKER', 'https://anker-leipzig.de'),
         private Crawler $http = new Crawler(),
     ) {
     }
 
     public function getIterator(): Traversable
     {
-        $location = new Location('ank', 'der ANKER', 'https://anker-leipzig.de');
-        $eventim  = new Eventim('der-anker-leipzig-7330');
+        $eventim = new Eventim('der-anker-leipzig-7330');
 
         $api = json_decode(
             $this->http->get('https://anker-leipzig.de/wp-json/wp/v2/event_listing?per_page=100'),
@@ -64,7 +64,7 @@ class Anker implements Site
                             yield new Event(
                                 html_entity_decode($item->title->rendered),
                                 $date,
-                                $location,
+                                $this->location,
                                 $item->link,
                                 $this->fetchImage($item),
                             );
@@ -93,5 +93,10 @@ class Anker implements Site
         }
 
         return null;
+    }
+
+    public function getLocations(): iterable
+    {
+        yield $this->location;
     }
 }

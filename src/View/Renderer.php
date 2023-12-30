@@ -6,12 +6,25 @@ namespace MetalLE\View;
 
 class Renderer
 {
+    private string $thisYear;
+
+    public function __construct()
+    {
+        $this->thisYear = date('Y');
+    }
+
     public function format_date(\DateTimeInterface $dateTime): string
     {
+        $format = 'D. d.m.';
+
+        if ($dateTime->format('Y') !== $this->thisYear) {
+            $format = 'D. d.m. Y';
+        }
+
         return str_replace(
             ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
             ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'],
-            $dateTime->format('D. d.m.'),
+            $dateTime->format($format),
         );
     }
 
