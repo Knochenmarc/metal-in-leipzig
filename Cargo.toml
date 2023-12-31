@@ -13,7 +13,7 @@ html-escape = "0.2"
 jpeg-decoder = "0.3"
 lazy_static = "1"
 regex = "1"
-reqwest = { version = "0.11", features = ["blocking", "native-tls", "native-tls-vendored", "native-tls-alpn", "gzip", "deflate", "brotli"] }
+reqwest = { version = "0.11", features = ["blocking", "native-tls", "native-tls-vendored", "native-tls-alpn", "gzip", "deflate"] }
 serde = "1.0"
 serde_json = "1.0"
 twox-hash = "1"
