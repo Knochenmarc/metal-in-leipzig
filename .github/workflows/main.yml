@@ -33,10 +33,6 @@ jobs:
           path: public/flyer
           key: flyer-${{ steps.date.outputs.date }}
 
-      - name: 'Create env file'
-        run: |
-          echo ML_DF_KEY=${{ secrets.DF_FACEBOOK }} > .env
-
       - uses: Swatinem/rust-cache@v2
         with:
           shared-key: crates-${{ steps.date.outputs.date }}
