@@ -26,7 +26,7 @@ impl Http {
         headers.insert("DNT", HeaderValue::from_static("1"));
         headers.insert("Pragma", HeaderValue::from_static("no-cache"));
         headers.insert("Cache-Control", HeaderValue::from_static("no-cache"));
-        // headers.insert("Sec-Fetch-Mode", HeaderValue::from_static("navigate")); // for facebook
+        headers.insert("Sec-Fetch-Mode", HeaderValue::from_static("navigate")); // for facebook
 
         let builder = ClientBuilder::new()
             .default_headers(headers)
