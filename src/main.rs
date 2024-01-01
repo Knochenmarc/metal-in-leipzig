@@ -8,7 +8,6 @@ use crate::site::anker::Anker;
 use crate::site::arena::Arena;
 use crate::site::bandcommunity::Bandcommunity;
 use crate::site::conne_island::ConneIsland;
-use crate::site::darkflower::Darkflower;
 use crate::site::felsenkeller::Felsenkeller;
 use crate::site::haus_auensee::HausAuensee;
 use crate::site::hellraiser::Hellraiser;
@@ -53,7 +52,7 @@ fn main() {
         Box::new(Arena::new_red_bull()),
         Box::new(Bandcommunity::new()),
         Box::new(ConneIsland::new(insecure_http.borrow())),
-        Box::new(Darkflower::new()),
+        // Box::new(Darkflower::new()),
         Box::new(Felsenkeller::new()),
         Box::new(HausAuensee::new()),
         Box::new(Hellraiser::new()),
