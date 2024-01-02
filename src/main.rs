@@ -31,6 +31,8 @@ mod site;
 mod tools;
 
 fn main() {
+    stderrlog::new().module(module_path!()).init().unwrap();
+
     let http = Http::new(false);
     let insecure_http = Http::new(true);
 

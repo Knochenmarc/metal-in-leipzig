@@ -27,11 +27,14 @@ impl Http {
         headers.insert("Pragma", HeaderValue::from_static("no-cache"));
         headers.insert("Cache-Control", HeaderValue::from_static("no-cache"));
         headers.insert("Sec-Fetch-Mode", HeaderValue::from_static("navigate")); // for facebook
+        headers.insert("Set-GPC", HeaderValue::from_static("0"));
+        headers.insert("Upgrade-Insecure-Requests", HeaderValue::from_static("1"));
+        headers.insert("Connection", HeaderValue::from_static("keep-alive"));
 
         let builder = ClientBuilder::new()
             .default_headers(headers)
             .user_agent(
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/109.0",
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0",
             )
             .pool_max_idle_per_host(0) // https://github.com/hyperium/hyper/issues/2136#issuecomment-861826148
             .danger_accept_invalid_certs(accepts_invalid_certs);

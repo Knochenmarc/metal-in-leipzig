@@ -1,7 +1,7 @@
-FROM rust:bullseye as build
+FROM rust
 
 RUN apt-get -y update && apt-get -y upgrade && \
-    apt-get install -y pkg-config libssl-dev
+    apt-get install -y pkg-config libssl-dev imagemagick
 
 RUN USER=root cargo new --bin app
 WORKDIR /app
@@ -14,10 +14,4 @@ RUN rm ./target/release/deps/metal_in_leipzig*
 COPY ./src ./src
 RUN cargo build --release
 
-FROM dpokidov/imagemagick:latest
-
-WORKDIR /app
-COPY --from=build /app/target/release/metal-in-leipzig /app
-
-ENTRYPOINT []
-CMD ["./metal-in-leipzig"]
+CMD ["cargo", "run", "--release"]
