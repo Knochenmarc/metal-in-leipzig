@@ -5,7 +5,7 @@ use std::time::Duration;
 
 use reqwest::blocking::{Client, ClientBuilder};
 use reqwest::header::{HeaderMap, HeaderValue};
-use reqwest::Error;
+use reqwest::{header, Error};
 use serde_json::Value;
 
 pub(crate) mod date;
@@ -18,18 +18,20 @@ pub struct Http {
 impl Http {
     pub(crate) fn new(accepts_invalid_certs: bool) -> Http {
         let mut headers = HeaderMap::new();
-        headers.insert("Accept", HeaderValue::from_static("text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8"));
+        headers.insert(header::ACCEPT, HeaderValue::from_static("text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8"));
         headers.insert(
-            "Accept-Language",
+            header::ACCEPT_LANGUAGE,
             HeaderValue::from_static("de,en-US;q=0.7,en;q=0.3"),
         );
-        headers.insert("DNT", HeaderValue::from_static("1"));
-        headers.insert("Pragma", HeaderValue::from_static("no-cache"));
-        headers.insert("Cache-Control", HeaderValue::from_static("no-cache"));
-        headers.insert("Sec-Fetch-Mode", HeaderValue::from_static("navigate")); // for facebook
-        headers.insert("Set-GPC", HeaderValue::from_static("0"));
-        headers.insert("Upgrade-Insecure-Requests", HeaderValue::from_static("1"));
-        headers.insert("Connection", HeaderValue::from_static("keep-alive"));
+        headers.insert(header::DNT, HeaderValue::from_static("1"));
+        headers.insert(header::PRAGMA, HeaderValue::from_static("no-cache"));
+        headers.insert(header::CACHE_CONTROL, HeaderValue::from_static("no-cache"));
+        headers.insert("sec-fetch-mode", HeaderValue::from_static("same-origin")); // for facebook
+        headers.insert("set-gpc", HeaderValue::from_static("1"));
+        headers.insert(
+            header::UPGRADE_INSECURE_REQUESTS,
+            HeaderValue::from_static("1"),
+        );
 
         let builder = ClientBuilder::new()
             .default_headers(headers)

@@ -117,7 +117,7 @@ impl Site for UTConnewitz<'_> {
                 let chunks: Vec<&str> = split_name.split(title).collect();
                 for chunk in chunks {
                     let chunk = clear_name.replace(chunk, "").to_string();
-                    if !chunk.is_empty() {
+                    if !chunk.is_empty() && chunk != "support" {
                         evt.add_band(chunk);
                     }
                 }
