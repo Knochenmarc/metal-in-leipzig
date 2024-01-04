@@ -15,6 +15,7 @@ use crate::site::hellraiser::Hellraiser;
 use crate::site::impericon::Impericon;
 use crate::site::inflammen::InFlammen;
 use crate::site::moritzbastei::Moritzbastei;
+use crate::site::muehlkeller::Muehlkeller;
 use crate::site::noels::NoelsBallroom;
 use crate::site::parkbuehne::Parkbuehne;
 use crate::site::soltmann::Soltmann;
@@ -62,6 +63,7 @@ fn main() {
         Box::new(Impericon::new()),
         Box::new(InFlammen::new()),
         Box::new(Moritzbastei::new()),
+        Box::new(Muehlkeller::new()),
         Box::new(NoelsBallroom::new()),
         Box::new(Parkbuehne::new(insecure_http.borrow())),
         Box::new(Soltmann::new()),

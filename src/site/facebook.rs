@@ -5,6 +5,10 @@ use regex::Regex;
 use crate::event::{Event, Location};
 use crate::tools::Http;
 
+fn decode_unicode(input: &str) -> String {
+    serde_json::from_str(&format!("\"{}\"", input)).unwrap()
+}
+
 fn fetch_event<'e>(http: &Http, event_id: &str, location: &'e Location) -> Event<'e> {
     lazy_static! {
         static ref TITLE_REG: Regex = Regex::new("\"title\":\"(.*?)\",").unwrap();
@@ -17,13 +21,14 @@ fn fetch_event<'e>(http: &Http, event_id: &str, location: &'e Location) -> Event
     let url = format!("https://www.facebook.com/events/{}", event_id);
     let response = http.get(url.as_str()).unwrap();
 
-    let title = TITLE_REG
-        .captures(&response)
-        .unwrap()
-        .get(1)
-        .unwrap()
-        .as_str()
-        .to_string();
+    let title = decode_unicode(
+        TITLE_REG
+            .captures(&response)
+            .unwrap()
+            .get(1)
+            .unwrap()
+            .as_str(),
+    );
     let image = IMAGE_REG
         .captures(&response)
         .unwrap()
@@ -37,13 +42,14 @@ fn fetch_event<'e>(http: &Http, event_id: &str, location: &'e Location) -> Event
         .as_str()
         .parse()
         .unwrap();
-    let description = DESC_REG
-        .captures(&response)
-        .unwrap()
-        .get(1)
-        .unwrap()
-        .as_str()
-        .to_string();
+    let description = decode_unicode(
+        DESC_REG
+            .captures(&response)
+            .unwrap()
+            .get(1)
+            .unwrap()
+            .as_str(),
+    );
 
     let mut event = Event::new(
         title,

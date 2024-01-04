@@ -26,7 +26,7 @@ impl Http {
         headers.insert(header::DNT, HeaderValue::from_static("1"));
         headers.insert(header::PRAGMA, HeaderValue::from_static("no-cache"));
         headers.insert(header::CACHE_CONTROL, HeaderValue::from_static("no-cache"));
-        headers.insert("sec-fetch-mode", HeaderValue::from_static("same-origin")); // for facebook
+        headers.insert("sec-fetch-mode", HeaderValue::from_static("navigate")); // for facebook
         headers.insert("set-gpc", HeaderValue::from_static("1"));
         headers.insert(
             header::UPGRADE_INSECURE_REQUESTS,

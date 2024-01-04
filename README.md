@@ -17,6 +17,7 @@ Alle Event-Informationen stammen aus öffentlichen Internetquellen und werden ei
 - haus-auensee-leipzig.de
 - hellraiser-leipzig.de
 - moritzbastei.de
+- muehlstrasse.de
 - noels-ballroom.de
 - parkbuehne-leipzig.com
 - quarterback-immobilien-arena.de
