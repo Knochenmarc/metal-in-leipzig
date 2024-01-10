@@ -15,7 +15,7 @@ fn fetch_event<'e>(http: &Http, event_id: &str, location: &'e Location) -> Event
         static ref IMAGE_REG: Regex = Regex::new("\"full_image\":.*?\"uri\":\"(.*?)\"").unwrap();
         static ref TIME_REG: Regex = Regex::new("\"start_timestamp\":(\\d+),").unwrap();
         static ref DESC_REG: Regex =
-            Regex::new("\"event_description\":\\{\"text\":\"(.*?)\",").unwrap();
+            Regex::new("\"event_description\":\\{\"text\":\"(.*?)\",\"").unwrap();
     }
 
     let url = format!("https://www.facebook.com/events/{}", event_id);
