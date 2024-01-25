@@ -10,6 +10,7 @@ use crate::site::bandcommunity::Bandcommunity;
 use crate::site::conne_island::ConneIsland;
 use crate::site::darkflower::Darkflower;
 use crate::site::felsenkeller::Felsenkeller;
+use crate::site::forum::ZeitgeschichtlichesForum;
 use crate::site::haus_auensee::HausAuensee;
 use crate::site::hellraiser::Hellraiser;
 use crate::site::impericon::Impericon;
@@ -50,26 +51,27 @@ fn main() {
     let mut events: Vec<Event> = vec![];
 
     let sites: Vec<Box<dyn Site>> = vec![
-        Box::new(Anker::new()),
-        Box::new(Arena::new_festwiese()),
-        Box::new(Arena::new_quarterback()),
-        Box::new(Arena::new_red_bull()),
-        Box::new(Bandcommunity::new()),
-        Box::new(ConneIsland::new(insecure_http.borrow())),
-        Box::new(Darkflower::new()),
-        Box::new(Felsenkeller::new()),
-        Box::new(HausAuensee::new()),
-        Box::new(Hellraiser::new()),
-        Box::new(Impericon::new()),
-        Box::new(InFlammen::new()),
-        Box::new(Moritzbastei::new()),
-        Box::new(Muehlkeller::new()),
-        Box::new(NoelsBallroom::new()),
-        Box::new(Parkbuehne::new(insecure_http.borrow())),
-        Box::new(Soltmann::new()),
-        Box::new(Taeubchenthal::new()),
-        Box::new(UTConnewitz::new()),
-        Box::new(Werk2::new()),
+        // Box::new(Anker::new()),
+        // Box::new(Arena::new_festwiese()),
+        // Box::new(Arena::new_quarterback()),
+        // Box::new(Arena::new_red_bull()),
+        // Box::new(Bandcommunity::new()),
+        // Box::new(ConneIsland::new(insecure_http.borrow())),
+        // Box::new(Darkflower::new()),
+        // Box::new(Felsenkeller::new()),
+        // Box::new(HausAuensee::new()),
+        // Box::new(Hellraiser::new()),
+        // Box::new(Impericon::new()),
+        // Box::new(InFlammen::new()),
+        // Box::new(Moritzbastei::new()),
+        // Box::new(Muehlkeller::new()),
+        // Box::new(NoelsBallroom::new()),
+        // Box::new(Parkbuehne::new(insecure_http.borrow())),
+        // Box::new(Soltmann::new()),
+        // Box::new(Taeubchenthal::new()),
+        // Box::new(UTConnewitz::new()),
+        // Box::new(Werk2::new()),
+        Box::new(ZeitgeschichtlichesForum::new()),
     ];
     for site in &sites {
         let mut evts: Vec<Event> = site

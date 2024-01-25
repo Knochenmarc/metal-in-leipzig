@@ -21,6 +21,7 @@ body
   --tt-background: url("../img/taeubchenthal.svg") center
   --ut-background: url("../img/ut.png") center
   --w2-background: url("../img/werk2.webp") center
+  --zf-background: url("../img/zf.png") center
 
 main
   margin-top: -12px
@@ -175,6 +176,11 @@ main
     color: #ffffff
     &:before
       background: var(--w2-background)
+  &.zf
+    background-color: white
+    color: #dc1e00
+    &:before
+      background: var(--zf-background)
 
 
 #event-filter, input.filter[type="checkbox"]
@@ -315,6 +321,11 @@ main
       color: #ffffff
       &::before
         background: var(--w2-background)
+    &.zf
+      background-color: white
+      color: #dc1e00
+      &::before
+        background: var(--zf-background)
 
 #flyer-toggle:checked ~ .filters label[for="flyer-toggle"],
 #filter-loc-ank:checked ~ .filters label[for="filter-loc-ank"],
@@ -338,7 +349,8 @@ main
 #filter-loc-sm:checked ~ .filters label[for="filter-loc-sm"],
 #filter-loc-tt:checked ~ .filters label[for="filter-loc-tt"],
 #filter-loc-ut:checked ~ .filters label[for="filter-loc-ut"],
-#filter-loc-w2:checked ~ .filters label[for="filter-loc-w2"]
+#filter-loc-w2:checked ~ .filters label[for="filter-loc-w2"],
+#filter-loc-zf:checked ~ .filters label[for="filter-loc-zf"]
   border-color: #d81b60
 
 #flyer-toggle:checked ~ main .event picture,
@@ -363,7 +375,8 @@ main
 #filter-loc-sm:checked ~ main .event.sm,
 #filter-loc-tt:checked ~ main .event.tt,
 #filter-loc-ut:checked ~ main .event.ut,
-#filter-loc-w2:checked ~ main .event.w2
+#filter-loc-w2:checked ~ main .event.w2,
+#filter-loc-zf:checked ~ main .event.zf
     display: none
 
 #filter-toggle:checked ~ .filters

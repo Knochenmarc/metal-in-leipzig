@@ -30,6 +30,7 @@ pub(crate) mod taeubchenthal;
 mod tixforgigs;
 pub(crate) mod ut_connewitz;
 pub(crate) mod werk2;
+pub(crate) mod forum;
 
 pub trait Site {
     fn get_location(&self) -> &Location;
