@@ -33,7 +33,7 @@ impl Site for Taeubchenthal<'_> {
     fn fetch_events(&self, http: &Http) -> Vec<Event> {
         let mut result = Vec::new();
 
-        let html = http.get(&*(URL.to_string() + "programm")).unwrap();
+        let html = http.get(&(URL.to_string() + "programm")).unwrap();
         let reg = Regex::new("(?is)<div class=\"event event--list.*?<img src=\"(?P<img>.*?)\".*?<h2><a href=\"(?P<url>programm/.*?)\".*?>(?P<name>.*?)</a></h2>.*?<time datetime=\"(?P<date>.*?)\">").unwrap();
 
         let eventim = Eventim::new("taeubchenthal-leipzig-18055", http);
@@ -50,11 +50,11 @@ impl Site for Taeubchenthal<'_> {
                 name.to_string(),
                 parse_iso_datetime(date).unwrap(),
                 self.location.borrow(),
-                URL.to_owned() + &capture.name("url").unwrap().as_str(),
-                Some(URL.to_owned() + &capture.name("img").unwrap().as_str()),
+                URL.to_owned() + capture.name("url").unwrap().as_str(),
+                Some(URL.to_owned() + capture.name("img").unwrap().as_str()),
             );
 
-            if name != "CHECKMATE" {
+            if name != "MESH" && name != "Luna" && name != "Schiller" {
                 evt.add_band(name.replace(" - Openair", ""));
             }
 

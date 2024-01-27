@@ -117,4 +117,8 @@ impl Http {
         let resp = self.post(url, payload);
         serde_json::from_str(resp.as_str()).unwrap()
     }
+
+    pub fn exists(&self, url: &str) -> bool {
+        self.client.head(url).send().unwrap().status().is_success()
+    }
 }

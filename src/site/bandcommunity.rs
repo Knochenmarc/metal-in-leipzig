@@ -41,8 +41,11 @@ impl Site for Bandcommunity<'_> {
 
         for data_event in parse_linked_data_events(html.as_str()) {
             let description = data_event["description"].as_str().unwrap();
-            if !description.contains("Rapper") && !description.contains("HipHop") {
-                let name = data_event["name"].as_str().unwrap();
+            let name = data_event["name"].as_str().unwrap();
+            if name != "Open Jam Session"
+                && !description.contains("Rapper")
+                && !description.contains("HipHop")
+            {
                 let mut evt = Event::new(
                     decode_html_entities(name).to_string(),
                     parse_iso_datetime(data_event["startDate"].as_str().unwrap()).unwrap(),

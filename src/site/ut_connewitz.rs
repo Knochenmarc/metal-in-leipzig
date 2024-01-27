@@ -30,7 +30,7 @@ impl Site for UTConnewitz<'_> {
     fn fetch_events(&self, http: &Http) -> Vec<Event> {
         let mut result = Vec::new();
 
-        let split_name = Regex::new(r", | & ").unwrap();
+        let split_name = Regex::new(r"(?i), | (with|&|\+) special guests?:?\s?| & | \+ ").unwrap();
         let clear_name = Regex::new(r" \(.*?\)$").unwrap();
         let month_reg =
             Regex::new("(?i)<a href=\".*?month=(\\d+)\" class=\"active\">(.*?)</a>").unwrap();
@@ -85,6 +85,10 @@ impl Site for UTConnewitz<'_> {
             for capture in reg.captures_iter(html.as_str()) {
                 let id = capture.name("id").unwrap().as_str();
                 let title = capture.name("title").unwrap().as_str();
+                if title.starts_with("SHIT & SHINE, ") {
+                    continue;
+                }
+
                 let day = capture.name("day").unwrap().as_str();
                 let img = capture
                     .name("img")
@@ -117,8 +121,9 @@ impl Site for UTConnewitz<'_> {
                 let chunks: Vec<&str> = split_name.split(title).collect();
                 for chunk in chunks {
                     let chunk = clear_name.replace(chunk, "").to_string();
-                    if !chunk.is_empty() && chunk != "support" {
-                        evt.add_band(chunk);
+                    if !chunk.is_empty() && chunk != "support" && chunk != "GAST" {
+                        println!("{}", chunk);
+                        evt.add_band(chunk.trim().to_string());
                     }
                 }
 

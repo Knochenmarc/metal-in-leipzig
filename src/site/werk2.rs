@@ -37,6 +37,7 @@ impl Site for Werk2<'_> {
         let mut has_december = false;
         let this_year = chrono::Utc::now().year();
         let next_year = this_year + 1;
+        let mut previous_date = None;
 
         let urls = [URL, "https://www.werk-2.de/programm/vorschau"];
         for url in urls {
@@ -54,23 +55,46 @@ impl Site for Werk2<'_> {
                     has_december = true;
                 }
 
-                if typen.to_lowercase().contains("metal") {
-                    let year = if has_december && month != "Dezember" {
-                        next_year
-                    } else {
-                        this_year
+                let year = if has_december && month != "Dezember" {
+                    next_year
+                } else {
+                    this_year
+                };
+
+                let date = parse_german_date(format!("{}. {} {}", day, month, year).as_str())
+                    .and_hms_opt(0, 0, 0)
+                    .unwrap();
+
+                if (previous_date.is_none() || previous_date.unwrap() < date)
+                    && typen.to_lowercase().contains("metal")
+                {
+                    // http head image
+
+                    let image = {
+                        let formats = ["_detail", "_258", "_229"];
+                        let urls = formats.map(|s| format!("{}{}", URL, img.replace("_liste", s)));
+
+                        let mut result = format!("{}{}", URL, img);
+                        for url in urls {
+                            if http.exists(url.as_str()) {
+                                result = url;
+                                break;
+                            }
+                        }
+
+                        Some(result)
                     };
 
                     let evt = Event::new(
                         name.to_string(),
-                        parse_german_date(format!("{}. {} {}", day, month, year).as_str())
-                            .and_hms_opt(0, 0, 0)
-                            .unwrap(),
+                        date,
                         self.location.borrow(),
                         format!("{}{}", URL, url),
-                        Some(format!("{}{}", URL, img.replace("_liste", "_detail"))),
+                        image,
                     );
                     result.push(evt);
+
+                    previous_date = Some(date);
                 }
             }
         }
