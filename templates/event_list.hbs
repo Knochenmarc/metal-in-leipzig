@@ -1,4 +1,3 @@
-<!--suppress HtmlRequiredAltAttribute -->
 <main>
     {{#each event_group}}
         <div class="events">
@@ -12,7 +11,7 @@
                         {{#if this.image.height}}
                             <picture class="event-img">
                                 <source srcset="{{this.image.public_avif_url}}" type="image/avif">
-                                <img src="{{this.image.public_jpg_url}}"
+                                <img src="{{this.image.public_jpg_url}}" alt="{{this.name}}"
                                      width="{{this.image.width}}" height="{{this.image.height}}"
                                      {{#if @../index }}loading="lazy"{{/if}} />
                             </picture>
