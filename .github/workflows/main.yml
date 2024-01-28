@@ -25,17 +25,24 @@ jobs:
         run: echo "::set-output name=date::$(date +'%Y-%m')"
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Cache flyers
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: public/flyer
           key: flyer-${{ steps.date.outputs.date }}
 
-      - uses: Swatinem/rust-cache@v2
+      - uses: actions/cache@v4
+        name: Cache Rust
         with:
-          shared-key: crates-${{ steps.date.outputs.date }}
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
       - name: Build app
         run: cargo build --release
@@ -44,8 +51,15 @@ jobs:
         timeout-minutes: 120
         run: cargo run --release
 
-      - name: Minify
-        uses: dra1ex/minify-action@v1.0.3
+      - name: HTML/CSS/JS Minifier
+        uses: docker://devatherock/minify-js:3.0.0
+        with:
+          directory: 'public'
+          add_suffix: false
+          inclusions: |-
+            *.css
+            *.js
+            *.html
 
       # https://dev.to/pierresaid/deploy-node-projects-to-github-pages-with-github-actions-4jco
       - name: Deploy 🚀
