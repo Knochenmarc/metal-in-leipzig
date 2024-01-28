@@ -22,7 +22,7 @@ jobs:
     steps:
       - name: Get current date
         id: date
-        run: echo "::set-output name=date::$(date +'%Y-%m')"
+        run: echo "date=$(date +'%Y-%m')" >> $GITHUB_OUTPUT
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
@@ -54,10 +54,11 @@ jobs:
       - name: Minify HTML/CSS/JS
         run: |
           npm i minify -g \
-          && minify public/js/filter.js > public/js/filter.js \
-          && minify public/style/style.css > public/style/style.css \
-          && minify public/index.html > public/index.html \
-          && minify public/recht.html > public/recht.html
+          && minify --version \
+          && minify public/js/filter.js > public/js/filter.min.js && mv public/js/filter.min.js public/js/filter.js \
+          && minify public/style/style.css > public/style/style.min.css && mv public/style/style.min.css public/style/style.css \
+          && minify public/index.html > public/index.min.html && mv public/index.min.html public/index.html \
+          && minify public/recht.html > public/recht.min.html && mv public/recht.min.html public/recht.html
 
       # https://dev.to/pierresaid/deploy-node-projects-to-github-pages-with-github-actions-4jco
       - name: Deploy 🚀
