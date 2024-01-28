@@ -51,15 +51,13 @@ jobs:
         timeout-minutes: 120
         run: cargo run --release
 
-      - name: HTML/CSS/JS Minifier
-        uses: docker://devatherock/minify-js:3.0.0
-        with:
-          directory: 'public'
-          add_suffix: false
-          inclusions: |-
-            *.css
-            *.js
-            *.html
+      - name: Minify HTML/CSS/JS
+        run: |
+          npm i minify -g
+          && minify public/js/filter.js > public/js/filter.js
+          && minify public/style/style.css > public/style/style.css
+          && minify public/index.html > public/index.html
+          && minify public/recht.html > public/recht.html
 
       # https://dev.to/pierresaid/deploy-node-projects-to-github-pages-with-github-actions-4jco
       - name: Deploy 🚀
