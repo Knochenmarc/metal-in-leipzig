@@ -1,5 +1,6 @@
-use chrono::NaiveDateTime;
 use std::borrow::Borrow;
+
+use chrono::NaiveDateTime;
 
 use crate::event::{Event, Location};
 use crate::site::Site;
@@ -26,7 +27,7 @@ impl Site for ZeitgeschichtlichesForum<'_> {
         self.location.borrow()
     }
 
-    fn fetch_events(&self, http: &Http) -> Vec<Event> {
+    fn fetch_events(&self, _http: &Http) -> Vec<Event> {
         let mut result = Vec::new();
 
         let event = Event::new(
