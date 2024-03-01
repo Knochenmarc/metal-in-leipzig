@@ -4,8 +4,8 @@ use html_escape::decode_html_entities;
 use regex::Regex;
 
 use crate::event::{Event, Location};
-use crate::site::Site;
 use crate::site::tixforgigs::fetch_tixforgigs_event;
+use crate::site::Site;
 use crate::tools::date::parse_short_date;
 use crate::tools::Http;
 
@@ -71,13 +71,16 @@ impl<'a> Site for ConneIsland<'_, 'a> {
                 .insecure_http
                 .get(format!("https://conne-island.de/ticket_info.php?nr={}", id).as_str())
                 .unwrap();
-            let caps = tix_reg.captures(ticket_info.as_str()).unwrap();
-            let tixforgigs_event = caps.get(1).unwrap().as_str();
-            let tixforgigs_data = fetch_tixforgigs_event(http, tixforgigs_event);
 
-            event.set_image(tixforgigs_data["image"].as_str().unwrap().to_string());
-            for performer in tixforgigs_data["performer"].as_array().unwrap() {
-                event.add_band(performer["name"].as_str().unwrap().to_string());
+            if let Some(caps) = tix_reg.captures(ticket_info.as_str()) {
+                // let caps = tix_reg.captures(ticket_info.as_str()).unwrap();
+                let tixforgigs_event = caps.get(1).unwrap().as_str();
+                let tixforgigs_data = fetch_tixforgigs_event(http, tixforgigs_event);
+
+                event.set_image(tixforgigs_data["image"].as_str().unwrap().to_string());
+                for performer in tixforgigs_data["performer"].as_array().unwrap() {
+                    event.add_band(performer["name"].as_str().unwrap().to_string());
+                }
             }
 
             result.push(event);
