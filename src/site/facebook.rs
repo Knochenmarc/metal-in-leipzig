@@ -1,4 +1,4 @@
-use chrono::NaiveDateTime;
+use chrono::DateTime;
 use lazy_static::lazy_static;
 use regex::Regex;
 
@@ -53,7 +53,7 @@ fn fetch_event<'e>(http: &Http, event_id: &str, location: &'e Location) -> Event
 
     let mut event = Event::new(
         title,
-        NaiveDateTime::from_timestamp_opt(timestamp, 0).unwrap(),
+        DateTime::from_timestamp(timestamp, 0).unwrap().naive_utc(),
         location,
         url,
         image,
