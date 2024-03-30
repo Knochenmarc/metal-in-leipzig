@@ -4,18 +4,18 @@ use html_escape::decode_html_entities;
 use regex::Regex;
 
 use crate::event::{Event, Location};
-use crate::site::tixforgigs::fetch_tixforgigs_event;
 use crate::site::Site;
+use crate::site::tixforgigs::fetch_tixforgigs_event;
 use crate::tools::date::parse_short_date;
 use crate::tools::Http;
 
-pub struct ConneIsland<'l, 'h> {
+pub struct ConneIsland<'l> {
     location: Location<'l, 'l, 'l>,
-    insecure_http: &'h Http,
+    insecure_http: Http,
 }
 
-impl<'a> ConneIsland<'_, 'a> {
-    pub(crate) fn new(insecure_http: &'a Http) -> Self {
+impl<'a> ConneIsland<'_> {
+    pub(crate) fn new(insecure_http: Http) -> Self {
         Self {
             location: Location {
                 slug: "ci",
@@ -27,7 +27,7 @@ impl<'a> ConneIsland<'_, 'a> {
     }
 }
 
-impl<'a> Site for ConneIsland<'_, 'a> {
+impl<'a> Site for ConneIsland<'_> {
     fn get_location(&self) -> &Location {
         self.location.borrow()
     }

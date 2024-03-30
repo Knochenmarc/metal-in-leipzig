@@ -3,18 +3,18 @@ use std::borrow::Borrow;
 use html_escape::decode_html_entities;
 use regex::Regex;
 
-use crate::site::mawi::Mawi;
-use crate::site::Filter;
-use crate::tools::date::parse_german_date;
 use crate::{Event, Http, Location, Site};
+use crate::site::Filter;
+use crate::site::mawi::Mawi;
+use crate::tools::date::parse_german_date;
 
-pub(crate) struct Parkbuehne<'h, 'l> {
+pub(crate) struct Parkbuehne<'l> {
     location: Location<'l, 'l, 'l>,
-    insecure_http: &'h Http,
+    insecure_http: Http,
 }
 
-impl<'a> Parkbuehne<'a, '_> {
-    pub fn new(insecure_http: &'a Http) -> Self {
+impl<'a> Parkbuehne<'_> {
+    pub fn new(insecure_http: Http) -> Self {
         Self {
             location: Location {
                 slug: "pb",
@@ -26,7 +26,7 @@ impl<'a> Parkbuehne<'a, '_> {
     }
 }
 
-impl<'a> Site for Parkbuehne<'a, '_> {
+impl<'a> Site for Parkbuehne<'_> {
     fn get_location(&self) -> &Location {
         self.location.borrow()
     }
@@ -36,7 +36,7 @@ impl<'a> Site for Parkbuehne<'a, '_> {
             .get("https://www.parkbuehne-leipzig.com/wordpress/veranstaltungen/")
             .unwrap();
         let reg = Regex::new("(?is)<article\\s.*?<img\\s.*?src=\"(?P<img>.*?)\".*?<h3\\s.*?<a href=\"(?P<url>.*?)\">(?P<name>.*?)</a></h3>.*?, (?P<date>\\d\\d? [a-z]{2,3} \\d\\d\\d\\d).*?</article>").unwrap();
-        let mawi = Mawi::new("Parkbühne Clara-Zetkin-Park", self.insecure_http);
+        let mawi = Mawi::new("Parkbühne Clara-Zetkin-Park", self.insecure_http.borrow());
 
         let mut result = Vec::new();
         for capture in reg.captures_iter(html.as_str()) {

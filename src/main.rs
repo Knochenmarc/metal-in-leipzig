@@ -1,5 +1,6 @@
 use std::borrow::Borrow;
 use std::collections::BTreeMap;
+use std::env;
 
 use chrono::{Days, NaiveDate, Timelike};
 
@@ -19,24 +20,38 @@ use crate::site::moritzbastei::Moritzbastei;
 use crate::site::muehlkeller::Muehlkeller;
 use crate::site::noels::NoelsBallroom;
 use crate::site::parkbuehne::Parkbuehne;
+use crate::site::Site;
 use crate::site::soltmann::Soltmann;
 use crate::site::taeubchenthal::Taeubchenthal;
 use crate::site::ut_connewitz::UTConnewitz;
 use crate::site::werk2::Werk2;
-use crate::site::Site;
-use crate::tools::image::optimize_image;
 use crate::tools::Http;
+use crate::tools::image::optimize_image;
 
 mod event;
 mod renderer;
 mod site;
 mod tools;
 
+fn parse_args(sites: Vec<Box<dyn Site>>) -> Vec<Box<dyn Site>> {
+    let args: Vec<String> = env::args().collect();
+    if args.len() > 1 {
+        for site in sites {
+            if site.get_location().slug.eq(args.get(1).unwrap()) {
+                return vec![site];
+            }
+        }
+
+        vec![]
+    } else {
+        sites
+    }
+}
+
 fn main() {
     stderrlog::new().module(module_path!()).init().unwrap();
 
     let http = Http::new(false);
-    let insecure_http = Http::new(true);
 
     let yesterday = chrono::Utc::now()
         .checked_sub_days(Days::new(1))
@@ -56,7 +71,7 @@ fn main() {
         Box::new(Arena::new_quarterback()),
         Box::new(Arena::new_red_bull()),
         Box::new(Bandcommunity::new()),
-        Box::new(ConneIsland::new(insecure_http.borrow())),
+        Box::new(ConneIsland::new(Http::new(true))),
         Box::new(Darkflower::new()),
         Box::new(Felsenkeller::new()),
         Box::new(HausAuensee::new()),
@@ -66,13 +81,16 @@ fn main() {
         Box::new(Moritzbastei::new()),
         Box::new(Muehlkeller::new()),
         Box::new(NoelsBallroom::new()),
-        Box::new(Parkbuehne::new(insecure_http.borrow())),
+        Box::new(Parkbuehne::new(Http::new(true))),
         Box::new(Soltmann::new()),
         Box::new(Taeubchenthal::new()),
         Box::new(UTConnewitz::new()),
         Box::new(Werk2::new()),
         Box::new(ZeitgeschichtlichesForum::new()),
     ];
+
+    let sites = parse_args(sites);
+
     for site in &sites {
         let mut evts: Vec<Event> = site
             .fetch_events(http.borrow())
