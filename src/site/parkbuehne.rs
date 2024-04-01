@@ -3,10 +3,10 @@ use std::borrow::Borrow;
 use html_escape::decode_html_entities;
 use regex::Regex;
 
-use crate::{Event, Http, Location, Site};
-use crate::site::Filter;
 use crate::site::mawi::Mawi;
+use crate::site::Filter;
 use crate::tools::date::parse_german_date;
+use crate::{Event, Http, Location, Site};
 
 pub(crate) struct Parkbuehne<'l> {
     location: Location<'l, 'l, 'l>,

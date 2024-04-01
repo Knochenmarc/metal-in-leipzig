@@ -4,8 +4,8 @@ use html_escape::decode_html_entities;
 use regex::Regex;
 
 use crate::event::{Event, Location};
-use crate::site::Site;
 use crate::site::tixforgigs::fetch_tixforgigs_event;
+use crate::site::Site;
 use crate::tools::date::parse_short_date;
 use crate::tools::Http;
 

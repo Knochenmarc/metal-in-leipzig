@@ -54,7 +54,12 @@ impl Site for Taeubchenthal<'_> {
                 Some(URL.to_owned() + capture.name("img").unwrap().as_str()),
             );
 
-            if name != "MESH" && name != "Luna" && name != "Schiller" {
+            if name != "MESH"
+                && name != "Luna"
+                && name != "Schiller"
+                && name != "Lebanon Hanover"
+                && name != "Mine"
+            {
                 evt.add_band(name.replace(" - Openair", ""));
             }
 

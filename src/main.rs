@@ -20,13 +20,13 @@ use crate::site::moritzbastei::Moritzbastei;
 use crate::site::muehlkeller::Muehlkeller;
 use crate::site::noels::NoelsBallroom;
 use crate::site::parkbuehne::Parkbuehne;
-use crate::site::Site;
 use crate::site::soltmann::Soltmann;
 use crate::site::taeubchenthal::Taeubchenthal;
 use crate::site::ut_connewitz::UTConnewitz;
 use crate::site::werk2::Werk2;
-use crate::tools::Http;
+use crate::site::Site;
 use crate::tools::image::optimize_image;
+use crate::tools::Http;
 
 mod event;
 mod renderer;
