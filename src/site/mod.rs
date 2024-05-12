@@ -9,10 +9,12 @@ pub(crate) mod anker;
 pub(crate) mod arena;
 pub(crate) mod bandcommunity;
 pub(crate) mod conne_island;
+pub(crate) mod darkaffair;
 pub(crate) mod darkflower;
 mod eventim;
 mod facebook;
 pub(crate) mod felsenkeller;
+pub(crate) mod forum;
 mod google_calendar;
 pub(crate) mod haus_auensee;
 pub(crate) mod hellraiser;
@@ -30,7 +32,6 @@ pub(crate) mod taeubchenthal;
 mod tixforgigs;
 pub(crate) mod ut_connewitz;
 pub(crate) mod werk2;
-pub(crate) mod forum;
 
 pub trait Site {
     fn get_location(&self) -> &Location;
