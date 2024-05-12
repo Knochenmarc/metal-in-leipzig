@@ -33,7 +33,8 @@ pub fn find_band(band: &mut BandInfo, http: &Http) {
     let html = response.unwrap();
 
     let res: Vec<Captures> = REG.captures_iter(html.as_str()).collect();
-    if res.len() == 1 {
+    // Later: ungenau für links, aber genau genug für is-metal-check
+    if res.len() >= 1 {
         let first = res.first().unwrap();
         band.genre = Some(first.name("genre").unwrap().as_str().to_string());
         band.metallum_link = Some(first.name("url").unwrap().as_str().to_string());

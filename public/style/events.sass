@@ -21,6 +21,7 @@ body
   --tt-background: url("../img/taeubchenthal.svg") center
   --ut-background: url("../img/ut.png") center
   --w2-background: url("../img/werk2.webp") center
+  --wgt-background: url("../img/wgt.png") center
   --zf-background: url("../img/zf.png") center
 
 main
@@ -32,13 +33,16 @@ main
   position: relative
   column-width: 300px
   gap: 0
+
   &:nth-child(2n)
     background: #202020
+
   .date
     position: absolute
     left: 2px
     padding-top: 5px
     width: 76px
+
     &:hover
       color: white
 
@@ -53,10 +57,13 @@ main
   background-color: black
   text-decoration: none
   display: inline-block
+
   &:hover
     box-shadow: 0 0 0 4px #c0c0c0
+
   &:first-line
     line-height: 32px
+
   &:before
     content: " "
     float: left
@@ -67,118 +74,169 @@ main
     background-repeat: no-repeat !important
     background-color: transparent !important
     background-size: contain !important
+
   .event-img img
     vertical-align: bottom
 
   &.ank
     background-color: #ffffff
     color: #000000
+
     &:before
       background: var(--ank-background)
+
   &.bc
     background-color: #006598
     color: #fff
+
     &:before
       background: var(--bc-background)
+
   &.ci
     background-color: #d8d895
     color: black
+
     &:before
       background: var(--ci-background)
+
   &.df
     background-color: #111111
     color: #FFFFFF
+
     &:before
       background: var(--df-background)
+
   &.fk
     background-color: #fefefe
     color: #1b2024
+
     &:before
       background: var(--fk-background)
+
   &.fw
     background-color: #00527e
     color: white
+
     &:before
       background: var(--fw-background)
+
   &.ha
     background-color: #2e4d77
     color: #f8f4e9
+
     &:before
       background: var(--ha-background)
+
   &.hr
     background-color: black
     color: #e61e1e
+
     &:before
       background: var(--hr-background)
+
   &.if
     background-color: #670000
     font-weight: bold
     color: #fff
+
     &:before
       background: var(--if-background)
+
   &.imp
     background-color: #611122
     font-weight: bold
     color: #fff
+
     &:before
       background: var(--imp-background)
+
   &.lm
     background-color: #f7f8f8
     color: #06a0e2
+
     &:before
       background: var(--lm-background)
+
   &.mb
     &:before
       background: var(--mb-background)
+
   &.mk
     background: white
     color: black
+
     &:before
       background: var(--mk-background)
+
   &.noel
     background-color: #00503c
     color: #dad8d2
+
     &:before
       background: var(--noel-background)
+
   &.pb
     background-color: white
     color: #004627
+
     &:before
       background: var(--pb-background)
+
   &.qi
     background-color: #00527e
     color: white
+
     &:before
       background: var(--qi-background)
+
   &.rb
     background-color: #f7f8f8
     color: #dd0741
+
     &:before
       background: var(--rb-background)
+
   &.rl
     &:before
       background: var(--rl-background)
+
   &.sm
     background-color: #101015
+
     &:before
       background: var(--sm-background)
+
   &.tt
     background-color: #333333
+
     &:before
       background: var(--tt-background)
+
   &.ut
     background-color: #4d4d4c
     color: white
+
     &:before
       background: var(--ut-background)
+
   &.w2
     background-color: #20110e
     color: #ffffff
+
     &:before
       background: var(--w2-background)
+
+  &.wgt
+    background-color: #333
+    color: #bbb
+
+    &:before
+      background: var(--wgt-background)
+
   &.zf
     background-color: white
     color: #dc1e00
+
     &:before
       background: var(--zf-background)
 
@@ -191,6 +249,7 @@ main
   top: -20px
   width: 200px
   display: inline-block
+
   &[open]
     width: 100%
 
@@ -206,6 +265,7 @@ main
     line-height: 30px
     display: inline-block
     border: #2a882a solid 4px
+
     &:not(.setting)::before
       content: ""
       width: 30px
@@ -219,111 +279,161 @@ main
     &.ank
       background-color: #ffffff
       color: #000000
+
       &::before
         background: var(--ank-background)
+
     &.bc
       background-color: #006598
+
       &::before
         background: var(--bc-background)
+
     &.ci
       background-color: #d8d895
       color: black
+
       &::before
         background: var(--ci-background)
+
     &.df
       background-color: #111111
       color: #ffffff
+
       &::before
         background: var(--df-background)
+
     &.fk
       background-color: #fefefe
       color: #1b2024
+
       &::before
         background: var(--fk-background)
+
     &.fw
       background-color: #00527e
       color: white
+
       &::before
         background: var(--fw-background)
+
     &.ha
       background-color: #2e4d77
       color: #f8f4e9
+
       &::before
         background: var(--ha-background)
+
     &.hr
       background-color: black
       color: #e61e1e
+
       &::before
         background: var(--hr-background)
+
     &.if
       background-color: #670000
       font-weight: bold
       color: #fff
+
       &::before
         background: var(--if-background)
+
     &.imp
       background-color: #611122
       font-weight: bold
       color: #fff
+
       &::before
         background: var(--imp-background)
+
     &.lm
       background-color: #f7f8f8
       color: #06a0e2
+
       &::before
         background: var(--lm-background)
+
     &.mb
       &::before
         background: var(--mb-background)
+
     &.mk
       background: white
       color: black
+
       &:before
         background: var(--mk-background)
+
     &.noel
       background-color: #00503c
       color: #dad8d2
+
       &:before
         background: var(--noel-background)
+
     &.pb
       background-color: white
       color: #004627
+
       &::before
         background: var(--pb-background)
+
     &.qi
       background-color: #00527e
       color: white
+
       &::before
         background: var(--qi-background)
+
     &.rb
       background-color: #f7f8f8
       color: #dd0741
+
       &::before
         background: var(--rb-background)
+
     &.rl
       &::before
         background: var(--rl-background)
+
     &.sm
       background-color: #101015
+
       &::before
         background: var(--sm-background)
+
     &.tt
       background-color: #333333
+
       &::before
         background: var(--tt-background)
+
     &.ut
       background-color: #4d4d4c
       color: white
+
       &::before
         background: var(--ut-background)
+
     &.w2
       background-color: #20110e
       color: #ffffff
+
       &::before
         background: var(--w2-background)
+
+    &.wgt
+      background-color: #333
+      color: #bbb
+
+      &:before
+        background: var(--wgt-background)
+
     &.zf
       background-color: white
       color: #dc1e00
+
       &::before
         background: var(--zf-background)
 
@@ -350,6 +460,7 @@ main
 #filter-loc-tt:checked ~ .filters label[for="filter-loc-tt"],
 #filter-loc-ut:checked ~ .filters label[for="filter-loc-ut"],
 #filter-loc-w2:checked ~ .filters label[for="filter-loc-w2"],
+#filter-loc-wgt:checked ~ .filters label[for="filter-loc-wgt"],
 #filter-loc-zf:checked ~ .filters label[for="filter-loc-zf"]
   border-color: #d81b60
 
@@ -376,10 +487,12 @@ main
 #filter-loc-tt:checked ~ main .event.tt,
 #filter-loc-ut:checked ~ main .event.ut,
 #filter-loc-w2:checked ~ main .event.w2,
+#filter-loc-wgt:checked ~ main .event.wgt,
 #filter-loc-zf:checked ~ main .event.zf
-    display: none
+  display: none
 
 #filter-toggle:checked ~ .filters
   height: 100%
+
   .toggle-down
     display: none

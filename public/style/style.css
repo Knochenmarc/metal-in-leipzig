@@ -66,6 +66,7 @@ body {
   --tt-background: url("../img/taeubchenthal.svg") center;
   --ut-background: url("../img/ut.png") center;
   --w2-background: url("../img/werk2.webp") center;
+  --wgt-background: url("../img/wgt.png") center;
   --zf-background: url("../img/zf.png") center; }
 
 main {
@@ -218,6 +219,11 @@ main {
     color: #ffffff; }
     .event.w2:before {
       background: var(--w2-background); }
+  .event.wgt {
+    background-color: #333;
+    color: #bbb; }
+    .event.wgt:before {
+      background: var(--wgt-background); }
   .event.zf {
     background-color: white;
     color: #dc1e00; }
@@ -357,6 +363,11 @@ main {
       color: #ffffff; }
       .filters label.w2::before {
         background: var(--w2-background); }
+    .filters label.wgt {
+      background-color: #333;
+      color: #bbb; }
+      .filters label.wgt:before {
+        background: var(--wgt-background); }
     .filters label.zf {
       background-color: white;
       color: #dc1e00; }
@@ -386,6 +397,7 @@ main {
 #filter-loc-tt:checked ~ .filters label[for="filter-loc-tt"],
 #filter-loc-ut:checked ~ .filters label[for="filter-loc-ut"],
 #filter-loc-w2:checked ~ .filters label[for="filter-loc-w2"],
+#filter-loc-wgt:checked ~ .filters label[for="filter-loc-wgt"],
 #filter-loc-zf:checked ~ .filters label[for="filter-loc-zf"] {
   border-color: #d81b60; }
 
@@ -412,6 +424,7 @@ main {
 #filter-loc-tt:checked ~ main .event.tt,
 #filter-loc-ut:checked ~ main .event.ut,
 #filter-loc-w2:checked ~ main .event.w2,
+#filter-loc-wgt:checked ~ main .event.wgt,
 #filter-loc-zf:checked ~ main .event.zf {
   display: none; }
 

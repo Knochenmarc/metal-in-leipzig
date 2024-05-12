@@ -22,7 +22,8 @@ pub fn find_band(band: &mut BandInfo, http: &Http) {
     }
 
     let json = response.unwrap();
-    if json["iTotalRecords"].as_i64().unwrap_or(0) == 1 {
+    // Later: ungenau für links, aber genau genug für is-metal-check
+    if json["iTotalRecords"].as_i64().unwrap_or(0) >= 1 {
         let first = json["aaData"][0].as_array().unwrap();
         let url = REG.captures(first[0].as_str().unwrap()).unwrap();
         band.genre = Some(first[1].to_string());

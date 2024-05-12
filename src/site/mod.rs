@@ -31,6 +31,7 @@ mod spirit_of_metal;
 pub(crate) mod taeubchenthal;
 mod tixforgigs;
 pub(crate) mod ut_connewitz;
+pub(crate) mod wavegothictreffen;
 pub(crate) mod werk2;
 
 pub trait Site {
