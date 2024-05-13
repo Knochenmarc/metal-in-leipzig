@@ -36,7 +36,7 @@ impl Site for InFlammen<'_> {
             ),
             self.location.borrow(),
             "https://www.in-flammen.com/".to_string(),
-            Some("https://image.jimcdn.com/app/cms/image/transf/none/path/sfa7e4f2e650d1c8b/backgroundarea/i6f52df9656bc8d1b/version/1693393571/image.jpg".to_string()),
+            Some("https://image.jimcdn.com/app/cms/image/transf/dimension=635x10000:format=jpg/path/sfa7e4f2e650d1c8b/image/i12b8f7add1cd5e4f/version/1715538710/image.jpg".to_string()),
         );
         evt.end_date = Some(NaiveDateTime::new(
             NaiveDate::from_ymd_opt(2024, 7, 13).unwrap(),

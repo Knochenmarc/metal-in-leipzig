@@ -35,10 +35,7 @@ impl Site for DarkAffair<'_> {
             NaiveDateTime::parse_from_str("2024-05-17 20:00", "%Y-%m-%d %H:%M").unwrap(),
             self.location.borrow(),
             "https://www.dark-affair.com/de/timetable-freitag".to_string(),
-            Some(
-                "https://www.dark-affair.com/data/downloads/2023/obscene-messe-2023-banner-3-profilbild-quadrat.jpg"
-                    .to_string(),
-            ),
+            Some("https://www.dark-affair.com/data/downloads/2024/dark-affair-messe-2024-banner-390x120.jpg".to_string()),
         );
         event.evt_type = EventType::Concert;
         result.push(event);
