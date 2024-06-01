@@ -30,24 +30,24 @@ pub fn optimize_image(img: &mut Image, http: &Http) {
         }
 
         if tmp_path.exists() {
-            let mut c1 = Command::new("magick")
+            let mut c1 = Command::new("convert")
                 .args([
-                    tmp_path.to_str().unwrap(),
                     "-resize",
                     "300",
                     "-strip",
+                    tmp_path.to_str().unwrap(),
                     local_path.to_str().unwrap(),
                 ])
                 .spawn()
                 .expect("could not start jpeg conversion");
-            let mut c2 = Command::new("magick")
+            let mut c2 = Command::new("convert")
                 .args([
-                    tmp_path.to_str().unwrap(),
                     "-resize",
                     "300",
                     "-strip",
                     "-define",
                     "heic:speed=2",
+                    tmp_path.to_str().unwrap(),
                     (LOCAL_DIR.to_owned() + &img.public_avif_url).as_str(),
                 ])
                 .spawn()
