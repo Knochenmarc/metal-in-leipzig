@@ -3,12 +3,11 @@ body
   --bc-background: url("../img/bandhaus.webp") center
   --ci-background: url("../img/conne_island.webp") -1px
   --df-background: url("../img/darkflower.webp") center
+  --fest-background: url("../img/metalhand.gif") center
   --fk-background: url("../img/felsenkeller.webp") center
   --fw-background: url("../img/festwiese.png") center
   --ha-background: url("../img/hausauensee.jpg") center
   --hr-background: url("../img/hellraiser.webp") center
-  --if-background: url("../img/inflammen.webp") center
-  --imp-background: url("../img/impericon.webp") center
   --lm-background: url("../img/messe.webp") center
   --mb-background: url("../img/moritzbastei.png") center
   --mk-background: url("../img/muehlkeller.png") center
@@ -106,6 +105,13 @@ main
     &:before
       background: var(--df-background)
 
+  &.fest
+    color: red
+    font-weight: bold
+
+    &:before
+      background: var(--fest-background)
+
   &.fk
     background-color: #fefefe
     color: #1b2024
@@ -133,22 +139,6 @@ main
 
     &:before
       background: var(--hr-background)
-
-  &.if
-    background-color: #670000
-    font-weight: bold
-    color: #fff
-
-    &:before
-      background: var(--if-background)
-
-  &.imp
-    background-color: #611122
-    font-weight: bold
-    color: #fff
-
-    &:before
-      background: var(--imp-background)
 
   &.lm
     background-color: #f7f8f8
@@ -303,6 +293,13 @@ main
       &::before
         background: var(--df-background)
 
+    &.fest
+      color: red
+      font-weight: bold
+
+      &:before
+        background: var(--fest-background)
+
     &.fk
       background-color: #fefefe
       color: #1b2024
@@ -330,22 +327,6 @@ main
 
       &::before
         background: var(--hr-background)
-
-    &.if
-      background-color: #670000
-      font-weight: bold
-      color: #fff
-
-      &::before
-        background: var(--if-background)
-
-    &.imp
-      background-color: #611122
-      font-weight: bold
-      color: #fff
-
-      &::before
-        background: var(--imp-background)
 
     &.lm
       background-color: #f7f8f8
@@ -442,12 +423,11 @@ main
 #filter-loc-bc:checked ~ .filters label[for="filter-loc-bc"],
 #filter-loc-ci:checked ~ .filters label[for="filter-loc-ci"],
 #filter-loc-df:checked ~ .filters label[for="filter-loc-df"],
+#filter-loc-fest:checked ~ .filters label[for="filter-loc-fest"],
 #filter-loc-fk:checked ~ .filters label[for="filter-loc-fk"],
 #filter-loc-fw:checked ~ .filters label[for="filter-loc-fw"],
 #filter-loc-ha:checked ~ .filters label[for="filter-loc-ha"],
 #filter-loc-hr:checked ~ .filters label[for="filter-loc-hr"],
-#filter-loc-if:checked ~ .filters label[for="filter-loc-if"],
-#filter-loc-imp:checked ~ .filters label[for="filter-loc-imp"],
 #filter-loc-lm:checked ~ .filters label[for="filter-loc-lm"],
 #filter-loc-mb:checked ~ .filters label[for="filter-loc-mb"],
 #filter-loc-mk:checked ~ .filters label[for="filter-loc-mk"],
@@ -469,12 +449,11 @@ main
 #filter-loc-bc:checked ~ main .event.bc,
 #filter-loc-ci:checked ~ main .event.ci,
 #filter-loc-df:checked ~ main .event.df,
+#filter-loc-fest:checked ~ main .event.fest,
 #filter-loc-fk:checked ~ main .event.fk,
 #filter-loc-fw:checked ~ main .event.fw,
 #filter-loc-ha:checked ~ main .event.ha,
 #filter-loc-hr:checked ~ main .event.hr,
-#filter-loc-if:checked ~ main .event.if,
-#filter-loc-imp:checked ~ main .event.imp,
 #filter-loc-lm:checked ~ main .event.lm,
 #filter-loc-mb:checked ~ main .event.mb,
 #filter-loc-mk:checked ~ main .event.mk,
