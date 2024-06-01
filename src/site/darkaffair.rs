@@ -28,7 +28,7 @@ impl Site for DarkAffair<'_> {
     }
 
     fn fetch_events(&self, _http: &Http) -> Vec<Event> {
-        let mut result = Vec::new();
+        return vec![];
 
         let mut event = Event::new(
             "Wolfstavar".to_string(),
@@ -38,8 +38,7 @@ impl Site for DarkAffair<'_> {
             Some("https://www.dark-affair.com/data/downloads/2024/dark-affair-messe-2024-banner-390x120.jpg".to_string()),
         );
         event.evt_type = EventType::Concert;
-        result.push(event);
 
-        result
+        vec![event]
     }
 }

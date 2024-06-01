@@ -28,6 +28,8 @@ impl Site for Impericon<'_> {
     }
 
     fn fetch_events(&self, _http: &Http) -> Vec<Event> {
+        return vec![];
+
         let mut evt = Event::new(
             "Impericon Festival".to_string(),
             NaiveDateTime::new(
