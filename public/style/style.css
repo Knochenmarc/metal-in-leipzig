@@ -235,7 +235,8 @@ main {
   .filters summary {
     color: white;
     cursor: var(--metalhand);
-    display: inline-list-item; }
+    display: inline-list-item;
+    padding: 5px; }
   .filters label {
     color: white;
     padding-right: 1px;

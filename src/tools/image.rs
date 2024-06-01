@@ -33,7 +33,7 @@ pub fn optimize_image(img: &mut Image, http: &Http) {
             let mut c1 = Command::new("convert")
                 .args([
                     "-resize",
-                    "300",
+                    "290",
                     "-strip",
                     tmp_path.to_str().unwrap(),
                     local_path.to_str().unwrap(),
@@ -43,7 +43,7 @@ pub fn optimize_image(img: &mut Image, http: &Http) {
             let mut c2 = Command::new("convert")
                 .args([
                     "-resize",
-                    "300",
+                    "290",
                     "-strip",
                     "-define",
                     "heic:speed=2",
