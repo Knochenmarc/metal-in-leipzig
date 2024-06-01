@@ -48,12 +48,11 @@ body {
   --bc-background: url("../img/bandhaus.webp") center;
   --ci-background: url("../img/conne_island.webp") -1px;
   --df-background: url("../img/darkflower.webp") center;
+  --fest-background: url("../img/metalhand.gif") center;
   --fk-background: url("../img/felsenkeller.webp") center;
   --fw-background: url("../img/festwiese.png") center;
   --ha-background: url("../img/hausauensee.jpg") center;
   --hr-background: url("../img/hellraiser.webp") center;
-  --if-background: url("../img/inflammen.webp") center;
-  --imp-background: url("../img/impericon.webp") center;
   --lm-background: url("../img/messe.webp") center;
   --mb-background: url("../img/moritzbastei.png") center;
   --mk-background: url("../img/muehlkeller.png") center;
@@ -135,6 +134,11 @@ main {
     color: #FFFFFF; }
     .event.df:before {
       background: var(--df-background); }
+  .event.fest {
+    color: red;
+    font-weight: bold; }
+    .event.fest:before {
+      background: var(--fest-background); }
   .event.fk {
     background-color: #fefefe;
     color: #1b2024; }
@@ -155,18 +159,6 @@ main {
     color: #e61e1e; }
     .event.hr:before {
       background: var(--hr-background); }
-  .event.if {
-    background-color: #670000;
-    font-weight: bold;
-    color: #fff; }
-    .event.if:before {
-      background: var(--if-background); }
-  .event.imp {
-    background-color: #611122;
-    font-weight: bold;
-    color: #fff; }
-    .event.imp:before {
-      background: var(--imp-background); }
   .event.lm {
     background-color: #f7f8f8;
     color: #06a0e2; }
@@ -279,6 +271,11 @@ main {
       color: #ffffff; }
       .filters label.df::before {
         background: var(--df-background); }
+    .filters label.fest {
+      color: red;
+      font-weight: bold; }
+      .filters label.fest:before {
+        background: var(--fest-background); }
     .filters label.fk {
       background-color: #fefefe;
       color: #1b2024; }
@@ -299,18 +296,6 @@ main {
       color: #e61e1e; }
       .filters label.hr::before {
         background: var(--hr-background); }
-    .filters label.if {
-      background-color: #670000;
-      font-weight: bold;
-      color: #fff; }
-      .filters label.if::before {
-        background: var(--if-background); }
-    .filters label.imp {
-      background-color: #611122;
-      font-weight: bold;
-      color: #fff; }
-      .filters label.imp::before {
-        background: var(--imp-background); }
     .filters label.lm {
       background-color: #f7f8f8;
       color: #06a0e2; }
@@ -379,12 +364,11 @@ main {
 #filter-loc-bc:checked ~ .filters label[for="filter-loc-bc"],
 #filter-loc-ci:checked ~ .filters label[for="filter-loc-ci"],
 #filter-loc-df:checked ~ .filters label[for="filter-loc-df"],
+#filter-loc-fest:checked ~ .filters label[for="filter-loc-fest"],
 #filter-loc-fk:checked ~ .filters label[for="filter-loc-fk"],
 #filter-loc-fw:checked ~ .filters label[for="filter-loc-fw"],
 #filter-loc-ha:checked ~ .filters label[for="filter-loc-ha"],
 #filter-loc-hr:checked ~ .filters label[for="filter-loc-hr"],
-#filter-loc-if:checked ~ .filters label[for="filter-loc-if"],
-#filter-loc-imp:checked ~ .filters label[for="filter-loc-imp"],
 #filter-loc-lm:checked ~ .filters label[for="filter-loc-lm"],
 #filter-loc-mb:checked ~ .filters label[for="filter-loc-mb"],
 #filter-loc-mk:checked ~ .filters label[for="filter-loc-mk"],
@@ -406,12 +390,11 @@ main {
 #filter-loc-bc:checked ~ main .event.bc,
 #filter-loc-ci:checked ~ main .event.ci,
 #filter-loc-df:checked ~ main .event.df,
+#filter-loc-fest:checked ~ main .event.fest,
 #filter-loc-fk:checked ~ main .event.fk,
 #filter-loc-fw:checked ~ main .event.fw,
 #filter-loc-ha:checked ~ main .event.ha,
 #filter-loc-hr:checked ~ main .event.hr,
-#filter-loc-if:checked ~ main .event.if,
-#filter-loc-imp:checked ~ main .event.imp,
 #filter-loc-lm:checked ~ main .event.lm,
 #filter-loc-mb:checked ~ main .event.mb,
 #filter-loc-mk:checked ~ main .event.mk,

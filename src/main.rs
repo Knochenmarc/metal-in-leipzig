@@ -12,11 +12,10 @@ use crate::site::conne_island::ConneIsland;
 use crate::site::darkaffair::DarkAffair;
 use crate::site::darkflower::Darkflower;
 use crate::site::felsenkeller::Felsenkeller;
+use crate::site::festivals::Festivals;
 use crate::site::forum::ZeitgeschichtlichesForum;
 use crate::site::haus_auensee::HausAuensee;
 use crate::site::hellraiser::Hellraiser;
-use crate::site::impericon::Impericon;
-use crate::site::inflammen::InFlammen;
 use crate::site::moritzbastei::Moritzbastei;
 use crate::site::muehlkeller::Muehlkeller;
 use crate::site::noels::NoelsBallroom;
@@ -76,11 +75,10 @@ fn main() {
         Box::new(ConneIsland::new(Http::new(true))),
         Box::new(DarkAffair::new()),
         Box::new(Darkflower::new()),
+        Box::new(Festivals::new()),
         Box::new(Felsenkeller::new()),
         Box::new(HausAuensee::new()),
         Box::new(Hellraiser::new()),
-        Box::new(Impericon::new()),
-        Box::new(InFlammen::new()),
         Box::new(Moritzbastei::new()),
         Box::new(Muehlkeller::new()),
         Box::new(NoelsBallroom::new()),
