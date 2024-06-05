@@ -23,7 +23,7 @@ use crate::site::parkbuehne::Parkbuehne;
 use crate::site::soltmann::Soltmann;
 use crate::site::taeubchenthal::Taeubchenthal;
 use crate::site::ut_connewitz::UTConnewitz;
-use crate::site::wavegothictreffen::WaveGothicTreffen;
+// use crate::site::wavegothictreffen::WaveGothicTreffen;
 use crate::site::werk2::Werk2;
 use crate::site::Site;
 use crate::tools::image::optimize_image;
@@ -86,7 +86,7 @@ fn main() {
         Box::new(Soltmann::new()),
         Box::new(Taeubchenthal::new()),
         Box::new(UTConnewitz::new()),
-        Box::new(WaveGothicTreffen::new()),
+        // Box::new(WaveGothicTreffen::new()),
         Box::new(Werk2::new()),
         Box::new(ZeitgeschichtlichesForum::new()),
     ];
