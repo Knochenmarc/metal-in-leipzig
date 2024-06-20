@@ -1,6 +1,7 @@
 use std::borrow::Borrow;
 
 use crate::site::google_calendar::fetch_calendar_events;
+use crate::site::tixforgigs::fetch_tixforgigs_events;
 use crate::{Event, Http, Location, Site};
 
 pub(crate) struct Soltmann<'l> {
@@ -25,6 +26,23 @@ impl Site for Soltmann<'_> {
     }
 
     fn fetch_events(&self, http: &Http) -> Vec<Event> {
-        fetch_calendar_events(http, "ODI2MjJmOWMzMTVlZWY0ODBlMzkyMDBhYWY5OGFmZjRjNjBhODdkYjBkMmMzM2UxNGEwYmJiMmE3MWI5N2I4Y0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t", self.get_location())
+        let mut calendar_events = fetch_calendar_events(http, "ODI2MjJmOWMzMTVlZWY0ODBlMzkyMDBhYWY5OGFmZjRjNjBhODdkYjBkMmMzM2UxNGEwYmJiMmE3MWI5N2I4Y0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t", self.get_location());
+        let tixforgigs_events = fetch_tixforgigs_events(http, "3707", self.get_location());
+
+        for tixforgigs_event in tixforgigs_events {
+            let mut found_index: Option<usize> = None;
+            for (index, calendar_event) in calendar_events.iter().enumerate() {
+                if calendar_event.start_date.date() == tixforgigs_event.start_date.date() {
+                    found_index = Some(index);
+                    break;
+                }
+            }
+            if let Some(index) = found_index {
+                calendar_events.swap_remove(index);
+            }
+            calendar_events.push(tixforgigs_event)
+        }
+
+        calendar_events
     }
 }
