@@ -1,4 +1,12 @@
-use chrono::{NaiveDate, NaiveDateTime, ParseResult};
+use chrono::{DateTime, NaiveDate, NaiveDateTime, ParseResult, Utc};
+use chrono_tz::Tz;
+use std::time::SystemTime;
+
+pub fn get_today() -> DateTime<Tz> {
+    let now: DateTime<Utc> = SystemTime::now().into();
+    let today = now.date_naive().and_hms_opt(0, 0, 0).unwrap();
+    today.and_local_timezone(chrono_tz::Europe::Berlin).unwrap()
+}
 
 pub fn parse_german_date(str: &str) -> NaiveDate {
     let mut str = str.replace(" Januar ", " January ");

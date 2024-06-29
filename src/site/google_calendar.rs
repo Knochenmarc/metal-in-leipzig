@@ -1,13 +1,10 @@
-use std::time::SystemTime;
-
-use chrono::{DateTime, Months, NaiveDateTime, Utc};
-use chrono_tz::Tz;
+use chrono::{Months, NaiveDateTime};
 use regex::Regex;
 use serde_json::Value;
 use urlencoding::encode;
 
 use crate::event::{Event, Location};
-use crate::tools::date::{parse_iso_date, parse_iso_datetime};
+use crate::tools::date::{get_today, parse_iso_date, parse_iso_datetime};
 use crate::tools::Http;
 
 fn fetch_initial_config(http: &Http, source: &str) -> Value {
@@ -20,12 +17,6 @@ fn fetch_initial_config(http: &Http, source: &str) -> Value {
     let capture = reg.captures(result.as_str()).unwrap();
     let json = capture.get(1).unwrap().as_str();
     serde_json::from_str(json).unwrap()
-}
-
-fn get_today() -> DateTime<Tz> {
-    let now: DateTime<Utc> = SystemTime::now().into();
-    let today = now.date_naive().and_hms_opt(0, 0, 0).unwrap();
-    today.and_local_timezone(chrono_tz::Europe::Berlin).unwrap()
 }
 
 fn fetch_events(http: &Http, config: Value) -> Value {
