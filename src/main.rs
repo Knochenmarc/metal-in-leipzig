@@ -34,6 +34,8 @@ mod renderer;
 mod site;
 mod tools;
 
+const BLOCKLIST: &'static [&str] = &["2025-03-25-ha-AVATAR"];
+
 fn parse_args(sites: Vec<Box<dyn Site>>) -> Vec<Box<dyn Site>> {
     let args: Vec<String> = env::args().collect();
     if args.len() > 1 {
@@ -113,6 +115,18 @@ fn main() {
         }
     }
 
+    events.retain(|evt| {
+        !BLOCKLIST.contains(
+            &format!(
+                "{}-{}-{}",
+                evt.start_date.format("%Y-%m-%d"),
+                evt.location.slug,
+                evt.name
+            )
+            .as_str(),
+        )
+    });
+
     events.sort_by(|a, b| a.start_date.cmp(&b.start_date));
     locations.sort_by(|a, b| a.name.to_lowercase().cmp(&b.name.to_lowercase()));
 
@@ -124,7 +138,7 @@ fn main() {
             while date <= event.end_date.unwrap_or(event.start_date) {
                 grouped_events
                     .entry(date.date())
-                    .or_insert(Vec::new())
+                    .or_default()
                     .push(event.clone());
                 date = date
                     .checked_add_days(Days::new(1))
