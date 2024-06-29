@@ -54,10 +54,18 @@ impl Site for Darkflower<'_> {
                     DateTime::from_timestamp_millis(item.get("endDate").unwrap().as_i64().unwrap())
                         .unwrap();
                 let mut event = Event::new(
-                    item.get("title").unwrap().to_string().trim().to_string(),
+                    item.get("title")
+                        .unwrap()
+                        .as_str()
+                        .unwrap()
+                        .trim()
+                        .to_string(),
                     start_date.naive_local(),
                     self.get_location(),
-                    format!("https://www.darkflower.de{}", item.get("fullUrl").unwrap()),
+                    format!(
+                        "https://www.darkflower.de{}",
+                        item.get("fullUrl").unwrap().as_str().unwrap()
+                    ),
                     Some(item.get("assetUrl").unwrap().as_str().unwrap().to_string()),
                 );
                 event.end_date = Some(end_date.naive_local());
