@@ -87,6 +87,12 @@ impl Http {
         self.internal_get(url, 1)
     }
 
+    pub fn get_headers(&self, url: &str) -> Result<HeaderMap, Error> {
+        println!("get headers: {:?}", url);
+
+        self.client.get(url).send().map(|a| a.headers().clone())
+    }
+
     pub fn get(&self, url: &str) -> Result<String, Error> {
         self.get_raw(url)
             .map(|data| String::from_utf8_lossy(&data).to_string())
@@ -97,7 +103,7 @@ impl Http {
             .map(|data| serde_json::from_str(data.as_str()).unwrap())
     }
 
-    pub fn post(&self, url: &str, payload: HashMap<&str, &str>) -> String {
+    pub fn post(&self, url: &str, payload: HashMap<&str, &str>, headers: HeaderMap) -> String {
         println!("post: {:?}", url);
 
         let mut buf: Vec<u8> = vec![];
@@ -105,6 +111,7 @@ impl Http {
         self.client
             .post(url)
             .form(&payload)
+            .headers(headers)
             .send()
             .unwrap()
             .copy_to(&mut buf)
@@ -113,8 +120,8 @@ impl Http {
         String::from_utf8(buf).unwrap()
     }
 
-    pub fn post_json(&self, url: &str, payload: HashMap<&str, &str>) -> Value {
-        let resp = self.post(url, payload);
+    pub fn post_json(&self, url: &str, payload: HashMap<&str, &str>, headers: HeaderMap) -> Value {
+        let resp = self.post(url, payload, headers);
         serde_json::from_str(resp.as_str()).unwrap()
     }
 

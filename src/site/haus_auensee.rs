@@ -1,14 +1,16 @@
 use std::borrow::Borrow;
+use std::collections::HashMap;
 
-use chrono::NaiveDate;
-use html_escape::decode_html_entities;
-use regex::{Match, Regex};
+use regex::Match;
+use reqwest::header;
+use reqwest::header::HeaderMap;
 
 use crate::site::eventim::Eventim;
 use crate::site::{metallum, spirit_of_metal, Filter, HasMetalBands};
+use crate::tools::date::parse_short_date;
 use crate::{Event, Http, Location, Site};
 
-const URL: &str = "https://haus-auensee-leipzig.de/";
+const URL: &str = "https://www.haus-auensee-leipzig.de/";
 
 pub struct HausAuensee<'l> {
     location: Location<'l, 'l, 'l>,
@@ -38,65 +40,89 @@ impl Site for HausAuensee<'_> {
     fn fetch_events(&self, http: &Http) -> Vec<Event> {
         let mut result = Vec::new();
 
-        let html = http.get(&*(URL.to_string() + "/?categorie=1")).unwrap();
-
-        let wrap_reg = Regex::new("(?is)<div class=\"md-col md-col-8\">.*?</a>\\s+</div>").unwrap();
-        let main_reg = Regex::new(
-            "(?is)<a href=\"(?P<url>[^<>]*?)\" class=\"dates-overview-item .*?>(?P<day>[0-2][0-9])[.]<.*?>(?P<month>[0-1][0-9])[.](?P<year>[0-9][0-9])<.*?<h3.*?>(?P<name>.*?)</h3>",
-        )
-        .unwrap();
-        let image_reg = Regex::new("(?i)<img src=\"(.*?)\".*class=\"block col-12\"").unwrap();
-        let split_reg = Regex::new(r"\s[+&]\s").unwrap();
-
         let eventim = Eventim::new("haus-auensee-leipzig-7301", http);
         let has_metal_band = HasMetalBands {};
 
-        let html = wrap_reg
-            .captures(html.as_str())
-            .unwrap()
-            .get(0)
-            .unwrap()
-            .as_str();
+        let get_headers = http
+            .get_headers(&(URL.to_string() + "?menus_id=2"))
+            .unwrap();
+        let cookie = get_headers.get("set-cookie").unwrap().to_str().unwrap();
 
-        for captures in main_reg.captures_iter(html) {
-            let name = decode_html_entities(captures.name("name").unwrap().as_str()).to_string();
-            let year: i32 = parse_int(captures.name("year")) as i32;
-            let month: u32 = parse_int(captures.name("month"));
-            let day: u32 = parse_int(captures.name("day"));
-            let url = URL.to_string() + &*captures.name("url").unwrap().as_str().to_string();
-            let mut evt = Event::new(
-                name.clone(),
-                NaiveDate::from_ymd_opt(2000 + year, month, day)
-                    .unwrap()
-                    .and_hms_opt(0, 0, 0)
-                    .unwrap(),
-                self.location.borrow(),
-                url.clone(),
-                None,
+        let mut request_headers = HeaderMap::new();
+        request_headers.insert(header::COOKIE, cookie.parse().unwrap());
+        request_headers.insert("X-Requested-With", "XMLHttpRequest".parse().unwrap());
+
+        let mut page = 1;
+        loop {
+            let page_number = page.to_string();
+
+            let mut payload = HashMap::new();
+            payload.insert("pageSize", "16");
+            payload.insert("pageNumber", page_number.as_str());
+
+            let data = http.post_json(
+                &(URL.to_string() + "worker/get_events_inc.php"),
+                payload,
+                request_headers.clone(),
             );
 
-            for chunk in split_reg.split(name.as_str()) {
-                if !chunk.is_empty() {
-                    evt.add_band(chunk.to_string());
+            let items = data
+                .as_object()
+                .unwrap()
+                .get("items")
+                .unwrap()
+                .as_array()
+                .unwrap();
+            for item in items {
+                let item = item.as_object().unwrap();
+                let subtitle = item.get("subtitle").unwrap().as_str().unwrap();
+                let parts: Vec<&str> = subtitle.split(" | ").collect();
+                let date = parts.first().unwrap();
+                if date.len() > 10 {
+                    continue;
+                }
+
+                let mut evt = Event::new(
+                    item.get("title").unwrap().as_str().unwrap().to_string(),
+                    parse_short_date(date),
+                    self.location.borrow(),
+                    URL.to_string()
+                        + "?menus_id=2&solo=1&id="
+                        + item
+                            .get("id")
+                            .unwrap()
+                            .as_i64()
+                            .unwrap()
+                            .to_string()
+                            .as_str(),
+                    Some(URL.to_string() + item.get("image").unwrap().as_str().unwrap()),
+                );
+
+                evt.add_band(evt.name.clone());
+
+                for band in evt.bands.iter_mut() {
+                    spirit_of_metal::find_band(band, http);
+                    metallum::find_band(band, http);
+                }
+
+                if eventim.is_it_metal(evt.borrow()) || has_metal_band.is_it_metal(evt.borrow()) {
+                    result.push(evt);
                 }
             }
 
-            for band in evt.bands.iter_mut() {
-                spirit_of_metal::find_band(band, http);
-                metallum::find_band(band, http);
+            let total = data
+                .as_object()
+                .unwrap()
+                .get("total")
+                .unwrap()
+                .as_i64()
+                .unwrap();
+
+            if total <= (page * 16) {
+                break;
             }
 
-            if eventim.is_it_metal(evt.borrow()) || has_metal_band.is_it_metal(evt.borrow()) {
-                let sub_page = http.get(url.as_str()).unwrap();
-                match image_reg.captures(sub_page.as_str()) {
-                    None => {}
-                    Some(cap) => {
-                        evt.set_image(URL.to_string() + &*cap.get(1).unwrap().as_str().to_string());
-                    }
-                }
-
-                result.push(evt);
-            }
+            page += 1;
         }
 
         result

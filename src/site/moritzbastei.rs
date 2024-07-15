@@ -1,11 +1,11 @@
 use std::borrow::Borrow;
 use std::collections::HashMap;
 
-use html_escape::decode_html_entities;
-use regex::Regex;
-
 use crate::tools::date::parse_short_date;
 use crate::{Event, Http, Location, Site};
+use html_escape::decode_html_entities;
+use regex::Regex;
+use reqwest::header::HeaderMap;
 
 pub struct Moritzbastei<'l> {
     location: Location<'l, 'l, 'l>,
@@ -44,6 +44,7 @@ impl Site for Moritzbastei<'_> {
         let json = http.post_json(
             "https://www.moritzbastei.de/wp-admin/admin-ajax.php?offset=0&limit=100",
             payload,
+            HeaderMap::new(),
         );
 
         let reg = Regex::new("(?is)<img.*?src=\"(?P<img>.*?)\".*?(?P<date>\\d\\d\\.\\d\\d\\.\\d\\d\\d\\d).*?<h3.*?<a href=\"(?P<url>.*?)\">(?P<name>.*?)</a>").unwrap();

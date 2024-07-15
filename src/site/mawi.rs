@@ -1,9 +1,9 @@
 use std::collections::HashMap;
 
-use regex::Regex;
-
 use crate::site::Filter;
 use crate::{Event, Http};
+use regex::Regex;
+use reqwest::header::HeaderMap;
 
 pub struct Mawi {
     collected_dates: HashMap<String, String>,
@@ -34,6 +34,7 @@ impl Mawi {
             let html = http.post(
                 "https://www.mawi-concert.de/worker/searching_inc.php",
                 payload,
+                HeaderMap::new(),
             );
             let reg = Regex::new(
                 "(?is)index.php\\?menus_id=2&solo=1&id=(?P<id>\\d+)&.*?am (?P<date>\\d\\d\\.\\d\\d\\.\\d\\d\\d\\d)",
