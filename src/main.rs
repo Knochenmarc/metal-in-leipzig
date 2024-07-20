@@ -34,7 +34,7 @@ mod renderer;
 mod site;
 mod tools;
 
-const BLOCKLIST: &'static [&str] = &["2025-03-25-ha-AVATAR"];
+const BLOCKLIST: &'static [&str] = &["2025-03-25-ha-AVATAR", "2024-10-12-tt-Sophia"];
 
 fn parse_args(sites: Vec<Box<dyn Site>>) -> Vec<Box<dyn Site>> {
     let args: Vec<String> = env::args().collect();
