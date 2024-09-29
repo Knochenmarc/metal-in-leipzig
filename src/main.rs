@@ -34,7 +34,7 @@ mod renderer;
 mod site;
 mod tools;
 
-const BLOCKLIST: &'static [&str] = &[
+const BLOCKLIST: &[&str] = &[
     "2024-10-12-tt-Sophia",
     "2024-10-15-fk-Moritz",
     "2025-03-25-ha-AVATAR",

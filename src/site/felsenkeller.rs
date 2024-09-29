@@ -118,6 +118,8 @@ impl Site for Felsenkeller<'_> {
             if tix_url.contains("impericon.com")
                 || detail.contains("Avocado Booking")
                 || detail.contains("metal.de")
+                || detail.contains("Paganfest")
+                || detail.contains("Power Metal")
             {
                 result.push(evt);
             } else if tix_url.contains("www.eventim.de")
