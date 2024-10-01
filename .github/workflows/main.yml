@@ -6,7 +6,7 @@ name: build page
 on:
   schedule:
     # * is a special character in YAML, so you have to quote this string
-    - cron:  '33 3 * * *'
+    - cron: '45 7 * * *'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
