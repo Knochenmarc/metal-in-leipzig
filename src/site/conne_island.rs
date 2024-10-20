@@ -77,9 +77,15 @@ impl<'a> Site for ConneIsland<'_> {
                 let tixforgigs_event = caps.get(1).unwrap().as_str();
                 let tixforgigs_data = fetch_tixforgigs_event(http, tixforgigs_event);
                 if let Some(tixforgigs_data) = tixforgigs_data {
-                    let image_url = tixforgigs_data
-                        .get_key_value("image")
-                        .map(|(i, v)| v.as_str().unwrap().to_string());
+                    let image_url = tixforgigs_data.get_key_value("image").map(|(_, v)| {
+                        v.as_array()
+                            .unwrap()
+                            .first()
+                            .unwrap()
+                            .as_str()
+                            .unwrap()
+                            .to_string()
+                    });
                     if let Some(image_url) = image_url {
                         event.set_image(image_url);
                     }

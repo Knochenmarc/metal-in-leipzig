@@ -38,8 +38,7 @@ pub fn fetch_tixforgigs_events<'l>(
         let event_id = json_event.get("eventId").unwrap().as_i64().unwrap();
         let event_data = fetch_tixforgigs_event(http, event_id.to_string().as_str());
 
-        if event_data.is_some() {
-            let event_data = event_data.unwrap();
+        if let Some(event_data) = event_data {
             let mut event = Event::new(
                 event_data
                     .get("name")
@@ -50,14 +49,15 @@ pub fn fetch_tixforgigs_events<'l>(
                 parse_iso_datetime(event_data.get("startDate").unwrap().as_str().unwrap()).unwrap(),
                 location,
                 format!("https://www.tixforgigs.com/de-de/Event/{}", event_id),
-                Some(
-                    event_data
-                        .get("image")
+                event_data.get("image").map(|v| {
+                    v.as_array()
+                        .unwrap()
+                        .first()
                         .unwrap()
                         .as_str()
                         .unwrap()
-                        .to_string(),
-                ),
+                        .to_string()
+                }),
             );
             event.evt_type = EventType::Concert;
             result.push(event);
@@ -82,16 +82,17 @@ pub fn fetch_tixforgigs_event(http: &Http, event_id: &str) -> Option<Map<String,
         return None;
     }
 
+    let mut value = events.first().unwrap().clone();
+
     let image = REG
         .captures_iter(&response)
         .last()
         .map(|s| s.get(1).unwrap().as_str().to_string());
 
-    let mut value = events.first().unwrap().clone();
-
     if let Some(image) = image {
-        if !image.contains("notAvailable") {
-            value["image"] = Value::String(image);
+        if !image.is_empty() && !image.contains("notAvailable") {
+            let vec = vec![Value::String(image)];
+            value["image"] = Value::Array(vec);
         }
     }
 
