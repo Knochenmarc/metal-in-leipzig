@@ -76,10 +76,16 @@ impl<'a> Site for ConneIsland<'_> {
                 // let caps = tix_reg.captures(ticket_info.as_str()).unwrap();
                 let tixforgigs_event = caps.get(1).unwrap().as_str();
                 let tixforgigs_data = fetch_tixforgigs_event(http, tixforgigs_event);
-
-                event.set_image(tixforgigs_data["image"].as_str().unwrap().to_string());
-                for performer in tixforgigs_data["performer"].as_array().unwrap() {
-                    event.add_band(performer["name"].as_str().unwrap().to_string());
+                if let Some(tixforgigs_data) = tixforgigs_data {
+                    let image_url = tixforgigs_data
+                        .get_key_value("image")
+                        .map(|(i, v)| v.as_str().unwrap().to_string());
+                    if let Some(image_url) = image_url {
+                        event.set_image(image_url);
+                    }
+                    for performer in tixforgigs_data["performer"].as_array().unwrap() {
+                        event.add_band(performer["name"].as_str().unwrap().to_string());
+                    }
                 }
             }
 

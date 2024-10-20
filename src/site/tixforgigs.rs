@@ -1,7 +1,7 @@
 use crate::event::{Event, EventType, Location};
 use lazy_static::lazy_static;
 use regex::Regex;
-use serde_json::Value;
+use serde_json::{Map, Value};
 
 use crate::site::parse_linked_data_events;
 use crate::tools::date::parse_iso_datetime;
@@ -38,33 +38,36 @@ pub fn fetch_tixforgigs_events<'l>(
         let event_id = json_event.get("eventId").unwrap().as_i64().unwrap();
         let event_data = fetch_tixforgigs_event(http, event_id.to_string().as_str());
 
-        let mut event = Event::new(
-            event_data
-                .get("name")
-                .unwrap()
-                .as_str()
-                .unwrap()
-                .to_string(),
-            parse_iso_datetime(event_data.get("startDate").unwrap().as_str().unwrap()).unwrap(),
-            location,
-            format!("https://www.tixforgigs.com/de-de/Event/{}", event_id),
-            Some(
+        if event_data.is_some() {
+            let event_data = event_data.unwrap();
+            let mut event = Event::new(
                 event_data
-                    .get("image")
+                    .get("name")
                     .unwrap()
                     .as_str()
                     .unwrap()
                     .to_string(),
-            ),
-        );
-        event.evt_type = EventType::Concert;
-        result.push(event);
+                parse_iso_datetime(event_data.get("startDate").unwrap().as_str().unwrap()).unwrap(),
+                location,
+                format!("https://www.tixforgigs.com/de-de/Event/{}", event_id),
+                Some(
+                    event_data
+                        .get("image")
+                        .unwrap()
+                        .as_str()
+                        .unwrap()
+                        .to_string(),
+                ),
+            );
+            event.evt_type = EventType::Concert;
+            result.push(event);
+        }
     }
 
     result
 }
 
-pub fn fetch_tixforgigs_event(http: &Http, event_id: &str) -> Value {
+pub fn fetch_tixforgigs_event(http: &Http, event_id: &str) -> Option<Map<String, Value>> {
     lazy_static! {
         static ref REG: Regex =
             Regex::new("<link rel=\"preload\" as=\"image\" href=\"(.*?)\" />").unwrap();
@@ -74,18 +77,23 @@ pub fn fetch_tixforgigs_event(http: &Http, event_id: &str) -> Value {
         .get(format!("https://www.tixforgigs.com/de-de/Event/{}", event_id).as_str())
         .unwrap();
 
+    let events = parse_linked_data_events(&response);
+    if events.is_empty() {
+        return None;
+    }
+
     let image = REG
         .captures_iter(&response)
         .last()
-        .unwrap()
-        .get(1)
-        .unwrap()
-        .as_str()
-        .to_string();
+        .map(|s| s.get(1).unwrap().as_str().to_string());
 
-    let events = parse_linked_data_events(&response);
     let mut value = events.first().unwrap().clone();
-    value["image"] = Value::String(image);
 
-    value
+    if let Some(image) = image {
+        if !image.contains("notAvailable") {
+            value["image"] = Value::String(image);
+        }
+    }
+
+    Some(value.as_object().unwrap().to_owned())
 }
