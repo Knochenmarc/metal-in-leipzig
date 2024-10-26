@@ -26,7 +26,7 @@ impl Site for Soltmann<'_> {
     }
 
     fn fetch_events(&self, http: &Http) -> Vec<Event> {
-        let mut calendar_events = fetch_calendar_events(http, "ODI2MjJmOWMzMTVlZWY0ODBlMzkyMDBhYWY5OGFmZjRjNjBhODdkYjBkMmMzM2UxNGEwYmJiMmE3MWI5N2I4Y0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t", self.get_location());
+        let mut calendar_events = fetch_calendar_events(http, "AIzaSyBNlYH01_9Hc5S1J9vuFmu2nUqBZJNAXxs", "82622f9c315eef480e39200aaf98aff4c60a87db0d2c33e14a0bbb2a71b97b8c@group.calendar.google.com", self.get_location());
         let tixforgigs_events = fetch_tixforgigs_events(http, "3707", self.get_location());
 
         for tixforgigs_event in tixforgigs_events {
