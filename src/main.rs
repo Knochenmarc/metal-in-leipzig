@@ -35,8 +35,7 @@ mod site;
 mod tools;
 
 const BLOCKLIST: &[&str] = &[
-    "2024-10-12-tt-Sophia",
-    "2024-10-15-fk-Moritz",
+    "2024-11-27-fk-FREUDE",
     "2025-01-25-tt-Lebanon Hanover",
     "2025-03-25-ha-AVATAR",
     "2025-04-19-ha-JAN & HENRY",
