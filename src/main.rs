@@ -61,9 +61,7 @@ fn main() {
 
     let http = Http::new(false);
 
-    let yesterday = chrono::Utc::now()
-        .checked_sub_days(Days::new(1))
-        .unwrap()
+    let today = chrono::Utc::now()
         .with_hour(0)
         .unwrap()
         .with_minute(0)
@@ -104,7 +102,7 @@ fn main() {
         let mut evts: Vec<Event> = site
             .fetch_events(http.borrow())
             .into_iter()
-            .filter(|evt| evt.start_date.gt(&yesterday))
+            .filter(|evt| evt.start_date.gt(&today))
             .collect();
 
         if !evts.is_empty() {

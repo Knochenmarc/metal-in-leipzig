@@ -1,10 +1,10 @@
-use std::borrow::Borrow;
-
 use crate::event::{Event, Location};
 use crate::site::eventim::Eventim;
 use crate::site::Site;
 use crate::tools::date::parse_iso_datetime;
 use crate::tools::Http;
+use chrono::{NaiveDate, NaiveDateTime, NaiveTime};
+use std::borrow::Borrow;
 
 pub struct NoelsBallroom<'l> {
     location: Location<'l, 'l, 'l>,
@@ -42,6 +42,20 @@ impl Site for NoelsBallroom<'_> {
             evt.add_band(raw["performer"]["name"].to_string());
             result.push(evt);
         }
+
+        result.push(Event::new(
+            "Crush Cancer Vol. 2".to_string(),
+            NaiveDateTime::new(
+                NaiveDate::from_ymd_opt(2024, 11, 16).unwrap(),
+                NaiveTime::from_hms_opt(20, 0, 0).unwrap(),
+            ),
+            self.location.borrow(),
+            "https://noels-ballroom.de/events/".to_string(),
+            Option::Some(
+                "https://noels-ballroom.de/wp-content/uploads/2024/10/crushcancer-724x1024.jpg"
+                    .to_string(),
+            ),
+        ));
 
         result
     }
