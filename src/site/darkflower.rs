@@ -1,11 +1,11 @@
 use std::borrow::Borrow;
 
-use chrono::{DateTime, Months};
-
 use crate::event::{Event, Location};
 use crate::site::Site;
 use crate::tools::date::get_today;
 use crate::tools::Http;
+use chrono::{DateTime, Months};
+use html_escape::decode_html_entities;
 
 pub struct Darkflower<'l> {
     location: Location<'l, 'l, 'l>,
@@ -53,13 +53,9 @@ impl Site for Darkflower<'_> {
                 let end_date =
                     DateTime::from_timestamp_millis(item.get("endDate").unwrap().as_i64().unwrap())
                         .unwrap();
+                let title = item.get("title").unwrap().as_str().unwrap().trim();
                 let mut event = Event::new(
-                    item.get("title")
-                        .unwrap()
-                        .as_str()
-                        .unwrap()
-                        .trim()
-                        .to_string(),
+                    decode_html_entities(title).to_string(),
                     start_date.naive_local(),
                     self.get_location(),
                     format!(
