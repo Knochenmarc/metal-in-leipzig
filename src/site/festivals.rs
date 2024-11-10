@@ -31,15 +31,15 @@ impl Site for Festivals<'_> {
         let mut inflammen = Event::new(
             "In Flammen Open Air".to_string(),
             NaiveDateTime::new(
-                NaiveDate::from_ymd_opt(2024, 7, 11).unwrap(),
+                NaiveDate::from_ymd_opt(2025, 7, 10).unwrap(),
                 NaiveTime::default(),
             ),
             self.location.borrow(),
             "https://www.in-flammen.com/".to_string(),
-            Some("https://image.jimcdn.com/app/cms/image/transf/dimension=635x10000:format=jpg/path/sfa7e4f2e650d1c8b/image/i12b8f7add1cd5e4f/version/1715538710/image.jpg".to_string()),
+            Some("https://image.jimcdn.com/app/cms/image/transf/none/path/sfa7e4f2e650d1c8b/backgroundarea/i3ea1dbf730ad2670/version/1724792210/image.jpg".to_string()),
         );
         inflammen.end_date = Some(NaiveDateTime::new(
-            NaiveDate::from_ymd_opt(2024, 7, 13).unwrap(),
+            NaiveDate::from_ymd_opt(2025, 7, 12).unwrap(),
             NaiveTime::from_hms_opt(23, 59, 00).unwrap(),
         ));
         inflammen.evt_type = EventType::Festival;
@@ -63,13 +63,17 @@ impl Site for Festivals<'_> {
         let mut impericon = Event::new(
             "Impericon Festival".to_string(),
             NaiveDateTime::new(
-                NaiveDate::from_ymd_opt(2024, 3, 30).unwrap(),
+                NaiveDate::from_ymd_opt(2025, 6, 27).unwrap(),
                 NaiveTime::default(),
             ),
             self.location.borrow(),
             "https://www.impericon.com/de/festival".to_string(),
-            Some("https://www.impericon.com/1248x755x90/media/impericon/tickets/impericonfestivals2024/20231219_imp_fest_24_microseite_vo4_bands_fullsize_leipzig.jpg".to_string()),
+            Some("https://www.impericon.com/cdn/shop/articles/20241021_imp_fest_2025_vo5_lineup_fullsize_en_62c94e23-6f2d-4d90-9bb7-5ccd96f1f598.jpg".to_string()),
         );
+        impericon.end_date = Some(NaiveDateTime::new(
+            NaiveDate::from_ymd_opt(2025, 6, 28).unwrap(),
+            NaiveTime::from_hms_opt(23, 59, 00).unwrap(),
+        ));
         impericon.evt_type = EventType::Festival;
 
         vec![inflammen, rock, impericon]
