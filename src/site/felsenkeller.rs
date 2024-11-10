@@ -70,6 +70,10 @@ impl Site for Felsenkeller<'_> {
             let name = {
                 let mut name =
                     decode_html_entities(captures.name("name").unwrap().as_str()).to_string();
+                if name.contains(" - ") {
+                    let (prefix, _) = name.split_once(" - ").unwrap();
+                    name = prefix.to_string();
+                }
                 name = name.replace(" (Ausverkauft)", "");
                 name = name.replace("Ausverkauft: ", "");
                 name = name.replace("Abgesagt: ", "");
@@ -120,6 +124,7 @@ impl Site for Felsenkeller<'_> {
                 || detail.contains("metal.de")
                 || detail.contains("Paganfest")
                 || detail.contains("Power Metal")
+                || detail.contains("Teenage Warning Festival")
             {
                 result.push(evt);
             } else if tix_url.contains("www.eventim.de")
