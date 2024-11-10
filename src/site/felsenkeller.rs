@@ -108,11 +108,6 @@ impl Site for Felsenkeller<'_> {
                 }
             }
 
-            for band in evt.bands.iter_mut() {
-                spirit_of_metal::find_band(band, http);
-                metallum::find_band(band, http);
-            }
-
             let detail = captures.name("detail").unwrap().as_str();
             let tix_url = match captures.name("tix") {
                 None => "",
@@ -133,10 +128,17 @@ impl Site for Felsenkeller<'_> {
                 if eventim.is_it_metal(evt.borrow()) {
                     result.push(evt);
                 }
-            } else if has_metal_band.is_it_metal(evt.borrow())
-                && !detail.to_lowercase().contains("pop-band")
-            {
-                result.push(evt);
+            } else {
+                for band in evt.bands.iter_mut() {
+                    spirit_of_metal::find_band(band, http);
+                    metallum::find_band(band, http);
+                }
+
+                if has_metal_band.is_it_metal(evt.borrow())
+                    && !detail.to_lowercase().contains("pop-band")
+                {
+                    result.push(evt);
+                }
             }
         }
 
