@@ -2,7 +2,7 @@ use std::borrow::Borrow;
 use std::collections::BTreeMap;
 use std::env;
 
-use chrono::{Days, NaiveDate, NaiveTime, Timelike};
+use chrono::{Days, NaiveDate, NaiveDateTime, NaiveTime, Timelike};
 
 use crate::event::{Event, Location};
 use crate::site::anker::Anker;
@@ -100,7 +100,10 @@ fn main() {
         let mut evts: Vec<Event> = site
             .fetch_events(http.borrow())
             .into_iter()
-            .filter(|evt| evt.start_date.ge(today.borrow()))
+            .filter(|evt| {
+                evt.start_date.ge(today.borrow())
+                    || evt.end_date.map(|e| e.ge(today.borrow())).unwrap_or(false)
+            })
             .collect();
 
         if !evts.is_empty() {
