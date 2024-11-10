@@ -15,7 +15,7 @@ pub struct Eventim {
 impl Eventim {
     pub fn new(venue: &str, http: &Http) -> Self {
         lazy_static! {
-            static ref REG: Regex = Regex::new(r#"<link rel="next" href="(.*?s)""#).unwrap();
+            static ref REG: Regex = Regex::new(r#"<link rel="next" href="(.*?)""#).unwrap();
         }
 
         let mut collected_events: Vec<Value> = Vec::new();
@@ -40,8 +40,6 @@ impl Eventim {
             next = String::from(text1);
             next.push_str("&shownonbookable=true");
         }
-
-        // TODO: gets each event twice as jsonld
 
         Self { collected_events }
     }
