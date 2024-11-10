@@ -76,6 +76,22 @@ impl Site for Festivals<'_> {
         ));
         impericon.evt_type = EventType::Festival;
 
-        vec![inflammen, rock, impericon]
+        let mut full_rewind = Event::new(
+            "Full Rewind".to_string(),
+            NaiveDateTime::new(
+                NaiveDate::from_ymd_opt(2025, 7, 31).unwrap(),
+                NaiveTime::default(),
+            ),
+            self.location.borrow(),
+            "https://full-rewind.de/".to_string(),
+            Some("https://cdn.shopify.com/s/files/1/0778/0528/9815/files/FRF2025-Bands_Ankundigung4.jpg".to_string()),
+        );
+        full_rewind.end_date = Some(NaiveDateTime::new(
+            NaiveDate::from_ymd_opt(2025, 8, 2).unwrap(),
+            NaiveTime::from_hms_opt(23, 59, 00).unwrap(),
+        ));
+        full_rewind.evt_type = EventType::Festival;
+
+        vec![inflammen, rock, impericon, full_rewind]
     }
 }
