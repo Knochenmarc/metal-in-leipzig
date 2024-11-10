@@ -102,7 +102,7 @@ fn main() {
         let mut evts: Vec<Event> = site
             .fetch_events(http.borrow())
             .into_iter()
-            .filter(|evt| evt.start_date.gt(&today))
+            .filter(|evt| evt.start_date.ge(today.borrow()))
             .collect();
 
         if !evts.is_empty() {
