@@ -1,6 +1,6 @@
 (function (doc) {
     const storeFilters = () => {
-        let formData = new FormData(doc.getElementById('event-filter'))
+        let formData = new FormData(doc.getElementById('event-filter'));
         let data = {};
         formData.forEach((value, key) => (data[key] = value));
         localStorage.setItem('filter', JSON.stringify(data));
@@ -12,7 +12,7 @@
             input.checked = true
         }
 
-        // need proper form change handler :-/
+        /* need proper form change handler :-/ */
         input.addEventListener('change', storeFilters);
     });
 })(document)

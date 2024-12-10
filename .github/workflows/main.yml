@@ -51,14 +51,11 @@ jobs:
         timeout-minutes: 120
         run: cargo run --release
 
-    #  - name: Minify HTML/CSS/JS
-    #    run: |
-    #      npm i minify -g \
-    #      && minify --version \
-    #      && minify public/js/filter.js > public/js/filter.min.js && mv public/js/filter.min.js public/js/filter.js \
-    #      && minify public/style/style.css > public/style/style.min.css && mv public/style/style.min.css public/style/style.css \
-    #      && minify public/index.html > public/index.min.html && mv public/index.min.html public/index.html \
-    #      && minify public/recht.html > public/recht.min.html && mv public/recht.min.html public/recht.html
+      - name: Minify HTML/CSS/JS
+        # uses https://crates.io/crates/minify-html
+        run: |
+          cargo install minhtml \
+          && ~/.cargo/bin/minhtml --keep-closing-tags public/index.html public/recht.html public/style/style.css public/js/filter.js
 
       # https://dev.to/pierresaid/deploy-node-projects-to-github-pages-with-github-actions-4jco
       - name: Deploy 🚀
