@@ -1,6 +1,6 @@
 use std::borrow::Borrow;
 
-use chrono::Datelike;
+use chrono::{Datelike, NaiveDate};
 use regex::Regex;
 
 use crate::site::{metallum, spirit_of_metal, Filter, HasMetalBands};
@@ -29,6 +29,7 @@ impl Site for UTConnewitz<'_> {
 
     fn fetch_events(&self, http: &Http) -> Vec<Event> {
         let mut result = Vec::new();
+        let mut has_sinister_purpose = false;
 
         let split_name = Regex::new(r"(?i), | (with|&|\+) special guests?:?\s?| & | \+ ").unwrap();
         let clear_name = Regex::new(r" \(.*?\)$").unwrap();
@@ -88,6 +89,8 @@ impl Site for UTConnewitz<'_> {
                 if title.starts_with("SHIT & SHINE, ") {
                     continue;
                 }
+                let title = title.replace("GAREA ", "GAEREA ");
+                let title = title.as_str();
 
                 let day = capture.name("day").unwrap().as_str();
                 let img = capture
@@ -108,11 +111,12 @@ impl Site for UTConnewitz<'_> {
                     this_year
                 };
 
+                let date = parse_german_date(format!("{} {} {}", day, month, year).as_str())
+                    .and_hms_opt(0, 0, 0)
+                    .unwrap();
                 let mut evt = Event::new(
                     title.to_string(),
-                    parse_german_date(format!("{} {} {}", day, month, year).as_str())
-                        .and_hms_opt(0, 0, 0)
-                        .unwrap(),
+                    date,
                     self.location.borrow(),
                     format!("{}&event={}#{}", url, id, id),
                     img,
@@ -125,6 +129,7 @@ impl Site for UTConnewitz<'_> {
                         && chunk != "support"
                         && chunk != "GAST"
                         && chunk != "WELTEN"
+                        && chunk != "tba"
                     {
                         // println!("{}", chunk);
                         evt.add_band(chunk.trim().to_string());
@@ -139,7 +144,34 @@ impl Site for UTConnewitz<'_> {
                 if has_metal_bands.is_it_metal(evt.borrow()) {
                     result.push(evt);
                 }
+
+                if date.format("%Y-%m-%d").to_string() == "2025-04-04"
+                    || date.format("%Y-%m-%d").to_string() == "2025-04-05"
+                {
+                    has_sinister_purpose = true;
+                }
             }
+        }
+
+        if !has_sinister_purpose {
+            let mut evt = Event::new(
+                "A Sinister Purpose 7".parse().unwrap(),
+                NaiveDate::from_ymd_opt(2025, 4, 4)
+                    .unwrap()
+                    .and_hms_opt(0, 0, 0)
+                    .unwrap(),
+                self.location.borrow(),
+                "https://intoendlesschaos.de/a-sinister-purpose-7-final-edition/".to_string(),
+                Some(
+                    "https://intoendlesschaos.de/wp-content/uploads/2024/11/ASP-VII-poster.jpg"
+                        .to_string(),
+                ),
+            );
+            evt.end_date = NaiveDate::from_ymd_opt(2025, 4, 5)
+                .unwrap()
+                .and_hms_opt(23, 59, 59);
+
+            result.push(evt);
         }
 
         result
