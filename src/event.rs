@@ -86,7 +86,7 @@ impl<'a> Event<'a> {
         self.bands.push(BandInfo {
             name,
             genre: None,
-            website: None,
+            // website: None,
             metallum_link: None,
             spirit_link: None,
         });
@@ -196,7 +196,7 @@ impl Serialize for Image {
 pub struct BandInfo {
     pub name: String,
     pub genre: Option<String>,
-    pub website: Option<String>,
+    // pub website: Option<String>,
     pub metallum_link: Option<String>,
     pub spirit_link: Option<String>,
 }

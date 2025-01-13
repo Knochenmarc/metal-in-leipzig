@@ -2,7 +2,7 @@ use std::borrow::Borrow;
 use std::collections::BTreeMap;
 use std::env;
 
-use chrono::{Days, NaiveDate, NaiveDateTime, NaiveTime, Timelike};
+use chrono::{Days, NaiveDate, NaiveTime, Timelike};
 
 use crate::event::{Event, Location};
 use crate::site::anker::Anker;

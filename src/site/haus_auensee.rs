@@ -1,7 +1,6 @@
 use std::borrow::Borrow;
 use std::collections::HashMap;
 
-use regex::Match;
 use reqwest::header;
 use reqwest::header::HeaderMap;
 
@@ -26,10 +25,6 @@ impl HausAuensee<'_> {
             },
         }
     }
-}
-
-fn parse_int(data: Option<Match>) -> u32 {
-    data.unwrap().as_str().to_string().parse().unwrap()
 }
 
 impl Site for HausAuensee<'_> {

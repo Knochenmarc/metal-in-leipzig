@@ -21,8 +21,8 @@ pub fn optimize_image(img: &mut Image, http: &Http) {
         {
             let raw = http.get_raw(&img.remote_url);
             if raw.is_ok() {
-                let mut tmp = File::create(&tmp_path).expect("could not create file");
-                tmp.write_all(&*raw.unwrap())
+                let mut tmp = File::create(tmp_path).expect("could not create file");
+                tmp.write_all(&raw.unwrap())
                     .expect("could not write temporary image file");
 
                 tmp.sync_data().expect("file sync failed");
