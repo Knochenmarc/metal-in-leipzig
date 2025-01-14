@@ -30,6 +30,16 @@ pub fn optimize_image(img: &mut Image, http: &Http) {
         }
 
         if tmp_path.exists() {
+            println!(
+                "jpeg: convert -resize 290 -strip {} {}",
+                tmp_path.to_str().unwrap(),
+                local_path.to_str().unwrap()
+            );
+            println!(
+                "avif: convert -resize 290 -strip -define heic:speed=2 {} {}",
+                tmp_path.to_str().unwrap(),
+                (LOCAL_DIR.to_owned() + &img.public_avif_url).as_str()
+            );
             let mut c1 = Command::new("convert")
                 .args([
                     "-resize",
