@@ -20,7 +20,6 @@ pub fn optimize_image(img: &mut Image, http: &Http) {
         let tmp_path = Path::new(tmp_path.as_str());
         {
             let raw = http.get_raw(&img.remote_url);
-            println!("download: {} ok={}", &img.remote_url, raw.is_ok());
             if raw.is_ok() {
                 let mut tmp = File::create(tmp_path).expect("could not create file");
                 tmp.write_all(&raw.unwrap())
@@ -29,12 +28,6 @@ pub fn optimize_image(img: &mut Image, http: &Http) {
                 tmp.sync_data().expect("file sync failed");
             }
         }
-
-        println!(
-            "file: {} exists={}",
-            tmp_path.to_str().unwrap(),
-            tmp_path.exists()
-        );
 
         if tmp_path.exists() {
             let mut c1 = Command::new("convert")
