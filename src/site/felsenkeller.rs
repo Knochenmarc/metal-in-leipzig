@@ -120,6 +120,8 @@ impl Site for Felsenkeller<'_> {
                 || detail.contains("Paganfest")
                 || detail.contains("Power Metal")
                 || detail.contains("Teenage Warning Festival")
+                || name.contains("Napalm Death")
+                || name.contains("PALEFACE SWISS")
             {
                 result.push(evt);
             } else if tix_url.contains("www.eventim.de")
