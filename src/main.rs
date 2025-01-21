@@ -19,7 +19,6 @@ use crate::site::hellraiser::Hellraiser;
 use crate::site::moritzbastei::Moritzbastei;
 use crate::site::muehlkeller::Muehlkeller;
 use crate::site::noels::NoelsBallroom;
-use crate::site::parkbuehne::Parkbuehne;
 use crate::site::soltmann::Soltmann;
 use crate::site::taeubchenthal::Taeubchenthal;
 use crate::site::ut_connewitz::UTConnewitz;
