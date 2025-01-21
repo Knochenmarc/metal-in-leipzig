@@ -178,7 +178,7 @@ main {
       background: var(--noel-background); }
   .event.pb {
     background-color: white;
-    color: #004627; }
+    color: #07132b; }
     .event.pb:before {
       background: var(--pb-background); }
   .event.qi {
@@ -316,7 +316,7 @@ main {
         background: var(--noel-background); }
     .filters label.pb {
       background-color: white;
-      color: #004627; }
+      color: #07132b; }
       .filters label.pb::before {
         background: var(--pb-background); }
     .filters label.qi {

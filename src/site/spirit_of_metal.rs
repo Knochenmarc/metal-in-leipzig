@@ -1,8 +1,8 @@
-use lazy_static::lazy_static;
-use regex::{Captures, Regex};
-
 use crate::event::BandInfo;
 use crate::Http;
+use lazy_static::lazy_static;
+use regex::{Captures, Regex};
+use urlencoding::encode;
 
 pub fn find_band(band: &mut BandInfo, http: &Http) {
     lazy_static! {
@@ -20,9 +20,9 @@ pub fn find_band(band: &mut BandInfo, http: &Http) {
     let url = format!(
         "{}{}{}{}",
         r"https://www.spirit-of-metal.com/liste_groupe.php?recherche_groupe=",
-        name,
+        encode(name),
         r"&lettre=",
-        name
+        encode(name)
     );
     let response = http.get(url.as_str());
 

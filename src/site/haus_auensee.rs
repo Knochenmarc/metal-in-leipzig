@@ -1,45 +1,52 @@
-use std::borrow::Borrow;
-use std::collections::HashMap;
-
+use html_escape::decode_html_entities;
 use reqwest::header;
 use reqwest::header::HeaderMap;
+use std::borrow::Borrow;
+use std::collections::HashMap;
 
 use crate::site::eventim::Eventim;
 use crate::site::{metallum, spirit_of_metal, Filter, HasMetalBands};
 use crate::tools::date::parse_short_date;
 use crate::{Event, Http, Location, Site};
 
-const URL: &str = "https://www.haus-auensee-leipzig.de/";
-
 pub struct HausAuensee<'l> {
     location: Location<'l, 'l, 'l>,
+    eventim_slug: String,
 }
 
 impl HausAuensee<'_> {
-    pub(crate) fn new() -> Self {
+    pub(crate) fn new_auensee() -> Self {
         Self {
             location: Location {
                 slug: "ha",
                 name: "Haus Auensee",
-                website: URL,
+                website: "https://www.haus-auensee-leipzig.de/",
             },
+            eventim_slug: String::from("haus-auensee-leipzig-7301"),
+        }
+    }
+    pub(crate) fn new_park() -> Self {
+        Self {
+            location: Location {
+                slug: "pb",
+                name: "Parkbühne im Clara-Zetkin-Park",
+                website: "https://www.parkbuehne-leipzig.com/",
+            },
+            eventim_slug: String::from("parkbuehne-clara-zetkin-park-leipzig-7223"),
         }
     }
 }
 
-impl Site for HausAuensee<'_> {
-    fn get_location(&self) -> &Location {
-        self.location.borrow()
-    }
+impl HausAuensee<'_> {
+    fn load_events(&self, http: &Http, category: &str) -> Vec<Event> {
+        // same backend as https://www.mawi-concert.de/
 
-    fn fetch_events(&self, http: &Http) -> Vec<Event> {
         let mut result = Vec::new();
 
-        let eventim = Eventim::new("haus-auensee-leipzig-7301", http);
-        let has_metal_band = HasMetalBands {};
+        let base_url = self.location.website;
 
         let get_headers = http
-            .get_headers(&(URL.to_string() + "?menus_id=2"))
+            .get_headers(&(base_url.to_string() + "?menus_id=2"))
             .unwrap();
         let cookie = get_headers.get("set-cookie").unwrap().to_str().unwrap();
 
@@ -52,11 +59,12 @@ impl Site for HausAuensee<'_> {
             let page_number = page.to_string();
 
             let mut payload = HashMap::new();
+            payload.insert("category", category);
             payload.insert("pageSize", "16");
             payload.insert("pageNumber", page_number.as_str());
 
             let data = http.post_json(
-                &(URL.to_string() + "worker/get_events_inc.php"),
+                &(base_url.to_string() + "worker/get_events_inc.php"),
                 payload,
                 request_headers.clone(),
             );
@@ -77,11 +85,12 @@ impl Site for HausAuensee<'_> {
                     continue;
                 }
 
+                let title = item.get("title").unwrap().as_str().unwrap().to_string();
                 let mut evt = Event::new(
-                    item.get("title").unwrap().as_str().unwrap().to_string(),
+                    decode_html_entities(title.as_str()).to_string(),
                     parse_short_date(date),
                     self.location.borrow(),
-                    URL.to_string()
+                    base_url.to_string()
                         + "?menus_id=2&solo=1&id="
                         + item
                             .get("id")
@@ -90,19 +99,12 @@ impl Site for HausAuensee<'_> {
                             .unwrap()
                             .to_string()
                             .as_str(),
-                    Some(URL.to_string() + item.get("image").unwrap().as_str().unwrap()),
+                    Some(base_url.to_string() + item.get("image").unwrap().as_str().unwrap()),
                 );
 
                 evt.add_band(evt.name.clone());
 
-                for band in evt.bands.iter_mut() {
-                    spirit_of_metal::find_band(band, http);
-                    metallum::find_band(band, http);
-                }
-
-                if eventim.is_it_metal(evt.borrow()) || has_metal_band.is_it_metal(evt.borrow()) {
-                    result.push(evt);
-                }
+                result.push(evt);
             }
 
             let total = data
@@ -121,5 +123,36 @@ impl Site for HausAuensee<'_> {
         }
 
         result
+    }
+}
+
+impl Site for HausAuensee<'_> {
+    fn get_location(&self) -> &Location {
+        self.location.borrow()
+    }
+
+    fn fetch_events(&self, http: &Http) -> Vec<Event> {
+        let mut hard_heavy = self.load_events(http, "15");
+
+        let eventim = Eventim::new(self.eventim_slug.as_str(), http);
+        let has_metal_band = HasMetalBands {};
+        let mut misc_result = self.load_events(http, "16");
+        for evt in misc_result.iter_mut() {
+            if eventim.is_it_metal(evt.borrow()) {
+                hard_heavy.push(evt.clone());
+                continue;
+            }
+
+            for band in evt.bands.iter_mut() {
+                spirit_of_metal::find_band(band, http);
+                metallum::find_band(band, http);
+            }
+
+            if has_metal_band.is_it_metal(evt.borrow()) {
+                hard_heavy.push(evt.clone());
+            }
+        }
+
+        hard_heavy
     }
 }

@@ -1,8 +1,8 @@
-use lazy_static::lazy_static;
-use regex::Regex;
-
 use crate::event::BandInfo;
 use crate::Http;
+use lazy_static::lazy_static;
+use regex::Regex;
+use urlencoding::encode;
 
 pub fn find_band(band: &mut BandInfo, http: &Http) {
     lazy_static! {
@@ -14,7 +14,7 @@ pub fn find_band(band: &mut BandInfo, http: &Http) {
     let url = format!(
         "{}{}",
         r"https://www.metal-archives.com/search/ajax-advanced/searching/bands/?status=1&exactBandMatch=1&bandName=",
-        name
+        encode(name)
     );
     let response = http.get_json(url.as_str());
     if response.is_err() {
