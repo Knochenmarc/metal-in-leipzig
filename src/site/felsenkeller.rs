@@ -122,6 +122,7 @@ impl Site for Felsenkeller<'_> {
                 || detail.contains("Teenage Warning Festival")
                 || name.contains("Napalm Death")
                 || name.contains("PALEFACE SWISS")
+                || name == "ALLT"
             {
                 result.push(evt);
             } else if tix_url.contains("www.eventim.de")
