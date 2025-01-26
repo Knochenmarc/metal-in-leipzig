@@ -45,12 +45,18 @@ fn parse_linked_data_events(html: &str) -> Vec<Value> {
         static ref REG: Regex =
             Regex::new(r#"(?si)<script type=[""']application/ld\+json[""']>(.*?)</script>"#)
                 .unwrap();
+
+        // bandcommunity: spotify plugin breaks json
+        static ref CLEANUP: Regex =
+            Regex::new(r#"(?si)<div class="cmplz-placeholder-parent">.*?</div>"#).unwrap();
     }
 
     let mut result: Vec<Value> = Vec::new();
 
     for cap in REG.captures_iter(html) {
-        let json = cap[1].replace("\t", " ");
+        let mut json = cap[1].replace("\t", " ");
+        json = CLEANUP.replace_all(&json, "").to_string();
+
         let doc: Value = serde_json::from_str(json.as_str()).unwrap();
         if doc.is_array() {
             for event in doc.as_array().unwrap() {
