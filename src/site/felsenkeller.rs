@@ -120,6 +120,7 @@ impl Site for Felsenkeller<'_> {
                 || detail.contains("Paganfest")
                 || detail.contains("Power Metal")
                 || detail.contains("Teenage Warning Festival")
+                || name.contains("Teenage Warning Festival")
                 || name.contains("Napalm Death")
                 || name.contains("PALEFACE SWISS")
                 || name == "ALLT"

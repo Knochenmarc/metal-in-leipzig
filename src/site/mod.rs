@@ -48,7 +48,7 @@ fn parse_linked_data_events(html: &str) -> Vec<Value> {
 
         // bandcommunity: spotify plugin breaks json
         static ref CLEANUP: Regex =
-            Regex::new(r#"(?si)<div class="cmplz-placeholder-parent">.*?</div>"#).unwrap();
+            Regex::new(r#"(?si)<div class="cmplz-placeholder-parent">.*?</div>|<iframe.*?</iframe>"#).unwrap();
     }
 
     let mut result: Vec<Value> = Vec::new();
