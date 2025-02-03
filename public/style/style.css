@@ -64,7 +64,7 @@ body {
   --sm-background: url("../img/soltmann.png") center;
   --tt-background: url("../img/taeubchenthal.svg") center;
   --ut-background: url("../img/ut.png") center;
-  --w2-background: url("../img/werk2.webp") center;
+  --w2-background: url("../img/werk2.png") center;
   --wgt-background: url("../img/wgt.png") center;
   --zf-background: url("../img/zf.png") center; }
 
@@ -207,7 +207,7 @@ main {
     .event.ut:before {
       background: var(--ut-background); }
   .event.w2 {
-    background-color: #20110e;
+    background-color: #000;
     color: #ffffff; }
     .event.w2:before {
       background: var(--w2-background); }
@@ -345,8 +345,8 @@ main {
       .filters label.ut::before {
         background: var(--ut-background); }
     .filters label.w2 {
-      background-color: #20110e;
-      color: #ffffff; }
+      background-color: #000;
+      color: #fff; }
       .filters label.w2::before {
         background: var(--w2-background); }
     .filters label.wgt {
