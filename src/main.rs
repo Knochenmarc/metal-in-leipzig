@@ -100,7 +100,12 @@ fn main() {
             })
             .collect();
 
-        if !evts.is_empty() {
+        if evts.is_empty() {
+            println!(
+                "::warning::Keine Events bei {} gefunden. Bitte prüfen.",
+                site.get_location().name
+            );
+        } else {
             locations.push(site.get_location());
 
             for event in &mut evts {
