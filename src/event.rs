@@ -1,6 +1,6 @@
 use chrono::{Datelike, NaiveDateTime, NaiveTime, Utc, Weekday};
 use serde::ser::{Serialize, SerializeStruct, Serializer};
-use twox_hash::xxh3::hash64;
+use twox_hash::XxHash3_64;
 
 #[derive(Clone)]
 pub enum EventType {
@@ -150,14 +150,14 @@ pub struct Image {
     pub remote_url: String,
     pub public_avif_url: String,
     pub public_jpg_url: String,
-    pub hash: String,
+    pub hash: u64,
     width: u32,
     height: u32,
 }
 
 impl Image {
     fn new(remote_url: String) -> Self {
-        let hash = hash64(remote_url.as_bytes()).to_string();
+        let hash = XxHash3_64::oneshot(remote_url.as_bytes());
 
         Self {
             remote_url,

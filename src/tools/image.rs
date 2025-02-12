@@ -16,7 +16,7 @@ pub fn optimize_image(img: &mut Image, http: &Http) {
     let local_path = Path::new(local_path.as_str());
 
     if !local_path.exists() {
-        let tmp_path = temp_dir().to_str().unwrap().to_string() + "/" + &img.hash;
+        let tmp_path = temp_dir().to_str().unwrap().to_string() + "/" + &img.hash.to_string();
         let tmp_path = Path::new(tmp_path.as_str());
         {
             let raw = http.get_raw(&img.remote_url);
