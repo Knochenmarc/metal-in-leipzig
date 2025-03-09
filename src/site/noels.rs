@@ -44,15 +44,15 @@ impl Site for NoelsBallroom<'_> {
         }
 
         result.push(Event::new(
-            "Crush Cancer Vol. 2".to_string(),
+            "Tir Nan Nog".to_string(),
             NaiveDateTime::new(
-                NaiveDate::from_ymd_opt(2024, 11, 16).unwrap(),
+                NaiveDate::from_ymd_opt(2025, 3, 15).unwrap(),
                 NaiveTime::from_hms_opt(20, 0, 0).unwrap(),
             ),
             self.location.borrow(),
             "https://noels-ballroom.de/events/".to_string(),
             Option::Some(
-                "https://noels-ballroom.de/wp-content/uploads/2024/10/crushcancer-724x1024.jpg"
+                "https://noels-ballroom.de/wp-content/uploads/2025/02/tirnanog_Flyer2-1502x2048.jpg"
                     .to_string(),
             ),
         ));
