@@ -44,7 +44,7 @@ impl Site for NoelsBallroom<'_> {
         }
 
         result.push(Event::new(
-            "Tir Nan Nog".to_string(),
+            "Tir Nan Og".to_string(),
             NaiveDateTime::new(
                 NaiveDate::from_ymd_opt(2025, 3, 15).unwrap(),
                 NaiveTime::from_hms_opt(20, 0, 0).unwrap(),
