@@ -28,7 +28,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: install imagemagick
-        run: sudo apt-get install -y imagemagick && convert --version
+        run: sudo apt-get update && apt-get install -y imagemagick && convert --version
 
       - name: Cache flyers
         uses: actions/cache@v4
