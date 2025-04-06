@@ -18,6 +18,7 @@ body
   --rl-background: url("../img/rocklounge.png") center
   --sm-background: url("../img/soltmann.png") center
   --tt-background: url("../img/taeubchenthal.svg") center
+  --tv-background: url("../img/tv-club.png") center
   --ut-background: url("../img/ut.png") center
   --w2-background: url("../img/werk2.png") center
   --wgt-background: url("../img/wgt.png") center
@@ -201,6 +202,13 @@ main
 
     &:before
       background: var(--tt-background)
+
+  &.tv
+    background-color: #0d1925
+    color: #fbb315
+
+    &:before
+      background: var(--tv-background)
 
   &.ut
     background-color: #4d4d4c
@@ -391,6 +399,13 @@ main
       &::before
         background: var(--tt-background)
 
+    &.tv
+      background-color: #0d1925
+      color: #fbb315
+
+      &:before
+        background: var(--tv-background)
+
     &.ut
       background-color: #4d4d4c
       color: white
@@ -439,6 +454,7 @@ main
 #filter-loc-rl:checked ~ .filters label[for="filter-loc-rl"],
 #filter-loc-sm:checked ~ .filters label[for="filter-loc-sm"],
 #filter-loc-tt:checked ~ .filters label[for="filter-loc-tt"],
+#filter-loc-tv:checked ~ .filters label[for="filter-loc-tv"],
 #filter-loc-ut:checked ~ .filters label[for="filter-loc-ut"],
 #filter-loc-w2:checked ~ .filters label[for="filter-loc-w2"],
 #filter-loc-wgt:checked ~ .filters label[for="filter-loc-wgt"],
@@ -465,6 +481,7 @@ main
 #filter-loc-rl:checked ~ main .event.rl,
 #filter-loc-sm:checked ~ main .event.sm,
 #filter-loc-tt:checked ~ main .event.tt,
+#filter-loc-tv:checked ~ main .event.tv,
 #filter-loc-ut:checked ~ main .event.ut,
 #filter-loc-w2:checked ~ main .event.w2,
 #filter-loc-wgt:checked ~ main .event.wgt,

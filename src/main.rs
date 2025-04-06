@@ -23,6 +23,7 @@ use crate::site::soltmann::Soltmann;
 use crate::site::taeubchenthal::Taeubchenthal;
 use crate::site::ut_connewitz::UTConnewitz;
 // use crate::site::wavegothictreffen::WaveGothicTreffen;
+use crate::site::tv_club::TVClub;
 use crate::site::werk2::Werk2;
 use crate::site::Site;
 use crate::tools::image::optimize_image;
@@ -33,7 +34,7 @@ mod renderer;
 mod site;
 mod tools;
 
-const BLOCKLIST: &[&str] = &["2025-03-25-ha-AVATAR", "2025-04-19-ha-JAN & HENRY"];
+const BLOCKLIST: &[&str] = &["2025-04-19-ha-JAN & HENRY"];
 
 fn parse_args(sites: Vec<Box<dyn Site>>) -> Vec<Box<dyn Site>> {
     let args: Vec<String> = env::args().collect();
@@ -82,6 +83,7 @@ fn main() {
         Box::new(NoelsBallroom::new()),
         Box::new(Soltmann::new()),
         Box::new(Taeubchenthal::new()),
+        Box::new(TVClub::new()),
         Box::new(UTConnewitz::new()),
         // Box::new(WaveGothicTreffen::new()),
         Box::new(Werk2::new()),

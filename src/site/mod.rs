@@ -27,6 +27,7 @@ pub(crate) mod soltmann;
 mod spirit_of_metal;
 pub(crate) mod taeubchenthal;
 mod tixforgigs;
+pub(crate) mod tv_club;
 pub(crate) mod ut_connewitz;
 pub(crate) mod wavegothictreffen;
 pub(crate) mod werk2;
