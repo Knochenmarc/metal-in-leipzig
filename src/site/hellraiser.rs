@@ -32,7 +32,7 @@ impl Site for Hellraiser<'_> {
     fn fetch_events(&self, http: &Http) -> Vec<Event> {
         let mut result = Vec::new();
 
-        let reg = Regex::new("(?si)<li class=\"product.*?<a href=\"(?P<url>.*?)\".*?<img.*?src=\"(?P<img>.*?)\".*?<h2.*?>(?P<name>.*?)</h2>.*?<div class=\"date-published\">.*?, (?P<date>.*?)</div>.*?</li>").unwrap();
+        let reg = Regex::new("(?si)<li class=\"product.*?<a href=\"(?P<url>.*?)\".*?<img.*?data-src=\"(?P<img>.*?)\".*?<h2.*?>(?P<name>.*?)</h2>.*?<div class=\"date-published\">.*?, (?P<date>.*?)</div>.*?</li>").unwrap();
 
         for i in 1..10 {
             let html = http
