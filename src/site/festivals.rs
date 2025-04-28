@@ -68,7 +68,7 @@ impl Site for Festivals<'_> {
             ),
             self.location.borrow(),
             "https://www.impericon.com/de/festival".to_string(),
-            Some("https://www.impericon.com/cdn/shop/articles/20241021_imp_fest_2025_vo5_lineup_fullsize_en_62c94e23-6f2d-4d90-9bb7-5ccd96f1f598.jpg".to_string()),
+            Some("https://www.impericon.com/cdn/shop/files/20250408_impfest_desktop_lineup_ticket_alert_de.jpg".to_string()),
         );
         impericon.end_date = Some(NaiveDateTime::new(
             NaiveDate::from_ymd_opt(2025, 6, 28).unwrap(),
