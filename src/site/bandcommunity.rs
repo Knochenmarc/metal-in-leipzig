@@ -43,6 +43,7 @@ impl Site for Bandcommunity<'_> {
             let description = data_event["description"].as_str().unwrap();
             let name = data_event["name"].as_str().unwrap();
             if name != "Open Jam Session"
+                && !name.contains("Hip Hop")
                 && !description.contains("Rapper")
                 && !description.contains("HipHop")
             {
