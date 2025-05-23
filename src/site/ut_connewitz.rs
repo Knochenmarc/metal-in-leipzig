@@ -111,9 +111,7 @@ impl Site for UTConnewitz<'_> {
                     this_year
                 };
 
-                let date = parse_german_date(format!("{} {} {}", day, month, year).as_str())
-                    .and_hms_opt(0, 0, 0)
-                    .unwrap();
+                let date = parse_german_date(format!("{} {} {}", day, month, year).as_str());
                 let mut evt = Event::new(
                     title.to_string(),
                     date,

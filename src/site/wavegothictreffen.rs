@@ -1,6 +1,6 @@
-use std::borrow::Borrow;
-
+use chrono::Timelike;
 use regex::Regex;
+use std::borrow::Borrow;
 
 use crate::event::{Event, EventType, Location};
 use crate::site::{metallum, spirit_of_metal, Filter, HasMetalBands, Site};
@@ -60,7 +60,7 @@ impl Site for WaveGothicTreffen<'_> {
 
                     let mut event = Event::new(
                         name.to_string(),
-                        date.and_hms_opt(hour, minute, 0).unwrap(),
+                        date.with_hour(hour).unwrap().with_minute(minute).unwrap(),
                         self.location.borrow(),
                         "https://www.wave-gotik-treffen.de/prog/celebrant.php".to_string(),
                         None,

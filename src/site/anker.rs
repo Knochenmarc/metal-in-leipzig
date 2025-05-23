@@ -52,7 +52,7 @@ impl Site for Anker<'_> {
 
             let mut evt = Event::new(
                 decode_html_entities(name).to_string(),
-                parse_german_date(date).and_hms_opt(0, 0, 0).unwrap(),
+                parse_german_date(date),
                 self.location.borrow(),
                 url.to_string(),
                 None,
