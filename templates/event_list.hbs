@@ -11,12 +11,9 @@
                     {{this.name_html}}
                     {{#if this.image}}
                         {{#if this.image.height}}
-                            <picture class="event-img">
-                                <source srcset="{{this.image.public_avif_url}}" type="image/avif">
-                                <img src="{{this.image.public_jpg_url}}" alt=""
-                                     width="{{this.image.width}}" height="{{this.image.height}}"
-                                     {{#if @../index }}loading="lazy"{{/if}} />
-                            </picture>
+                            <img src="{{this.image.public_avif_url}}" alt=""
+                                 width="{{this.image.width}}" height="{{this.image.height}}"
+                                 {{#if @../index }}loading="lazy"{{/if}} />
                         {{/if}}
                     {{/if}}
                 </a>
