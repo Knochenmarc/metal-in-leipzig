@@ -2,7 +2,7 @@ use std::borrow::Borrow;
 use std::collections::BTreeMap;
 use std::env;
 
-use chrono::{Days, NaiveDate, NaiveTime, Timelike};
+use chrono::{Days, NaiveDate, NaiveDateTime, NaiveTime, Timelike};
 
 use crate::event::{Event, Location};
 use crate::site::anker::Anker;
@@ -57,7 +57,7 @@ fn main() {
     let http = Http::new(false);
 
     let today = chrono::Utc::now()
-        .with_time(NaiveTime::from_hms_opt(0, 0, 0).unwrap())
+        .with_time(NaiveTime::default())
         .unwrap()
         .naive_local();
 
@@ -141,10 +141,12 @@ fn main() {
         for event in events {
             let mut date = event.start_date;
             while date <= event.end_date.unwrap_or(event.start_date) {
-                grouped_events
-                    .entry(date.date())
-                    .or_default()
-                    .push(event.clone());
+                if date.ge(&today) {
+                    grouped_events
+                        .entry(date.date())
+                        .or_default()
+                        .push(event.clone());
+                }
                 date = date
                     .checked_add_days(Days::new(1))
                     .unwrap()
