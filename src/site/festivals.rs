@@ -92,6 +92,22 @@ impl Site for Festivals<'_> {
         ));
         full_rewind.evt_type = EventType::Festival;
 
-        vec![inflammen, rock, impericon, full_rewind]
+        let mut nexus = Event::new(
+            "Nexus Festival".to_string(),
+            NaiveDateTime::new(
+                NaiveDate::from_ymd_opt(2025, 7, 11).unwrap(),
+                NaiveTime::default(),
+            ),
+            self.location.borrow(),
+            "https://www.nexo-nerd-expo.com/".to_string(),
+            Some("https://lh3.googleusercontent.com/u/0/d/11YLfyDIFN62PioQsXPzuFew2R549VRQz=w3129-h1306-iv1".to_string()),
+        );
+        nexus.end_date = Some(NaiveDateTime::new(
+            NaiveDate::from_ymd_opt(2025, 7, 13).unwrap(),
+            NaiveTime::from_hms_opt(23, 59, 00).unwrap(),
+        ));
+        nexus.evt_type = EventType::Festival;
+
+        vec![inflammen, rock, impericon, full_rewind, nexus]
     }
 }
