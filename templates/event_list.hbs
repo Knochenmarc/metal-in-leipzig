@@ -1,11 +1,13 @@
 <main>
     {{#each event_group}}
         <div class="events">
-            <a class="date" href="#{{lookup ../date_slugs @key}}" id="{{lookup ../date_slugs @key}}">{{lookup ../dates @key}}</a>
+            <a class="date" href="#{{lookup ../date_slugs @key}}"
+               id="{{lookup ../date_slugs @key}}">{{lookup ../dates @key}}</a>
             {{#each this}}
                 <a {{#if this.url}} href="{{this.url}}"{{/if}}
-                                    title="{{this.name}}"
-                                    target="_blank" class="event {{this.location.slug}}">
+                                    aria-label="{{this.name}}"
+                                    target="_blank" class="event {{this.location.slug}}"
+                >
                     {{this.name_html}}
                     {{#if this.image}}
                         {{#if this.image.height}}
