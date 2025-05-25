@@ -36,7 +36,7 @@ impl Site for Festivals<'_> {
             ),
             self.location.borrow(),
             "https://www.in-flammen.com/".to_string(),
-            Some("https://image.jimcdn.com/app/cms/image/transf/none/path/sfa7e4f2e650d1c8b/backgroundarea/i3ea1dbf730ad2670/version/1724792210/image.jpg".to_string()),
+            Some("https://image.jimcdn.com/app/cms/image/transf/none/path/sfa7e4f2e650d1c8b/image/if70ed78ae97ad0c5/version/1748024390/image.jpg".to_string()),
         );
         inflammen.end_date = Some(NaiveDateTime::new(
             NaiveDate::from_ymd_opt(2025, 7, 12).unwrap(),
