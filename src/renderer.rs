@@ -14,7 +14,7 @@ fn prepare_file(file: &str) -> File {
     File::create("public/".to_owned() + file).unwrap()
 }
 
-pub(crate) fn render(events: BTreeMap<NaiveDate, Vec<Event>>, locations: Vec<&Location>) {
+pub(crate) fn render(mut events: BTreeMap<NaiveDate, Vec<Event>>, locations: Vec<&Location>) {
     let mut hb = Handlebars::new();
     hb.register_template_file("event_list", "templates/event_list.hbs")
         .expect("template not found");
@@ -70,6 +70,18 @@ pub(crate) fn render(events: BTreeMap<NaiveDate, Vec<Event>>, locations: Vec<&Lo
 
     data.insert("dates".to_string(), to_json(dates));
     data.insert("date_slugs".to_string(), to_json(date_slugs));
+
+    let mut counter = 0;
+    'events: for (_, group) in events.iter_mut() {
+        for event in group.iter_mut() {
+            event.show_first = true;
+            counter += 1;
+            if counter >= 3 {
+                break 'events;
+            }
+        }
+    }
+
     data.insert("event_group".to_string(), to_json(events));
 
     hb.render_to_write("index", &data, prepare_file("index.html"))

@@ -49,6 +49,7 @@ pub struct Event<'l> {
     pub evt_type: EventType,
     pub status: EventStatus,
     pub description: Option<String>,
+    pub show_first: bool,
 }
 
 impl<'a> Event<'a> {
@@ -75,6 +76,7 @@ impl<'a> Event<'a> {
             evt_type: EventType::Unknown,
             status: EventStatus::Unknown,
             description: None,
+            show_first: false,
         }
     }
 
@@ -122,6 +124,7 @@ impl<'a> Serialize for Event<'a> {
         s.serialize_field("location", &self.location)?;
         s.serialize_field("url", &self.url)?;
         s.serialize_field("image", &self.image)?;
+        s.serialize_field("show_first", &self.show_first)?;
         s.end()
     }
 }

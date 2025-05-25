@@ -13,7 +13,8 @@
                         {{#if this.image.height}}
                             <img src="{{this.image.public_avif_url}}" alt=""
                                  width="{{this.image.width}}" height="{{this.image.height}}"
-                                 {{#if @../index }}loading="lazy"{{/if}} />
+                                {{#if this.show_first }}fetchpriority="high" {{ else }}loading="lazy"{{/if}}
+                            />
                         {{/if}}
                     {{/if}}
                 </a>
