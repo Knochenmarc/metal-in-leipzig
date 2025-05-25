@@ -28,6 +28,10 @@ pub(crate) fn render(events: BTreeMap<NaiveDate, Vec<Event>>, locations: Vec<&Lo
         .expect("template not found");
     hb.register_template_file("recht", "templates/recht.hbs")
         .expect("template not found");
+    hb.register_template_file("filter-js", "public/js/filter.js")
+        .expect("template not found");
+    hb.register_template_file("style-css", "public/style.css")
+        .expect("template not found");
     hb.register_escape_fn(no_escape);
 
     let now = Utc::now().with_timezone(&Berlin);

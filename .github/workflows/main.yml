@@ -61,7 +61,7 @@ jobs:
         # uses https://crates.io/crates/minify-html
         run: |
           cargo install --force minhtml \
-          && ~/.cargo/bin/minhtml --keep-closing-tags public/index.html public/recht.html public/style/style.css public/js/filter.js
+          && ~/.cargo/bin/minhtml --keep-closing-tags --minify-css --minify-js public/index.html public/recht.html
 
       # https://dev.to/pierresaid/deploy-node-projects-to-github-pages-with-github-actions-4jco
       - name: Deploy 🚀

@@ -1,8 +1,9 @@
 <form name="event-filter" autocomplete="on" id="event-filter"><input type="submit"/></form>
 {{#each locations}}
-    <input type="checkbox" class="filter" name="{{this.slug}}" value="{{this.slug}}" id="filter-loc-{{this.slug}}" form="event-filter"/>
+    <input type="checkbox" class="filter" name="{{this.slug}}" value="{{this.slug}}" id="filter-loc-{{this.slug}}"
+           form="event-filter"/>
 {{/each}}
-<input type="checkbox" class="filter" name="setting-flyer" id="flyer-toggle" form="event-filter" value="off" />
+<input type="checkbox" class="filter" name="setting-flyer" id="flyer-toggle" form="event-filter" value="off"/>
 
 <details class="filters">
     <summary>Filter &amp; Einstellungen</summary>
@@ -14,7 +15,8 @@
     <hr>
     Einstellungen: <label class="setting" for="flyer-toggle">Flyer anzeigen</label>
     <hr>
-    <noscript><br/>Du hast kein JavaScript aktiviert. Dadurch sind ein paar Funktionen leider nicht verfügbar.</noscript>
+    <noscript><br/>Du hast kein JavaScript aktiviert. Dadurch sind ein paar Funktionen leider nicht verfügbar.
+    </noscript>
 </details>
 
-<script src="js/filter.js" async></script>
+<script async>{{> filter-js }}</script>
