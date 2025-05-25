@@ -8,6 +8,10 @@ pub fn get_today() -> DateTime<Tz> {
     today.and_local_timezone(chrono_tz::Europe::Berlin).unwrap()
 }
 
+pub fn parse_english_date(str: &str) -> NaiveDate {
+    NaiveDate::parse_from_str(str, "%d %B %Y").unwrap()
+}
+
 pub fn parse_german_date(str: &str) -> NaiveDateTime {
     let mut str = str.replace(" Januar ", "01.");
     str = str.replace("Februar", "02");

@@ -4,7 +4,7 @@ use chrono::{Datelike, NaiveDate};
 use regex::Regex;
 
 use crate::site::{metallum, spirit_of_metal, Filter, HasMetalBands};
-use crate::tools::date::parse_german_date;
+use crate::tools::date::parse_english_date;
 use crate::{Event, Http, Location, Site};
 
 pub(crate) struct UTConnewitz<'l> {
@@ -111,10 +111,10 @@ impl Site for UTConnewitz<'_> {
                     this_year
                 };
 
-                let date = parse_german_date(format!("{} {} {}", day, month, year).as_str());
+                let date = parse_english_date(format!("{} {} {}", day, month, year).as_str());
                 let mut evt = Event::new(
                     title.to_string(),
-                    date,
+                    date.and_hms_opt(0, 0, 0).unwrap(),
                     self.location.borrow(),
                     format!("{}&event={}#{}", url, id, id),
                     img,
