@@ -113,7 +113,7 @@ main {
     background-repeat: no-repeat !important;
     background-color: transparent !important;
     background-size: contain !important; }
-  .event .event-img img {
+  .event img {
     vertical-align: bottom; }
   .event.ank {
     background-color: #ffffff;
@@ -398,7 +398,7 @@ main {
 #filter-loc-zf:checked ~ .filters label[for="filter-loc-zf"] {
   border-color: #d81b60; }
 
-#flyer-toggle:checked ~ main .event picture,
+#flyer-toggle:checked ~ main .event img,
 #filter-loc-ank:checked ~ main .event.ank,
 #filter-loc-bc:checked ~ main .event.bc,
 #filter-loc-ci:checked ~ main .event.ci,
