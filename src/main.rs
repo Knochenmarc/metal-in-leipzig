@@ -34,7 +34,7 @@ mod renderer;
 mod site;
 mod tools;
 
-const BLOCKLIST: &[&str] = &["2026-02-25-tt-LUNA"];
+const BLOCKLIST: &[&str] = &["2026-02-18-tt-LUNA"];
 
 fn parse_args(sites: Vec<Box<dyn Site>>) -> Vec<Box<dyn Site>> {
     let args: Vec<String> = env::args().collect();
