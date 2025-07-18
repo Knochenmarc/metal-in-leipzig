@@ -51,7 +51,22 @@ impl Site for Moritzbastei<'_> {
 
         for content in json["content"].as_array().unwrap() {
             let html = content.as_str().unwrap();
-            if html.contains("#Metal") || html.contains("#Heavy Metal") {
+            if html.contains("#Metal")
+                || html.contains("#Heavy Metal")
+                || html.contains("#Black Metal")
+                || html.contains("#Death Metal")
+                || html.contains("#Thrash Metal")
+                || html.contains("#Doom Metal")
+                || html.contains("#Gothic Metal")
+                || html.contains("#Symphonic Metal")
+                || html.contains("#Viking Metal")
+                || html.contains("#Folk Metal")
+                || html.contains("#Progressive Metal")
+                || html.contains("#Power Metal")
+                || html.contains("#Modern Metal")
+                || html.contains("#Industrial Metal")
+                || html.contains("#Post-Metal")
+            {
                 let captures = reg.captures(html).unwrap();
                 let img = captures
                     .name("img")
