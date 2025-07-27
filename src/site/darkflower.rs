@@ -75,7 +75,13 @@ impl Site for Darkflower<'_> {
                     .map(|s| s.as_str().unwrap().to_string().to_lowercase())
                     .collect();
 
-                if tags.is_empty() || tags.contains(&"metal".to_string()) {
+                if !event.name.eq("K-Wave")
+                    && !event.name.eq("101% Electro")
+                    && !event.name.eq("Death Rave")
+                    && !event.name.contains("Retro 80")
+                    && tags.is_empty()
+                    || tags.contains(&"metal".to_string())
+                {
                     result.push(event);
                 }
             }
