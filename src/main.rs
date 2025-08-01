@@ -36,6 +36,7 @@ mod tools;
 
 const BLOCKLIST: &[&str] = &[
     "2025-08-23-pb-SOULY",
+    "2025-08-08-bc-Sebastian Caspar + Julia Jünger [Singer-Songwriter]",
     "2026-02-18-tt-LUNA",
     "2026-03-28-fk-Lebanon Hanover",
 ];
