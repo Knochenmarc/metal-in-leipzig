@@ -37,23 +37,22 @@ impl Site for NoelsBallroom<'_> {
                 parse_iso_datetime(raw["startDate"].as_str().unwrap()).unwrap(),
                 self.location.borrow(),
                 "https://noels-ballroom.de/".to_string(),
-                Option::Some(raw["image"][0].as_str().unwrap().to_string()),
+                Some(raw["image"][0].as_str().unwrap().to_string()),
             );
             evt.add_band(raw["performer"]["name"].to_string());
             result.push(evt);
         }
 
         result.push(Event::new(
-            "Tir Nan Og".to_string(),
+            "CRUSH CANCER VOL. 3".to_string(),
             NaiveDateTime::new(
-                NaiveDate::from_ymd_opt(2025, 3, 15).unwrap(),
-                NaiveTime::from_hms_opt(20, 0, 0).unwrap(),
+                NaiveDate::from_ymd_opt(2025, 11, 8).unwrap(),
+                NaiveTime::from_hms_opt(19, 0, 0).unwrap(),
             ),
             self.location.borrow(),
             "https://noels-ballroom.de/events/".to_string(),
-            Option::Some(
-                "https://noels-ballroom.de/wp-content/uploads/2025/02/tirnanog_Flyer2-1502x2048.jpg"
-                    .to_string(),
+            Some(
+                "https://noels-ballroom.de/wp-content/uploads/2025/07/crushcancer.jpg".to_string(),
             ),
         ));
 
