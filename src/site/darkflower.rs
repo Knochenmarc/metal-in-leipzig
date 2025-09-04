@@ -77,8 +77,11 @@ impl Site for Darkflower<'_> {
 
                 if !event.name.eq("K-Wave")
                     && !event.name.eq("101% Electro")
+                    && !event.name.eq("Darkflower Electro Bash")
                     && !event.name.eq("Death Rave")
+                    && !event.name.eq("Synthetic Sounds")
                     && !event.name.contains("Retro 80")
+                    && !event.name.contains("Industrial Frequencies")
                     && tags.is_empty()
                     || tags.contains(&"metal".to_string())
                 {
