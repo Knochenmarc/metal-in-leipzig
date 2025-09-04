@@ -36,7 +36,7 @@ impl Site for NoelsBallroom<'_> {
                 raw["name"].as_str().unwrap().to_string(),
                 parse_iso_datetime(raw["startDate"].as_str().unwrap()).unwrap(),
                 self.location.borrow(),
-                "https://noels-ballroom.de/".to_string(),
+                raw["url"].as_str().unwrap().to_string(),
                 Some(raw["image"][0].as_str().unwrap().to_string()),
             );
             evt.add_band(raw["performer"]["name"].to_string());
