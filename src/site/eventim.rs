@@ -62,7 +62,7 @@ impl Filter for Eventim {
             if eventim_name.contains(&event_name)
                 || event_name.contains(&eventim_name)
                 || performer_name.contains(&event_name)
-                || event_name.contains(&performer_name)
+                || (!performer_name.is_empty() && event_name.contains(&performer_name))
             {
                 return true;
             }
@@ -71,7 +71,7 @@ impl Filter for Eventim {
                 if eventim_name.contains(&band_name)
                     || band_name.contains(&eventim_name)
                     || performer_name.contains(&band_name)
-                    || band_name.contains(&performer_name)
+                    || (!performer_name.is_empty() && band_name.contains(&performer_name))
                 {
                     return true;
                 }
