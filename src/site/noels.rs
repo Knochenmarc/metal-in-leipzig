@@ -32,12 +32,15 @@ impl Site for NoelsBallroom<'_> {
         let eventim = Eventim::new("noels-ballroom-leipzig-22594", http);
 
         for raw in &eventim.get_raw() {
+            let images = raw["image"].as_array().unwrap();
+            let image = images.first().map(|img| img.as_str().unwrap().to_string());
+
             let mut evt = Event::new(
                 raw["name"].as_str().unwrap().to_string(),
                 parse_iso_datetime(raw["startDate"].as_str().unwrap()).unwrap(),
                 self.location.borrow(),
                 raw["url"].as_str().unwrap().to_string(),
-                Some(raw["image"][0].as_str().unwrap().to_string()),
+                image,
             );
             evt.add_band(raw["performer"]["name"].to_string());
             result.push(evt);
