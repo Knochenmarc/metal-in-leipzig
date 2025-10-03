@@ -43,6 +43,7 @@ impl Site for Hellraiser<'_> {
                 let name = capture.name("name").unwrap().as_str().to_string();
                 let name = name.replace("Ticket &#8222;", "");
                 let name = name.replace("&#8220;", "");
+                let name = name.replace("AEMPHANEMER", "AEPHANEMER");
 
                 let mut end_date: Option<NaiveDateTime> = None;
                 let start_date = if capture.name("variousfrom").is_some()
