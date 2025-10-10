@@ -41,6 +41,8 @@ impl Site for Darkflower<'_> {
             http.get_json(format!("{}{}", url, next_month.format("%m-%Y")).as_str()),
         ];
 
+        let mut added_ids: Vec<String> = Vec::new();
+
         for response in responses {
             let json = response.unwrap();
             let list = json.as_array().unwrap();
@@ -74,18 +76,21 @@ impl Site for Darkflower<'_> {
                     .iter()
                     .map(|s| s.as_str().unwrap().to_string().to_lowercase())
                     .collect();
+                let id = item.get("id").unwrap().as_str().unwrap().to_string();
 
-                if !event.name.eq("K-Wave")
-                    && !event.name.eq("101% Electro")
-                    && !event.name.eq("Darkflower Electro Bash")
-                    && !event.name.eq("Death Rave")
-                    && !event.name.eq("Synthetic Sounds")
-                    && !event.name.contains("Retro 80")
-                    && !event.name.contains("Industrial Frequencies")
-                    && tags.is_empty()
-                    || tags.contains(&"metal".to_string())
+                if !added_ids.contains(&id)
+                    && (!event.name.eq("K-Wave")
+                        && !event.name.eq("101% Electro")
+                        && !event.name.eq("Darkflower Electro Bash")
+                        && !event.name.eq("Death Rave")
+                        && !event.name.eq("Synthetic Sounds")
+                        && !event.name.contains("Retro 80")
+                        && !event.name.contains("Industrial Frequencies")
+                        && tags.is_empty()
+                        || tags.contains(&"metal".to_string()))
                 {
                     result.push(event);
+                    added_ids.push(id);
                 }
             }
         }
