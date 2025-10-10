@@ -56,12 +56,12 @@ body {
   --lm-background: url("img/messe.webp") center;
   --mb-background: url("img/moritzbastei.png") center;
   --mk-background: url("img/muehlkeller.png") center;
+  --mvb-background: url("img/mvb.png") center;
   --noel-background: url("img/noel.webp") center;
   --pb-background: url("img/parkbuehne.png") center;
   --qi-background: url("img/qi-arena.png") center;
   --rb-background: url("img/red-bull-arena.png") center;
   --rl-background: url("img/rocklounge.png") center;
-  --sm-background: url("img/soltmann.png") center;
   --tt-background: url("img/taeubchenthal.svg") center;
   --tv-background: url("img/tv-club.png") center;
   --ut-background: url("img/ut.png") center;
@@ -172,6 +172,11 @@ main {
     color: black; }
     .event.mk:before {
       background: var(--mk-background); }
+  .event.mvb {
+    background: white;
+    color: #212121; }
+    .event.mvb:before {
+      background: var(--mvb-background); }
   .event.noel {
     background-color: #00503c;
     color: #dad8d2; }
@@ -194,10 +199,6 @@ main {
       background: var(--rb-background); }
   .event.rl:before {
     background: var(--rl-background); }
-  .event.sm {
-    background-color: #101015; }
-    .event.sm:before {
-      background: var(--sm-background); }
   .event.tt {
     background-color: #333333; }
     .event.tt:before {
@@ -337,10 +338,6 @@ main {
         background: var(--rb-background); }
     .filters label.rl::before {
       background: var(--rl-background); }
-    .filters label.sm {
-      background-color: #101015; }
-      .filters label.sm::before {
-        background: var(--sm-background); }
     .filters label.tt {
       background-color: #333333; }
       .filters label.tt::before {
@@ -384,12 +381,12 @@ main {
 #filter-loc-lm:checked ~ .filters label[for="filter-loc-lm"],
 #filter-loc-mb:checked ~ .filters label[for="filter-loc-mb"],
 #filter-loc-mk:checked ~ .filters label[for="filter-loc-mk"],
+#filter-loc-mvb:checked ~ .filters label[for="filter-loc-mvb"],
 #filter-loc-noel:checked ~ .filters label[for="filter-loc-noel"],
 #filter-loc-pb:checked ~ .filters label[for="filter-loc-pb"],
 #filter-loc-qi:checked ~ .filters label[for="filter-loc-qi"],
 #filter-loc-rb:checked ~ .filters label[for="filter-loc-rb"],
 #filter-loc-rl:checked ~ .filters label[for="filter-loc-rl"],
-#filter-loc-sm:checked ~ .filters label[for="filter-loc-sm"],
 #filter-loc-tt:checked ~ .filters label[for="filter-loc-tt"],
 #filter-loc-tv:checked ~ .filters label[for="filter-loc-tv"],
 #filter-loc-ut:checked ~ .filters label[for="filter-loc-ut"],
@@ -411,12 +408,12 @@ main {
 #filter-loc-lm:checked ~ main .event.lm,
 #filter-loc-mb:checked ~ main .event.mb,
 #filter-loc-mk:checked ~ main .event.mk,
+#filter-loc-mvb:checked ~ main .event.mvb,
 #filter-loc-noel:checked ~ main .event.noel,
 #filter-loc-pb:checked ~ main .event.pb,
 #filter-loc-qi:checked ~ main .event.qi,
 #filter-loc-rb:checked ~ main .event.rb,
 #filter-loc-rl:checked ~ main .event.rl,
-#filter-loc-sm:checked ~ main .event.sm,
 #filter-loc-tt:checked ~ main .event.tt,
 #filter-loc-tv:checked ~ main .event.tv,
 #filter-loc-ut:checked ~ main .event.ut,
