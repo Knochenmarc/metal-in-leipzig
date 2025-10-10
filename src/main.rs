@@ -19,7 +19,6 @@ use crate::site::hellraiser::Hellraiser;
 use crate::site::moritzbastei::Moritzbastei;
 use crate::site::muehlkeller::Muehlkeller;
 use crate::site::noels::NoelsBallroom;
-use crate::site::soltmann::Soltmann;
 use crate::site::taeubchenthal::Taeubchenthal;
 use crate::site::tv_club::TVClub;
 use crate::site::ut_connewitz::UTConnewitz;
@@ -86,7 +85,6 @@ fn main() {
         Box::new(Moritzbastei::new()),
         Box::new(Muehlkeller::new()),
         Box::new(NoelsBallroom::new()),
-        Box::new(Soltmann::new()),
         Box::new(Taeubchenthal::new()),
         Box::new(TVClub::new()),
         Box::new(UTConnewitz::new()),

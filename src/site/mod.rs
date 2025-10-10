@@ -23,7 +23,6 @@ mod metallum;
 pub(crate) mod moritzbastei;
 pub(crate) mod muehlkeller;
 pub(crate) mod noels;
-pub(crate) mod soltmann;
 mod spirit_of_metal;
 pub(crate) mod taeubchenthal;
 mod tixforgigs;
