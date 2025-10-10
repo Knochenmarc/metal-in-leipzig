@@ -18,6 +18,7 @@ use crate::site::haus_auensee::HausAuensee;
 use crate::site::hellraiser::Hellraiser;
 use crate::site::moritzbastei::Moritzbastei;
 use crate::site::muehlkeller::Muehlkeller;
+use crate::site::mvb::MVB;
 use crate::site::noels::NoelsBallroom;
 use crate::site::taeubchenthal::Taeubchenthal;
 use crate::site::tv_club::TVClub;
@@ -84,6 +85,7 @@ fn main() {
         Box::new(Hellraiser::new()),
         Box::new(Moritzbastei::new()),
         Box::new(Muehlkeller::new()),
+        Box::new(MVB::new()),
         Box::new(NoelsBallroom::new()),
         Box::new(Taeubchenthal::new()),
         Box::new(TVClub::new()),

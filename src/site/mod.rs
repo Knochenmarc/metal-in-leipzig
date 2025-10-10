@@ -22,6 +22,7 @@ pub(crate) mod hellraiser;
 mod metallum;
 pub(crate) mod moritzbastei;
 pub(crate) mod muehlkeller;
+pub(crate) mod mvb;
 pub(crate) mod noels;
 mod spirit_of_metal;
 pub(crate) mod taeubchenthal;

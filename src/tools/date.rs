@@ -70,7 +70,8 @@ pub fn parse_iso_datetime(str: &str) -> ParseResult<NaiveDateTime> {
         .replace("+1:00", "+01:00")
         .replace("+2:00", "+02:00")
         .replace("+3:00", "+03:00")
-        .replace(".000", ""); // skip microseconds
+        .replace(".000", "") // skip microseconds
+        .replace(" ", "T"); // replace space between with T
     let format = match date.len() {
         19 => "%Y-%m-%dT%H:%M:%S",
         25 => "%Y-%m-%dT%H:%M:%S%:z",

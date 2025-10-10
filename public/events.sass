@@ -11,6 +11,7 @@ body
   --lm-background: url("img/messe.webp") center
   --mb-background: url("img/moritzbastei.png") center
   --mk-background: url("img/muehlkeller.png") center
+  --mvb-background: url("img/mvb.png") center
   --noel-background: url("img/noel.webp") center
   --pb-background: url("img/parkbuehne.png") center
   --qi-background: url("img/qi-arena.png") center
@@ -157,6 +158,13 @@ main
 
     &:before
       background: var(--mk-background)
+
+  &.mvb
+    background: white
+    color: #212121
+
+    &:before
+      background: var(--mvb-background)
 
   &.noel
     background-color: #00503c
@@ -434,6 +442,7 @@ main
 #filter-loc-lm:checked ~ .filters label[for="filter-loc-lm"],
 #filter-loc-mb:checked ~ .filters label[for="filter-loc-mb"],
 #filter-loc-mk:checked ~ .filters label[for="filter-loc-mk"],
+#filter-loc-mvb:checked ~ .filters label[for="filter-loc-mvb"],
 #filter-loc-noel:checked ~ .filters label[for="filter-loc-noel"],
 #filter-loc-pb:checked ~ .filters label[for="filter-loc-pb"],
 #filter-loc-qi:checked ~ .filters label[for="filter-loc-qi"],
@@ -460,6 +469,7 @@ main
 #filter-loc-lm:checked ~ main .event.lm,
 #filter-loc-mb:checked ~ main .event.mb,
 #filter-loc-mk:checked ~ main .event.mk,
+#filter-loc-mvb:checked ~ main .event.mvb,
 #filter-loc-noel:checked ~ main .event.noel,
 #filter-loc-pb:checked ~ main .event.pb,
 #filter-loc-qi:checked ~ main .event.qi,
