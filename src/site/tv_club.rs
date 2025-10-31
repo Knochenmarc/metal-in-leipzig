@@ -48,6 +48,7 @@ impl Site for TVClub<'_> {
             if lowered_title.contains("party")
                 || lowered_title.contains("semester")
                 || lowered_title.contains("fasching")
+                || lowered_title.contains("markt")
                 || title.contains("Stand-Up Comedy")
             {
                 continue;
@@ -81,7 +82,26 @@ impl Site for TVClub<'_> {
                 .unwrap();
             let img = (img.as_str()).map(|str| str.to_string());
 
-            let excerpt = v.get("excerpt").unwrap().as_str().unwrap().to_string();
+            let mut excerpt = v.get("excerpt").unwrap().as_str().unwrap().to_string();
+            if excerpt.is_empty() {
+                let page_data = http
+                    .get_json(
+                        format!(
+                            "https://www.tv-club-leipzig.de/wp-json/wp/v2/posts/{}",
+                            v.get("id").unwrap()
+                        )
+                        .as_str(),
+                    )
+                    .unwrap();
+                excerpt = page_data
+                    .get("excerpt")
+                    .unwrap()
+                    .as_object()
+                    .unwrap()
+                    .get("rendered")
+                    .unwrap()
+                    .to_string();
+            }
             let lowered_excerpt = excerpt.to_lowercase();
 
             let mut event = Event::new(

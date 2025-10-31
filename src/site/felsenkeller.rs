@@ -123,6 +123,7 @@ impl Site for Felsenkeller<'_> {
                 || name.contains("Teenage Warning Festival")
                 || name.contains("Napalm Death")
                 || name.contains("PALEFACE SWISS")
+                || name.contains("HELL NIGHTS")
                 || name == "ALLT"
             {
                 result.push(evt);
