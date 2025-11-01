@@ -18,7 +18,9 @@ pub(crate) fn render(mut events: BTreeMap<NaiveDate, Vec<Event>>, locations: Vec
     let mut hb = Handlebars::new();
     hb.register_template_file("event_list", "templates/event_list.hbs")
         .expect("template not found");
-    hb.register_template_file("filter", "templates/filter.hbs")
+    hb.register_template_file("filter-controls", "templates/filter-controls.hbs")
+        .expect("template not found");
+    hb.register_template_file("filter-form", "templates/filter-form.hbs")
         .expect("template not found");
     hb.register_template_file("head", "templates/head.hbs")
         .expect("template not found");

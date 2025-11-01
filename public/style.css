@@ -17,12 +17,16 @@ header {
   display: grid;
   grid-column: 3;
   grid-template-columns: 80px auto 60px;
-  height: 100px; }
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: linear-gradient(to bottom, black calc(100% - 30px), transparent); }
   header .update-time {
     font-size: 9pt; }
   header .logo {
     display: block;
-    height: 100%;
+    height: clamp(65px, 15vw, 100px);
     background: url("img/logo.svg") no-repeat center;
     background-size: contain; }
   header div:last-child {
@@ -38,10 +42,6 @@ header {
     opacity: 100%; }
   header a:hover {
     color: white; }
-
-@media (max-width: 671px) {
-  header {
-    height: 65px; } }
 
 body {
   --ank-background: url("img/anker.webp") center;
@@ -68,9 +68,6 @@ body {
   --w2-background: url("img/werk2.png") center;
   --wgt-background: url("img/wgt.png") center;
   --zf-background: url("img/zf.png") center; }
-
-main {
-  margin-top: -12px; }
 
 .events {
   padding-left: 80px;
@@ -232,13 +229,18 @@ main {
 #event-filter, input.filter[type="checkbox"] {
   display: none; }
 
+header:has(.filters) {
+  margin-bottom: -20px; }
+
 .filters {
   position: relative;
   top: -20px;
+  left: calc(50vw - 100px);
   width: 200px;
   display: inline-block; }
   .filters[open] {
-    width: 100%; }
+    width: 100vw;
+    left: 0; }
   .filters summary {
     color: white;
     cursor: var(--metalhand);
@@ -426,11 +428,6 @@ main {
 #filter-loc-wgt:checked ~ main .event.wgt,
 #filter-loc-zf:checked ~ main .event.zf {
   display: none; }
-
-#filter-toggle:checked ~ .filters {
-  height: 100%; }
-  #filter-toggle:checked ~ .filters .toggle-down {
-    display: none; }
 
 .recht h1, .recht p {
   text-align: left;

@@ -24,9 +24,6 @@ body
   --wgt-background: url("img/wgt.png") center
   --zf-background: url("img/zf.png") center
 
-main
-  margin-top: -12px
-
 .events
   padding-left: 80px
   overflow: hidden
@@ -243,14 +240,19 @@ main
 #event-filter, input.filter[type="checkbox"]
   display: none
 
+header:has(.filters)
+  margin-bottom: -20px
+
 .filters
   position: relative
   top: -20px
+  left: calc(50vw - 100px)
   width: 200px
   display: inline-block
 
   &[open]
-    width: 100%
+    width: 100vw
+    left: 0
 
   summary
     color: white
@@ -489,9 +491,3 @@ main
 #filter-loc-wgt:checked ~ main .event.wgt,
 #filter-loc-zf:checked ~ main .event.zf
   display: none
-
-#filter-toggle:checked ~ .filters
-  height: 100%
-
-  .toggle-down
-    display: none

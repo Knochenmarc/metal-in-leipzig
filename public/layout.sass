@@ -20,14 +20,18 @@ header
   display: grid
   grid-column: 3
   grid-template-columns: 80px auto 60px
-  height: 100px
+  width: 100%
+  position: sticky
+  top: 0
+  z-index: 100
+  background: linear-gradient(to bottom, black calc(100% - 30px), transparent)
 
   .update-time
     font-size: 9pt
 
   .logo
     display: block
-    height: 100%
+    height: clamp(65px, 15vw, 100px)
     background: url("img/logo.svg") no-repeat center
     background-size: contain
 
@@ -47,7 +51,3 @@ header
 
   a:hover
     color: white
-
-@media (max-width: 671px)
-  header
-    height: 65px

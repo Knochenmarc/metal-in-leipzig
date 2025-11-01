@@ -1,0 +1,8 @@
+<form name="event-filter" autocomplete="on" id="event-filter"><input type="submit"/></form>
+{{#each locations}}
+    <input type="checkbox" class="filter" name="{{this.slug}}" value="{{this.slug}}" id="filter-loc-{{this.slug}}"
+           form="event-filter"/>
+{{/each}}
+<input type="checkbox" class="filter" name="setting-flyer" id="flyer-toggle" form="event-filter" value="off"/>
+
+<script async>{{> filter-js }}</script>
