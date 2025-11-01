@@ -266,7 +266,9 @@ header:has(.filters)
     margin: 1px
     line-height: 30px
     display: inline-block
-    border: #2a882a solid 4px
+    border-image: linear-gradient(to bottom, #2a882a 10%, transparent 100%) 1
+    border-width: 4px
+    border-style: solid
 
     &:not(.setting)::before
       content: ""
@@ -438,32 +440,32 @@ header:has(.filters)
       &::before
         background: var(--zf-background)
 
-#flyer-toggle:checked ~ .filters label[for="flyer-toggle"],
-#filter-loc-ank:checked ~ .filters label[for="filter-loc-ank"],
-#filter-loc-bc:checked ~ .filters label[for="filter-loc-bc"],
-#filter-loc-ci:checked ~ .filters label[for="filter-loc-ci"],
-#filter-loc-df:checked ~ .filters label[for="filter-loc-df"],
-#filter-loc-fest:checked ~ .filters label[for="filter-loc-fest"],
-#filter-loc-fk:checked ~ .filters label[for="filter-loc-fk"],
-#filter-loc-fw:checked ~ .filters label[for="filter-loc-fw"],
-#filter-loc-ha:checked ~ .filters label[for="filter-loc-ha"],
-#filter-loc-hr:checked ~ .filters label[for="filter-loc-hr"],
-#filter-loc-lm:checked ~ .filters label[for="filter-loc-lm"],
-#filter-loc-mb:checked ~ .filters label[for="filter-loc-mb"],
-#filter-loc-mk:checked ~ .filters label[for="filter-loc-mk"],
-#filter-loc-mvb:checked ~ .filters label[for="filter-loc-mvb"],
-#filter-loc-noel:checked ~ .filters label[for="filter-loc-noel"],
-#filter-loc-pb:checked ~ .filters label[for="filter-loc-pb"],
-#filter-loc-qi:checked ~ .filters label[for="filter-loc-qi"],
-#filter-loc-rb:checked ~ .filters label[for="filter-loc-rb"],
-#filter-loc-rl:checked ~ .filters label[for="filter-loc-rl"],
-#filter-loc-tt:checked ~ .filters label[for="filter-loc-tt"],
-#filter-loc-tv:checked ~ .filters label[for="filter-loc-tv"],
-#filter-loc-ut:checked ~ .filters label[for="filter-loc-ut"],
-#filter-loc-w2:checked ~ .filters label[for="filter-loc-w2"],
-#filter-loc-wgt:checked ~ .filters label[for="filter-loc-wgt"],
-#filter-loc-zf:checked ~ .filters label[for="filter-loc-zf"]
-  border-color: #d81b60
+#flyer-toggle:checked ~ header .filters label[for="flyer-toggle"],
+#filter-loc-ank:checked ~ header .filters label[for="filter-loc-ank"],
+#filter-loc-bc:checked ~ header .filters label[for="filter-loc-bc"],
+#filter-loc-ci:checked ~ header .filters label[for="filter-loc-ci"],
+#filter-loc-df:checked ~ header .filters label[for="filter-loc-df"],
+#filter-loc-fest:checked ~ header .filters label[for="filter-loc-fest"],
+#filter-loc-fk:checked ~ header .filters label[for="filter-loc-fk"],
+#filter-loc-fw:checked ~ header .filters label[for="filter-loc-fw"],
+#filter-loc-ha:checked ~ header .filters label[for="filter-loc-ha"],
+#filter-loc-hr:checked ~ header .filters label[for="filter-loc-hr"],
+#filter-loc-lm:checked ~ header .filters label[for="filter-loc-lm"],
+#filter-loc-mb:checked ~ header .filters label[for="filter-loc-mb"],
+#filter-loc-mk:checked ~ header .filters label[for="filter-loc-mk"],
+#filter-loc-mvb:checked ~ header .filters label[for="filter-loc-mvb"],
+#filter-loc-noel:checked ~ header .filters label[for="filter-loc-noel"],
+#filter-loc-pb:checked ~ header .filters label[for="filter-loc-pb"],
+#filter-loc-qi:checked ~ header .filters label[for="filter-loc-qi"],
+#filter-loc-rb:checked ~ header .filters label[for="filter-loc-rb"],
+#filter-loc-rl:checked ~ header .filters label[for="filter-loc-rl"],
+#filter-loc-tt:checked ~ header .filters label[for="filter-loc-tt"],
+#filter-loc-tv:checked ~ header .filters label[for="filter-loc-tv"],
+#filter-loc-ut:checked ~ header .filters label[for="filter-loc-ut"],
+#filter-loc-w2:checked ~ header .filters label[for="filter-loc-w2"],
+#filter-loc-wgt:checked ~ header .filters label[for="filter-loc-wgt"],
+#filter-loc-zf:checked ~ header .filters label[for="filter-loc-zf"]
+  border-image: linear-gradient(to top, #d81b60 10%, transparent 100%) 1
 
 #flyer-toggle:checked ~ main .event img,
 #filter-loc-ank:checked ~ main .event.ank,
