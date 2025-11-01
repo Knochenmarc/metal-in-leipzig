@@ -152,7 +152,6 @@ impl Serialize for Location<'_, '_, '_> {
 pub struct Image {
     pub remote_url: String,
     pub public_avif_url: String,
-    pub public_jpg_url: String,
     pub hash: u64,
     width: u32,
     height: u32,
@@ -164,8 +163,7 @@ impl Image {
 
         Self {
             remote_url,
-            public_avif_url: format!("flyer/{}.avif", hash),
-            public_jpg_url: format!("flyer/{}.jpg", hash),
+            public_avif_url: format!("flyer/{hash}.avif"),
             hash,
             width: 0,
             height: 0,
@@ -188,7 +186,6 @@ impl Serialize for Image {
         let height = height as i32;
         let mut s = serializer.serialize_struct("Image", 4)?;
         s.serialize_field("public_avif_url", &self.public_avif_url)?;
-        s.serialize_field("public_jpg_url", &self.public_jpg_url)?;
         s.serialize_field("width", &width)?;
         s.serialize_field("height", &height)?;
         s.end()

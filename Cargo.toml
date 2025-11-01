@@ -10,7 +10,6 @@ chrono = { version = "0.4", features = ["serde"] }
 chrono-tz = "0.10"
 handlebars = "6.3"
 html-escape = "0.2"
-jpeg-decoder = "0.3"
 lazy_static = "1"
 regex = "1"
 reqwest = { version = "0.12", features = ["blocking", "native-tls", "native-tls-vendored", "native-tls-alpn", "gzip", "deflate"] }

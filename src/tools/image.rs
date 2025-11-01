@@ -1,18 +1,16 @@
-use std::env::temp_dir;
-use std::fs::{remove_file, File};
-use std::io::{BufReader, Write};
-use std::path::Path;
-use std::process::Command;
-
-use jpeg_decoder::Decoder;
-
 use crate::event::Image;
 use crate::tools::Http;
+use std::env::temp_dir;
+use std::fs::{remove_file, File};
+use std::io::Write;
+use std::path::Path;
+use std::process::Command;
+use std::str::FromStr;
 
 const LOCAL_DIR: &str = "public/";
 
 pub fn optimize_image(img: &mut Image, http: &Http) {
-    let local_path = LOCAL_DIR.to_string() + &img.public_jpg_url;
+    let local_path = LOCAL_DIR.to_string() + &img.public_avif_url;
     let local_path = Path::new(local_path.as_str());
 
     if !local_path.exists() {
@@ -36,10 +34,10 @@ pub fn optimize_image(img: &mut Image, http: &Http) {
                     tmp_path.to_str().unwrap(),
                     "-resize",
                     "435",
-                    "-strip", // emoves metadata
+                    "-strip", // removes metadata
                     "-define",
-                    "heic:speed=0",
-                    (LOCAL_DIR.to_owned() + &img.public_avif_url).as_str(),
+                    "heic:speed=1",
+                    local_path.to_str().unwrap(),
                 ])
                 .spawn()
                 .expect("could not start avif conversion");
@@ -58,9 +56,16 @@ pub fn optimize_image(img: &mut Image, http: &Http) {
 }
 
 fn get_dimension(file_path: &str) -> (u32, u32) {
-    let file = File::open(file_path).expect("failed to open file");
-    let mut decoder = Decoder::new(BufReader::new(file));
-    decoder.read_info().expect("failed to read metadata");
-    let metadata = decoder.info().expect("failed extracting image metadata");
-    (metadata.width as u32, metadata.height as u32)
+    let width_output = Command::new("magick")
+        .args(["identify", "-format", "%w", file_path])
+        .output();
+    let height_output = Command::new("magick")
+        .args(["identify", "-format", "%h", file_path])
+        .output();
+    let width = String::from_utf8(width_output.unwrap().stdout).unwrap();
+    let width = u32::from_str(width.as_str()).unwrap();
+    let height = String::from_utf8(height_output.unwrap().stdout).unwrap();
+    let height = u32::from_str(height.as_str()).unwrap();
+
+    (width, height)
 }
