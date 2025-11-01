@@ -30,31 +30,20 @@ pub fn optimize_image(img: &mut Image, http: &Http) {
         }
 
         if tmp_path.exists() {
-            let mut c1 = Command::new("convert")
+            //todo: run async
+            let mut magick = Command::new("magick")
                 .args([
-                    "-resize",
-                    "290",
-                    "-strip",
                     tmp_path.to_str().unwrap(),
-                    local_path.to_str().unwrap(),
-                ])
-                .spawn()
-                .expect("could not start jpeg conversion");
-            let mut c2 = Command::new("convert")
-                .args([
                     "-resize",
-                    "290",
-                    "-strip",
+                    "435",
+                    "-strip", // emoves metadata
                     "-define",
-                    "heic:speed=2",
-                    tmp_path.to_str().unwrap(),
+                    "heic:speed=0",
                     (LOCAL_DIR.to_owned() + &img.public_avif_url).as_str(),
                 ])
                 .spawn()
                 .expect("could not start avif conversion");
-
-            c1.wait().unwrap();
-            c2.wait().unwrap();
+            magick.wait().unwrap();
 
             remove_file(tmp_path).unwrap();
         }

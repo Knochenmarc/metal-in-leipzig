@@ -25,13 +25,11 @@ jobs:
         run: echo "date=$(date +'%Y-%m')" >> $GITHUB_OUTPUT
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: install imagemagick
-        run: |
-          sudo apt-get update 
-          sudo apt-get install -y imagemagick
-          convert --version
+        uses: mfinelli/setup-imagemagick@v7
+      - run: magick -version
 
       - name: Cache flyers
         uses: actions/cache@v4

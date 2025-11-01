@@ -311,6 +311,11 @@ main {
         background: var(--lm-background); }
     .filters label.mb::before {
       background: var(--mb-background); }
+    .filters label.mvb {
+      background: white;
+      color: #212121; }
+      .filters label.mvb:before {
+        background: var(--mvb-background); }
     .filters label.mk {
       background: white;
       color: black; }
