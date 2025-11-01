@@ -58,7 +58,10 @@ impl Site for Anker<'_> {
                 None,
             );
 
-            if !collected_events.contains(&url.to_string()) && eventim.is_it_metal(evt.borrow()) {
+            if !collected_events.contains(&url.to_string())
+                && (evt.name.contains("Winds & Woods Festival")
+                    || eventim.is_it_metal(evt.borrow()))
+            {
                 let sub_html = http.get(url).unwrap();
                 let data_events = parse_linked_data_events(sub_html.as_str());
                 if !data_events.is_empty() {
