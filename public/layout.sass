@@ -17,37 +17,39 @@ a
     cursor: var(--metalhand)
 
 header
-  display: grid
-  grid-column: 3
-  grid-template-columns: 80px auto 60px
   width: 100%
   position: sticky
   top: 0
   z-index: 100
   background: linear-gradient(to bottom, black calc(100% - 30px), transparent)
 
-  .update-time
-    font-size: 9pt
+  > div
+    display: grid
+    grid-column: 3
+    grid-template-columns: 75px auto 75px
 
-  .logo
-    display: block
-    height: clamp(65px, 15vw, 100px)
-    background: url("img/logo.svg") no-repeat center
-    background-size: contain
+    .update-time
+      font-size: 9pt
 
-  div:last-child
-    padding: 5px
+    .logo
+      display: block
+      height: clamp(65px, 15vw, 100px)
+      background: url("img/logo.svg") no-repeat center
+      background-size: contain
 
-  .github
-    display: inline-block
-    width: 32px
-    height: 32px
-    background: url("img/GitHub-Mark-Light-64px.png") no-repeat center
-    background-size: contain
-    opacity: 50%
+    div:last-child
+      padding: 5px
 
-  .github:hover
-    opacity: 100%
+    .github
+      display: inline-block
+      width: 32px
+      height: 32px
+      background: url("img/GitHub-Mark-Light-64px.png") no-repeat center
+      background-size: contain
+      opacity: 50%
 
-  a:hover
-    color: white
+    .github:hover
+      opacity: 100%
+
+    a:hover
+      color: white

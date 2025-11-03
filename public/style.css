@@ -14,34 +14,35 @@ a {
     cursor: var(--metalhand); }
 
 header {
-  display: grid;
-  grid-column: 3;
-  grid-template-columns: 80px auto 60px;
   width: 100%;
   position: sticky;
   top: 0;
   z-index: 100;
   background: linear-gradient(to bottom, black calc(100% - 30px), transparent); }
-  header .update-time {
-    font-size: 9pt; }
-  header .logo {
-    display: block;
-    height: clamp(65px, 15vw, 100px);
-    background: url("img/logo.svg") no-repeat center;
-    background-size: contain; }
-  header div:last-child {
-    padding: 5px; }
-  header .github {
-    display: inline-block;
-    width: 32px;
-    height: 32px;
-    background: url("img/GitHub-Mark-Light-64px.png") no-repeat center;
-    background-size: contain;
-    opacity: 50%; }
-  header .github:hover {
-    opacity: 100%; }
-  header a:hover {
-    color: white; }
+  header > div {
+    display: grid;
+    grid-column: 3;
+    grid-template-columns: 75px auto 75px; }
+    header > div .update-time {
+      font-size: 9pt; }
+    header > div .logo {
+      display: block;
+      height: clamp(65px, 15vw, 100px);
+      background: url("img/logo.svg") no-repeat center;
+      background-size: contain; }
+    header > div div:last-child {
+      padding: 5px; }
+    header > div .github {
+      display: inline-block;
+      width: 32px;
+      height: 32px;
+      background: url("img/GitHub-Mark-Light-64px.png") no-repeat center;
+      background-size: contain;
+      opacity: 50%; }
+    header > div .github:hover {
+      opacity: 100%; }
+    header > div a:hover {
+      color: white; }
 
 body {
   --ank-background: url("img/anker.webp") center;
@@ -86,7 +87,7 @@ body {
       color: white; }
 
 .event {
-  box-shadow: 0 0 0 4px rgba(52, 52, 52, 0.7);
+  box-shadow: 0 0 4px 4px rgba(52, 52, 52, 0.7);
   margin: 5px;
   width: 290px;
   min-height: 30px;
@@ -97,7 +98,7 @@ body {
   text-decoration: none;
   display: inline-block; }
   .event:hover {
-    box-shadow: 0 0 0 4px #c0c0c0; }
+    box-shadow: 0 0 4px 4px #c0c0c0; }
   .event:first-line {
     line-height: 32px; }
   .event:before {
@@ -235,12 +236,10 @@ header:has(.filters) {
 .filters {
   position: relative;
   top: -20px;
-  left: calc(50vw - 100px);
-  width: 200px;
+  width: fit-content;
   display: inline-block; }
   .filters[open] {
-    width: 100vw;
-    left: 0; }
+    width: 100%; }
   .filters summary {
     color: white;
     cursor: var(--metalhand);
