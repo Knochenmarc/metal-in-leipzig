@@ -44,7 +44,7 @@ body
       color: white
 
 .event
-  box-shadow: 0 0 0 4px rgba(52, 52, 52, 0.7)
+  box-shadow: 0 0 4px 4px rgba(52, 52, 52, 0.7)
   margin: 5px
   width: 290px
   min-height: 30px
@@ -56,7 +56,7 @@ body
   display: inline-block
 
   &:hover
-    box-shadow: 0 0 0 4px #c0c0c0
+    box-shadow: 0 0 4px 4px #c0c0c0
 
   &:first-line
     line-height: 32px
@@ -246,13 +246,11 @@ header:has(.filters)
 .filters
   position: relative
   top: -20px
-  left: calc(50vw - 100px)
-  width: 200px
+  width: fit-content
   display: inline-block
 
   &[open]
-    width: 100vw
-    left: 0
+    width: 100%
 
   summary
     color: white
