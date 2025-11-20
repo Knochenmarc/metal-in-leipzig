@@ -1,11 +1,9 @@
-use std::borrow::Borrow;
-
 use crate::event::{Event, Location};
 use crate::site::Site;
-use crate::tools::date::get_today;
+use crate::tools::date::parse_iso_datetime;
 use crate::tools::Http;
-use chrono::{DateTime, Months};
-use html_escape::decode_html_entities;
+use serde_json::{Map, Value};
+use std::borrow::Borrow;
 
 pub struct Darkflower<'l> {
     location: Location<'l, 'l, 'l>,
@@ -21,6 +19,52 @@ impl Darkflower<'_> {
             },
         }
     }
+
+    fn is_metal(&self, text: Option<&Value>) -> bool {
+        text.unwrap()
+            .as_str()
+            .unwrap_or("")
+            .to_lowercase()
+            .contains("metal")
+    }
+
+    fn build_event(&self, item: &Map<String, Value>, floor: &str) -> Event {
+        // jep, da gibts nen Typo in der api >.<
+        let mut flyer = item.get(&("flyer_hochkant_flloor_".to_owned() + floor));
+        if flyer.is_none() {
+            flyer = item.get(&("flyer_hochkant_floor_".to_owned() + floor));
+        }
+        let image = flyer
+            .unwrap()
+            .as_object()
+            .unwrap()
+            .get("guid")
+            .unwrap()
+            .as_str()
+            .unwrap();
+
+        let name = item
+            .get(&("veranstaltungsname_floor_".to_owned() + floor))
+            .unwrap()
+            .as_str()
+            .unwrap();
+
+        let date = item
+            .get("datum_der_veranstaltung")
+            .unwrap()
+            .as_str()
+            .unwrap();
+        let time = item.get("einlass").unwrap().as_str().unwrap();
+        let link = item.get("link").unwrap().as_str().unwrap();
+
+        Event::new(
+            name.to_string(),
+            parse_iso_datetime(format!("{date}T{time}").as_str()).unwrap(),
+            self.get_location(),
+            link.to_string(),
+            Some(image.to_string()),
+        )
+    }
 }
 
 impl Site for Darkflower<'_> {
@@ -30,68 +74,47 @@ impl Site for Darkflower<'_> {
 
     fn fetch_events(&self, http: &Http) -> Vec<Event> {
         let mut result = Vec::new();
-        let today = get_today();
-        let next_month = today.checked_add_months(Months::new(1)).unwrap();
 
-        // squarespace api
-        let url = "https://www.darkflower.de/api/open/GetItemsByMonth?collectionId=65eafdcbb10de026acca412e&month=";
+        let response =
+            http.get_json("https://www.darkflower.de/wp-json/wp/v2/veranstaltung?per_page=50");
 
-        let responses = [
-            http.get_json(format!("{}{}", url, today.format("%m-%Y")).as_str()),
-            http.get_json(format!("{}{}", url, next_month.format("%m-%Y")).as_str()),
-        ];
+        let mut added_ids: Vec<u64> = Vec::new();
 
-        let mut added_ids: Vec<String> = Vec::new();
+        for item in response.unwrap().as_array().unwrap() {
+            let item = item.as_object().unwrap();
 
-        for response in responses {
-            let json = response.unwrap();
-            let list = json.as_array().unwrap();
-            for item in list {
-                let item = item.as_object().unwrap();
-                let start_date = DateTime::from_timestamp_millis(
-                    item.get("startDate").unwrap().as_i64().unwrap(),
-                )
+            let id = item.get("id").unwrap().as_u64().unwrap();
+            if added_ids.contains(&id) {
+                continue;
+            }
+
+            let name1 = item
+                .get("veranstaltungsname_floor_1")
+                .unwrap()
+                .as_str()
                 .unwrap();
-                let end_date =
-                    DateTime::from_timestamp_millis(item.get("endDate").unwrap().as_i64().unwrap())
-                        .unwrap();
-                let title = item.get("title").unwrap().as_str().unwrap().trim();
-                let mut event = Event::new(
-                    decode_html_entities(title).to_string(),
-                    start_date.naive_local(),
-                    self.get_location(),
-                    format!(
-                        "https://www.darkflower.de{}",
-                        item.get("fullUrl").unwrap().as_str().unwrap()
-                    ),
-                    Some(item.get("assetUrl").unwrap().as_str().unwrap().to_string()),
-                );
-                event.end_date = Some(end_date.naive_local());
+            if !name1.is_empty()
+                && (self.is_metal(item.get("veranstaltungsname_floor_1"))
+                    || self.is_metal(item.get("beschreibung_floor_1"))
+                    || self.is_metal(item.get("musikrichtung_auf_floor_1")))
+            {
+                result.push(self.build_event(item, "1"));
+                added_ids.push(id);
+            }
 
-                let tags: Vec<String> = item
-                    .get("tags")
-                    .unwrap()
-                    .as_array()
-                    .unwrap()
-                    .iter()
-                    .map(|s| s.as_str().unwrap().to_string().to_lowercase())
-                    .collect();
-                let id = item.get("id").unwrap().as_str().unwrap().to_string();
-
-                if !added_ids.contains(&id)
-                    && (!event.name.eq("K-Wave")
-                        && !event.name.eq("101% Electro")
-                        && !event.name.eq("Darkflower Electro Bash")
-                        && !event.name.eq("Death Rave")
-                        && !event.name.eq("Synthetic Sounds")
-                        && !event.name.contains("Retro 80")
-                        && !event.name.contains("Industrial Frequencies")
-                        && tags.is_empty()
-                        || tags.contains(&"metal".to_string()))
-                {
-                    result.push(event);
-                    added_ids.push(id);
-                }
+            let name2 = item
+                .get("veranstaltungsname_floor_2")
+                .unwrap()
+                .as_str()
+                .unwrap();
+            if !name2.is_empty()
+                && name1 != name2
+                && (self.is_metal(item.get("veranstaltungsname_floor_2"))
+                    || self.is_metal(item.get("beschreibung_floor_2"))
+                    || self.is_metal(item.get("musikrichtung_auf_floor_2")))
+            {
+                result.push(self.build_event(item, "2"));
+                added_ids.push(id);
             }
         }
 
