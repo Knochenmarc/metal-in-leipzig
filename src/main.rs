@@ -39,6 +39,7 @@ const BLOCKLIST: &[&str] = &[
     "2026-02-18-tt-LUNA",
     "2026-02-27-ha-GZUZ",
     "2026-03-28-fk-Lebanon Hanover",
+    "2026-12-04-qi-PUR",
 ];
 
 fn parse_args(sites: Vec<Box<dyn Site>>) -> Vec<Box<dyn Site>> {
