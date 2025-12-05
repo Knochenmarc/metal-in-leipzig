@@ -32,8 +32,13 @@ impl Site for TVClub<'_> {
         let html = http.get("https://www.tv-club-leipzig.de/events/").unwrap();
 
         let json_reg = Regex::new(r"(?i)\[\{&quot;.*;&quot;}]").unwrap();
+        let fix_reg =
+            Regex::new(r"(?i)&quot;_g_feedback_shortcode_.*&quot;_g_feedback_shortcode").unwrap();
         let json_encoded = json_reg.captures(&html).unwrap().get(0).unwrap().as_str();
-        let json = decode_html_entities(json_encoded).to_string();
+        let json_encoded = fix_reg
+            .replace_all(json_encoded, "&quot;_g_feedback_shortcode")
+            .to_string();
+        let json = decode_html_entities(json_encoded.as_str()).to_string();
         let json: Value = serde_json::from_str(json.as_str()).unwrap();
 
         let title_reg = Regex::new(r"(?i) am \d\d\.\d\d\.\d\d\d\d").unwrap();
