@@ -28,6 +28,11 @@ impl Site for Festivals<'_> {
     }
 
     fn fetch_events(&self, _http: &Http) -> Vec<Event> {
+        //TODO: https://metalpest.de/
+        //TODO: TILL Fest https://scontent-fra5-2.cdninstagram.com/v/t51.82787-15/571858035_18132906898478496_178091826607379800_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=107&ig_cache_key=Mzc1NDM1ODM3NjUwNDI0NzQzOA%3D%3D.3-ccb1-7&ccb=1-7&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTgwMi5zZHIuQzMifQ%3D%3D&_nc_ohc=z1XT7DLBSREQ7kNvwG3HDN8&_nc_oc=Adlt_c-oyJRjajxgG6KzdvJNK_GpAR8DGGgTGObgjyPzpW6GCS_-4t4nRQ6wUMTUGUbKoX5glNIYuKtrCS4HOevj&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent-fra5-2.cdninstagram.com&_nc_gid=ahp6jdBqDX-vqX2q_7z9QA&oh=00_AfjhzwSVCYmJ3vhslSuDHHavsE2qKqMmp7dyTwCTLcoeag&oe=69165839
+
+        let mut festivals = vec![];
+
         let mut inflammen = Event::new(
             "In Flammen Open Air".to_string(),
             NaiveDateTime::new(
@@ -42,72 +47,75 @@ impl Site for Festivals<'_> {
             NaiveDate::from_ymd_opt(2025, 7, 12).unwrap(),
             NaiveTime::from_hms_opt(23, 59, 00).unwrap(),
         ));
-        inflammen.evt_type = EventType::Festival;
+        festivals.push(inflammen);
 
-        let mut rock = Event::new(
-            "Rock um zu Helfen".to_string(),
-            NaiveDateTime::new(
-                NaiveDate::from_ymd_opt(2024, 10, 11).unwrap(),
-                NaiveTime::default(),
-            ),
-            self.location.borrow(),
-            "https://www.rock-um-zu-helfen.de/".to_string(),
-            Some("https://s3-eu-west-1.amazonaws.com/static.csone.dgbrt.de/artifacts/events/466/design.png".to_string()),
-        );
-        rock.end_date = Some(NaiveDateTime::new(
-            NaiveDate::from_ymd_opt(2024, 10, 12).unwrap(),
-            NaiveTime::from_hms_opt(23, 59, 00).unwrap(),
-        ));
-        rock.evt_type = EventType::Festival;
+        // let mut rock = Event::new(
+        //     "Rock um zu Helfen".to_string(),
+        //     NaiveDateTime::new(
+        //         NaiveDate::from_ymd_opt(2024, 10, 11).unwrap(),
+        //         NaiveTime::default(),
+        //     ),
+        //     self.location.borrow(),
+        //     "https://www.rock-um-zu-helfen.de/".to_string(),
+        //     Some("https://s3-eu-west-1.amazonaws.com/static.csone.dgbrt.de/artifacts/events/466/design.png".to_string()),
+        // );
+        // rock.end_date = Some(NaiveDateTime::new(
+        //     NaiveDate::from_ymd_opt(2024, 10, 12).unwrap(),
+        //     NaiveTime::from_hms_opt(23, 59, 00).unwrap(),
+        // ));
 
         let mut impericon = Event::new(
             "Impericon Festival".to_string(),
             NaiveDateTime::new(
-                NaiveDate::from_ymd_opt(2025, 6, 27).unwrap(),
+                NaiveDate::from_ymd_opt(2026, 6, 26).unwrap(),
                 NaiveTime::default(),
             ),
             self.location.borrow(),
             "https://www.impericon.com/de/festival".to_string(),
-            Some("https://www.impericon.com/cdn/shop/files/20250408_impfest_desktop_lineup_ticket_alert_de.jpg".to_string()),
+            Some("https://www.impericon.com/cdn/shop/files/20251210_imp_fest_2026_vo6_microsite_fullsize.jpg".to_string()),
         );
         impericon.end_date = Some(NaiveDateTime::new(
-            NaiveDate::from_ymd_opt(2025, 6, 28).unwrap(),
+            NaiveDate::from_ymd_opt(2026, 6, 27).unwrap(),
             NaiveTime::from_hms_opt(23, 59, 00).unwrap(),
         ));
-        impericon.evt_type = EventType::Festival;
+        festivals.push(impericon);
 
         let mut full_rewind = Event::new(
             "Full Rewind".to_string(),
             NaiveDateTime::new(
-                NaiveDate::from_ymd_opt(2025, 7, 31).unwrap(),
+                NaiveDate::from_ymd_opt(2026, 7, 30).unwrap(),
                 NaiveTime::default(),
             ),
             self.location.borrow(),
             "https://full-rewind.de/".to_string(),
-            Some("https://cdn.shopify.com/s/files/1/0778/0528/9815/files/FRF2025-Bands_Ankundigung4.jpg".to_string()),
+            Some("https://cdn.shopify.com/s/files/1/0778/0528/9815/files/251201-FRF2026-Bands_Ankundigung.jpg".to_string()),
         );
         full_rewind.end_date = Some(NaiveDateTime::new(
-            NaiveDate::from_ymd_opt(2025, 8, 2).unwrap(),
+            NaiveDate::from_ymd_opt(2026, 8, 1).unwrap(),
             NaiveTime::from_hms_opt(23, 59, 00).unwrap(),
         ));
-        full_rewind.evt_type = EventType::Festival;
+        festivals.push(full_rewind);
 
-        let mut nexus = Event::new(
-            "Nexus Festival".to_string(),
-            NaiveDateTime::new(
-                NaiveDate::from_ymd_opt(2025, 7, 11).unwrap(),
-                NaiveTime::default(),
-            ),
-            self.location.borrow(),
-            "https://www.nexo-nerd-expo.com/".to_string(),
-            Some("https://lh3.googleusercontent.com/u/0/d/11YLfyDIFN62PioQsXPzuFew2R549VRQz=w3129-h1306-iv1".to_string()),
-        );
-        nexus.end_date = Some(NaiveDateTime::new(
-            NaiveDate::from_ymd_opt(2025, 7, 13).unwrap(),
-            NaiveTime::from_hms_opt(23, 59, 00).unwrap(),
-        ));
-        nexus.evt_type = EventType::Festival;
+        // let mut nexus = Event::new(
+        //     "Nexus Festival".to_string(),
+        //     NaiveDateTime::new(
+        //         NaiveDate::from_ymd_opt(2026, 9, 18).unwrap(),
+        //         NaiveTime::default(),
+        //     ),
+        //     self.location.borrow(),
+        //     "https://www.nexo-nerd-expo.com/".to_string(),
+        //     Some("https://scontent-fra3-2.xx.fbcdn.net/v/t39.30808-6/518352567_1051443510536848_5029225649659660304_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=NrC3cN_fJQgQ7kNvwH6_eag&_nc_oc=Adk35KhP_G-HxsYl9r36whkQt2D_ysRabJy4dT10kG_2CQTt27U7bLopyLsH88OANe7RPs4Yg0zfIABRE3eyhsx-&_nc_zt=23&_nc_ht=scontent-fra3-2.xx&_nc_gid=ZAF99urnlOFRcMCwOaAbwQ&oh=00_Afge3Z_STBrL2DMNUgtjV9trDMseusq732J-_GGkh4cTSg&oe=69166299".to_string()),
+        // );
+        // nexus.end_date = Some(NaiveDateTime::new(
+        //     NaiveDate::from_ymd_opt(2026, 9, 20).unwrap(),
+        //     NaiveTime::from_hms_opt(23, 59, 00).unwrap(),
+        // ));
+        // festivals.push(nexus);
 
-        vec![inflammen, rock, impericon, full_rewind, nexus]
+        festivals
+            .iter_mut()
+            .for_each(|festival| festival.evt_type = EventType::Festival);
+
+        festivals
     }
 }
