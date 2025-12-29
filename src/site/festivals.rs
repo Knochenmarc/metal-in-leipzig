@@ -36,15 +36,15 @@ impl Site for Festivals<'_> {
         let mut inflammen = Event::new(
             "In Flammen Open Air".to_string(),
             NaiveDateTime::new(
-                NaiveDate::from_ymd_opt(2025, 7, 10).unwrap(),
+                NaiveDate::from_ymd_opt(2026, 7, 9).unwrap(),
                 NaiveTime::default(),
             ),
             self.location.borrow(),
             "https://www.in-flammen.com/".to_string(),
-            Some("https://image.jimcdn.com/app/cms/image/transf/none/path/sfa7e4f2e650d1c8b/image/if70ed78ae97ad0c5/version/1748024390/image.jpg".to_string()),
+            Some("https://image.jimcdn.com/app/cms/image/transf/none/path/sfa7e4f2e650d1c8b/image/i2ae80efdbf3f5e44/version/1613414208/image.jpg".to_string()),
         );
         inflammen.end_date = Some(NaiveDateTime::new(
-            NaiveDate::from_ymd_opt(2025, 7, 12).unwrap(),
+            NaiveDate::from_ymd_opt(2026, 7, 11).unwrap(),
             NaiveTime::from_hms_opt(23, 59, 00).unwrap(),
         ));
         festivals.push(inflammen);
