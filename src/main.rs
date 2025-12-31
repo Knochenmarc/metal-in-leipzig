@@ -35,8 +35,6 @@ mod site;
 mod tools;
 
 const BLOCKLIST: &[&str] = &[
-    "2026-02-01-tt-absent",
-    "2026-02-18-tt-LUNA",
     "2026-02-27-ha-GZUZ",
     "2026-03-28-fk-Lebanon Hanover",
     "2026-12-04-qi-PUR",

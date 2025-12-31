@@ -54,11 +54,14 @@ impl Site for Taeubchenthal<'_> {
                 Some(URL.to_owned() + capture.name("img").unwrap().as_str()),
             );
 
-            if name != "MESH"
-                && name != "Luna"
-                && name != "Schiller"
-                && name != "Lebanon Hanover"
-                && name != "Mine"
+            let lower_name = name.to_lowercase();
+
+            if lower_name != "mesh"
+                && lower_name != "luna"
+                && lower_name != "schiller"
+                && lower_name != "lebanon hanover"
+                && lower_name != "mine"
+                && lower_name != "absent"
             {
                 evt.add_band(name.replace(" - Openair", ""));
             }
