@@ -136,7 +136,8 @@ impl Site for HausAuensee<'_> {
 
         let eventim = Eventim::new(self.eventim_slug.as_str(), http);
         let has_metal_band = HasMetalBands {};
-        let mut misc_result = self.load_events(http, "16");
+
+        let mut misc_result = self.load_events(http, "9");
         for evt in misc_result.iter_mut() {
             if eventim.is_it_metal(evt.borrow()) {
                 hard_heavy.push(evt.clone());
