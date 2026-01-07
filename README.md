@@ -17,6 +17,7 @@ publiziert.
 - conne-island.de
 - darkflower.club
 - felsenkeller-leipzig.com
+- geyserhaus.de
 - haus-auensee-leipzig.de
 - hellraiser-leipzig.de
 - moritzbastei.de
@@ -32,7 +33,6 @@ publiziert.
 ### Geplante Locations:
 
 - rocklounge-leipzig.de
-- Geyserhaus (Parkbühne/UnterRock?)
 - div. Pubs? Black Label, McCormacks
 - Spizz-Keller?
 

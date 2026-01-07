@@ -16,6 +16,7 @@ mod facebook;
 pub(crate) mod felsenkeller;
 pub(crate) mod festivals;
 pub(crate) mod forum;
+pub(crate) mod geyserhaus;
 mod google_calendar;
 pub(crate) mod haus_auensee;
 pub(crate) mod hellraiser;

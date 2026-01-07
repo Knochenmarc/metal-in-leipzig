@@ -14,6 +14,7 @@ use crate::site::darkflower::Darkflower;
 use crate::site::felsenkeller::Felsenkeller;
 use crate::site::festivals::Festivals;
 use crate::site::forum::ZeitgeschichtlichesForum;
+use crate::site::geyserhaus::GeyserHaus;
 use crate::site::haus_auensee::HausAuensee;
 use crate::site::hellraiser::Hellraiser;
 use crate::site::moritzbastei::Moritzbastei;
@@ -38,6 +39,7 @@ const BLOCKLIST: &[&str] = &[
     "2026-02-27-ha-GZUZ",
     "2026-03-25-ha-SOPHIA",
     "2026-03-28-fk-Lebanon Hanover",
+    "2026-08-15-gh-Nouvelle Vague",
     "2026-12-04-qi-PUR",
 ];
 
@@ -80,6 +82,7 @@ fn main() {
         Box::new(Darkflower::new()),
         Box::new(Festivals::new()),
         Box::new(Felsenkeller::new()),
+        Box::new(GeyserHaus::new()),
         Box::new(HausAuensee::new_auensee()),
         Box::new(HausAuensee::new_park()),
         Box::new(Hellraiser::new()),
