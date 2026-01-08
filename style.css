@@ -55,6 +55,7 @@ body {
   --fest-background: url("img/metalhand.gif") center;
   --fk-background: url("img/felsenkeller.webp") center;
   --fw-background: url("img/festwiese.png") center;
+  --gh-background: url("img/gh.png") center;
   --ha-background: url("img/hausauensee.jpg") center;
   --hr-background: url("img/hellraiser.webp") center;
   --lm-background: url("img/messe.webp") center;
@@ -151,6 +152,11 @@ body {
     color: white; }
     .event.fw:before {
       background: var(--fw-background); }
+  .event.gh {
+    background-color: #e8c6a4;
+    color: #262626; }
+    .event.gh:before {
+      background: var(--gh-background); }
   .event.ha {
     background-color: #2e4d77;
     color: #f8f4e9; }
@@ -300,6 +306,11 @@ header:has(.filters) {
       color: white; }
       .filters label.fw::before {
         background: var(--fw-background); }
+    .filters label.gh {
+      background-color: #e8c6a4;
+      color: #262626; }
+      .filters label.gh:before {
+        background: var(--gh-background); }
     .filters label.ha {
       background-color: #2e4d77;
       color: #f8f4e9; }
@@ -387,6 +398,7 @@ header:has(.filters) {
 #filter-loc-fest:checked ~ header .filters label[for="filter-loc-fest"],
 #filter-loc-fk:checked ~ header .filters label[for="filter-loc-fk"],
 #filter-loc-fw:checked ~ header .filters label[for="filter-loc-fw"],
+#filter-loc-gh:checked ~ header .filters label[for="filter-loc-gh"],
 #filter-loc-ha:checked ~ header .filters label[for="filter-loc-ha"],
 #filter-loc-hr:checked ~ header .filters label[for="filter-loc-hr"],
 #filter-loc-lm:checked ~ header .filters label[for="filter-loc-lm"],
@@ -414,6 +426,7 @@ header:has(.filters) {
 #filter-loc-fest:checked ~ main .event.fest,
 #filter-loc-fk:checked ~ main .event.fk,
 #filter-loc-fw:checked ~ main .event.fw,
+#filter-loc-gh:checked ~ main .event.gh,
 #filter-loc-ha:checked ~ main .event.ha,
 #filter-loc-hr:checked ~ main .event.hr,
 #filter-loc-lm:checked ~ main .event.lm,
