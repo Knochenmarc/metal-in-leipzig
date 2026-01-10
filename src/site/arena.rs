@@ -88,7 +88,7 @@ impl Site for Arena<'_> {
                     URL.to_owned() + captures[1].borrow(),
                     Option::Some(URL.to_owned() + captures[2].borrow()),
                 );
-                if eventim.is_it_metal(evt.borrow()) {
+                if evt.name == "Böhse Onkelz" || eventim.is_it_metal(evt.borrow()) {
                     result.push(evt);
                 }
             }
