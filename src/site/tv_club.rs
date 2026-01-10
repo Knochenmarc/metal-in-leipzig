@@ -2,6 +2,7 @@ use crate::event::{Event, Location};
 use crate::site::{metallum, spirit_of_metal, Filter, HasMetalBands, Site};
 use crate::tools::date::parse_iso_date;
 use crate::tools::Http;
+use chrono::Months;
 use html_escape::decode_html_entities;
 use regex::Regex;
 use serde_json::Value;
@@ -61,20 +62,12 @@ impl Site for TVClub<'_> {
             title = title.replace(" Live ", " ");
             let title = title_reg.replace_all(&title, "").to_string();
 
-            let mut date = v.get("dateGMT").unwrap().as_str().unwrap().to_string();
-            if date.starts_with("2024-")
-                && v.get("modifiedDate")
-                    .unwrap()
-                    .as_str()
-                    .unwrap()
-                    .to_string()
-                    .starts_with("2025-")
-            {
-                date = date.replace("2024-", "2025-");
-            }
+            let date = v.get("dateGMT").unwrap().as_str().unwrap().to_string();
             let date = date.get(0..10).unwrap().to_string();
             let date = parse_iso_date(date.as_str());
-            if today.gt(date.date().borrow()) {
+            // all dates are somehow of the previous year
+            let date = date.checked_add_months(Months::new(12)).unwrap();
+            if today.ge(date.date().borrow()) {
                 continue;
             }
 
