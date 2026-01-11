@@ -89,8 +89,10 @@ impl<'a> Site for ConneIsland<'_> {
                     if let Some(image_url) = image_url {
                         event.set_image(image_url);
                     }
-                    for performer in tixforgigs_data["performer"].as_array().unwrap() {
-                        event.add_band(performer["name"].as_str().unwrap().to_string());
+                    if tixforgigs_data.contains_key("performer") {
+                        for performer in tixforgigs_data["performer"].as_array().unwrap() {
+                            event.add_band(performer["name"].as_str().unwrap().to_string());
+                        }
                     }
                 }
             }

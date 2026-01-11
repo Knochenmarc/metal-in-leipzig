@@ -19,7 +19,7 @@ pub fn fetch_tixforgigs_events<'l>(
     let mut result = Vec::new();
 
     let response = http
-        .get(format!("https://www.tixforgigs.com/de-de/Location/{}", location_id).as_str())
+        .get(format!("https://www.tixforgigs.com/de-de/Location/{location_id}").as_str())
         .unwrap();
 
     let json_str = REG
@@ -48,7 +48,7 @@ pub fn fetch_tixforgigs_events<'l>(
                     .to_string(),
                 parse_iso_datetime(event_data.get("startDate").unwrap().as_str().unwrap()).unwrap(),
                 location,
-                format!("https://www.tixforgigs.com/de-de/Event/{}", event_id),
+                format!("https://www.tixforgigs.com/de-de/Event/{event_id}"),
                 event_data.get("image").map(|v| {
                     v.as_array()
                         .unwrap()
@@ -74,7 +74,7 @@ pub fn fetch_tixforgigs_event(http: &Http, event_id: &str) -> Option<Map<String,
     }
 
     let response = http
-        .get(format!("https://www.tixforgigs.com/de-de/Event/{}", event_id).as_str())
+        .get(format!("https://www.tixforgigs.com/de-de/Event/{event_id}").as_str())
         .unwrap();
 
     let events = parse_linked_data_events(&response);
