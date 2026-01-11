@@ -48,6 +48,7 @@ impl<'a> Site for ConneIsland<'_> {
             .unwrap();
         for item in xml_reg.captures_iter(xml.as_str()) {
             let title = decode_html_entities(item.name("title").unwrap().as_str()).to_string();
+            let title = decode_html_entities(&title).to_string();
             let title = strip_html.replace_all(title.as_str(), "").to_string();
 
             let mut event = Event::new(
