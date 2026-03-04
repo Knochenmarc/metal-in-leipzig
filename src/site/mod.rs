@@ -42,6 +42,23 @@ trait Filter {
     fn is_it_metal(&self, evt: &Event) -> bool;
 }
 
+fn is_ld_event(doc: &Value) -> bool {
+    if doc["@type"].is_array() {
+        let typ = doc["@type"].as_array().unwrap();
+        let type_list = typ
+            .iter()
+            .map(|val| val.as_str().unwrap())
+            .filter(|val| (*val != "EventVenue" && val.contains("Event")) || *val == "Festival")
+            .collect::<Vec<&str>>();
+        return !type_list.is_empty();
+    } else if doc["@type"].is_string() {
+        let typ = doc["@type"].as_str().unwrap();
+        return typ == "Festival" || (typ != "EventVenue" && typ.contains("Event"));
+    }
+
+    false
+}
+
 fn parse_linked_data_events(html: &str) -> Vec<Value> {
     lazy_static! {
         static ref REG: Regex =
@@ -62,16 +79,12 @@ fn parse_linked_data_events(html: &str) -> Vec<Value> {
         let doc: Value = serde_json::from_str(json.as_str()).unwrap();
         if doc.is_array() {
             for event in doc.as_array().unwrap() {
-                let typ = event["@type"].as_str().unwrap();
-                if typ == "Festival" || typ.contains("Event") {
+                if is_ld_event(&doc) {
                     result.push(event.to_owned())
                 }
             }
-        } else if doc.is_object() {
-            let typ = doc["@type"].as_str().unwrap();
-            if typ == "Festival" || typ.contains("Event") {
-                result.push(doc)
-            }
+        } else if doc.is_object() && is_ld_event(&doc) {
+            result.push(doc)
         }
     }
 
