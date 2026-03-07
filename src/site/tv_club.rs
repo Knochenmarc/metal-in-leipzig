@@ -67,7 +67,7 @@ impl Site for TVClub<'_> {
             let date = parse_iso_date(date.as_str());
             // all dates are somehow of the previous year
             let date = date.checked_add_months(Months::new(12)).unwrap();
-            if today.ge(date.date().borrow()) {
+            if today.gt(date.date().borrow()) {
                 continue;
             }
 
