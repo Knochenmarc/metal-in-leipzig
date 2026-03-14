@@ -40,6 +40,11 @@ impl Site for TVClub<'_> {
             .replace_all(json_encoded, "&quot;_g_feedback_shortcode")
             .to_string();
         let json = decode_html_entities(json_encoded.as_str()).to_string();
+        // fix invalid json
+        let json = json
+            .as_str()
+            .replace("\"Dienst der Alten\"", "\\\"Dienst der Alten\\\"");
+        println!("{}", json.as_str());
         let json: Value = serde_json::from_str(json.as_str()).unwrap();
 
         let title_reg = Regex::new(r"(?i) am \d\d\.\d\d\.\d\d\d\d").unwrap();
@@ -110,7 +115,10 @@ impl Site for TVClub<'_> {
                 img,
             );
 
-            if lowered_excerpt.contains("metal") || lowered_excerpt.contains("rock") {
+            if event.name.contains("Heavy Crisis Festival")
+                || lowered_excerpt.contains("metal")
+                || lowered_excerpt.contains("rock")
+            {
                 result.push(event);
             } else {
                 event.add_band(title);
