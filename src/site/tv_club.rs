@@ -5,8 +5,11 @@ use crate::tools::Http;
 use chrono::Months;
 use html_escape::decode_html_entities;
 use regex::Regex;
+use reqwest::header;
+use reqwest::header::HeaderMap;
 use serde_json::Value;
 use std::borrow::Borrow;
+use std::collections::HashMap;
 
 pub(crate) struct TVClub<'l> {
     location: Location<'l, 'l, 'l>,
@@ -32,20 +35,47 @@ impl Site for TVClub<'_> {
     fn fetch_events(&self, http: &Http) -> Vec<Event> {
         let html = http.get("https://www.tv-club-leipzig.de/events/").unwrap();
 
-        let json_reg = Regex::new(r"(?i)\[\{&quot;.*;&quot;}]").unwrap();
-        let fix_reg =
-            Regex::new(r"(?i)&quot;_g_feedback_shortcode_.*&quot;_g_feedback_shortcode").unwrap();
-        let json_encoded = json_reg.captures(&html).unwrap().get(0).unwrap().as_str();
-        let json_encoded = fix_reg
-            .replace_all(json_encoded, "&quot;_g_feedback_shortcode")
-            .to_string();
-        let json = decode_html_entities(json_encoded.as_str()).to_string();
-        // fix invalid json
-        let json = json
-            .as_str()
-            .replace("\"Dienst der Alten\"", "\\\"Dienst der Alten\\\"");
-        println!("{}", json.as_str());
-        let json: Value = serde_json::from_str(json.as_str()).unwrap();
+        let api_settings_reg = Regex::new(r"(?i)var wpApiSettings = (\{.+});").unwrap();
+        let api_settings = api_settings_reg
+            .captures(&html)
+            .unwrap()
+            .get(1)
+            .unwrap()
+            .as_str();
+        let api_settings: Value = serde_json::from_str(api_settings).unwrap();
+
+        let mut request_headers = HeaderMap::new();
+        request_headers.insert("X-Requested-With", "XMLHttpRequest".parse().unwrap());
+
+        let mut payload = HashMap::new();
+        payload.insert(
+            "_wpnonce",
+            api_settings.get("nonce").unwrap().as_str().unwrap(),
+        );
+        payload.insert("queryAttr[postType]", "post");
+        payload.insert("queryAttr[queryPreset]", "");
+        payload.insert("queryAttr[taxonomyRelation]", "AND");
+        payload.insert("queryAttr[selectedCategories][]", "25"); // events?
+        payload.insert("queryAttr[postsPerPage]", "-1");
+        payload.insert("queryAttr[postsOrderBy]", "date");
+        payload.insert("queryAttr[postsOrder]", "desc");
+        payload.insert("queryAttr[postsSearch]", "");
+        payload.insert("queryAttr[postsOffset]", "0");
+        payload.insert("queryAttr[isExcludeCurrent]", "false");
+        payload.insert("queryAttr[isExcludeSticky]", "false");
+        payload.insert("queryAttr[currentPostId]", "233");
+        payload.insert("queryAttr[fImgSize]", "full");
+        payload.insert("queryAttr[metaDateFormat]", "Y-m-d");
+        payload.insert("queryAttr[isExcerptFromContent]", "false");
+        payload.insert("queryAttr[excerptLength]", "255");
+        payload.insert("pageNumber", "1");
+        payload.insert("action", "apbPosts");
+
+        let json = http.post_json(
+            "https://www.tv-club-leipzig.de/wp-admin/admin-ajax.php",
+            payload,
+            request_headers,
+        );
 
         let title_reg = Regex::new(r"(?i) am \d\d\.\d\d\.\d\d\d\d").unwrap();
         let today = chrono::Utc::now().date_naive();
@@ -53,7 +83,17 @@ impl Site for TVClub<'_> {
         let mut result: Vec<Event> = vec![];
         let has_metal_band = HasMetalBands {};
 
-        for v in json.as_array().unwrap().iter() {
+        for v in json
+            .get("data")
+            .unwrap()
+            .as_object()
+            .unwrap()
+            .get("posts")
+            .unwrap()
+            .as_array()
+            .unwrap()
+            .iter()
+        {
             let mut title = v.get("title").unwrap().as_str().unwrap().to_string();
             let lowered_title = title.to_lowercase();
             if lowered_title.contains("party")
@@ -115,10 +155,7 @@ impl Site for TVClub<'_> {
                 img,
             );
 
-            if event.name.contains("Heavy Crisis Festival")
-                || lowered_excerpt.contains("metal")
-                || lowered_excerpt.contains("rock")
-            {
+            if event.name.contains("Heavy Crisis Festival") || lowered_excerpt.contains("metal") {
                 result.push(event);
             } else {
                 event.add_band(title);
