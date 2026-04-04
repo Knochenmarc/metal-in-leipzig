@@ -41,7 +41,8 @@ impl Site for Festivals<'_> {
             ),
             self.location.borrow(),
             "https://www.in-flammen.com/".to_string(),
-            Some("https://image.jimcdn.com/app/cms/image/transf/none/path/sfa7e4f2e650d1c8b/image/i2ae80efdbf3f5e44/version/1613414208/image.jpg".to_string()),
+            // Some("https://image.jimcdn.com/app/cms/image/transf/none/path/sfa7e4f2e650d1c8b/image/i2ae80efdbf3f5e44/version/1613414208/image.jpg".to_string()),
+            Some("https://scontent-ber1-1.xx.fbcdn.net/v/t39.30808-6/661701642_1519221059591306_4785965387000163392_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=7b2446&_nc_ohc=S1MGifb3hYAQ7kNvwFmLlXX&_nc_oc=AdqvDtZz4z1l2pdPK5PQVTwPonk5JFNxMKZvS2JaoEfIo6IuCGQNwdrwzcTJf8UFbhb_fCFEbbgoNGfLrGhFhFUd&_nc_zt=23&_nc_ht=scontent-ber1-1.xx&_nc_gid=agWdRU5J8N6Qf3lhYI5VJQ&_nc_ss=7a389&oh=00_Af2bfcjHe6TbNpRkRp2WRJOUlNYnnzBX5n8ge8mFC1QrVA&oe=69D697A7".to_string()),
         );
         inflammen.end_date = Some(NaiveDateTime::new(
             NaiveDate::from_ymd_opt(2026, 7, 11).unwrap(),
@@ -96,21 +97,24 @@ impl Site for Festivals<'_> {
         ));
         festivals.push(full_rewind);
 
-        // let mut nexus = Event::new(
-        //     "Nexus Festival".to_string(),
-        //     NaiveDateTime::new(
-        //         NaiveDate::from_ymd_opt(2026, 9, 18).unwrap(),
-        //         NaiveTime::default(),
-        //     ),
-        //     self.location.borrow(),
-        //     "https://www.nexo-nerd-expo.com/".to_string(),
-        //     Some("https://scontent-fra3-2.xx.fbcdn.net/v/t39.30808-6/518352567_1051443510536848_5029225649659660304_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=NrC3cN_fJQgQ7kNvwH6_eag&_nc_oc=Adk35KhP_G-HxsYl9r36whkQt2D_ysRabJy4dT10kG_2CQTt27U7bLopyLsH88OANe7RPs4Yg0zfIABRE3eyhsx-&_nc_zt=23&_nc_ht=scontent-fra3-2.xx&_nc_gid=ZAF99urnlOFRcMCwOaAbwQ&oh=00_Afge3Z_STBrL2DMNUgtjV9trDMseusq732J-_GGkh4cTSg&oe=69166299".to_string()),
-        // );
-        // nexus.end_date = Some(NaiveDateTime::new(
-        //     NaiveDate::from_ymd_opt(2026, 9, 20).unwrap(),
-        //     NaiveTime::from_hms_opt(23, 59, 00).unwrap(),
-        // ));
-        // festivals.push(nexus);
+        let mut nexus = Event::new(
+            "Nexus Festival".to_string(),
+            NaiveDateTime::new(
+                NaiveDate::from_ymd_opt(2026, 9, 18).unwrap(),
+                NaiveTime::default(),
+            ),
+            self.location.borrow(),
+            "https://www.nexo-nerd-expo.com/".to_string(),
+            Some(
+                "https://ugc.production.linktr.ee/f2acc9af-3a53-434c-afe9-1716ad1440ce_image.png"
+                    .to_string(),
+            ),
+        );
+        nexus.end_date = Some(NaiveDateTime::new(
+            NaiveDate::from_ymd_opt(2026, 9, 20).unwrap(),
+            NaiveTime::from_hms_opt(23, 59, 00).unwrap(),
+        ));
+        festivals.push(nexus);
 
         festivals
             .iter_mut()
