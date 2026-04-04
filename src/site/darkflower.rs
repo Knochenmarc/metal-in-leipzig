@@ -37,11 +37,7 @@ impl Darkflower<'_> {
         let image = flyer
             .unwrap()
             .as_object()
-            .unwrap()
-            .get("guid")
-            .unwrap()
-            .as_str()
-            .unwrap();
+            .map(|flyer| flyer.get("guid").unwrap().as_str().unwrap().to_string());
 
         let name = item
             .get(&("veranstaltungsname_floor_".to_owned() + floor))
@@ -62,7 +58,7 @@ impl Darkflower<'_> {
             parse_iso_datetime(format!("{date}T{time}").as_str()).unwrap(),
             self.get_location(),
             link.to_string(),
-            Some(image.to_string()),
+            image,
         )
     }
 }
