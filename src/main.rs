@@ -92,7 +92,7 @@ fn main() {
         Box::new(NoelsBallroom::new()),
         Box::new(Taeubchenthal::new()),
         Box::new(TVClub::new()),
-        Box::new(UTConnewitz::new()),
+        // Box::new(UTConnewitz::new()),
         Box::new(WaveGothicTreffen::new()),
         Box::new(Werk2::new()),
         Box::new(ZeitgeschichtlichesForum::new()),
