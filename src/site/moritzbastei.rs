@@ -38,49 +38,64 @@ impl Site for Moritzbastei<'_> {
             capture.get(1).unwrap().as_str().to_string()
         };
 
+        let reg = Regex::new(r#"(?is)<img.*?src="(?P<img>.*?)".*?(?P<date>\d\d\.\d\d\.\d\d\d\d).*?<h3.*?<a href="(?P<url>.*?)">(?P<name>.*?)</a>"#).unwrap();
+
         let mut payload = HashMap::new();
         payload.insert("action", "event_ajax_action_callback");
         payload.insert("security", security_token.as_str());
-        let json = http.post_json(
-            "https://www.moritzbastei.de/wp-admin/admin-ajax.php?offset=0&limit=100",
-            payload,
-            HeaderMap::new(),
-        );
 
-        let reg = Regex::new("(?is)<img.*?src=\"(?P<img>.*?)\".*?(?P<date>\\d\\d\\.\\d\\d\\.\\d\\d\\d\\d).*?<h3.*?<a href=\"(?P<url>.*?)\">(?P<name>.*?)</a>").unwrap();
+        let mut offset = 0;
+        let mut max_count = 100;
 
-        for content in json["content"].as_array().unwrap() {
-            let html = content.as_str().unwrap();
-            if html.contains("#Metal")
-                || html.contains("#Heavy Metal")
-                || html.contains("#Black Metal")
-                || html.contains("#Death Metal")
-                || html.contains("#Thrash Metal")
-                || html.contains("#Doom Metal")
-                || html.contains("#Gothic Metal")
-                || html.contains("#Symphonic Metal")
-                || html.contains("#Viking Metal")
-                || html.contains("#Folk Metal")
-                || html.contains("#Progressive Metal")
-                || html.contains("#Power Metal")
-                || html.contains("#Modern Metal")
-                || html.contains("#Industrial Metal")
-                || html.contains("#Post-Metal")
-            {
-                let captures = reg.captures(html).unwrap();
-                let img = captures
-                    .name("img")
-                    .unwrap()
-                    .as_str()
-                    .replace("-100x100", "")
-                    .to_string();
-                result.push(Event::new(
-                    decode_html_entities(captures.name("name").unwrap().as_str()).to_string(),
-                    parse_short_date(captures.name("date").unwrap().as_str()),
-                    self.location.borrow(),
-                    captures.name("url").unwrap().as_str().to_string(),
-                    Some(img),
-                ));
+        while offset < max_count {
+            let json = http.post_json(
+                format!(
+                    "https://www.moritzbastei.de/wp-admin/admin-ajax.php?limit=100&offset={}",
+                    offset
+                )
+                .as_str(),
+                payload.clone(),
+                HeaderMap::new(),
+            );
+
+            let list = json["content"].as_array().unwrap();
+
+            offset += list.len();
+            max_count = json.get("maxItems").unwrap().as_u64().unwrap() as usize;
+
+            for content in list {
+                let html = content.as_str().unwrap();
+                if html.contains("#Metal")
+                    || html.contains("#Heavy Metal")
+                    || html.contains("#Black Metal")
+                    || html.contains("#Death Metal")
+                    || html.contains("#Thrash Metal")
+                    || html.contains("#Doom Metal")
+                    || html.contains("#Gothic Metal")
+                    || html.contains("#Symphonic Metal")
+                    || html.contains("#Viking Metal")
+                    || html.contains("#Folk Metal")
+                    || html.contains("#Progressive Metal")
+                    || html.contains("#Power Metal")
+                    || html.contains("#Modern Metal")
+                    || html.contains("#Industrial Metal")
+                    || html.contains("#Post-Metal")
+                {
+                    let captures = reg.captures(html).unwrap();
+                    let img = captures
+                        .name("img")
+                        .unwrap()
+                        .as_str()
+                        .replace("-100x100", "")
+                        .to_string();
+                    result.push(Event::new(
+                        decode_html_entities(captures.name("name").unwrap().as_str()).to_string(),
+                        parse_short_date(captures.name("date").unwrap().as_str()),
+                        self.location.borrow(),
+                        captures.name("url").unwrap().as_str().to_string(),
+                        Some(img),
+                    ));
+                }
             }
         }
 
