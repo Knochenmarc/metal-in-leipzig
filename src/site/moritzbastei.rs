@@ -45,12 +45,12 @@ impl Site for Moritzbastei<'_> {
         payload.insert("security", security_token.as_str());
 
         let mut offset = 0;
-        let mut max_count = 100;
+        let mut max_offset = 50;
 
-        while offset < max_count {
+        while offset < max_offset {
             let json = http.post_json(
                 format!(
-                    "https://www.moritzbastei.de/wp-admin/admin-ajax.php?limit=100&offset={}",
+                    "https://www.moritzbastei.de/wp-admin/admin-ajax.php?limit=50&offset={}",
                     offset
                 )
                 .as_str(),
@@ -60,8 +60,12 @@ impl Site for Moritzbastei<'_> {
 
             let list = json["content"].as_array().unwrap();
 
+            if list.is_empty() {
+                break;
+            }
+
             offset += list.len();
-            max_count = json.get("maxItems").unwrap().as_u64().unwrap() as usize;
+            max_offset = json.get("maxItems").unwrap().as_u64().unwrap() as usize;
 
             for content in list {
                 let html = content.as_str().unwrap();
