@@ -41,8 +41,8 @@ impl Site for Festivals<'_> {
             ),
             self.location.borrow(),
             "https://www.in-flammen.com/".to_string(),
-            Some("https://image.jimcdn.com/app/cms/image/transf/none/path/sfa7e4f2e650d1c8b/image/i2ae80efdbf3f5e44/version/1613414208/image.jpg".to_string()),
-            // Some("https://scontent-ber1-1.xx.fbcdn.net/v/t39.30808-6/661701642_1519221059591306_4785965387000163392_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=7b2446&_nc_ohc=S1MGifb3hYAQ7kNvwFmLlXX&_nc_oc=AdqvDtZz4z1l2pdPK5PQVTwPonk5JFNxMKZvS2JaoEfIo6IuCGQNwdrwzcTJf8UFbhb_fCFEbbgoNGfLrGhFhFUd&_nc_zt=23&_nc_ht=scontent-ber1-1.xx&_nc_gid=agWdRU5J8N6Qf3lhYI5VJQ&_nc_ss=7a389&oh=00_Af2bfcjHe6TbNpRkRp2WRJOUlNYnnzBX5n8ge8mFC1QrVA&oe=69D697A7".to_string()),
+            // Some("https://image.jimcdn.com/app/cms/image/transf/none/path/sfa7e4f2e650d1c8b/image/i2ae80efdbf3f5e44/version/1613414208/image.jpg".to_string()),
+            Some("https://image.jimcdn.com/app/cms/image/transf/none/path/sfa7e4f2e650d1c8b/image/ia34d6e16771779ee/version/1778095185/image.jpg".to_string()),
         );
         inflammen.end_date = Some(NaiveDateTime::new(
             NaiveDate::from_ymd_opt(2026, 7, 11).unwrap(),
@@ -73,7 +73,7 @@ impl Site for Festivals<'_> {
             ),
             self.location.borrow(),
             "https://www.impericon.com/de/festival".to_string(),
-            Some("https://www.impericon.com/cdn/shop/files/20251210_imp_fest_2026_vo6_microsite_fullsize.jpg".to_string()),
+            Some("https://www.impericon.com/cdn/shop/files/20260407_imp_fest_2026_vo8_microsite_fullsize.jpg".to_string()),
         );
         impericon.end_date = Some(NaiveDateTime::new(
             NaiveDate::from_ymd_opt(2026, 6, 27).unwrap(),
@@ -89,7 +89,7 @@ impl Site for Festivals<'_> {
             ),
             self.location.borrow(),
             "https://full-rewind.de/".to_string(),
-            Some("https://cdn.shopify.com/s/files/1/0778/0528/9815/files/251201-FRF2026-Bands_Ankundigung.jpg".to_string()),
+            Some("https://cdn.shopify.com/s/files/1/0778/0528/9815/files/260330-FRF2026-Bands_Ankundigung.jpg".to_string()),
         );
         full_rewind.end_date = Some(NaiveDateTime::new(
             NaiveDate::from_ymd_opt(2026, 8, 1).unwrap(),
