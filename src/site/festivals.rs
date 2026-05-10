@@ -1,10 +1,10 @@
 use std::borrow::Borrow;
 
-use chrono::{NaiveDate, NaiveDateTime, NaiveTime};
-
 use crate::event::{Event, EventType, Location};
-use crate::site::Site;
+use crate::site::{metallum, spirit_of_metal, Filter, HasMetalBands, Site};
 use crate::tools::Http;
+use chrono::{Days, NaiveDate, NaiveDateTime, NaiveTime};
+use regex::Regex;
 
 pub struct Festivals<'l> {
     location: Location<'l, 'l, 'l>,
@@ -20,6 +20,63 @@ impl Festivals<'_> {
             },
         }
     }
+
+    fn fetch_dark_affair(&self, http: &Http) -> Vec<Event> {
+        // return vec![];
+
+        let start_date = NaiveDate::from_ymd_opt(2026, 5, 22).unwrap();
+        let links = vec![
+            "https://www.dark-affair.com/de/timetable-freitag",
+            "https://www.dark-affair.com/de/timetable-samstag",
+            "https://www.dark-affair.com/de/timetable-sonntag",
+            "https://www.dark-affair.com/de/timetable-montag",
+        ];
+        let image = Some(
+            "https://www.dark-affair.com/data/downloads/2026/dark-affair-banner-390x120.jpg"
+                .to_string(),
+        );
+
+        let mut result = vec![];
+        let has_metal_band = HasMetalBands {};
+
+        let row_reg: Regex = Regex::new(
+            r#"(?si)<span class="space time">(\d\d:\d\d) Uhr</span>.*?<span class="artist">(.*?)</span>"#,
+        )
+            .unwrap();
+
+        for (day_offset, link) in links.into_iter().enumerate() {
+            let date = start_date
+                .checked_add_days(Days::new(day_offset as u64))
+                .unwrap();
+            let html = http.get(link).unwrap();
+
+            for group in row_reg.captures_iter(html.as_str()) {
+                let time = &group.get(1).unwrap().as_str();
+                let artist = &group.get(2).unwrap().as_str();
+
+                let mut event = Event::new(
+                    artist.to_string(),
+                    date.and_time(NaiveTime::parse_from_str(time, "%H:%M").unwrap()),
+                    self.location.borrow(),
+                    link.to_string(),
+                    image.clone(),
+                );
+                event.add_band(artist.to_string());
+                event.evt_type = EventType::Concert;
+
+                for band in event.bands.iter_mut() {
+                    spirit_of_metal::find_band(band, http);
+                    metallum::find_band(band, http);
+                }
+
+                if has_metal_band.is_it_metal(event.borrow()) {
+                    result.push(event);
+                }
+            }
+        }
+
+        result
+    }
 }
 
 impl Site for Festivals<'_> {
@@ -27,7 +84,7 @@ impl Site for Festivals<'_> {
         self.location.borrow()
     }
 
-    fn fetch_events(&self, _http: &Http) -> Vec<Event> {
+    fn fetch_events(&self, http: &Http) -> Vec<Event> {
         //TODO: https://metalpest.de/
         //TODO: TILL Fest https://scontent-fra5-2.cdninstagram.com/v/t51.82787-15/571858035_18132906898478496_178091826607379800_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=107&ig_cache_key=Mzc1NDM1ODM3NjUwNDI0NzQzOA%3D%3D.3-ccb1-7&ccb=1-7&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTgwMi5zZHIuQzMifQ%3D%3D&_nc_ohc=z1XT7DLBSREQ7kNvwG3HDN8&_nc_oc=Adlt_c-oyJRjajxgG6KzdvJNK_GpAR8DGGgTGObgjyPzpW6GCS_-4t4nRQ6wUMTUGUbKoX5glNIYuKtrCS4HOevj&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent-fra5-2.cdninstagram.com&_nc_gid=ahp6jdBqDX-vqX2q_7z9QA&oh=00_AfjhzwSVCYmJ3vhslSuDHHavsE2qKqMmp7dyTwCTLcoeag&oe=69165839
 
@@ -98,7 +155,7 @@ impl Site for Festivals<'_> {
         festivals.push(full_rewind);
 
         let mut nexus = Event::new(
-            "Nexus Festival".to_string(),
+            "NEXUS - Nerd Rock Festival".to_string(),
             NaiveDateTime::new(
                 NaiveDate::from_ymd_opt(2026, 9, 18).unwrap(),
                 NaiveTime::default(),
@@ -115,6 +172,8 @@ impl Site for Festivals<'_> {
             NaiveTime::from_hms_opt(23, 59, 00).unwrap(),
         ));
         festivals.push(nexus);
+
+        festivals.extend(self.fetch_dark_affair(http));
 
         festivals
             .iter_mut()
