@@ -55,7 +55,7 @@ impl Festivals<'_> {
                 let artist = &group.get(2).unwrap().as_str();
 
                 let mut event = Event::new(
-                    artist.to_string(),
+                    format!("DARK AFFAIR: {}", artist),
                     date.and_time(NaiveTime::parse_from_str(time, "%H:%M").unwrap()),
                     self.location.borrow(),
                     link.to_string(),
@@ -86,9 +86,36 @@ impl Site for Festivals<'_> {
 
     fn fetch_events(&self, http: &Http) -> Vec<Event> {
         //TODO: https://metalpest.de/
-        //TODO: TILL Fest https://scontent-fra5-2.cdninstagram.com/v/t51.82787-15/571858035_18132906898478496_178091826607379800_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=107&ig_cache_key=Mzc1NDM1ODM3NjUwNDI0NzQzOA%3D%3D.3-ccb1-7&ccb=1-7&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTgwMi5zZHIuQzMifQ%3D%3D&_nc_ohc=z1XT7DLBSREQ7kNvwG3HDN8&_nc_oc=Adlt_c-oyJRjajxgG6KzdvJNK_GpAR8DGGgTGObgjyPzpW6GCS_-4t4nRQ6wUMTUGUbKoX5glNIYuKtrCS4HOevj&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent-fra5-2.cdninstagram.com&_nc_gid=ahp6jdBqDX-vqX2q_7z9QA&oh=00_AfjhzwSVCYmJ3vhslSuDHHavsE2qKqMmp7dyTwCTLcoeag&oe=69165839
 
         let mut festivals = vec![];
+
+        let ueclf = Event::new(
+            "UECLF Fan Festival: Heavysaurus".to_string(),
+            NaiveDateTime::new(
+                NaiveDate::from_ymd_opt(2026, 5, 25).unwrap(),
+                NaiveTime::default(),
+            ),
+            self.location.borrow(),
+            "https://www.leipzig.de/kultur-und-freizeit/veranstaltungen/eventsingle/event/ueclf-fan-festival-heavysaurus".to_string(),
+            Some("https://www.leipzig.de/fileadmin/_processed_/e/8/csm_4Heavysaurus_Promo_4__c__Jens_Vetter_62bfc52c1c.jpg".to_string()),
+        );
+        festivals.push(ueclf);
+
+        let mut till = Event::new(
+            "Till Fest".to_string(),
+            NaiveDateTime::new(
+                NaiveDate::from_ymd_opt(2026, 7, 3).unwrap(),
+                NaiveTime::default(),
+            ),
+            self.location.borrow(),
+            "https://tillfest.myticket.de/content".to_string(),
+            Some("https://scontent-ber1-1.xx.fbcdn.net/v/t39.30808-6/686925457_1529589031860367_5353985309905149035_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=YcKrVseT4XIQ7kNvwFljYKm&_nc_oc=Adr8DWaZLf4OdwcBi4LOWhIEKzCe2KGtlVT7rUj8ck84mSdaHy2lElknaMdA-Pf3r84K5vx3AHjjWR3Hlo2XibqR&_nc_zt=23&_nc_ht=scontent-ber1-1.xx&_nc_gid=ukeMwCDyctPPr_CVUt7Beg&_nc_ss=7b289&oh=00_Af4ff0ELOOC71mSPQWgzU5lNO5LQz_yjrdEF-o__RckFVw&oe=6A0E6344".to_string()),
+        );
+        till.end_date = Some(NaiveDateTime::new(
+            NaiveDate::from_ymd_opt(2026, 7, 4).unwrap(),
+            NaiveTime::from_hms_opt(23, 59, 00).unwrap(),
+        ));
+        festivals.push(till);
 
         let mut inflammen = Event::new(
             "In Flammen Open Air".to_string(),
@@ -106,21 +133,6 @@ impl Site for Festivals<'_> {
             NaiveTime::from_hms_opt(23, 59, 00).unwrap(),
         ));
         festivals.push(inflammen);
-
-        // let mut rock = Event::new(
-        //     "Rock um zu Helfen".to_string(),
-        //     NaiveDateTime::new(
-        //         NaiveDate::from_ymd_opt(2024, 10, 11).unwrap(),
-        //         NaiveTime::default(),
-        //     ),
-        //     self.location.borrow(),
-        //     "https://www.rock-um-zu-helfen.de/".to_string(),
-        //     Some("https://s3-eu-west-1.amazonaws.com/static.csone.dgbrt.de/artifacts/events/466/design.png".to_string()),
-        // );
-        // rock.end_date = Some(NaiveDateTime::new(
-        //     NaiveDate::from_ymd_opt(2024, 10, 12).unwrap(),
-        //     NaiveTime::from_hms_opt(23, 59, 00).unwrap(),
-        // ));
 
         let mut impericon = Event::new(
             "Impericon Festival".to_string(),
