@@ -75,7 +75,7 @@ impl Site for TVClub<'_> {
             request_headers,
         );
 
-        let title_reg = Regex::new(r"(?i) am \d\d\.\d\d\.\d\d\d\d").unwrap();
+        let title_reg = Regex::new(r"(?i)\s+am\s+\d\d\.\d\d\.?\d?\d?\d?\d?").unwrap();
         let today = chrono::Utc::now().date_naive();
 
         let mut result: Vec<Event> = vec![];
@@ -103,6 +103,7 @@ impl Site for TVClub<'_> {
                 continue;
             }
             title = title.replace(" Live ", " ");
+            title = title.replace(" im TV-Club Leipzig", "");
             let title = title_reg.replace_all(&title, "").to_string();
 
             let date = v.get("dateGMT").unwrap().as_str().unwrap().to_string();
