@@ -107,6 +107,9 @@ impl Site for TVClub<'_> {
             let title = title_reg.replace_all(&title, "").to_string();
 
             let date = v.get("dateGMT").unwrap().as_str().unwrap().to_string();
+            if date == "0000-00-00 00:00:00" {
+                continue;
+            }
             let date = date.get(0..10).unwrap().to_string();
             let date = parse_iso_date(date.as_str());
             // all dates are somehow of the previous year
