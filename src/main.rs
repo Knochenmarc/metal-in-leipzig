@@ -37,7 +37,8 @@ mod tools;
 const BLOCKLIST: &[&str] = &[
     "2026-08-15-gh-Nouvelle Vague",
     "2026-09-24-fk-ela",
-    "2026-09-24-fk-VEGA",
+    "2026-09-26-fk-VEGA",
+    "2026-11-07-tt-BONAPARTE",
     "2026-12-04-qi-PUR",
 ];
 
