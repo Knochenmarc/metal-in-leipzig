@@ -109,7 +109,7 @@ impl Site for Festivals<'_> {
             ),
             self.location.borrow(),
             "https://tillfest.myticket.de/content".to_string(),
-            Some("https://scontent-ber1-1.xx.fbcdn.net/v/t39.30808-6/686925457_1529589031860367_5353985309905149035_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=YcKrVseT4XIQ7kNvwFljYKm&_nc_oc=Adr8DWaZLf4OdwcBi4LOWhIEKzCe2KGtlVT7rUj8ck84mSdaHy2lElknaMdA-Pf3r84K5vx3AHjjWR3Hlo2XibqR&_nc_zt=23&_nc_ht=scontent-ber1-1.xx&_nc_gid=ukeMwCDyctPPr_CVUt7Beg&_nc_ss=7b289&oh=00_Af4ff0ELOOC71mSPQWgzU5lNO5LQz_yjrdEF-o__RckFVw&oe=6A0E6344".to_string()),
+            Some("https://rammwiki.net/w/images/9/9f/TillFest2026Lineup.jpg".to_string()),
         );
         till.end_date = Some(NaiveDateTime::new(
             NaiveDate::from_ymd_opt(2026, 7, 4).unwrap(),
