@@ -2,6 +2,7 @@ use crate::event::{Event, Location};
 use crate::site::Site;
 use crate::tools::date::parse_iso_datetime;
 use crate::tools::Http;
+use regex::Regex;
 use serde_json::{Map, Value};
 use std::borrow::Borrow;
 
@@ -30,28 +31,35 @@ impl Darkflower<'_> {
 
     fn build_event(&self, item: &Map<String, Value>, floor: &str) -> Event {
         // jep, da gibts nen Typo in der api >.<
-        let mut flyer = item.get(&("flyer_hochkant_flloor_".to_owned() + floor));
-        if flyer.is_none() {
-            flyer = item.get(&("flyer_hochkant_floor_".to_owned() + floor));
-        }
-        let image = flyer
-            .unwrap()
-            .as_object()
-            .map(|flyer| flyer.get("guid").unwrap().as_str().unwrap().to_string());
+        let flyer = item.get(&("flyerFloor".to_owned() + floor));
+        let image = flyer.unwrap().as_object().map(|flyer| {
+            flyer
+                .get("sourceUrl")
+                .unwrap()
+                .as_str()
+                .unwrap()
+                .to_string()
+        });
 
         let name = item
-            .get(&("veranstaltungsname_floor_".to_owned() + floor))
+            .get(&("veranstaltungsnameFloor".to_owned() + floor))
             .unwrap()
             .as_str()
             .unwrap();
 
-        let date = item
-            .get("datum_der_veranstaltung")
-            .unwrap()
-            .as_str()
-            .unwrap();
+        let date = item.get("datum").unwrap().as_str().unwrap();
         let time = item.get("einlass").unwrap().as_str().unwrap();
-        let link = item.get("link").unwrap().as_str().unwrap();
+        let id = item.get("databaseId").unwrap().as_u64().unwrap();
+        let floor_name = match floor {
+            "1" => "main",
+            "2" => "second",
+            _ => "",
+        };
+
+        let link = format!(
+            "https://darkflower.de/veranstaltung/{}?floor={}",
+            id, floor_name
+        );
 
         Event::new(
             name.to_string(),
@@ -71,43 +79,52 @@ impl Site for Darkflower<'_> {
     fn fetch_events(&self, http: &Http) -> Vec<Event> {
         let mut result = Vec::new();
 
-        let response =
-            http.get_json("https://www.darkflower.de/wp-json/wp/v2/veranstaltung?per_page=50");
+        let html = http.get("https://darkflower.de/terminkalender").unwrap();
+
+        let reg: Regex =
+            Regex::new("(?si)data: \\[null,\\{type:\"data\",data:(\\{.*?}),uses:").unwrap();
+        let json = reg
+            .captures(html.as_str())
+            .unwrap()
+            .get(1)
+            .unwrap()
+            .as_str();
+        let json: Value = serde_json5::from_str(json).unwrap();
 
         let mut added_ids: Vec<u64> = Vec::new();
 
-        for item in response.unwrap().as_array().unwrap() {
+        for item in json.get("events").unwrap().as_array().unwrap() {
             let item = item.as_object().unwrap();
 
-            let id = item.get("id").unwrap().as_u64().unwrap();
+            let id = item.get("databaseId").unwrap().as_u64().unwrap();
             if added_ids.contains(&id) {
                 continue;
             }
 
             let name1 = item
-                .get("veranstaltungsname_floor_1")
+                .get("veranstaltungsnameFloor1")
                 .unwrap()
                 .as_str()
-                .unwrap();
+                .unwrap_or("");
             if !name1.is_empty()
-                && (self.is_metal(item.get("veranstaltungsname_floor_1"))
-                    || self.is_metal(item.get("beschreibung_floor_1"))
-                    || self.is_metal(item.get("musikrichtung_auf_floor_1")))
+                && (self.is_metal(item.get("veranstaltungsnameFloor1"))
+                    || self.is_metal(item.get("beschreibungFloor1"))
+                    || self.is_metal(item.get("musikrichtungFloor1")))
             {
                 result.push(self.build_event(item, "1"));
                 added_ids.push(id);
             }
 
             let name2 = item
-                .get("veranstaltungsname_floor_2")
+                .get("veranstaltungsnameFloor2")
                 .unwrap()
                 .as_str()
-                .unwrap();
+                .unwrap_or("");
             if !name2.is_empty()
                 && name1 != name2
-                && (self.is_metal(item.get("veranstaltungsname_floor_2"))
-                    || self.is_metal(item.get("beschreibung_floor_2"))
-                    || self.is_metal(item.get("musikrichtung_auf_floor_2")))
+                && (self.is_metal(item.get("veranstaltungsnameFloor2"))
+                    || self.is_metal(item.get("beschreibungFloor2"))
+                    || self.is_metal(item.get("musikrichtungFloor2")))
             {
                 result.push(self.build_event(item, "2"));
                 added_ids.push(id);

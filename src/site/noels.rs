@@ -28,6 +28,8 @@ impl Site for NoelsBallroom<'_> {
     }
 
     fn fetch_events(&self, http: &Http) -> Vec<Event> {
+        //TODO: crush cancer
+
         let mut result = Vec::new();
         let eventim = Eventim::new("noels-ballroom-leipzig-22594", http);
 
