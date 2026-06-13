@@ -38,6 +38,7 @@ impl Http {
             .user_agent(
                 "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0",
             )
+            .timeout(Duration::from_secs(60))
             .pool_max_idle_per_host(0) // https://github.com/hyperium/hyper/issues/2136#issuecomment-861826148
             .danger_accept_invalid_certs(accepts_invalid_certs);
 

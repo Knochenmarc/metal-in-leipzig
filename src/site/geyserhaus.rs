@@ -51,7 +51,8 @@ impl Site for GeyserHaus<'_> {
             );
             event.end_date = Some(parse_iso_datetime(end_date).unwrap());
 
-            event.add_band(name);
+            let band_name = name.replace("ABGESAGT: ", "").replace("AUSVERKAUFT: ", "");
+            event.add_band(band_name);
 
             for band in event.bands.iter_mut() {
                 spirit_of_metal::find_band(band, http);
