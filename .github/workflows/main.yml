@@ -28,7 +28,7 @@ jobs:
       - uses: actions/checkout@v6
 
       - name: install imagemagick
-        uses: mfinelli/setup-imagemagick@v7
+        uses: mfinelli/setup-imagemagick@v8
       - run: magick -version
 
       - name: Cache flyers
