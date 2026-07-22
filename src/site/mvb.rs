@@ -43,32 +43,33 @@ impl Site for MVB<'_> {
 
         let url = "https://firestore.googleapis.com/v1/projects/mvb-leipzig-303a7/databases/(default)/documents/events";
         let data = http.get_json(url).unwrap();
-        data.as_object()
-            .unwrap()
-            .get("documents")
-            .unwrap()
-            .as_array()
-            .unwrap()
-            .iter()
-            .for_each(|e| {
-                let fields = e
-                    .as_object()
-                    .unwrap()
-                    .get("fields")
-                    .unwrap()
-                    .as_object()
-                    .unwrap();
-                let info = self.get_value(fields, "info");
-                if info.to_lowercase().contains("metal") {
-                    result.push(Event::new(
-                        self.get_value(fields, "title"),
-                        parse_short_date(self.get_value(fields, "date").as_str()),
-                        self.location.borrow(),
-                        "https://mvb-leipzig.de/".to_string(),
-                        Some(self.get_value(fields, "img")),
-                    ));
-                }
-            });
+        let data = data.as_object().unwrap();
+        if !data.is_empty() {
+            data.get("documents")
+                .unwrap()
+                .as_array()
+                .unwrap()
+                .iter()
+                .for_each(|e| {
+                    let fields = e
+                        .as_object()
+                        .unwrap()
+                        .get("fields")
+                        .unwrap()
+                        .as_object()
+                        .unwrap();
+                    let info = self.get_value(fields, "info");
+                    if info.to_lowercase().contains("metal") {
+                        result.push(Event::new(
+                            self.get_value(fields, "title"),
+                            parse_short_date(self.get_value(fields, "date").as_str()),
+                            self.location.borrow(),
+                            "https://mvb-leipzig.de/".to_string(),
+                            Some(self.get_value(fields, "img")),
+                        ));
+                    }
+                });
+        }
 
         result
     }
