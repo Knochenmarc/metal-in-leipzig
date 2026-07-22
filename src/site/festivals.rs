@@ -85,37 +85,9 @@ impl Site for Festivals<'_> {
     }
 
     fn fetch_events(&self, http: &Http) -> Vec<Event> {
-        //TODO: https://metalpest.de/
-
         let mut festivals = vec![];
 
-        let ueclf = Event::new(
-            "UECLF Fan Festival: Heavysaurus".to_string(),
-            NaiveDateTime::new(
-                NaiveDate::from_ymd_opt(2026, 5, 25).unwrap(),
-                NaiveTime::default(),
-            ),
-            self.location.borrow(),
-            "https://www.leipzig.de/kultur-und-freizeit/veranstaltungen/eventsingle/event/ueclf-fan-festival-heavysaurus".to_string(),
-            Some("https://www.leipzig.de/fileadmin/_processed_/e/8/csm_4Heavysaurus_Promo_4__c__Jens_Vetter_62bfc52c1c.jpg".to_string()),
-        );
-        festivals.push(ueclf);
-
-        let mut till = Event::new(
-            "Till Fest".to_string(),
-            NaiveDateTime::new(
-                NaiveDate::from_ymd_opt(2026, 7, 3).unwrap(),
-                NaiveTime::default(),
-            ),
-            self.location.borrow(),
-            "https://tillfest.myticket.de/content".to_string(),
-            Some("https://rammwiki.net/w/images/9/9f/TillFest2026Lineup.jpg".to_string()),
-        );
-        till.end_date = Some(NaiveDateTime::new(
-            NaiveDate::from_ymd_opt(2026, 7, 4).unwrap(),
-            NaiveTime::from_hms_opt(23, 59, 00).unwrap(),
-        ));
-        festivals.push(till);
+        // festivals.extend(self.fetch_dark_affair(http));
 
         let mut inflammen = Event::new(
             "In Flammen Open Air".to_string(),
@@ -185,7 +157,24 @@ impl Site for Festivals<'_> {
         ));
         festivals.push(nexus);
 
-        festivals.extend(self.fetch_dark_affair(http));
+        let mut metalpest = Event::new(
+            "MetalPest".to_string(),
+            NaiveDateTime::new(
+                NaiveDate::from_ymd_opt(2026, 10, 23).unwrap(),
+                NaiveTime::default(),
+            ),
+            self.location.borrow(),
+            "https://metalpest.de//".to_string(),
+            Some(
+                "https://metalpest.de/wp-content/uploads/2025/05/metalpest-logo-white-1.png"
+                    .to_string(),
+            ),
+        );
+        metalpest.end_date = Some(NaiveDateTime::new(
+            NaiveDate::from_ymd_opt(2026, 10, 24).unwrap(),
+            NaiveTime::from_hms_opt(23, 59, 00).unwrap(),
+        ));
+        festivals.push(metalpest);
 
         festivals
             .iter_mut()
