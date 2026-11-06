@@ -41,6 +41,10 @@ pub fn parse_german_date(str: &str) -> NaiveDateTime {
     str = str.replace(" ", ".");
     str = str.replace("..", ".");
 
+    if str.len() == 5 && !str.ends_with('.') {
+        str += ".";
+    }
+
     parse_short_date(str.as_str())
 }
 

@@ -1,6 +1,6 @@
 use crate::event::{Event, Location};
 use crate::site::Site;
-use crate::tools::date::parse_short_date;
+use crate::tools::date::{parse_german_date, parse_short_date};
 use crate::tools::Http;
 use serde_json::{Map, Value};
 use std::borrow::Borrow;
@@ -60,12 +60,14 @@ impl Site for MVB<'_> {
                         .unwrap();
                     let info = self.get_value(fields, "info");
                     if info.to_lowercase().contains("metal") {
+                        let img = self.get_value(fields, "img");
+                        let img = if img.is_empty() { None } else { Some(img) };
                         result.push(Event::new(
                             self.get_value(fields, "title"),
-                            parse_short_date(self.get_value(fields, "date").as_str()),
+                            parse_german_date(self.get_value(fields, "date").as_str()),
                             self.location.borrow(),
                             "https://mvb-leipzig.de/".to_string(),
-                            Some(self.get_value(fields, "img")),
+                            img,
                         ));
                     }
                 });
